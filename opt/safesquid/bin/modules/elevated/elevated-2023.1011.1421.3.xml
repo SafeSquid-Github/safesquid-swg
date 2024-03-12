@@ -45,7 +45,7 @@
                 </comment>
                 <profiles n="2">
                     <comment>Profiles</comment>
-                    <value>add_profiles</value>
+                    <value>add_profiles,elevated_privacy_profiles</value>
                     <button>profiles</button>
                     <type>STRING_LIST</type>
 					<neg>1</neg>

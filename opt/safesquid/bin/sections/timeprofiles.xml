@@ -57,7 +57,7 @@
                 </profile_tracing>
                 <timeprofiles n="3">
                     <comment>Time Profiles</comment>
-                    <value>add_time_profiles</value>
+                    <value>add_time_profiles,time_profiler_profiles</value>
                     <type>STRING_LIST</type>
 					<neg>1</neg>
                     <desc>

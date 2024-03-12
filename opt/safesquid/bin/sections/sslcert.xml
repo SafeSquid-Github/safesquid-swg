@@ -33,7 +33,7 @@
 				</comment>
 				<profiles n="2">
 					<comment>Profiles</comment>
-					<value>add_profiles</value>
+					<value>add_profiles,https_inspection_profiles</value>
 					<type>STRING_LIST</type>
 					<neg>1</neg>
 					<desc><![CDATA[ <P>Specify the Profiles applicable for this entry.</P>						<P>This entry will be applicable only if the connection has any one of the specified profiles.</P>						<P>Leave it Blank, to apply for all connections, irrespective of any applied profile.</P>						<P>To avoid application to a connection that has a profile, use negated profile (! profile).</P>]]></desc>

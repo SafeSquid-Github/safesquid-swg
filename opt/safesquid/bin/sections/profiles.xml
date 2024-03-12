@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section>
 	<profiles>
-        <enabled>true</enabled>
-        <comment>Access Profiles</comment>
-        <parentgroup>policymgr</parentgroup>
-        <logo>fa-briefcase</logo>
-        <wizard>true</wizard>
-        <type>section</type>
+		<enabled>true</enabled>
+		<comment>Access Profiles</comment>
+		<parentgroup>policymgr</parentgroup>
+		<logo>fa-briefcase</logo>
+		<wizard>true</wizard>
+		<type>section</type>
 		<flags>1</flags>
-        <desc>
-            <![CDATA[  
+		<desc>
+			<![CDATA[  
 				<dl>
 					<dt>Use Access Profiles to setup your Profiled Internet Access policies.</dt>
 					<dd>Implement your policies, by creating a logical order of Entries.</dd>
@@ -34,16 +34,16 @@
 				</dl>
 			]]>
 		</desc>
-        <global/>
-        <subsection>
-            <defaults>
+		<global/>
+		<subsection>
+			<defaults>
 				<enabled>true</enabled>
-                <comment>Default Policies</comment>
-                <template>entry</template>
-                <parentgroup>inherit</parentgroup>
-                <logo/>
-                <desc>
-                    <![CDATA[
+				<comment>Default Policies</comment>
+				<template>entry</template>
+				<parentgroup>inherit</parentgroup>
+				<logo/>
+				<desc>
+					<![CDATA[
 						<dl>
 							<dt>
 								Connections are tested against the Secondary Policies List after they are tested against the Default Policies List.
@@ -63,16 +63,16 @@
 						</dl>
 					]]>
 				</desc>
-                <wizard_action>true</wizard_action>
+				<wizard_action>true</wizard_action>
 			</defaults>
-            <profile>
+			<profile>
 				<enabled>true</enabled>
-                <comment>Seondary Policies</comment>
-                <template>entry</template>
-                <parentgroup>inherit</parentgroup>
-                <logo/>
-                <desc>
-                    <![CDATA[
+				<comment>Seondary Policies</comment>
+				<template>entry</template>
+				<parentgroup>inherit</parentgroup>
+				<logo/>
+				<desc>
+					<![CDATA[
 						<dl>
 							<dt>
 								Connections are tested against the Secondary Policies List after they are tested against the Default Policies List.
@@ -92,38 +92,38 @@
 						</dl>
 					]]>
 				</desc>
-                <wizard_action>true</wizard_action>
+				<wizard_action>true</wizard_action>
 			</profile>
 		</subsection>
-        <template>
-            <entry>
-                <enabled n="0">
-                    <comment>Enabled</comment>
-                    <value>enabled</value>
-                    <type>BOOL</type>
-                    <desc>
-                        <![CDATA[ 
+		<template>
+			<entry>
+				<enabled n="0">
+					<comment>Enabled</comment>
+					<value>enabled</value>
+					<type>BOOL</type>
+					<desc>
+						<![CDATA[ 
 						Enable or Disable this Entry.
 						]]>
 					</desc>
 				</enabled>
-                <comment n="1">
-                    <comment>Comment</comment>
-                    <value>This entry ...</value>
-                    <type>MULTILINE_STRING</type>
-                    <desc>
-                        <![CDATA[
+				<comment n="1">
+					<comment>Comment</comment>
+					<value>This entry ...</value>
+					<type>MULTILINE_STRING</type>
+					<desc>
+						<![CDATA[
 						<p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
 <p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>
 						]]>
 					</desc>
 				</comment>
-                <profile_tracing n="2">
-                    <comment>Trace Entry</comment>
-                    <value>profile_tracing</value>
-                    <type>STRING_SELECT_ONE</type>
-                    <desc>
-                        <![CDATA[ 						   
+				<profile_tracing n="2">
+					<comment>Trace Entry</comment>
+					<value>profile_tracing</value>
+					<type>STRING_SELECT_ONE</type>
+					<desc>
+						<![CDATA[ 						   
 						<p>Enable or Disable Tracing of this entry</p>
 						<p>Select “Yes” to debug the application of entry using SafeSquid logs.</p> 
 						<p>“Enable entry tracing” is useful if you wish to validate its application.</p>
@@ -131,11 +131,11 @@
 					</desc>
 				</profile_tracing>
 				<proxyhost n="3">
-                    <comment>Proxy instance</comment>
-                    <value/>
-                    <type>STRING</type>
-                    <desc>
-                        <![CDATA[ 
+					<comment>Proxy instance</comment>
+					<value/>
+					<type>STRING</type>
+					<desc>
+						<![CDATA[ 
 						<p>Leave this blank, if this configuration is not shared across multiple instances of SafeSquid.</p>
 						<p>Leave it blank to apply this entry to all your instances of SafeSquid.</p>
 						<p>Specify the hostname(s) of the instances, for which this entry should be applicable, if multiple instances share this configuration.</p>
@@ -144,12 +144,12 @@
 					</desc>
 				</proxyhost>
 				<profiles n="4">
-                    <comment>Applicable Profiles</comment>
-                    <value>add_profiles,cookie_profiles</value>
-                    <type>STRING_LIST</type>
+					<comment>Applicable Profiles</comment>
+					<value>add_profiles,network_settings_profiles,https_inspection_profiles,clamav_profiles,text_analyzer_profiles,redirection_profiles,image_analyzer_profiles,dlp_profiles,time_profiler_profiles,cookie_profiles,header_filter_profiles,elevated_privacy_profiles,speed_limits_profilese</value>
+					<type>STRING_LIST</type>
 					<neg>1</neg>
-                    <desc>
-                        <![CDATA[ 										
+					<desc>
+						<![CDATA[ 										
 						<p>Specify the list of Profiles for which this entry should be applicable.</p>
 						<p>Leave it Blank, to ignore this applicability test.</p>
 						<p>Leave it Blank, to apply for all connections irrespective of their Profile.</p>
@@ -158,13 +158,13 @@
 					</desc>
 				</profiles>
 				<time_profiles n="5">
-                    <comment>Time Schedule</comment>
-                    <value>add_time_profiles</value>
-                    <type>STRING_LIST</type>
+					<comment>Time Schedule</comment>
+					<value>add_time_profiles,time_profiler_profiles</value>
+					<type>STRING_LIST</type>
 					<neg>1</neg>
 					<button>timeProfiles</button>
-                    <desc>
-                        <![CDATA[
+					<desc>
+						<![CDATA[
 						<p>Specify the list of Time Profile(s) for which this entry should be applicable.</p>
 						<p>Leave it Blank, to ignore this applicability test.</p>
 						<p>This entry will be applicable only if the connection has at-least one of the specified Time Profile(s).</p>
@@ -173,14 +173,14 @@
 						]]>
 					</desc>
 				</time_profiles>
-                <user_groups n="6">
-                    <comment>User Groups</comment>
-                    <value>add_user_groups,ldap_entries</value>
-                    <type>STRING_LIST</type>
+				<user_groups n="6">
+					<comment>User Groups</comment>
+					<value>add_user_groups,ldap_entries</value>
+					<type>STRING_LIST</type>
 					<neg>1</neg>
 					<button>access</button>
-                    <desc>
-                        <![CDATA[
+					<desc>
+						<![CDATA[
 						<p>Specify the list of User Group(s), to which this entry is applicable.</p>
 						<p>Leave it Blank, to ignore this applicability test.</p>
 						<p>If one or more User Groups is/are specified, this entry will be applicable after it is determined, if user authentication is required. If user authentication is required, then this entry will be applicable only after successful user authentication.</p>
@@ -191,12 +191,12 @@
 					</desc>
 				</user_groups>
 				<req_types n="7">
-                    <comment>Request Types</comment>
-                    <value>add_app_category,add_app_signatures,add_req_types</value>
-                    <type>STRING_LIST</type>
+					<comment>Request Types</comment>
+					<value>add_app_category,add_app_signatures,add_req_types</value>
+					<type>STRING_LIST</type>
 					<neg>1</neg>
 					<button>reqProfiles</button>
-                    <desc><![CDATA[
+					<desc><![CDATA[
 						<p>List of Request Types or application categories, to which this entry will be applicable.</p>
 						<p>The connection should have been already profiled to have one or more of these Request Types or application categories.</p>
 						<p>Use Negation "!", to check this entry only, when specified Request Types or application categories are not applied to the connection.</p>
@@ -205,13 +205,13 @@
 						]]>
 					</desc>
 				</req_types>
-                <web_categories n="8">
-                    <comment>Categories</comment>
-                    <value>website_categories,custom_categories,youtube_categories</value>
-                    <type>STRING_LIST</type>
+				<web_categories n="8">
+					<comment>Categories</comment>
+					<value>website_categories,custom_categories,youtube_categories</value>
+					<type>STRING_LIST</type>
 					<neg>1</neg>
-                    <desc>
-                        <![CDATA[ 	
+					<desc>
+						<![CDATA[ 	
 						<p>List of categories, to which this entry will be applicable.</p>
 						<p>The connection should have been already categorized to have one or more of these categories.</p>
 						<p>Use Negation "!", to check this entry only, when specified categories are not applied to the connection.</p>
@@ -222,12 +222,12 @@
 					<button>category_editor</button>
 				</web_categories>
 				<res_types n="9">
-                    <comment>Response Types</comment>
-                    <value>add_res_types</value>
-                    <type>STRING_LIST</type>
+					<comment>Response Types</comment>
+					<value>add_res_types</value>
+					<type>STRING_LIST</type>
 					<neg>1</neg>
 					<button>respProfiles</button>
-                    <desc><![CDATA[
+					<desc><![CDATA[
 						<p>List of Response Types or content categories, to which this entry will be applicable.</p>
 						<p>The connection should have been already profiled to have one or more of these Response Types or content categories.</p>
 						<p>Use Negation "!", to check this entry only, when specified Response Types or content categories are not applied to the connection.</p>
@@ -237,11 +237,11 @@
 					</desc>
 				</res_types>
 				<action n="10">
-                    <comment>Action</comment>
-                    <value>action_to_perform</value>
-                    <type>STRING_SELECT_ONE</type>
-                    <desc>
-                        <![CDATA[
+					<comment>Action</comment>
+					<value>action_to_perform</value>
+					<type>STRING_SELECT_ONE</type>
+					<desc>
+						<![CDATA[
 						<p>Specify action to enforce on matched connections.</p>
 						<p>ALLOW: Allow users to access.Default action.
 							When action is allow SafeSquid uses applied profiles to do various filtering.
@@ -253,13 +253,13 @@
 						]]>
 					</desc>
 				</action>
-                <add_profiles n="11">
-                    <comment>Added Profiles</comment>
-                    <value>add_profiles,cookie_profiles</value>
-                    <type>STRING_LIST</type>
+				<add_profiles n="11">
+					<comment>Added Profiles</comment>
+					<value>add_profiles,network_settings_profiles,https_inspection_profiles,clamav_profiles,text_analyzer_profiles,redirection_profiles,image_analyzer_profiles,dlp_profiles,time_profiler_profiles,cookie_profiles,header_filter_profiles,elevated_privacy_profiles,speed_limits_profilese</value>
+					<type>STRING_LIST</type>
 					<neg>0</neg>
-                    <desc>
-                        <![CDATA[ 
+					<desc>
+						<![CDATA[ 
 						<p>Specify the list of Profiles, to append to the connection’s existing Profiles, if the all applicability test rules match.</p>
 						<p>Subsequent applicable Entry may further modify the connection’s Profiles.</p>
 						<p>Define a new Profile(s), or Select previously defined Profile(s) from the drop-down menu to apply to the connection, if they match this entry.</p>
@@ -268,13 +268,13 @@
 						]]>
 					</desc>
 				</add_profiles>
-                <remove_profiles n="12">
-                    <comment>Removed profiles</comment>
-                    <value>add_profiles,cookie_profiles</value>
-                    <type>STRING_LIST</type>
+				<remove_profiles n="12">
+					<comment>Removed profiles</comment>
+					<value>add_profiles,network_settings_profiles,https_inspection_profiles,text_analyzer_profiles,redirection_profiles,image_analyzer_profiles,dlp_profiles,time_profiler_profiles,cookie_profiles,header_filter_profiles,elevated_privacy_profiles,speed_limits_profilese</value>
+					<type>STRING_LIST</type>
 					<neg>0</neg>
-                    <desc>
-                        <![CDATA[
+					<desc>
+						<![CDATA[
 						<p>Select profiles to remove from connection when matches.</p>
 						<p>The connection should have been already profiled to have one or more of these profiles.</p>
 						<p>Use remove profiles adequately to ensure white-list profiles does not conflict with block profiles.</p>
@@ -285,20 +285,20 @@
 				</remove_profiles>
 			</entry>
 		</template>
-        <select>
+		<select>
 			<profile_tracing>
-                <FALSE>
-                    <comment>FALSE</comment>
-                    <value>TRUE</value>
-                    <desc>
-                        <![CDATA[ Select this to disable profile tracing.]]>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Select this to disable profile tracing.]]>
 					</desc>
 				</FALSE>
-                <TRUE>
-                    <comment>TRUE</comment>
-                    <value>FALSE</value>
-                    <desc>
-                        <![CDATA[ Select this to enable profile tracing.]]>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Select this to enable profile tracing.]]>
 					</desc>
 				</TRUE>
 			</profile_tracing>
@@ -307,19 +307,19 @@
 					<comment>FALSE</comment>
 					<value>FALSE</value>
 					<desc>
-					<![CDATA[ Disable this entry.]]>
+						<![CDATA[ Disable this entry.]]>
 					</desc>
 				</FALSE>
 				<TRUE>
 					<comment>TRUE</comment>
 					<value>TRUE</value>
 					<desc>
-					<![CDATA[ Enable this entry.]]>
+						<![CDATA[ Enable this entry.]]>
 					</desc>
 				</TRUE>
 			</enabled>
-            <action_to_perform>
-                <ALLOW>
+			<action_to_perform>
+				<ALLOW>
 					<comment>ALLOW</comment>
 					<value>FALSE</value>
 					<desc><![CDATA[ Select this, if you want to allow requests or responses matching this policy]]></desc>
@@ -342,24 +342,381 @@
 			</action_to_perform>
 			<add_profiles>
 			</add_profiles>
-			<cookie_profiles parent="_0" group="Used In Cookie Filtering" list="cookie_profiles">
-				<ooo>
-					<comment>Read Only</comment>
-					<value>Read Only</value>
-                    <desc>
-                        <![CDATA[
-						<p>Drop all cookies sent in Request and Response Headers, and thus prevent login</p>				
-						]]>
-					</desc>
-				</ooo>				
-				<oow>
-					<comment>Crazy Entry Two</comment>
-					<value>Crazy Entry Two</value>
-					<desc>
-						This is a crazy entry two.
-					</desc>
-				</oow>
-			</cookie_profiles>
+				<network_settings_profiles parent="_0" group="Profiles: Network Settings" list="network_settings_profiles">
+					<zero>
+						<comment>ALTERNATE OUTBOUND IP</comment>
+						<value>ALTERNATE OUTBOUND IP</value>
+						<desc><![CDATA[
+							<p>
+								Enforce network traffic to be routed through an alternate outbound IP.<br/>
+								Enhance network performance or reliability by distributing profiled traffic through a specific outbound IP.
+							</p>
+						]]></desc>
+					</zero>
+				</network_settings_profiles>
+				<https_inspection_profiles parent="_0" group="Profiles: HTTPS Inspection" list="https_inspection_profiles">
+					<zero>
+						<comment>BYPASS SSL INSPECTION</comment>
+						<value>BYPASS SSL INSPECTION</value>
+						<desc><![CDATA[
+							<p>
+								Bypass inspection of SSL/TLS encrypted traffic.<br/>
+								Allow encrypted data to flow without any inspection, used for highly sensitive applications where privacy is paramount or where the inspection process could disrupt the application's functionality.
+							</p>
+						]]></desc>
+					</zero>
+					<one>
+						<comment>BYPASS INTRANET SITES SSL VERIFICATION</comment>
+						<value>BYPASS INTRANET SITES SSL VERIFICATION</value>
+						<desc><![CDATA[
+							<p>
+								Bypass SSL error triggered by self-signed certificates.<br/>
+								Allows traffic to websites with self-signed certificates, useful for testing environments where the use of self-signed certificates is common.
+							</p>
+						]]></desc>
+					</one>
+					<two>
+						<comment>BYPASS NO ISSUER CERT LOCALLY ERROR</comment>
+						<value>BYPASS NO ISSUER CERT LOCALLY ERROR</value>
+						<desc><![CDATA[
+							<p>
+								Bypass SSL errors for missing issuer certificates.<br/>
+								Allows traffic to websites with missing issuer certificate, useful for scenarios where SafeSquid is unable to complete AIA fetching.
+							</p>
+						]]></desc>
+					</two>
+				</https_inspection_profiles>
+				<clamav_profiles parent="_0" group="Profiles: ClamAV" list="clamav_profiles">
+					<zero>
+						<comment>BYPASS CLAMAV SCANNING</comment>
+						<value>BYPASS CLAMAV SCANNING</value>
+						<desc><![CDATA[
+							<p>
+								Bypass clamav for websites which are tusted or where clamav virus scanning is not required.
+							</p>
+						]]></desc>
+					</zero>
+					<one>
+						<comment>ENFORCE CLAMAV SCANNING</comment>
+						<value>ENFORCE CLAMAV SCANNING</value>
+						<desc><![CDATA[
+							<p>
+								Enforce clamav to scan all in-coming content for virus, worm, Trojan and other malware, at the gateway, before the content is delivered to the users.
+							</p>
+						]]></desc>
+					</one>
+				</clamav_profiles>
+				<text_analyzer_profiles parent="_0" group="Profiles: Text Analyzer" list="text_analyzer_profiles">
+					<zero>
+						<comment>BYPASS TEXT FILTER</comment>
+						<value>BYPASS TEXT FILTER</value>
+						<desc><![CDATA[
+							<p>
+								Bypass text analyzer for disabling content-based keyword scoring.<br\>
+								Intended to prevent false positives in content blocking, ensuring legitimate access is not incorrectly denied.<br/>
+								Use this bypass cautiously, as it could potentially allow sensitive or inappropriate content to pass through unchecked.
+							</p>
+						]]></desc>
+					</zero>
+					<one>
+						<comment>ENFORCE TEXT FILTER</comment>
+						<value>ENFORCE TEXT FILTER</value>
+						<desc><![CDATA[
+							<p>
+								Restrict access to websites based on inappropriate or pornographic content using keyword scoring system.<br\>
+								Text analyzer is particularly useful in detecting unclassified websites that could serve inappropriate content.
+							</p>
+						]]></desc>
+					</one>
+				</text_analyzer_profiles>
+				<redirection_profiles parent="_0" group="Profiles: Redirect" list="redirection_profiles">
+					<zero>
+						<comment>ENFORCE BING SAFE SEARCH</comment>
+						<value>ENFORCE BING SAFE SEARCH</value>
+						<desc><![CDATA[
+							<p>
+								Enforces Bing search queries to use Bing SafeSearch feature, which filters out explicit content from search results.<br/>
+								This ensures a safer browsing environment by limiting exposure to potentially harmful or inappropriate content.
+							</p>
+						]]></desc>
+					</zero>
+					<one>
+						<comment>ENFORCE GOOGLE SAFE SEARCH</comment>
+						<value>ENFORCE GOOGLE SAFE SEARCH</value>
+						<desc><![CDATA[
+							<p>
+								Enforces Google search queries through Google SafeSearch setting, effectively filtering explicit content from search outcomes.<br/>
+								This ensures a safer browsing environment by limiting exposure to potentially harmful or inappropriate content.
+							</p>
+						]]></desc>
+					</one>
+					<two>
+						<comment>ENFORCE YOUTUBE SAFESEARCH</comment>
+						<value>ENFORCE YOUTUBE SAFESEARCH</value>
+						<desc><![CDATA[
+							<p>
+								Enforces YouTube's SafeSearch filtering to all YouTube video searches, minimizing explicit or inappropriate video content.<br/>
+								This ensures a safer browsing environment by limiting exposure to potentially harmful or inappropriate content.
+							</p>
+						]]></desc>
+					</two>
+					<three>
+						<comment>ENFORCE YAHOO SAFE SEARCH</comment>
+						<value>ENFORCE YAHOO SAFE SEARCH</value>
+						<desc><![CDATA[
+							<p>
+								Enforces Yahoo search settings to utilize Yahoo SafeSearch feature, which screens out explicit content from search findings.<br/>
+								This ensures a safer browsing environment by limiting exposure to potentially harmful or inappropriate content.
+							</p>
+						]]></desc>
+					</three>
+					<four>
+						<comment>ENFORCE DUCKDUCKGO SAFE SEARCH</comment>
+						<value>ENFORCE DUCKDUCKGO SAFE SEARCH</value>
+						<desc><![CDATA[
+							<p>
+								Enforces DuckDuckGo search engine uses its Safe Search mode to exclude explicit content from search results.<br/>
+								This ensures a safer browsing environment by limiting exposure to potentially harmful or inappropriate content.
+							</p>
+						]]></desc>
+					</four>
+				</redirection_profiles>
+				<image_analyzer_profiles parent="_0" group="Profiles: Image Analyzer" list="image_analyzer_profiles">
+					<zero>
+						<comment>BYPASS IMAGE FILTER</comment>
+						<value>BYPASS IMAGE FILTER</value>
+						<desc><![CDATA[
+							<p>
+								Bypass image filtering for disabling content-based blocking.<br\>
+								Intended to prevent false positives in content blocking, ensuring legitimate access is not incorrectly denied.<br/>
+								Use this bypass cautiously, as it could potentially allow sensitive or inappropriate content to pass through unchecked.
+							</p>
+						]]></desc>
+					</zero>
+					<one>
+						<comment>ENFORCE IMAGE FILTER</comment>
+						<value>ENFORCE IMAGE FILTER</value>
+						<desc><![CDATA[
+							<p>
+								Enforce image filtering to block images from websites which servers pornographic content, including surrogate websites.<br/>
+								Image filter blocks inappropriate images by analyzing the graphical content of an image, in real time.<br/>
+								Prevents such material from being accessed or displayed.
+							</p>
+						]]></desc>
+					</one>
+					<two>
+						<comment>ENFORCE PARANOID IMAGE SCAN</comment>
+						<value>ENFORCE PARANOID IMAGE SCAN</value>
+						<desc><![CDATA[
+							<p>
+								Enforce highest level of scrutiny for image scanning, designed to detect and block pornographic content with extreme precision.<br/>
+								Image filter blocks inappropriate images by analyzing the graphical content of an image, in real time.<br/>
+								Effective against surrogate websites known to serve such content.
+							</p>
+						]]></desc>
+					</two>
+				</image_analyzer_profiles>
+				<dlp_profiles parent="_0" group="Profiles: DLP" list="dlp_profiles">
+					<zero>
+						<comment>PERMIT ALL UPLOADS</comment>
+						<value>PERMIT ALL UPLOADS</value>
+						<desc><![CDATA[
+							<p>
+								Allows all types of file uploads without restrictions.<br/>
+								Use this setting for environments where data sharing is unrestricted and the risk of sensitive data loss is considered low, or DLP is been taken care somewhere else in your network.
+							</p>
+						]]></desc>
+					</zero>
+					<one>
+						<comment>RESTRICT ALL UPLOADS</comment>
+						<value>RESTRICT ALL UPLOADS</value>
+						<desc><![CDATA[
+							<p>
+								Blocks all file uploads to prevent potential data leaks.<br/>
+								Ideal for highly sensitive environments where the prevention of any unauthorized data transfer is critical.
+							</p>
+						]]></desc>
+					</one>
+					<two>
+						<comment>ALLOW EXCEL DOCUMENTS UPLOAD</comment>
+						<value>ALLOW EXCEL DOCUMENTS UPLOAD</value>
+						<desc><![CDATA[
+							<p>
+								Permits the upload of Excel documents (.xls, .xlsx), ensuring that data sharing is limited to specific types of documents.
+							</p>
+						]]></desc>
+					</two>
+					<three>
+						<comment>ALLOW WORD DOCUMENTS UPLOAD</comment>
+						<value>ALLOW WORD DOCUMENTS UPLOAD</value>
+						<desc><![CDATA[
+							<p>
+								Permits the upload of Word documents (.doc, .docx), ensuring that data sharing is limited to specific types of documents.
+							</p>
+						]]></desc>
+					</three>
+					<four>
+						<comment>ALLOW POWERPOINT DOCUMENTS UPLOAD</comment>
+						<value>ALLOW POWERPOINT DOCUMENTS UPLOAD</value>
+						<desc><![CDATA[
+							<p>
+								Permits the upload of PowerPoint presentations (.ppt, .pptx), ensuring that data sharing is limited to specific types of documents.
+							</p>
+						]]></desc>
+					</four>
+					<five>
+						<comment>ALLOW PDF DOCUMENTS</comment>
+						<value>ALLOW PDF DOCUMENTS</value>
+						<desc><![CDATA[
+							<p>
+								Permits the upload of PDF files (.pdf), ensuring that data sharing is limited to specific types of documents.
+							</p>
+						]]></desc>
+					</five>
+					<six>
+						<comment>ALLOW ZIP FILES</comment>
+						<value>ALLOW ZIP FILES</value>
+						<desc><![CDATA[
+							<p>
+								Permits the upload of compressed files (.zip), ensuring that data sharing is limited to specific types of documents.
+							</p>
+						]]></desc>
+					</six>
+					<seven>
+						<comment>ALLOW IMAGE FILE UPLOAD</comment>
+						<value>ALLOW IMAGE FILE UPLOAD</value>
+						<desc><![CDATA[
+							<p>
+								Permits the upload of image files (e.g., .jpg, .png, .gif), ensuring that data sharing is limited to specific types of documents.
+							</p>
+						]]></desc>
+					</seven>
+				</dlp_profiles>
+				<time_profiler_profiles parent="_0" group="Profiles: Time Profiler" list="time_profiler_profiles">
+					<zero>
+						<comment>LUNCH</comment>
+						<value>LUNCH</value>
+						<desc><![CDATA[
+							<p>
+								Office Lunch Hours.
+							</p>
+						]]></desc>
+					</zero>
+					<one>
+						<comment>OFFICE WORKING HOURS</comment>
+						<value>OFFICE WORKING HOURS</value>
+						<desc><![CDATA[
+							<p>
+								Office working hours.
+							</p>
+						]]></desc>
+					</one>
+				</time_profiler_profiles>
+				<cookie_profiles parent="_0" group="Profiles: Cookie Filtering" list="cookie_profiles">
+					<zero>
+						<comment>READ ONLY</comment>
+						<value>READ ONLY</value>
+						<desc><![CDATA[
+							<p>
+								Drop all cookies sent in Request and Response Headers, and thus prevent login.
+							</p>
+						]]></desc>
+					</zero>
+				</cookie_profiles>
+				<header_filter_profiles parent="_0" group="Profiles: Header Filtering" list="header_filter_profiles">
+					<zero>
+						<comment>ENFORCE CORPORATE GOOGLE ACCOUNTS</comment>
+						<value>ENFORCE CORPORATE GOOGLE ACCOUNTS</value>
+						<desc><![CDATA[
+							<p>
+								Prevent use of personal account and force use of corporate email account for Google mail.<br/>
+								Header Filtering policy inserts X-GoogApps in request headers sent for Google user authentication.
+							</p>
+						]]></desc>
+					</zero>
+					<one>
+						<comment>ENFORCE YOUTUBE RESTRICTED MODE</comment>
+						<value>ENFORCE YOUTUBE RESTRICTED MODE</value>
+						<desc><![CDATA[
+							<p>
+								Enforces YouTube's "Strict" restriction mode across our network, aiming to filter out potentially adult content and ensure a safer browsing environment.<br/>
+								Header Filtering policy inserts YouTube-Restrict: Strict in request headers sent for youtube videos.
+							</p>
+						]]></desc>
+					</one>
+					<two>
+						<comment>ENFORCE CONTENT SECURITY POLICY</comment>
+						<value>ENFORCE CONTENT SECURITY POLICY</value>
+						<desc><![CDATA[
+							<p>
+								Enforces CSP headers to enhance web application security by preventing XSS attacks, data injection, and other malicious content from executing.<br/>
+								Header Filtering policy inserts YouTube-Content-Security-Policy in response headers received for all requests.
+							</p>
+						]]></desc>
+					</two>
+				</header_filter_profiles>
+				<elevated_privacy_profiles parent="_0" group="Profiles: Elevated Privacy" list="elevated_privacy_profiles">
+					<zero>
+						<comment>BYPASS ELEVATED PRIVACY</comment>
+						<value>BYPASS ELEVATED PRIVACY</value>
+						<desc><![CDATA[
+							<p>
+								Bypass enforcement of Elevated Privacy.<br\>
+								Permit Third-Party transactions.
+							</p>
+						]]></desc>
+					</zero>
+					<one>
+						<comment>ENFORCE LOW PRIVACY LEVEL</comment>
+						<value>ENFORCE LOW PRIVACY LEVEL</value>
+						<desc><![CDATA[
+							<p>
+								Prevent third-party cookies<br/>
+								Third-party cookies are often used by advertisers and tracking services to monitor user activity across multiple websites, potentially compromising user privacy.
+							</p>
+						]]></desc>
+					</one>
+					<two>
+						<comment>ENFORCE PARANOID PRIVACY LEVEL</comment>
+						<value>ENFORCE PARANOID PRIVACY LEVEL</value>
+						<desc><![CDATA[
+							<p>
+								Prevent cookie exchange, hide referrer, and user-agent
+								Third-party cookies are used for tracking users across multiple websites, while the HTTP(s) referrer and user-agent data can be exploited to identify and profile individuals.
+							</p>
+						]]></desc>
+					</two>
+				</elevated_privacy_profiles>
+				<speed_limits_profilese parent="_0" group="Profiles: Speed Limits" list="speed_limits_profilese">
+					<zero>
+						<comment>RESTRICTED DOWNLOAD TRANSFER RATES</comment>
+						<value>RESTRICTED DOWNLOAD TRANSFER RATES</value>
+						<desc><![CDATA[
+							<p>
+								Enforces regulated download speeds for optimized network performance, prioritizing equitable access and preventing bandwidth hogging.<br/>
+								Useful in networks with slow internet speeds, ensuring that available bandwidth is fairly distributed among users for smoother online experiences.
+							</p>
+						]]></desc>
+					</zero>
+					<one>
+						<comment>RESTRICTED UPLOAD TRANSFER RATES</comment>
+						<value>RESTRICTED DOWNLOAD TRANSFER RATES</value>
+						<desc><![CDATA[
+							<p>
+								Enforces regulated on maximum number of bytes that can be downloaded for optimized network performance, prioritizing equitable access and preventing bandwidth hogging, useful in networks with slow internet speeds, ensuring that available bandwidth is fairly distributed among users for smoother online experiences.
+							</p>
+						]]></desc>
+					</one> 
+					<two>
+						<comment>RESTRICTED UPLOAD TRANSFER RATES</comment>
+						<value>RESTRICTED DOWNLOAD TRANSFER RATES</value>
+						<desc><![CDATA[
+							<p>
+								Enforces regulated upload speeds for optimized network performance, prioritizing equitable access and preventing bandwidth hogging, useful in networks with slow internet speeds, ensuring that available bandwidth is fairly distributed among users for smoother online experiences.
+							</p>
+						]]></desc>
+					</two> 
+				</speed_limits_profilese>
 		</select>
 	</profiles>
 </section>

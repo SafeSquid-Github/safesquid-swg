@@ -134,7 +134,7 @@
 				</bypass>
                 <profiles n="3">
                     <comment>Profiles</comment>
-                    <value>add_profiles</value>
+                    <value>add_profiles,image_analyzer_profiles</value>
                     <button>profiles</button>
                     <type>STRING_LIST</type>
 					<neg>1</neg>

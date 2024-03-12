@@ -125,7 +125,7 @@
                 </comment>
                 <profiles n="2">
                     <comment>Profiles</comment>
-                    <value>add_profiles</value>
+                    <value>add_profiles,header_filter_profiles</value>
                     <type>STRING_LIST</type>
 					<neg>1</neg>
                     <desc>
