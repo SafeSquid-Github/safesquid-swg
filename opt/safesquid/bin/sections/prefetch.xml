@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<section>
+	<prefetch>
+		<enabled>true</enabled>
+		<comment>Prefetching</comment>
+		<parentgroup>accelerator</parentgroup>
+		<logo>fa-step-forward</logo>
+		<type>section</type>
+		<flags>1</flags>
+		<desc><![CDATA[			 <p>Use Prefetching to enhance user experience.</p>             <p>SafeSquid can analyze HTML pages, to identify links to embedded content, and initiate the fetch and cache process while still serving the initial HTML pages.</p>			 <p>Create entries in the Prefetch Sub-Section set the logic for analyzing the HTML pages.</p>			 <p>Enable Caching for using Prefetching effectively.</p>]]></desc>
+		<select>
+			<prefetch_enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable prefetch section.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable prefetch section.]]>
+					</desc>
+				</TRUE>
+			</prefetch_enabled>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+		</select>
+		<global>
+			<enabled n="0">
+				<comment>Enabled</comment>
+				<value>prefetch_enabled</value>
+				<type>BOOL</type>
+				<desc><![CDATA[Enable or Disable Prefetching.]]></desc>
+			</enabled>
+			<threads n="1">
+				<comment>Threads</comment>
+				<value>16</value>
+				<type>INT</type>
+				<desc><![CDATA[ <p>Maximum concurrent threads that will be used for Pre-Fetching.</p>					<p>SafeSquid service must be restarted to effect any change in this setting.</p>					<p>Optional Values are 1-256.</p>]]></desc>
+			</threads>
+			<queuesize n="2">
+				<comment>Queue size</comment>
+				<value>64</value>
+				<type>INT</type>
+				<desc><![CDATA[ <p>Specify the maximum size of the prefetch queue.</p>					      <p>Each identified link is pushed to the bottom of the prefetch queue.</p>						  <p>The links starting from the top of the queue are fetched, analyzed, and cached.</p>						  <p>The newly identified links are ignored, if the queue is full.</p>						  <p>Optional Values are from 1 to 256</p>]]></desc>
+			</queuesize>
+			<hostlimit n="3">
+				<comment>Host limit</comment>
+				<value>64</value>
+				<type>INT</type>
+				<desc><![CDATA[ <p>Specify the maximum number of queued prefetches per host.</p>					<p>Prevent too many parallel fetches to the same host.</p>					<p>Optional Values are from 1 to 256</p>]]></desc>
+			</hostlimit>
+		</global>
+		<template>
+			<entry>
+				<enabled n="0">
+					<comment>Enabled</comment>
+					<value>enabled</value>
+					<type>BOOL</type>
+					<desc><![CDATA[<p>Enable or Disable this entry.</p>]]></desc>
+				</enabled>
+				<comment n="1">
+					<comment>Comment</comment>
+					<value>This entry ...</value>
+					<type>MULTILINE_STRING</type>
+					<desc><![CDATA[For documentation, and future references, explain the relevance of this entry with your policies.]]></desc>
+				</comment>
+				<profiles n="2">
+					<comment>Profiles</comment>
+					<value>add_profiles</value>
+					<button>profiles</button>
+					<type>STRING_LIST</type>
+					<neg>1</neg>
+					<desc><![CDATA[<p>Specify the Profiles applicable for this entry.</p>						<p>This entry will be applicable only if the connection has any one of the specified profiles.</p>						<p>Leave it Blank, to apply for all connections irrespective of any applied profile.</p>						<p>To avoid application to a connection that has a profile, use negated profile (!profile).</p>]]></desc>
+				</profiles>
+				<tag n="3">
+					<comment>Tag name</comment>
+					<value/>
+					<type>STRING</type>
+					<desc><![CDATA[<p> Specify the HTML tag that should be analyzed for pre-fetchable URLs.</p><br>						<p>For example :A, img, link, script.</p>]]></desc>
+				</tag>
+				<attribute n="4">
+					<comment>Tag attribute</comment>
+					<value/>
+					<type>STRING</type>
+					<desc><![CDATA[  <p>Specify the attribute of the HTML tag, holding the URL to be prefetched.</p>						<p> For eg: href, src,etc.</p>]]></desc>
+				</attribute>
+				<pattern n="5">
+					<comment>Attribute pattern</comment>
+					<value/>
+					<type>STRING</type>
+					<desc><![CDATA[<p>Specify the regular expression to evaluate the URL discovered in the Tag Attribute. If the regular expression matches, the URL is logically expanded, and pushed into the prefetch queue.</p>]]></desc>
+				</pattern>
+				<maxsize n="6">
+					<comment>Maximum file size</comment>
+					<value>0</value>
+					<type>FILE_SIZE</type>
+					<desc><![CDATA[ <p>Specify the maximum size of the file to be prefetched.</p>							<p>Use suffix – K, M, G, for Kilo Bytes, Mega Bytes, Giga Bytes</p>							<p>Hint: Set this to 0 for an unlimited size.</p>]]></desc>
+				</maxsize>
+				<recursion n="7">
+					<comment>Recursion level</comment>
+					<value>1</value>
+					<type>INT</type>
+					<desc><![CDATA[<p>Set the Recursion limit to 0, or a higher positive integer.</p>						<p>Prefetched content is analyzed, to discover new prefetchable URLs.</p>						<p>Recursion limits this iteration.</p>						<p> Note: Setting to 0 causes links to be followed, indefinitely.</p>]]></desc>
+				</recursion>
+			</entry>
+			<queue>
+				<appcontent><![CDATA[				<div class="prefetch_div box-body">				<h5>Add URL to prefetch queue</h5>	<input class="form-control prefetch_input" placeholder="Enter the website name" id="save_prefetch" type="text">				<input type="submit" class="btn btn-xs support_button" onclick="prefetch()" value="Submit"/>                <div id="result_prefetch"></div>				</div>]]></appcontent>
+			</queue>
+		</template>
+		<subsection>
+			<prefetch>
+				<enabled>true</enabled>
+				<comment>Prefetch</comment>
+				<template>entry</template>
+				<parentgroup>inherit</parentgroup>
+				<logo/>
+				<desc><![CDATA[<p>Create list of Entries to implement your Prefetch Policies.</p>					<p>SafeSquid produces a virtual map of the tags discovered in a Web page.</p>					<p>SafeSquid evaluates the list for an entry applicable for each tag.</p>					<p>Evaluation begins with topmost entry, and sequentially iterates until first applicability match.</p>					<p>Evaluation ignores disabled entries.</p>		<p>Use Profiles, Name of the Tag, Tag Attributes, and Pattern of the Attribute to specify applicability.</p>					<p>Only Entries with both Name of the Tag, Tag Attributes, specified will be applicable.</p>					<p>SafeSquid uses the first applicable Entry and, skips the rest.</p>]]></desc>
+			</prefetch>
+			<prefetch_queue>
+				<enabled>true</enabled>
+				<comment>Prefetch now</comment>
+				<function>onclick="load_scripts('prefetch');SHOW_DESC_DETAILS('desc_prefetch_prefetch_queue')"</function>
+				<template>queue</template>
+				<parentgroup>inherit</parentgroup>
+				<logo>fa-recycle</logo>
+				<desc><![CDATA[<p>Add a popular URL into the prefetch queue.</p>			<p>The Prefetched content will be cached.</p> ]]></desc>
+				<wizard>false</wizard>
+				<type>app</type>
+			</prefetch_queue>
+		</subsection>
+	</prefetch>
+</section>

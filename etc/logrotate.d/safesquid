@@ -1,0 +1,9 @@
+/tmp/safesquid/upgrade
+{	
+	hourly
+	compress
+	delaycompress	
+	prerotate
+		/bin/bash /usr/local/safesquid/ui_root/cgi-bin/moniter.sh
+	endscript
+}

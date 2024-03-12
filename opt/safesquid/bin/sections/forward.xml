@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<forward>
+		<enabled>true</enabled>
+		<comment>Proxy chain</comment>
+		<parentgroup>infrastructure</parentgroup>
+		<logo>fa-forward</logo>
+		<wizard>true</wizard>
+		<type>section</type>
+		<flags>1</flags>
+		<desc>
+			<![CDATA[ 
+				<p>The Proxy chain section allows you to forward requests through another proxy selectively, SOCKS4 or SOCKS5 firewalls.</p>
+				<p>You can also use ICP (Internet Cache Protocol) and CARP (Cache Array Routing Protocols) to share cache with peer or sibling proxies.</p>]]>
+		</desc>
+		<select>
+			<carp>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable CARP.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable CARP.]]>
+					</desc>
+				</TRUE>
+			</carp>
+			<forward_enable>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable proxy chain section.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable proxy chain section.]]>
+					</desc>
+				</TRUE>
+			</forward_enable>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+			<icptype>
+				<NONE>
+					<comment>NONE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ The ICP protocol will not be used with this proxy.]]>
+					</desc>
+				</NONE>
+				<PARENT>
+					<comment>PARENT</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ This proxy is a Parent, when no peer has the cached file it will still be requested from a parent	so that it is cached for other peer proxy servers.]]>
+					</desc>
+				</PARENT>
+				<SIBLING>
+					<comment>SIBLING</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ This proxy is a Sibling, files are requested from it only when it has a cached copy.]]>
+					</desc>
+				</SIBLING>
+			</icptype>
+			<type>
+				<HTTP>
+					<comment>HTTP</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ This is a HTTP proxy server.]]>
+					</desc>
+				</HTTP>
+				<SOCKS4>
+					<comment>SOCKS4</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ This is a SOCKS4 firewall.]]>
+					</desc>
+				</SOCKS4>
+				<SOCKS5>
+					<comment>SOCKS5</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ This is a SOCKS5 firewall.]]>
+					</desc>
+				</SOCKS5>
+				<CONNECT>
+					<comment>CONNECT</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ The CONNECT method will be used through the HTTP proxy.]]>
+					</desc>
+				</CONNECT>
+			</type>
+			<which>
+				<HTTP>
+					<comment>HTTP requests</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ This proxy will be used for HTTP requests.]]>
+					</desc>
+				</HTTP>
+				<FTP>
+					<comment>FTP requests</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ This proxy will be used for FTP requests.]]>
+					</desc>
+				</FTP>
+				<CONNECT>
+					<comment>CONNECT requests</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ This proxy will be used for CONNECT requests.]]>
+					</desc>
+				</CONNECT>
+			</which>
+		</select>
+		<global>
+			<enabled n="0">
+				<comment>Enabled</comment>
+				<value>forward_enable</value>
+				<type>BOOL</type>
+				<desc>
+					<![CDATA[ Enable or Disable proxy chain section.]]>
+				</desc>
+			</enabled>
+			<carp n="1">
+				<comment>Enable CARP</comment>
+				<value>carp</value>
+				<type>BOOL</type>
+				<desc>
+					<![CDATA[ CARP is a protocol used by a cluster of proxies to have them act as one logical cache by using a hash algorithm which combines the proxy's hostname and requested URL to determine which proxy server the URL is requested from, and thus cached on.]]>
+				</desc>
+			</carp>
+			<carphashsize n="2">
+				<comment>CARP hash size</comment>
+				<value>0</value>
+				<type>UINT</type>
+				<desc>
+					<![CDATA[ Specify the maximum value of the CARP hash; the lower the value, the greater the redundancy of cached files across peer proxies. Set to 0 for maximum size. Any value other than 0 breaks compatibility with Squid, and all peer proxies must use the same size hash.]]>
+				</desc>
+			</carphashsize>
+		</global>
+		<template>
+			<entry>
+				<enabled n="0">
+					<comment>Enabled</comment>
+					<value>enabled</value>
+					<type>BOOL</type>
+					<desc>
+						<![CDATA[ Enable or Disable this entry]]>
+					</desc>
+				</enabled>
+				<comment n="1">
+					<comment>Comment</comment>
+					<value>This entry ...</value>
+					<type>MULTILINE_STRING</type>
+					<desc>
+						<![CDATA[ <p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+					<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>]]>
+					</desc>
+				</comment>
+				<profiles n="2">
+					<comment>Profiles</comment>
+					<value>add_profiles</value>
+					<type>STRING_LIST</type>
+					<neg>1</neg>
+					<desc>
+						<![CDATA[ <p>Specify the Profiles applicable for this entry.</p>
+						<p>This entry will be applicable only if the connection has any one of the specified profiles.</p>
+						<p>Leave it Blank, to apply for all connections irrespective of any applied profile.</p>
+						<p>To avoid application to a connection that has a profile, use negated profile (!profile).</p>]]>
+					</desc>
+				</profiles>
+				<proxy n="3">
+					<comment>Proxy</comment>
+					<value/>
+					<type>STRING</type>
+					<desc>
+						<![CDATA[ <p>Specify the hostname or IP address of the proxy to forward through.</p>
+						<p>If this field is left blank, and the host or file options aren't, no action is taken for requests matching the host and file. </p>
+						<p>If the Proxy is the same as the server's own hostname, the entry is ignored. </p>
+						<p>This makes it easier to have a configuration file shared between several proxy servers.</p>]]>
+					</desc>
+				</proxy>
+				<username n="4">
+					<comment>User name</comment>
+					<value/>
+					<type>STRING</type>
+					<desc>
+						<![CDATA[ Specify the user name to use if the proxy requires authentication.]]>
+					</desc>
+				</username>
+				<password n="5">
+					<comment>Password</comment>
+					<value/>
+					<type>STRING</type>
+					<desc>
+						<![CDATA[ Specify the password to use if the proxy requires authentication.]]>
+					</desc>
+				</password>
+				<domain n="6">
+					<comment>Domain</comment>
+					<value/>
+					<type>STRING</type>
+					<desc>
+						<![CDATA[ Specify the NT domain when using the NTLM authentication protocol.]]>
+					</desc>
+				</domain>
+				<port n="7">
+					<comment>Port</comment>
+					<value>0</value>
+					<type>INT</type>
+					<desc>
+						<![CDATA[ Specify the port number of the proxy to forward through.]]>
+					</desc>
+				</port>
+				<icptype n="8">
+					<comment>ICP peer type</comment>
+					<value>icptype</value>
+					<type>STRING_SELECT_ONE</type>
+					<desc>
+						<![CDATA[ The peering relationship of this proxy.]]>
+					</desc>
+				</icptype>
+				<icpport n="9">
+					<comment>ICP port</comment>
+					<value>0</value>
+					<type>INT</type>
+					<desc>
+						<![CDATA[ Specify the UDP port ICP packets are sent to.]]>
+					</desc>
+				</icpport>
+				<type n="10">
+					<comment>Type</comment>
+					<value>type</value>
+					<type>STRING_SELECT_ONE</type>
+					<desc>
+						<![CDATA[ Specify the type of the proxy; can be HTTP, SOCKS4, SOCKS5 or CONNECT.]]>
+					</desc>
+				</type>
+				<which n="11">
+					<comment>Applies to</comment>
+					<value>which</value>
+					<type>STRING_SELECT_MANY</type>
+					<desc>
+						<![CDATA[ Specify the type of requests that are forwarded through the proxy; Can be HTTP, FTP and/or CONNECT (HTTPS).]]>
+					</desc>
+				</which>
+			</entry>
+		</template>
+		<subsection>
+			<forward>
+				<enabled>true</enabled>
+				<comment>Forwarding proxies</comment>
+				<template>entry</template>
+				<parentgroup>inherit</parentgroup>
+				<logo/>
+				<desc>
+					<![CDATA[ List of proxy servers to forward connections to.]]>
+				</desc>
+				<wizard_action>true</wizard_action>
+			</forward>
+		</subsection>
+	</forward>
+</section>

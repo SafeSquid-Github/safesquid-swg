@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<cookies-filtering>
+		<enabled>true</enabled>
+		<comment>Cookie filter</comment>
+		<parentgroup>filter</parentgroup>
+		<logo>fa-scissors</logo>
+		<wizard>true</wizard>
+		<type>section</type>
+		<flags>1</flags>
+		<desc>
+            <![CDATA[  
+		<p>With Cookie Filter you can choose, which hosts (websites,) the browsers are allowed to send and receive the cookies.</p>
+		<p>A HTTP cookie (also called as web cook0ie, Internet cookie, browser cookie or simply cookie) is a small piece of data sent from a website and stored in the user's web browser while the user is browsing.</p>
+		<p>You can control the cookie exchange precisely, between remote websites and users.</p>
+		<p>You can manage the user privacy (Username & Preferences).</p>
+		<p>You can also disable the users from logging into their personal accounts.</p>
+		<p>Example: you can block cookies from advertising websites like tribalfusion.com and doubleclick.net to prevent private information from being transferred to them.</p>
+		<p>And users can browse the search engines (google, yahoo) but they cannot login to their personal accounts (Gmail, shopping websites, trading websites).</p>
+			]]>
+        </desc>
+		<select>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+			<cookie_enable>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+					<![CDATA[ Disable cookie filtering section.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+					<![CDATA[ Enable cookie filtering section.]]>
+					</desc>
+				</TRUE>
+			</cookie_enable>
+            <policy>
+                <ALLOW>
+                    <comment>ALLOW</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ When Policy is set to Allow, a requested cookie is allowed, when no matching entry is found]]>
+                    </desc>
+                </ALLOW>
+                <DENY>
+                    <comment>DENY</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ When Policy is set to Deny, a requested cookie is denied, if no matching entry is found]]>
+                    </desc>
+                </DENY>
+            </policy>
+            <month>
+                <JANUARY>
+					<comment>JANUARY</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Select this for january month.]]>
+                    </desc>
+                </JANUARY>
+                <FEBRUARY>
+					<comment>FEBRUARY</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this for february month.]]>
+                    </desc>
+				</FEBRUARY>
+                <MARCH>
+					<comment>MARCH</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this for march month.]]>
+                    </desc>
+				</MARCH>
+                <APRIL>
+					<comment>APRIL</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this for april month.]]>
+                    </desc>
+				</APRIL>
+                <MAY>
+					<comment>MAY</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this for may month.]]>
+                    </desc>
+				</MAY>
+                <JUNE>
+					<comment>JUNE</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this for june month.]]>
+                    </desc>
+				</JUNE>
+                <JULY>
+					<comment>JULY</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this for july month.]]>
+                    </desc>
+				</JULY>
+                <AUGUST>
+					<comment>AUGUST</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this for august month.]]>
+                    </desc>
+				</AUGUST>
+                <SEPTEMBER>
+					<comment>SEPTEMBER</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this for september month.]]>
+                    </desc>
+				</SEPTEMBER>
+                <OCTOBER>
+					<comment>OCTOBER</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this for october month.]]>
+                    </desc>
+				</OCTOBER>
+                <NOVEMBER>
+					<comment>NOVEMBER</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this for november month.]]>
+                    </desc>
+				</NOVEMBER>
+                <DECEMBER>
+					<comment>DECEMBER</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this for december month.]]>
+                    </desc>
+				</DECEMBER>
+            </month>
+            <weekday>
+                <SUNDAY>
+					<comment>SUNDAY</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Select this for sunday.]]>
+					</desc>
+                </SUNDAY>
+                <MONDAY>
+					<comment>MONDAY</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Select this for monday.]]>
+					</desc>
+				</MONDAY>
+                <TUESDAY>
+					<comment>TUESDAY</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Select this for tuesday.]]>
+					</desc>
+				</TUESDAY>
+                <WEDNESDAY>
+					<comment>WEDNESDAY</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Select this for wednesday.]]>
+					</desc>
+				</WEDNESDAY>
+                <THURSDAY>
+					<comment>THURSDAY</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Select this for thursday.]]>
+					</desc>
+				</THURSDAY>
+                <FRIDAY>
+					<comment>FRIDAY</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Select this for friday.]]>
+					</desc>
+				</FRIDAY>
+                <SATURDAY>
+					<comment>SATURDAY</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Select this for saturday.]]>
+					</desc>
+				</SATURDAY>
+            </weekday>
+            <direction>
+                <IN>
+					<comment>IN</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[For Inbound Connections only.]]>
+					</desc>
+                </IN>
+                <OUT>
+					<comment>OUT</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[For Outbound Connections only.]]>
+					</desc>
+                </OUT>
+                <BOTH>
+					<comment>BOTH</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[For Both Inbound and Outbound connections.]]>
+					</desc>
+				</BOTH>
+            </direction>
+            <matchmode>
+                <ABSOLUTETIME>
+                    <comment>ABSOLUTE</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[  
+							When the absolute time match mode is used, any time between the starting and ending time will match. 
+							For example, if a start time of 9am monday and end time of 5pm friday is given,	in absolute time match mode any time between 9am monday and 5pm friday will match.
+						]]>
+                    </desc>
+                </ABSOLUTETIME>
+                <ALLRANGES>
+                    <comment>ALL RANGES</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ 
+							With the all ranges time match mode however, a time within all of the ranges will match.
+							For example, if a start time of 9am monday and end time of 5pm friday is given,	With  all range time match mode, any time between 9am and 5pm, monday to friday will match.
+						]]>
+                    </desc>
+                </ALLRANGES>
+            </matchmode>
+
+        </select>
+		<global>
+            <enabled n="0">
+                <comment>Enabled</comment>
+                <value>cookie_enable</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[ Enable or Disable cookie filtering section.]]>
+                </desc>
+            </enabled>
+            <policy n="1">
+                <comment>Policy</comment>
+                <value>policy</value>
+                <type>STRING_SELECT_ONE</type>
+                <desc>
+                    <![CDATA[ <p>Select the default action to take, when no matching entry for a requested cookie is found.</p>]]>
+                </desc>
+            </policy>
+        </global>
+		<template>
+            <entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Enable or Disable this Entry]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ <p>Explain the relevance of this entry with your policies, for documentation, and future references.</p>
+						<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>
+						]]>
+                    </desc>
+                </comment>
+                <profiles n="2">
+                    <comment>Profiles</comment>
+                    <value>add_profiles,cookie_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[<p>Specify the Profiles applicable for this entry.</p>
+						<p>This entry will be applicable only if the connection has any one of the specified profiles.</p>
+						<p>Leave it Blank, to apply for all connections irrespective of any applied profile.</p>
+						<p>To avoid application to a connection that has a profile, use negated profile (! profile).</p>
+						]]>
+                    </desc>
+                </profiles>
+                <year n="3">
+                    <comment>Expiry year range</comment>
+                    <value>1900,3000</value>
+                    <type>INT_RANGE</type>
+                    <optional>true</optional>
+                    <desc>
+                        <![CDATA[ <p>Mention the cookie expiry year range that is relevant to this entry.</p><p>The cookie from a particular host (website) expires after this range.</p> <p> Ex: 2016-2017</p>]]>
+                    </desc>
+                </year>
+                <month n="4">
+                    <comment>Expiry month range</comment>
+                    <value>month</value>
+                    <type>STRING_RANGE</type>
+                    <optional>true</optional>
+                    <desc>
+                        <![CDATA[<p>Select cookie expiry month range that is relevant to this entry.</p>
+						<p>The cookie from a particular host (website) expires after this range.</p>
+						<p>Example: January – March, here cookie expires after March.</p>]]>
+                    </desc>
+                </month>
+                <day n="5">
+                    <comment>Expiry day range</comment>
+                    <value>1,31</value>
+                    <type>INT_RANGE</type>
+                    <optional>true</optional>
+                    <desc>
+                        <![CDATA[ <p>The cookie expiry day range that is relevant to this entry.</p>
+						<p>The cookie from a particular host (website) expires after this range.</p>
+						<p>Example: 1-20, here cookie will expire after 20th day.</p>]]>
+                    </desc>
+                </day>
+                <weekday n="6">
+                    <comment>Expiry weekday range</comment>
+                    <value>weekday</value>
+                    <type>STRING_RANGE</type>
+                    <optional>true</optional>
+                    <desc>
+                        <![CDATA[<p>The cookie expiry weekday range, this entry applies to.</p>
+						<p>The cookie from a particular host (website) expires after this range.</p>
+						<p>Example: Monday – Friday, here cookie will expire after Friday.</p>]]>
+                    </desc>
+                </weekday>
+                <hour n="7">
+                    <comment>Expiry hour range</comment>
+                    <value>0,23</value>
+                    <type>INT_RANGE</type>
+                    <optional>true</optional>
+                    <desc>
+                        <![CDATA[ <p>The cookie expiry hour range, this entry applies to.</p><p>The cookie from a particular host (website) expires after this range.</p><p>Example: 1-10, here cookie will expire after 10AM.</p>]]>
+                    </desc>
+                </hour>
+                <minute n="8">
+                    <comment>Expiry minute range</comment>
+                    <value>0,59</value>
+                    <type>INT_RANGE</type>
+                    <optional>true</optional>
+                    <desc>
+                        <![CDATA[ <p>The cookie expiry minute range, this entry applies to.</p><p>The cookie from a particular host (website) expires after this range.</p><p>Example: 15-30, here cookie will expire after 10:30AM.</p><p>In the above example, Hours are included from Hour range.</p>]]>
+                    </desc>
+                </minute>
+                <domain n="9">
+                    <comment>Domain</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[<p>you can mention the domain names by separating with pipe (|) which you want to allow or deny.</p><p>You can use regular expression to match the domains.</p> <p>Ex: safesquid.com|google.com </p> ]]>
+                    </desc>
+                </domain>
+                <path n="10">
+                    <comment>Path</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ <p>A regular expression matching the cookie's path attribute.</p> <p>Ex: / </p>]]>
+                    </desc>
+                </path>
+                <direction n="11">
+                    <comment>Direction</comment>
+                    <value>direction</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[ The direction of the cookie this entry applies to; can be	either in (Set-cookie sent by website), out (Cookie sent by	browser), or both.]]>
+                    </desc>
+                </direction>
+                <matchmode n="12">
+                    <comment>Time match mode</comment>
+                    <value>matchmode</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[ Select the appropriate mode to match the multiple time ranges.
+		]]>
+                    </desc>
+                </matchmode>
+            </entry>
+        </template>
+		<subsection>
+            <allow>
+				<enabled>true</enabled>
+                <comment>Allow</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[ <p>When the Policy is Deny, rules defined under this sub-section, are exclusively allowed access.</p><p>Here you can add a new ‘allow’ entry, that would explicitly result in acceptance or allowance of cookie transfer to all or specific set of conditions.</p><p>This effectively allows you set a variety of intelligently and creatively defined Cookie Transfer whitelist(s)</p>]]>
+                </desc>
+                <wizard_action>true</wizard_action>
+            </allow>
+            <deny>
+				<enabled>true</enabled>
+                <comment>Deny</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[<p>When the Policy is Allow, rules defined under this sub-section, are exclusively denied access.</p><p>Here, you can add rules under Deny that would explicitly result in blocking or denial of cookie transfer to all or specific set of conditions.</p><p>This effectively allows you to set a variety of intelligently and creatively defined Cookie Transfer Blacklist(s).</p>]]>
+                </desc>
+                <wizard_action>false</wizard_action>
+            </deny>
+        </subsection>
+	</cookies-filtering>
+</section>

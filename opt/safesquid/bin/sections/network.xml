@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+    <network>
+        <enabled>true</enabled>
+        <comment>Network settings</comment>
+        <parentgroup>infrastructure</parentgroup>
+        <logo>fa-globe</logo>
+        <wizard>true</wizard>
+        <type>section</type>
+		<flags>1</flags>
+        <desc>
+            <![CDATA[
+			<p>Configure the basic Network Infrastructure.</p>
+			<p>Configure the Sockets on which SafeSquid will Listen, and accept connections from clients.</p>
+			<p>Manage SafeSquid's outgoing connections through existing IPs of your host system. </p>
+			]]>
+        </desc>
+        <select>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>		
+            <flags>
+                <SSL_TRANSPARENT>
+                    <comment>SSL_TRANSPARENT</comment>
+                    <value>FALSE</value>
+					<desc>
+						<![CDATA[ Accept SSL requests in transparent mode.]]>
+					</desc>
+                </SSL_TRANSPARENT>
+                <SSL_AUTHENTICATION>
+                    <comment>SSL_AUTHENTICATION</comment>
+                    <value>FALSE</value>
+					<desc>
+						<![CDATA[ User authentication via SSL client certificates. (Not yet implemented)]]>
+					</desc>
+                </SSL_AUTHENTICATION>
+                <SSL_BRIDGE>
+                    <comment>SSL_BRIDGE</comment>
+                    <value>FALSE</value>
+					<desc>
+						<![CDATA[ If SafeSquid has been setup as Reverse Proxy, and must provide SSL for non-SSL HTTP servers. (Not yet implemented)]]>
+					</desc>
+                </SSL_BRIDGE>
+                <CAPTIVE_PORTAL>
+                    <comment>CAPTIVE_PORTAL</comment>
+                    <value>FALSE</value>
+					<desc>
+						<![CDATA[ Setup a captive portal for user authentication, when SafeSquid is used as a transparent proxy.]]>
+					</desc>
+                </CAPTIVE_PORTAL>
+            </flags>
+        </select>
+        <global/>
+        <subsection>
+            <listen>
+				<enabled>true</enabled>
+                <comment>Listen</comment>
+                <template>listen</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[ <p>Setup SafeSquid’s Listen Interfaces to accept connections from clients.</p>
+					<p>When SafeSquid starts-up, all the enabled entries will be evaluated, and create 
+					appropriate Listening Sockets.</p>
+					<p>You may specify these Interfaces when creating policies in <b>Access Restrictions</b> Section.</p>
+					<p>Evaluation logically skips disabled Entries.</p>
+					<p>Service restart is required to effect any changes made here.</p>]]>
+                </desc>
+                <wizard_action>true</wizard_action>
+            </listen>
+            <interface>
+				<enabled>true</enabled>
+                <comment>Interface</comment>
+                <template>interface</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[ <p>Specify Interfaces for outgoing connections.</p>
+					<p>SafeSquid can take advantage of multiple ISPs or outbound connection routes, 
+					on multi-homed host systems. </p>
+					<p>Create multiple entries as required.</p>
+					<p>SafeSquid evaluates all enabled entries starting from top, and selects the first 
+					one that matches the connection.</p>
+					<p>Evaluation skips the disabled Entries.</p>]]>
+                </desc>
+                <wizard_action>false</wizard_action>
+            </interface>
+        </subsection>
+        <template>
+            <listen>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Enable or Disable this entry.]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ <p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>]]>
+                    </desc>
+                </comment>
+                <port n="2">
+                    <comment>Port</comment>
+                    <value>0</value>
+                    <type>INT</type>
+                    <desc>
+                        <![CDATA[ 
+						<p>Specify the Listen port.
+						By default, SafeSquid listens on port 8080.</p>
+						<p><1 - 65535><br>
+						Port value can be a positive integer between 1 and 65535</p>
+						<p>8080<br>
+						Default value is 8080</p>
+						]]>
+                    </desc>
+                </port>
+                <ip n="3">
+                    <comment>IP</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ 
+                        <p>Specify the IP address to complete the socket definition.
+						You may choose a specific IPv4 or IPv6 address.</p>
+						<p>Empty or Blank<br>
+						All the IPv4 and IPv6 addresses of the host.</p>
+						<p>0.0.0.0<br>
+						Listen to all IPv4 IPs only</p>
+						<p>:: <br>
+						Listen to all IPv6 IPs only</p>
+						]]>
+                    </desc>
+                </ip>
+                <listen_flag n="4">
+                    <comment>Bindings</comment>
+                    <value>flags</value>
+                    <type>STRING_SELECT_MANY</type>
+                    <desc>
+                        <![CDATA[<p>Choose additional bindings (roles) for this Socket.</p> 
+						<p> You may select multiple options if you need.</p> 
+						]]>
+                    </desc>
+                </listen_flag>
+            </listen>
+            <interface>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Enable or Disable this entry.]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ <p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>]]>
+                    </desc>
+                </comment>
+                <profiles n="2">
+                    <comment>Profiles</comment>
+                    <value>add_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[<p>Specify the Profiles applicable for this entry.</p>
+						<p>This entry will be applicable only if the connection has any one of the 
+						specified profiles.</p>
+						<p>Leave it Blank, to apply for all connections irrespective of any applied 
+						profile.</p>
+						<p>To avoid application to a connection that has a profile, use negated 
+						profile (!profile).</p>]]>
+                    </desc>
+                </profiles>
+                <ip n="3">
+                    <comment>IP</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ <p>Specify an IP address assigned to the host system.</p>
+						<p>SafeSquid will bind the outgoing connection to this IP address thus 
+						effectively applying the desired routing for the connection.</p>]]>
+                    </desc>
+                </ip>
+            </interface>
+        </template>
+    </network>
+</section>

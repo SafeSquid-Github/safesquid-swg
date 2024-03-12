@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+    <redirect>
+        <enabled>true</enabled>
+        <comment>Redirect</comment>
+        <parentgroup>antivirus</parentgroup>
+        <logo>fa-random</logo>
+        <wizard>false</wizard>
+        <type>section</type>
+        <flags>1</flags>
+        <desc>
+            <![CDATA[ 
+				<p>Create policies to redirect requests for a URL to another URL.</p>
+				<p>You may create redirection policies that intelligently fetch response from a desired URL, and serve it to the client.</p><p>Alternatively, you may create policies that respond with a HTTP 302 redirection that instructs the client to seek your suggested URL.</p>
+			]]>
+        </desc>
+        <select>
+			<send302>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable 302 redirect.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable 302 redirect.]]>
+					</desc>
+				</TRUE>
+			</send302>
+			<redirect_policy>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable URL redirection.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable URL redirection.]]>
+					</desc>
+				</TRUE>
+			</redirect_policy>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+            <options>
+                <ENCODE>
+                    <comment>Encode URL</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Encode the new URL.]]>
+                    </desc>
+                </ENCODE>
+                <DECODEBEFORE>
+                    <comment>Decode URL before</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Decode the URL before attempting to match	it with the regular expression.]]>
+                    </desc>
+                </DECODEBEFORE>
+                <DECODEAFTER>
+                    <comment>Decode URL after</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Decode the new URL after matching.]]>
+                    </desc>
+                </DECODEAFTER>
+            </options>
+            <which>
+                <LOCATION>
+                    <comment>LOCATION HEADER</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Redirect if the URL is part of the location header.]]>
+                    </desc>
+                </LOCATION>
+                <URL>
+                    <comment>URL</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Redirected if the URL is part of the actual request.]]>
+                    </desc>
+                </URL>
+                <BOTH>
+                    <comment>BOTH</comment>
+                    <value>TRUE</value>
+                    <desc>
+						<![CDATA[ Redirect if the URL is part of either actual request or Location header.]]>
+					</desc>
+                </BOTH>
+            </which>
+        </select>
+        <global>
+            <enabled n="0">
+                <comment>Enabled</comment>
+                <value>redirect_policy</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[ Enable or Disable URL Redirection.]]>
+                </desc>
+            </enabled>
+        </global>
+        <template>
+            <entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Enable or Disable this Entry.]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[<p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+						<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>]]>
+                    </desc>
+                </comment>
+                <profiles n="2">
+                    <comment>Profiles</comment>
+                    <value>add_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[<p>Specify the Profiles applicable for this entry.</p>
+						<p>This entry will be applicable only if the connection has any one of the specified profiles.</p>
+						<p>Leave it Blank, to apply for all connections irrespective of any applied profile.</p>
+						<p>To avoid application to a connection that has a profile, use negated profile (!profile).</p>]]>
+                    </desc>
+                </profiles>
+                <url n="3">
+                    <comment>URL</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ <p>Specify the requests to redirect.</p>
+						<p>This should be a valid PCRE (Perl Compatible Regular Expression).</p>
+						<p>Redirection occurs only if the requested URL matches this PCRE.</p>
+						<p>A typical URL is in the form "protocol://host/file".</p>
+						]]>
+                    </desc>
+                </url>
+                <redirect n="4">
+                    <comment>Redirect</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ <p>Specify the URL to redirect the request to.</p>
+						<p>A typical URL is in the form "protocol://host/file".</p>
+						<p>If left blank, the request will neither be redirected to any URL nor be connected to the requested URL, thus leaving the request never served.</p>
+						]]>
+                    </desc>
+                </redirect>
+                <port n="5">
+                    <comment>Port</comment>
+                    <value>0</value>
+                    <type>INT</type>
+                    <desc>
+                        <![CDATA[ <p>Specify the port to redirect the request to.</p>
+						<p>If left blank, the request will be redirected to the port available in the original request.</p>]]>
+                    </desc>
+                </port>
+                <send302 n="6">
+                    <comment>302 redirect</comment>
+                    <value>send302</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ <p>If yes, a 302 redirect is issued; otherwise the new host is connected to directly and the new file is requested.</p><p>A 302 redirect should always be used when possible to ensure relative links and images are correct.</p>]]>
+                    </desc>
+                </send302>
+                <options n="7">
+                    <comment>Options</comment>
+                    <value>options</value>
+                    <type>STRING_SELECT_MANY</type>
+                    <desc>
+                        <![CDATA[ Several options are available to control how the URL should be handled.]]>
+                    </desc>
+                </options>
+                <which n="8">
+                    <comment>Applies to</comment>
+                    <value>which</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[Specify whether the URL to be redirected is the actual request from the user or part of the Location header returned by the requested site.]]>
+                    </desc>
+                </which>
+            </entry>
+        </template>
+        <subsection>
+            <redirection>
+				<enabled>true</enabled>
+                <comment>Redirection policies</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[<p>Create Entries to setup your URL Redirection Policies.</p>
+					<p>First entry applicable for a connection is used, skipping the rest.</p>
+					<p>Disabled Entries are ignored.</p>]]>
+                </desc>
+                <wizard_action>false</wizard_action>
+            </redirection>
+        </subsection>
+    </redirect>
+</section>	

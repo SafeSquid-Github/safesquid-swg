@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+    <templates>
+        <enabled>true</enabled>
+        <comment>Templates</comment>
+        <parentgroup>profilesdef</parentgroup>
+        <logo>fa-object-ungroup</logo>
+        <wizard>false</wizard>
+        <type>section</type>
+        <flags>1</flags>
+        <desc>
+            <![CDATA[ 	
+			<p>Customized templates can be really useful:</p>
+			<p>When you want to display error messages in a language other than English</p>
+			<p>(Or)</p>
+			<p>When you want to display Company logo, Warnings, Custom messages and notifications</p>
+			<p>Templates are used throughout SafeSquid.</p>
+			<p>That is done as a replacement for pages which can't be displayed due to filtering, error, or other conditions. </p>
+			<p>SafeSquid has many default templates.</p>
+			<p>You can replace the default templates with your customized templates.</p>
+			<p>A template may not necessarily be in html style, but can also be almost about anything like an audio file, flash file or an executable. </p>
+			]]>
+        </desc>
+        <select>
+			<parsable>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Select parsable to false if you do not want to parse the template.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Select parsable to true if you want to parse the template.]]>
+					</desc>
+				</TRUE>
+			</parsable>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+            <type>
+                <FILE>
+                    <comment>FILE</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ The contents of the file will be sent.]]>
+                    </desc>
+                </FILE>
+                <EXECUTABLE>
+                    <comment>EXECUTABLE</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ The file is executed and whatever is it's output on the STDOUT, is sent as the template.]]>
+                    </desc>
+                </EXECUTABLE>
+            </type>
+        </select>
+        <global/>
+        <template>
+            <entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Enable or Disable this entry.]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ <p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>]]>
+                    </desc>
+                </comment>
+                <profiles n="2">
+                    <comment>Profiles</comment>
+                    <value>add_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[ <p>Specify the Profiles applicable for this entry.</p>
+						<p>This entry will be applicable only if the connection has any one of the specified profiles.</p>
+						<p>Leave it Blank, to apply for all connections irrespective of any applied profile.</p>
+						<p>To avoid application to a connection that has a profile, use negated profile (! profile).</p>]]>
+                    </desc>
+                </profiles>
+                <name n="3">
+                    <comment>Name</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[Specify the name of the template here, for identification, and this is used in other sections for reference purpose.]]>
+                    </desc>
+                </name>
+                <file n="4">
+                    <comment>File</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ <p>Specify the filename of the template, here. You have to mention the path (location) of the file here.</p>
+						<p> A template may not necessarily be in html pattern, but can be almost about anything like an audio file, flash file or an executable one.</p>]]>
+                    </desc>
+                    <button>upload</button>
+                </file>
+                <mime n="5">
+                    <comment>Mime type</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[<p>Specify MIME-type of the template, here.</p>
+						<p> While using an executable template, this is set, by having the external program send a HTTP response header.</p>]]>
+                    </desc>
+                </mime>
+                <code n="6">
+                    <comment>Response code</comment>
+                    <value>0</value>
+                    <type>INT</type>
+                    <desc>
+                        <![CDATA[ The response code to be used when sending the template ]]>
+                    </desc>
+                </code>
+                <type n="7">
+                    <comment>Type</comment>
+                    <value>type</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[Specify the type of the template.]]>
+                    </desc>
+                </type>
+                <parsable n="8">
+                    <comment>Parsable</comment>
+                    <value>parsable</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[<p>Choose here whether or not to substitute the variables present in the HTML codes used to display the template.</p>
+						<p>There are several variables that can be used in templates if the parsable option is selected, which will be replaced with information about the request currently being handled. These variables can be used to generate content in real time.</p>]]>
+                    </desc>
+                </parsable>
+            </entry>
+        </template>
+        <subsection>
+            <template>
+				<enabled>true</enabled>
+                <comment>Manage templates</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[Create list of entries for different templates.]]>
+                </desc>
+                <wizard_action>false</wizard_action>
+            </template>
+        </subsection>
+    </templates>
+</section>

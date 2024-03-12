@@ -1,0 +1,12 @@
+# Check every 5 minutes to ensure the partition usage is less than 80%
+check program var_log_safesquid_check 
+	with path "/etc/init.d/safesquid space_clean VAR_LOG_DIR 80"
+		every "0,5,10,15,20,25,30,35,40,45,50,55 * * * *"
+			if status != 0 then alert
+
+# Check every 5 minutes to ensure the partition usage is less than 80%
+check program var_db_safesquid_report_check 
+	with path "/etc/init.d/safesquid space_clean REPORT_DB_DIR 80"
+		every "0,5,10,15,20,25,30,35,40,45,50,55 * * * *"
+			if status != 0 then alert
+			

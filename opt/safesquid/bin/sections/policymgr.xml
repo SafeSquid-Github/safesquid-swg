@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<policymgr>
+        <enabled>true</enabled>
+        <comment>Restriction Policies</comment>
+        <parentgroup>configure</parentgroup>
+        <logo>fa-shield</logo>
+        <desc>
+		<![CDATA[
+		<p>Granularly enforce restrictions on users.</p>
+		]]>
+		</desc>
+        <wizard>false</wizard>
+        <type>group</type>
+		<flags>1</flags>
+	</policymgr>
+</section>

@@ -1,0 +1,865 @@
+SafeSquid Secure Web Gateway 2022.1008.1240.3
+---------------------------------------------
+BugFix: Incorrect reflection in the SafeSquid UI when user membership is modified in the Directory Service
+BugFix: UDP based transmission of logs to remote servers could choke because of data fragmentation
+BugFix: Failure to verify SSL certificates created with Authority Information Access indicating the URL of an intermediate CA Issuer that serves certificates that necessitate further AIA fetch
+BugFix: Semantic error causing SafeSquid to close all idle connections when Trusted SSL Root CA Certificates were updated
+Enhancement: Use of connection variables in the header->insert feature for refined implementation of Content-Security-Policy
+Enhancement: Introducing http://safesquid.cfg/csp as the REST interface for collecting Content Security Policy Violation reports
+Enhancement: csp.log now logs all Content Security Policy Violations
+
+SafeSquid Secure Web Gateway 2022.0802.1537.3
+---------------------------------------------
+BugFix: Custom Categorization section of the SafeSquid Interface reported incorrect categorization
+BugFix: Logical bug in evaluation of time ranges in Time Profiles
+BugFix: unhandled exception in malformed Origin or Referer headers detection caused SafeSquid to crash
+Enhancement: Websites added in custom categories are now presented in the UI when editing profiles for easy reference.
+
+SafeSquid Secure Web Gateway 2022.0718.1917.3
+---------------------------------------------
+BugFix: logical bug caused safesquid to crash when a client sent malformed headers
+BugFix: upgrading SafeSquid from interface failed die to an inconsistent directive in monit configuration
+BugFix: prevent unnecessary retry and delay in detection of SSL_SHUTDOWN from peer
+BugFix: fo not apply private categorization based on rferer when disabled in the general section
+
+
+SafeSquid Secure Web Gateway 2022.0610.1620.3
+---------------------------------------------
+Support for WebSockets.
+Web-sockets are no longer mandatorily blocked, but the users can specifically choose to restrict use of web-sockets.
+Web socket requests are marked as TCP_WEBSOCKET in extended logs if it is not blocked and TCP_DENIED_WEBSOCKET if it is blocked.
+BugFix: Match the Regular Expression for File Extension against File Downloads in Custom Settings >> Response Types
+If "." is the first letter of a private category, it will be applied only to requests to matching web-sites, but not to cross-site requests referred to by such web-sites.
+If "#" is the first letter of a private category, it will not be applied to any website, though will be visible in UI for categorization modification.
+Additional new option in the general section to force buffering of chunked responses, for processing.
+For detection of cross-site requests, HTTP request header Origin is now considered as referer in case the request does not have a referer.
+Buffering chunked responses is now controllable from the system configuration, instead of the Content Modification section.
+
+SafeSquid Secure Web Gateway 2022.0502.1923.3
+---------------------------------------------
+Minor patch for compatibility with Activation Key generated on revamped SafeSquid Self-Service Portal
+
+SafeSquid Secure Web Gateway 2022.0402.1601.3
+---------------------------------------------
+Enhancement: 
+	Dynamic Categorization:
+		Determines requests made by Internet Browser to serve a web-page included in a Custom Category.
+		Custom Categories applicable to the "Referring Web-Page" are added to the list of categories determined for the requested URL.
+		The System Configuration section provides the option to enable / disable this behaviour.	
+	HTTP Status and Error codes
+		The HTTP status codes now sent to the web client have been re-organized for maximum conformance with Mozilla standards https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+		The HTTP status code sent to the web client will also be reflected in the corresponding lines of SafeSquid's Extended Log
+		Note: All Requests blocked due to a policy configuration shall now reflect HTTP Status Code
+			451: Unavailable For Legal Reasons
+		The TCP_STATUS code in Extended log now ensure improved precision for debugging purposes:
+			NONE:	The Client sent invalid request headers 
+			TCP_MISS:	requested object not in the cache 
+			TCP_HIT:	valid copy of object in cache 
+			TCP_REFRESH_MISS:	stale copy of object failed validation, new content sent 
+			TCP_REFRESH_HIT:	stale copy of object in cache was validated 
+			TCP_REF_FAIL_HIT:	stale copy of object in cache couldn't be validated so stale copy sent 
+			TCP_CLIENT_REFRESH:	request with no-cache pragma issued 
+			TCP_IMS_MISS:	if-modified-since request sent and object was stale 
+			TCP_IMS_HIT:	if-modified-since request sent and object was still fresh 
+			TCP_DENIED:	access denied for request 
+			TCP_DNS_FAILED:	DNS Resolution Failed 
+			TCP_CONNECTION_FAILED:	Connection Failed
+			TCP_CONNECTION_NOROUTE:	Connection to requested destination is not possible 
+			TCP_TUNNEL:	A binary tunnel was established for this transaction
+			TCP_ABORTED:	The response was not completed due to the connection being aborted (usually by the client). 
+			TCP_TIMEOUT:	The response was not completed due to a connection timeout. 
+			TCP_SSL_FAILED:	The SSL Handshake with remote server failed 
+			TCP_AUTH_FAILED:	Client authentication Failed 
+			TCP_BIND_FAILED:	The Bind Service is unresponsive 
+			TCP_INVALID_RESPONSE:	The Client sent invalid request headers 
+			TCP_AUTH_ABSENT:	Authentication Required But Not Provided in Client Request Headers 
+			TCP_DENIED_COOKIES:	Cookies were stripped from the Request or Response Headers 
+			TCP_INVALID_SSL_CERT:	The remote server presented invalid SSL certificate 
+			TCP_SYSTEM_ERROR:	The application host system had errors 
+			TCP_DENIED_WEBSOCKET:	Request for a Web-Socket was denied 
+			TCP_SSL_HANDSHAKE	SSL Handshake done with client
+			TCP_INTERFACE	Response for UI
+
+		2 new templates have been added:
+			"responsetimedout" : Server @HTTP_HOST@:@HTTP_PORT@ did not respond within @TIMEOUT@ seconds
+				This is displayed to the client with HTTP Status Code 599, when the request is sent to the remote web server, but no response is received within the specified TIMEOUT period
+			"connectiondropped" : Server @HTTP_HOST@:@HTTP_PORT@ closed connection abruptly
+				This is displayed to the client with HTTP Status Code 521, when the connection to the remote web server is disrupted while we are awaiting a response.
+	SSL Certificate Validation:
+		By default SafeSquid considers files with extension ".crt" stored in "/usr/local/safesquid/security/ssl/trusted/" folder as Trusted Root CA Certificates.
+		SafeSquid automatically updates periodically the file trusted-ca-certificates.crt in this folder.
+		Any new .crt file copied into the folder will now be considered a Trusted Root CA Certificate and used without restart of the process.
+		AIA fetching:
+			Web-servers that send incomplete certificate chain during SSL handshake will be validated if the certificates are created with Authority Information Access indicating the URL of the CA Issuer.
+			SafeSquid now extracts the CA Issuer URL from the certificate, fetches the required certificate, validates it against already Trusted Root CA Certificates.
+			These certificates are also stored in the trusted certificates folder, for reuse in event of process restart.
+	Processing Chunked Responses:
+		By default chunked responses were not buffered to safeguard web browsing experience.
+		Now SafeSquid "may" buffer encoded (compressed) chunked responses sent by web servers, if a policy matching the response is found.
+		This increases the probability of discovering threats and inappropriate content in compressed responses.
+		It is expected that CPU utilization may increase because of the increased in-memory sand-boxing for decompression and content inspection.
+	Content Rewrite of Chunked responses:
+		Some users requested option to force buffering and processing of chunked responses with the Content Rewrite function.
+		An option to enable this behaviour is now available in the SafeSquid UI.
+		This option triggers buffering of chunked responses, even if they are not encoded.
+	Identifying SafeSquid Instance
+		For debugging in a clustered environment the HTTP response headers now show the instance ID of the SafeSquid instance that served the response as "X-SafeSquid-Instance"
+	IP address of the remote web server
+		The IP address of remote web server is logged as "peer" in the Extended log
+	Using opensource log analyzers against SafeSquid's Extended log
+		Modifying Custom Date Format in Extended Logs:
+			Use any of the formats acceptable for strftime. Default is "%d/%b/%Y:%H:%M:%S". For unix timestamping set format to "%s"
+			This is a startup parameter, and is effected at the start of SafeSquid process.
+		Converting logs to popular Squid access log format
+			Utility log_convert is now installed in /usr/local/bin
+			the Extended log can be piped into log_convert to produce logs in the access log format.
+BugFix:
+	The Startup Params dialog in the SafeSquid UI did not display new startup parameters if introduced in an upgrade.
+
+
+SafeSquid Secure Web Gateway 2022.0319.1457.3
+---------------------------------------------
+BugFix: Using "." as decimal separator caused abnormal termination in the image filtering module, on platforms that had incompatible locale.
+BugFix: On heavily loaded systems Thread scheduling delay could increase the time taken to actually close FDs of sockets.
+Enhancement: Service ID of the SafeSquid instance that handled the request in now included in the response headers for simplifying debugging at browser level.
+
+
+SafeSquid Secure Web Gateway 2021.1216.1825.3
+---------------------------------------------
+BugFix: Illogical display of negated options for fields such as Added Profiles, Removed Profiles, etc.
+BugFix: SSL errors when downloading content signatures.
+BugFix: Fresh installations crashed when accessing WebUI via https://safesquid.cfg due lack of appropriate SSL certificate
+Enhancement: Setting CPU_RESERVATION parameter to 1, will now pin the client socket, handling thread, and socket for the outgoing connection to the same CPU, improving performance.
+Enhancement: Introduced a dedicated thread to monitor file changes, in real-time. Currently it is set to monitor only the VPN authenticated user database file for translating IP address to username.
+Enhancement: Provision for displaying hints in WebUI to help creation of profiles referenced in multiple sections.
+
+
+SafeSquid Secure Web Gateway 2021.1020.1704.3
+---------------------------------------------
+BugFix: Flush Text Analyzer cached results when section is reconfigured.
+
+
+SafeSquid Secure Web Gateway 2021.1015.1501.3
+---------------------------------------------
+BugFix: Incorrect display of disk and memory usage by content cache
+BugFix: Incorrect computation of age in caching functions
+BugFix: Incorrect computation md5 in caching journal function
+BugFix: Incorrect computation time in If-Modified-Since headers
+BugFix: Semantic flaw in script invoked for SSO/Kerberos Microsoft Active Directory Integration
+Note: Disk Caching for Content Caching has been disabled.
+
+
+SafeSquid Secure Web Gateway 2021.0904.1613.3
+---------------------------------------------
+BugFix: If time taken for response from a remote web server exceeds the Buffer Wait Time specified in the matching entry of System Configuration, it could lead to abnormal termination if caching is enabled.
+
+
+SafeSquid Secure Web Gateway 2021.0823.1511.3
+---------------------------------------------
+BugFix: Invalid username was found to result in an unhandled exception leading to abnormal termination.
+The fix prevents the termination and responds with a 407 status code to the users.
+Disabled TCP_USER_TIMEOUT
+Experimental introduction of DNS based categorization.
+Set DNS_CAT_ZONE to c.ssquid.in for test purposes.
+Support for https://safesquid.cfg
+Fixed statistics display
+
+
+SafeSquid Secure Web Gateway 2021.0729.1821.3
+---------------------------------------------
+BugFix: A logical flaw in header-filtering section was discovered to cause disruption of config synchronization in master / slave clusters.
+
+
+SafeSquid Secure Web Gateway 2021.0716.2221.3
+---------------------------------------------
+Optimized SSqore disk caching to prevent obstructions while cache is in use
+
+SafeSquid Secure Web Gateway 2021.0709.1703.3
+---------------------------------------------
+Some users have complained inability to modify configuration of the header filtering section via UI.
+The symptoms observed suggest possibilities of some mutex locking failure.
+Though we have not been able to replicate it, we have considered theoretical possibility of configuration document locks.
+
+SafeSquid Secure Web Gateway 2021.0630.1858.3
+---------------------------------------------
+BugFix: config synchronization across clusters was failing due to a logical flaw in calculating time differential
+
+
+SafeSquid Secure Web Gateway 2021.0601.1436.3
+---------------------------------------------
+BugFix: Synchronization of the SSL certificate expiry dates with that of the Intermediate CA certificate
+
+SafeSquid Secure Web Gateway 2021.0529.2248.3
+---------------------------------------------
+BugFix: Length of serial number was found to violate RFC 5280
+
+SafeSquid Secure Web Gateway 2021.0511.2137.3
+---------------------------------------------
+Optimization: HTTP referer will be excluded from categorization
+Added X509 extension for ExtendedKeyUsage to SSL certificates generated by SafeSquid
+Optimization: Reduced CPU usage priority for nascent accepted connections
+Optimization: Max Expiry of SSL Intermediate CA Certificate generated by SafeSquid now reduced to 366 days.
+Optimization: Max Expiry of SSL Certificates generated by SafeSquid now reduced to 365 days.
+
+
+SafeSquid Secure Web Gateway 2021.0507.1708.3
+---------------------------------------------
+BugFix: SSqore web site categorization logical error in hot cache timestamping could cause faulty mutex handling, leading to abnormal shutdown.
+BugFix: SSqore cold cache buffer overflow when more than 2500 new URLs are added but cold cache flush is delayed.
+Optimization: Reduced CPU utilization of ServerPool for caching connections to remote web servers.
+Optimization: Reduced keep-alive for half-closed sockets to socket timeout. 
+
+SafeSquid Secure Web Gateway 2021.0426.0036.3
+---------------------------------------------
+Enhancement: Introduced hot cache for SSqore web site categorization. Categorization latency should now be generally less than 0.1ms and in some exceptional case more than 1ms.
+
+
+SafeSquid Secure Web Gateway 2021.0422.2048.3
+---------------------------------------------
+BugFix: Incorrect storage of client headers caused regex based entries for request profiling to fail.
+Change: poll for data while buffering data from client connection is now level triggered instead of edge-triggered
+BugFix: SSqore cache save mechanism was too aggressive and could cause bottle-necks
+
+
+SafeSquid Secure Web Gateway 2021.0421.1528.3
+---------------------------------------------
+BugFix: Handling of Transfer-Encoding Chunked Requests without buffering in previous release was ineffective
+Enhancement: Reuse of connection to remote web servers for POST requests
+
+SafeSquid Secure Web Gateway 2021.0420.1835.3
+---------------------------------------------
+BugFix: Handling of Transfer-Encoding Chunked Requests without buffering.
+Enhancement: Option in Access Restrictions to limit concurrent connections.
+Enhancement: Upgrade to TLS 1.3
+Enhancement: Asynchronous monitoring of Network Caches (Connection Pool and Client Pool)
+Enhancement: Lockless Performance counters now eliminate bottle-necks experienced under heavy load.
+Enhancement: Lockless Logging
+Enhancement: Asynchronous Accept on Listen Sockets
+Enhancement: Distribution of Listen / Accept on all CPU cores
+Enhancement: Near Real-Time reporting of Data I/O in performance log. (previously bytes were reported only when sockets were closed)
+Integration with OpenVPN: Generation of OVPN files for VPN clients
+Integration with OpenVPN: Generation of server certificates for server
+Option to set Cipher Suite (for TLS 1.3) and Cipher List for (TLS 1.2)
+Performance now improves with larger connection pool size and connection pool timeout.
+Faster SSL Handshakes with TLS 1.3
+
+SafeSquid Secure Web Gateway 2021.0413.2236.3
+---------------------------------------------
+Rebuilt the previous release to fix anomalies caused by failures in release commits.
+
+SafeSquid Secure Web Gateway 2021.0412.2154.3
+---------------------------------------------
+BugFix: Disabled buffering of POSTDATA when client uses chunked encoding, to ensure application stability.
+In future versions feature to control uploads via chunked encoding.
+
+Monit configuration updated to remove oldest files if disk partition has less than 20% free space
+
+SafeSquid Secure Web Gateway 2021.0217.1636.3
+---------------------------------------------
+Minor BugFix: URL encoding in UI JavaScript funtion for handling special characters in user supplied data for password encryption.
+
+SafeSquid Secure Web Gateway 2021.0208.1440.3
+---------------------------------------------
+Independent thread to manage stale privileged bypass records.
+Independent thread to reset limitgroup counters.
+Avoid buffering POSTDATA into memory when connection requires authentication.
+BugFix: Parsing If-Modified-Since request headers for SafeSquid UI
+BugFix: Logical error in detecting misconfigured LISTEN_CPUS startup parameter.
+Upon startup SafeSquid now records the last modified date of the config.xml as the document modified time for referencing during sync'ing
+SafeSquid now sends the last recorded document modification time as If-Modified-Since in request headers for config sync'ing
+BugFix: Prevent crashes in CPU starved systems when logging threads need time to get started.
+
+SafeSquid Secure Web Gateway 2021.0122.1537.3
+---------------------------------------------
+Early detection of client disconnection while fetching response from remote werb servers.
+CPU optimization in network I/O.
+BugFix: Client Connection is not kept alive when blocked by access restrictions.
+
+SafeSquid Secure Web Gateway 2020.1226.1848.3
+---------------------------------------------
+Proxy-Aunthenitcation now accepts usernames with special characters !()_`~#$%^& and -.@\\
+The second set of special characters however should not be the first character of a username.
+The username may now also contain any UTF-8 characters (>= 0xC0)
+
+SafeSquid Secure Web Gateway 2020.1207.1620.3
+---------------------------------------------
+Enhancement: In earlier releases TCP_DEFER_ACCEPT was set to tcp_keepintvl_time for the listening sockets, reflecting on all the accepted connections.
+This could lead to connections occupying FDs while hung in SYN_RECV state in noisy or chaotic environments.
+This is now a configurable option. CLIENT_DEFER_ACCEPT parameter set in startup parameters shall now be used to set TCP_DEFER_ACCEPT.
+Setting it to zero shall disable setting the TCP_DEFER_ACCEPT entirely.
+By default it is now set to zero, unless specified in the startup parameters.
+
+SafeSquid Secure Web Gateway 2020.1130.1625.3
+---------------------------------------------
+BugFix: Detected race condition in the self-monitor thread introduced in 2020.0928.1506.3.
+The self-monitor thread was a part of the performance logging object, and now it is an independent sub-routine.
+
+SafeSquid Secure Web Gateway 2020.1127.2149.3
+---------------------------------------------
+BugFix: Fixed Handling of SIGCHLD signal. Flags set to SA_NOCLDSTOP | SA_NOCLDWAIT | SA_RESTART, and the handler set to report only.
+Date field in all SafeSquid generated response headers now assured in GMT time.
+If-Modified-Since headers now fixed to determine proper GMT time of existing files
+Cookies with errors such as bad date format shall be suffixed with Max-Age=-1 and trigger eviction of such cookies from browser.
+Supports etching compressed files for all updates and signature downloads
+Update of Content Detection Signatures is now done asynchronously to prevent delays in SafeSquid starting to accept connections on process startup
+
+SafeSquid Secure Web Gateway 2020.1123.1259.3
+---------------------------------------------
+BugFix: A logical flaw in the previous release caused crashes when server connection pool overflowed.
+SafeSquid now raises SIGSYS signal to notify anomalous behavior that require a process restart
+Optimized eviction of idle client connections.
+FIN_WAIT timeout for both connected and accepted sockets is now set to 1 second.
+Introduced TCP_USER_TIMEOUT for all accepted connections. It is automatically set to the SOCKET_TIMEOUT specified in the startup parameters.
+Signal handler now explicitly ignores SIGPIPE, enabling quick detection of write failures.
+Fixed init script to prevent hanging in event of failed starts.
+
+SafeSquid Secure Web Gateway 2020.1102.1748.3
+---------------------------------------------
+Graceful blocking of WebSockets
+Support for Keep-Alive timeout HTTP headers to improve network connection caching efficiency
+SafeSquid now intimates both the client (Socket Timeout) and the server (Connection Pool Timeout) about the timeout desired.
+Improved logging of internal threads for easy debugging.
+Preloading and caching of custom templates for fast blocking response
+Send Date in HTTP headers when a request is served with a blocking response
+Idle client connections are now maintained in the pool as per the Connection Keep-Alive Timeout set in the System Configuration
+The cleaning cycle of Server connection pool now dynamically adjusts to scavenge idle connections that outlive the timeout.
+Eliminated some redundant SSL data read validations for CPU optimization
+
+
+SafeSquid Secure Web Gateway 2020.1013.0759.3
+---------------------------------------------
+Detection and Prevention of SSRF attacks
+Optimized DNS purge events
+SSL updates now fetched from https://sslupdates.safesquid.com/
+Handle EMFILE like ENFILE event to trigger closure of idle connections
+Compensate for slow networks when getting HTTP response headers from remote web servers
+Set clockskew = 86400 in dynamically produced krb5.conf to accomodate clients with bad time sync.
+Handle race condition when native logging statements are called before the loggers are setup
+Rationalized template selection for some of the connection failure events
+Templates for HTTP status code 503, and 429 SafeSquid incudes a Retry-After set to 360 seconds
+
+
+SafeSquid Secure Web Gateway 2020.1001.1833.3
+---------------------------------------------
+Minor Change: removed redundant log statements
+Minor Change: removed redundant error checks
+BugFix: Detect corrupted download of security updates
+BugFix: Erratic replication of unfiltered headers sent to remote web servers
+Enhancement: Automatic detection of IPv6 connectivity
+
+SafeSquid Secure Web Gateway 2020.0928.1506.3
+---------------------------------------------
+BugFix: Parsing Date in Cookies
+BugFix: Reduce CPU overheads when networks congestion may choke throughput
+BugFix: Avoid compression when response data is less than 1400 bytes
+Enhancement: Improved caching of URL categorization
+Enhancement: Advertizes TCP_KEEPIDLE_TIME as keepalive timeout to clients in HTTP headers, and keeps the connections alive appropriately.
+Enhancement: Headers to and from remote web servers now filtered just before sending, instead of immediately upon getting them.
+Enhancement: Self-monitor thread detects conditions when the process is heavily loaded
+
+SafeSquid Secure Web Gateway 2020.0904.1519.3
+---------------------------------------------
+BugFix: logical error in handling disconnected client when watching logs on the UI.
+BugFix: insufficient wait before disconecting a client after sending data when the connection is not set to keepalive.
+
+SafeSquid Secure Web Gateway 2020.0902.1515.3
+---------------------------------------------
+Changed default LISTEN_IP in setup.ini to "0.0.0.0"
+
+SafeSquid Secure Web Gateway 2020.0901.1723.3
+---------------------------------------------
+Bugfix: piping ulimit command to logging in init script caused the command to be ineffective
+Change: ASSERT logs are now tagged as error_check
+Bugfix: redundant calls to alter TCP_KEEPALIVE for idle connections were causing increased network traffic for ACK packets
+change: linger_off is now set when poll() detects errors like POLLRDHUP, POLLHUP, etc.
+change: client is notified of keepalive timeout value in response headers
+change: the self-monitoring thread now updates pidfile timestamp only when internal processes report some activity, or no request handling threads is alive
+change: linger_off is now set on listening socket fds to safeguard against any connections stuck in LAST_ACK state, of older process.
+change: wait for SOCKET_TIMEOUT seconds before moving an active connection to idle pool
+
+
+SafeSquid Secure Web Gateway 2020.0820.2025.3
+---------------------------------------------
+Optimized init script to reduce verbosity
+Optimized setup script to check dependency libraries
+Optimized monit configuration
+Removed unwanted logging statements when safesquid is running in debug mode
+
+SafeSquid Secure Web Gateway 2020.0711.2255.3
+---------------------------------------------
+This is a conceptual release to fix incorrect calculation of header length
+
+SafeSquid Secure Web Gateway 2020.0708.2340.3
+---------------------------------------------
+This is a conceptual release to identify abnormal behavior with some ICAP servers when handling zero-sized body
+
+SafeSquid Secure Web Gateway 2020.0624.1916.3
+---------------------------------------------
+This is a conceptual release for troubleshooting timeout related problems reported by a user
+Enhancement: Optimize various logging functions
+Enhancement: Optimized ICAP service scanning for failure recovery
+
+SafeSquid Secure Web Gateway 2020.0618.1813.3
+---------------------------------------------
+Default timeouts for connection TCP_KEEPINTVL_TIME
+Default socket timeout for new connections made to remote servers will be the user configured header timeout.
+BugFix: removed call for poll based socket checking within the read function.
+
+SafeSquid Secure Web Gateway 2020.0616.1735.3
+---------------------------------------------
+BugFix: ICAP server socket timeout to honor the use configuration
+BugFix: timeout to get response headers from remote web servers was set to startup parameter TCP_KEEPINTVL_TIME instead of user configure header timeout
+Bugfix: connection timeout for remote web servers was set to  startup parameter TCP_KEEPINTVL_TIME instead of user configure connection timeout
+BugFix: Flag for S_CHECK_SSL_PENDING was set prior to the completion of the SSL handshake process
+BugFix: Do not retry when user has requested a file upload and the remote server does not respond.
+
+SafeSquid Secure Web Gateway 2020.0305.1433.3
+---------------------------------------------
+Updated Malware Scanning Engine
+Updated URL Categorization Engine
+Prevent cloud lookups for bad hostnames
+
+
+SafeSquid Secure Web Gateway 2020.0213.1725.3
+---------------------------------------------
+Prevent re-write of DNS stub files if AD information remains unchanged.
+Kerberos/SSO with multiple Domains
+Re-Order SSL certificate chain
+Prevent Assertion when incorrect file is uploaded as config.xml
+Prevent Crash when xx--password URL command is incorrectly called
+
+SafeSquid Secure Web Gateway 2020.0131.1457.3
+---------------------------------------------
+Prevent dropping of content-encoding in request headers sent to remote web servers
+Decompress POST data before validating the mime-type of uploaded data
+Detect and set mime-type of POST data, for reuse in filtering sections.
+Vulnerability patched in Base64 decoding function that caused abnormal termination, when parsing ill-formed Base64 data.
+
+SafeSquid Secure Web Gateway 2020.0117.1422.3
+---------------------------------------------
+BugFix: Prevent delays in waiting for peer response to "close notify" when SSL_shutdown is called.
+
+SafeSquid Secure Web Gateway 2020.0108.1756.3
+BugFix: Detection of client POST requests that timeout before sending POSTDATA.
+Users reported high CPU utilization in such events due to SafeSquid continuing to attempt getting reposnse from the web-server.
+SafeSquid now immediately terminates client connections that do not send POSTDATA within the timeout settings.
+
+SafeSquid Secure Web Gateway 2020.0102.1331.3 
+---------------------------------------------
+Introduced new tunables:
+* Startup parameter: SOCK_MEM - Upper limit Percentage of Memory for TCP Stack. Decrease this if system is memory starved. Default: 50.
+* Startup parameter: HEAP_MEM - Percentage of Memory to reseve for Heap. SafeSquid will automatically reduce the MAXTHREADS to ensure sufficient memory is available for I/O and various data caches. Decrease this if system is memory starved. Default 66 
+This gives users the contol over safety feature introduced in 2019.0925.2004.3 to limit the concurrent threads created below MAXTHREADS.
+* Send Debugging Headers To: Vital debugging information like application of profiling and filtering policies can be included in the HTTP protocol headers. Specify if this information should be sent to client, server, both or none.
+
+Changes:
+Startup Parameter: SEND_SOCKET_BUFFERS was used for setting a fixed wmem size for sockets. It shall now set the upper limit for socket wmem.
+Startup Parameter: RECEIVE_SOCKET_BUFFERS was unused. It shall now be used to set the upper limit for the socket rmem.
+The tcp_tune.sh script invoked by the safesquid init script, now uses startup parameters - SOCK-MEM, SEND_SOCKET_BUFFERS, RECEIVE_SOCKET_BUFFERS and MAX_CONCURRENT to calculate various sysctl parameters for TCP tuning.
+
+Optimizations:
+Reduced use of stack memory.
+Improved adherence of SOCKET_TIMEOUT for defending against DoS.
+
+BugFix: 
+* Detection of cookie expiry date
+* Stripping invaid characters from category names and access profiles entry comment.
+
+SafeSquid Secure Web Gateway 2019.1202.1333.3
+BugFix: logical flaw in assigning threadid was causing abnormal behaviour on Ubuntu 18.04
+BugFix: Browsing FTP sites was impacted as SafeSquid proceeded to perform FTP handshake before receiving the initial 220 Response Header
+Enhancement: Optimization of CTX pool for handling SSL clients, to reduce memory utlization and OpenSSL's mutex contentions.
+
+SafeSquid Secure Web Gateway 2019.1125.1346.3
+* Detection of youtube-nocookies.com for categorization
+* Acceptance of "-" in Youtube developer keys
+
+SafeSquid Secure Web Gateway 2019.1115.1826.3
+* New startup parameter: FORCE_SNI
+Default is 0. Any other integer forces use of the SNI routine to determine the SSL certificate that should be used for SSL handshake with client.
+
+* Large number of incoming connections at startup could cause lockup of the SSL section.
+This was due to lack of synchronization between the activation key validation process and initialization of the caches for SSL sessions.
+"Pull" mechanism in SSL section now replaces the earlier "push" mechanism by the activation key validation process.
+
+* SafeSquid was generating a "fake" SSL certificate for each intercepted HTTPS web-site.
+Now wild card certificates are gnerated to cover entire sub-domains.
+This reduces the number of certificates created, with cascading benefits in latency, and reduced inode memory.
+
+* "Fake" SSL certificates generated by SafeSquid were directly signed by the Trusted Root CA certificate gnerated or uploaded on the SafeSquid's self-service portal.
+SafeSquid now creates a unique intermediate CA certificate on each instance that uses the same Activation Key.
+The fake SSL certificates are signed by this intermediate CA certificate.
+This mechanism enables distinguishing the interceptor in a load-balanced cluster, and ensures seamless web-experience in fail-over events, or when connections are simultaneously handled by different instances in an active-active cluster.
+
+* SafeSquid previously generated a separate private key for each "Fake" SSL certificate.
+Now it generates a coomon key for all these certificates, reducing the disk storage space, and memory cache by 50%.
+
+* SafeSquid now serves complete trust chain to clients. 
+This includes the Trusted Root CA certificate and intermediate CA certificate.
+This ensures, seamless acceptance by clients who need to install just the Trusted Root CA in their client applications like Browsers.
+
+* A logical flaw caused mis-interpretation of the configuration option that enables disabling of the real-time SQLite db inserts.
+This caused data to be created and held in memory, unneccesarily.
+SafeSquid now efficiently prevents generation of such data when not required.
+Also, this data was earlier held in stack memory, and has now been moved to heap.
+
+* The SSL cache clean interval has now been reduced to 1 hour.
+The cache now intelligently evicts artefacts that were not reused in the past hour.
+
+* SafeSquid uses high priority threads for internal house-keeping.
+The affinity of these threads is set to prevent use of the CPU cores that are dedicated for listening and accepting new clients.
+A logical flaw could could SafeSquid to crash if the startup parameter for assigning the core dedication was incorrect.
+This has now been fixed.
+
+
+SafeSquid Secure Web Gateway 2019.1105.1428.3
+---------------------------------------------
+Enhancement: Improved connection pool performance
+Enhancement: Optimized connection closing managment to boost performance of request handling threads
+
+SafeSquid Secure Web Gateway 2019.1026.1608.3
+---------------------------------------------
+Logical Change: ssl shutdown now simply sets the state, instead of waiting for completion of the ssl shutdown protocol
+Enhancement: The update frequency is now a user configurable start-up parameter
+Enhancement: ServerPool now uses heap memory instead of stack.
+Modification: Minimal changes for installing on non-debian linux
+
+SafeSquid Secure Web Gateway 2019.1022.1338.3
+---------------------------------------------
+BugFix: Correction for flawed error handling when socket closes while getting headers from peer connection.
+BugFix: Correction for flawed logic in selecting interface for establishing an outbound connection.
+Enhancement: threads handling connection closures are now high priority threads to handle high concurrency
+Enhancement: Strategic release of time slices by high priority threads
+
+
+SafeSquid Secure Web Gateway 2019.0925.2004.3
+---------------------------------------------
+* Enhancement: Improved handling of half-closed connections
+* Enhancement: Support for Web-Sites that use Bearer Authentication to validate users, without 401 Status Code
+* Enhancement: Automatic reduction of MaxThreads if set to beyond host capability
+* Enhancement: CPU Optimization
+* Enhnacement: Logging optimized for debugging and trouble-shooting 
+
+SafeSquid Secure Web Gateway 2019.0806.1738.3
+---------------------------------------------
+* Enhancement: Added factors for reliable creation of Application Signatures.
+* Enhancement: Users can override Application Signatures with Custom Request Types.
+* Increased session cache clean cycle to 8 days.
+* Detect client closure when retrying a failed connection to remote web server.
+* Prioritize threads - listen_and_accept threads get high priority, request handling thread gets mid-priority, and threads handling clientpool and serverpool get low priority.
+* Prevent repeated logging when client stops writing but is still waiting to get data from web server.
+* Introduced a delay of 100ms when retrying in event of DNS resolution failure.
+* Improved detection of closed or hung connections.
+* BugFix: Memory leak when SSL clients close connection, in events of blocking, before the template is served.
+* BugFix: Incorrect detection of private categories.
+* BugFix: Restored support for automatic retry if remote web server drops connection before receiving request headers.
+
+
+SafeSquid Secure Web Gateway 2019.0623.2332.3
+---------------------------------------------
+* Support for YouTube Category Control
+* BugFix: Incorrect CPU pinning 
+* Increased flush period of Result Caches from 6 minute to 30 minute
+
+SafeSquid Secure Web Gateway 2019.0604.1842.3
+---------------------------------------------
+* Reduced latency in accepting new connections
+* BugFix: Determination of hostname TLD
+* Reduced aggression of CPU utilization when networks may be saturated
+* Support for proxy-aware user-agents without SNI support
+
+SafeSquid Secure Web Gateway 2019.0401.1624.3
+---------------------------------------------
+* Prevent blocking of POST requests in DLP if accompanied with text content.
+
+SafeSquid Secure Web Gateway 2019.0329.1502.3
+---------------------------------------------
+* BugFix: Detection of closed peer conection when buffering response form remote web server
+
+SafeSquid Secure Web Gateway 2019.0326.1652.3
+---------------------------------------------
+* flush SSL_CTX cache used for SNI
+* disable session caching in SSL_CTX used for SNI
+* fix vulnerability in file lookup on disk
+* fix bug in detection of old files when downloading updates
+* fix bug in cookie reconstruction
+* fix bug in handling Range in HTTP response headers
+* optimize memory utilization of SSL cache stores
+* improved DoS detection when client sends a request but closes connection before reaching logical milestones
+* reduced CPU utilization in DoS mitigation
+
+SafeSquid Secure Web Gateway 2019.0206.1745.3
+---------------------------------------------
+* Introduced extra debugging information in client response headers
+* Optimization of web server response header profiling
+* BugFix: SafeSquid failed to block downloads of files when policies were created on basis of content type.
+
+SafeSquid Secure Web Gateway SWG 2019.0131.1958.3
+---------------------------------------------
+* Debugging information in response headers to client
+
+SafeSquid Secure Web Gateway SWG 2019.0129.1437.3
+---------------------------------------------
+* SSL error handling to compensate network delays in handshake in heavily loaded networks
+
+SafeSquid Secure Web Gateway SWG 2019.0128.0042.3
+---------------------------------------------
+* Memory Optimization
+* SNI is now default behavior
+
+SafeSquid Secure Web Gateway SWG 2019.0121.0018.3
+---------------------------------------------
+* performance optimization 
+
+SafeSquid Secure Web Gateway SWG 2019.0109.2045.3
+* read residue data in TCP stack before closing socket descriptor
+* display tabulated connection information in logs like output of netstat command for inbound and outbound connections
+* countermeasures for DDoS attacks designed to overwhelm SSL servers
+* minor enhancements to accelerate connection acceptance
+
+SafeSquid Secure Web Gateway SWG 2018.1231.2157.3
+---------------------------------------------
+* Minor BigFixes
+* Optimized log statements
+
+SafeSquid Secure Web Gateway SWG 2018.1227.1658.3
+---------------------------------------------
+* Introduced support for SSL session tickets
+* SSL Session Timeouts increased from 6 minutes to 1 Day
+
+SafeSquid Secure Web Gateway SWG 2018.1219.1504.3
+---------------------------------------------
+* optimization in thread startup for SSL
+* BugFix: download of incorrect default configuration
+* Vulnerability Fix: username encoding for invalid usernames
+
+
+SafeSquid Secure Web Gateway SWG 2018.1218.1818.3
+---------------------------------------------
+* Fixed vulnerability in handling IP based SSL web-sites.
+
+SafeSquid Secure Web Gateway SWG 2018.1209.2147.3
+---------------------------------------------
+* Performance Optimization
+* BugFix: Dashboard reports display when web categories contain special characters like "&"
+
+SafeSquid Secure Web Gateway SWG 2018.1205.1507.3
+---------------------------------------------
+* BugFix: incorrect identification of hostname in transparent proxying and requests after initial CONNECT request to HTTPS sites on non-standard ports
+
+SafeSquid Secure Web Gateway SWG 2018.1204.1921.3
+---------------------------------------------
+* Optimized SSL Memory Utilization
+* Optimized SSL Session Caching
+* BugFix: crash in generating SSL certificates when accessing web-sites with FQDN longer than 2730 characters or having invalid characters
+* BugFix: crash in validating user credentials with username longer than 512 characters.
+
+
+SafeSquid Secure Web Gateway 2018.1019.1803.3
+---------------------------------------------
+* Optimized memory utilization
+* Implemented eviction of aged SSL contexts and sessions
+
+SafeSquid Secure Web Gateway 2018.0924.1451.3
+---------------------------------------------
+* Delay sending read shutdown to client when server closes reading, but could still be sending data.
+
+SafeSquid Secure Web Gateway 2018.0921.1903.3
+---------------------------------------------
+BugFix: When HTTPS Inspection is disabled, policy based blocking may serve users with web server content instead of blocking template.
+BugFix: Decompression failure, when web servers choosing to serve brotli encoded content instead of gzip, or deflate, thus the content may not be analyzed via image analyzer, or other real-time security scanners that cannot handle compressed data.
+BugFix: In event of requests being blocked due to a policy set in Access Profiles, that bears a comment with CR/LF the rendered template suggests the users that they have the privilege to bypass and continue accessing the blocked website. The user is however prevented from proceeding by a subsequent template.
+
+SafeSquid Secure Web Gateway 2018.0917.1410.3
+---------------------------------------------
+* BugFix: typographical error in net_proxy function leading to Sefmentation Fault
+* BugFix: mis-interpretation of single negated entry in access profiles -> request types
+
+SafeSquid Secure Web Gateway 2018.0915.2159.3
+---------------------------------------------
+* Enhancement for compatibility with Chrome Browser's unusual request headers 
+* Auto suggestion list increased to display upto 150 suggestions
+
+SafeSquid Secure Web Gateway 2018.0914.2006.3
+---------------------------------------------
+* BugFix for clients sending empty username / password in proxy-authorization headers
+
+
+SafeSquid Secure Web Gateway 2018.0806.2020.3
+---------------------------------------------
+* Optimization in speed.
+* Optimization in intelligent error correction.
+* Optimized SNI implementation for automatic error correction while making SSL connection to remote websites.
+* Optimized SSL session management.
+* DLP configuration has been simplified and redundant options have been removed.
+* Modified Access profiles section to directly use Ldap Profiles in User groups.
+* Chunked content will not trigger buffering. Chunked responses by default will be automatically and intelligently bypassed for buffering.
+* Introduced new debugging mode in Image Analyzer. 
+* Modified System configuration section to display mime type in autosuggest form that are to be compressed.
+* Implemented facility of User consent before any policy is deleted.
+* Modified the broken bypass functionality.
+* Fixed the problem of not blocking session based cookie which was without expiry time.
+* Introduced "privacy" and "bypass" logging mechanism.
+* Modification for transparent redirect.
+* Introduced display of End User License Agreement(EULA) to user before product activation.
+* Improved the cloud restore mechanism.
+
+
+SafeSquid Secure Web Gateway 2018.0206.2141.3
+---------------------------------------------
+* SafeSquid now creates an empty in-memory configuration, to safeguard against abnormal behaviour, when neither user generated config.xml nor default config.xml can be located.
+* Symantic correction in the tcp tuning script, to ensure loading of the derived sysctl values.
+* Ensure closure and release of sockets, when peer closes before recieving pending data.
+* Optimized use of SSL_Pending to reduce latency, and cpu utilization.
+* Option to override automatic pausing of streaming logs in events of accidental mouse hover.
+* A dedicated thread for each listening socket and accepting new connections, is now confined into a pre-determined CPU core.
+* SafeSquid now ensures port is included in the Host directive, when sending request headers to a server listening on non-standard port.
+
+
+SafeSquid Secure Web Gateway 2017.1115.1800.3
+---------------------------------------------
+* Optimized TCP congestion control algorithm. Ensured implementation of TCP RENO for outgoing connections and TCP CUBIC for incoming connections.
+* Improvement in the data transfer speed. SafeSquid can now handle 10-15% more transactions per second. CPU and RAM utilization also decreased by almost 50%.
+* Logging improved to report the actual speed of data transfer.
+	Ex> debug: network: net_filebuf_read: speed: swgupdates2.safesquid.net 7082 bytes in 6.1520 ms [ 1.1512 MBps ]
+		debug: network: net_transfer: speed: 192.168.0.12 downloaded from 1.client-channel.google.com 487 bytes in 116.0000 us [ 4.1983 MBps ]
+* Rationalization in logs.
+* Optimization done in HTTPS. Initial SSL connect will be faster now.
+* Optimization in memory utilization.
+* Optimization in safesquid init script and tcp tuning script.
+* Fix for Captive Portal feature.
+* Fix for tcp tuning script.
+
+
+SafeSquid Secure Web Gateway 2017.0817.1602.3
+---------------------------------------------
+* Improved overall performance by 20%. You will be get better user experience and surfing speeds.
+
+
+SafeSquid Secure Web Gateway 2017.0804.1805.3
+---------------------------------------------
+* Improved private categorization security.
+
+
+SafeSquid Secure Web Gateway 2017.0705.1832.3
+---------------------------------------------
+* Implemented Captive Portal for securing WIFI-Hotspots.
+* The reporting database architecture modified to reduce CPU utilization & Implemented database rotation. 
+
+
+SafeSquid Secure Web Gateway 2017.0506.1827.3
+---------------------------------------------
+The changes in SafeSquid Secure Web Gateway 2017.0506.1827.3 are big enough to qualify it as a MAJOR release.
+
+* Improved UI based on user experience and added plenty of features.
+* Architectural changes in policy creation, entirely profiles driven.
+* Updated application and content signatures.
+* SSL session resumption implemented.
+* Upload controls improved and now you can control uploads into Google Drive.
+* VPN support implemented.
+* Cloud based management of website categorization and SSL certificates using self service portal.
+
+
+SafeSquid Secure Web Gateway 2016.1231.1230.3
+---------------------------------------------
+* Improvements in SQLite performance.
+* Fix for memory leaks in trusted ca load functionality.
+* Integrated latest webfiltering engine.
+
+
+SafeSquid Secure Web Gateway 2016.1222.1807.3
+---------------------------------------------
+* Minor bug-fix in ICAP feature.
+
+
+SafeSquid Secure Web Gateway 2016.1017.1234.3
+---------------------------------------------
+* Bug fix in cookies transmission.
+
+
+SafeSquid Secure Web Gateway 2016.1012.1234.3
+---------------------------------------------
+* Introduced Bandwidth Manager.
+* Introduced cloud backup.
+* Introduced Results Cache.
+* Templatized default configuration.
+* Critical fix related to multiple pids and service deactivation issue.
+* Improved context help available on the UI.
+* Critical fix related to SSL transparent proxy.
+* Integrated latest categorization and antimalware SDKs.
+* Implemented single click SSO.
+* SAB modified to have well structured partitions.
+* Restructured Access Profiles.
+
+
+SafeSquid Secure Web Gateway 2016.0921.1950.3
+---------------------------------------------
+* Enhancement in reporting performance. Two time faster than the previous release.
+* Improved analysis of drilled reports.
+
+
+SafeSquid Secure Web Gateway 2016.0914.1836.3
+---------------------------------------------
+* Completely restructured database architecture to reduce database size and enhance reporting performance (3 times improvement).
+* Complete change in the dashboard display of reporting.
+* Migration script available for the users who are using the older SafeSquid releases to import old database to the new database.
+* Critical bug fix for crash due to enabling caching section.
+* Critical bug fix for crash due to enabling forwarding section for usage with an upstream proxy.
+
+
+SafeSquid Secure Web Gateway 2016.0824.1234.3
+---------------------------------------------
+* Improved performance of reporting engine with larger databases (30GB).
+* Real-time reports are now generated 3x faster.
+* Fix for intermittent SSO authentication prompts on the user's browsers.
+* Critical bug fix for crash due to abuse of database vacuum options.
+* Implemented facility to configure the policies when reports pages are rendering.
+
+
+SafeSquid Secure Web Gateway 2016.0803.1027.3
+---------------------------------------------
+* Updates for trusted CA infrastructure.
+* Implemented facility to use corporate CA as SafeSquid CA & Trusted CA.
+* Fixed issue for bypassed websites and upload content types not shown on the reporting.
+
+SafeSquid Secure Web Gateway 2016.0727.2034.3
+---------------------------------------------
+* Simplified SSO configuration via SafeSquid WebUI.
+* Implemented application crash alert system using support_tarballs.
+* Fixed "Nothing to show" reporting issue.
+* Fixed vulnerability in handling uploads on WebUI.
+* Fixed critical crash in downloading chunked response.
+
+SafeSquid Secure Web Gateway 2016.0707.2047.3 
+---------------------------------------------
+* Improved Reporting Engine & rendering of real-time reports. 
+* Improved handling of HTTPS connections when SSL inspection disabled.
+* Improved SSL Caching.
+
+SafeSquid Secure Web Gateway 2016.0623.0012.3
+---------------------------------------------
+* Optimized for Memory Consumption.
+* Optimized for Load Average.
+* Improved Reporting Engine & rendering of real-time reports. 
+* Fixed critical bugs related to SSL applications and logging.
+* Fixed vulnerability related to accessing configuration.
+
+SafeSquid Secure Web Gateway 2016.0422.2014.3
+---------------------------------------------
+* Brand New UI & UI API.
+* Built in reporting engine.
+* Category Management, local & cloud based.
+* Application Control
+* Content Control.
+* IPv6
+* WCCP
+* DLP
+* User programmable UI, XML driven UI and XML API.
+* Merged multiple sections.
+* Provided direct links to request profiles, response profiles and time profiles from profiles section.
+* Encrypt password from the sections itself. Need not to open another tab.
+* Improved visual appearance by showing statistical data in graphs and charts.
+* Extended functionality and applications.
+	* Custom access to users.
+	* Configuration changes viewer.
+

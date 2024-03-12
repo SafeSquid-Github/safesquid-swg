@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>    
+	<contentSignatures>
+        <enabled>true</enabled>
+        <comment>Content Signatures</comment>
+        <parentgroup>profilesdef</parentgroup>
+        <logo/>
+        <wizard>true</wizard>
+        <type>section</type>
+        <flags>0</flags>
+        <desc><![CDATA[ This Section allows you to manage SafeSquid's response profiling engine. ]]></desc>
+        <global>
+            <enabled n="0">
+                <comment>Enabled</comment>
+                <value>content_enable</value>
+                <type>BOOL</type>
+                <desc><![CDATA[ Enable or Disable the use of content signatures. ]]></desc>
+			</enabled>
+		</global>
+        <template>
+            <content_entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc><![CDATA[ Enable or Disable this Entry.]]></desc>
+				</enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value/>
+                    <type>MULTILINE_STRING</type>
+                    <desc><![CDATA[ Enter your comments here for future references, explaining what this entry does.]]></desc>
+				</comment>
+                <valueField n="2">
+                    <comment>Mime type</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc><![CDATA[ This entry applies to regular expression matching the MIME-type. Here MIME-type indicates the response-body received from the server. 
+						Example: Content-Type: text/html; charset=utf-8  
+					IF this entry should be applied to all responses irrespective of MIME-type leave it blank.]]></desc>
+				</valueField>
+                <add_content_signatures n="3">
+                    <comment>Added Content Signatures</comment>
+                    <value>add_content_signatures</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc><![CDATA[ List of Response Profiles that will be added to connection, if the above specified tests result true.]]></desc>
+				</add_content_signatures>
+				<group n="4">
+                    <comment>category</comment>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+					<value>add_content_category</value>
+                    <desc><![CDATA[ Category of content signatures]]></desc>
+				</group>
+			</content_entry>
+			<content_categories_entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+					<desc>
+                        <![CDATA[ Enable or Disable this Entry.]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value/>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ Enter your comments here for future references, explaining what this entry does.]]>
+                    </desc>
+                </comment>
+                <add_content_category n="2">
+                    <comment>Add Application Category</comment>
+                    <value>add_content_category</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc>
+                        <![CDATA[Add New application category.]]>
+                    </desc>
+                </add_content_category>
+            </content_categories_entry>
+			<content_file_extensions_entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc><![CDATA[ Enable or Disable this Entry.]]></desc>
+				</enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value/>
+                    <type>MULTILINE_STRING</type>
+                    <desc><![CDATA[ Enter your comments here for future references, explaining what this entry does.]]></desc>
+				</comment>
+                <valueField n="2">
+                    <comment>File Extension</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc><![CDATA[ This entry applies to regular expression matching the extension of file(s) obtained in response body. Leave it blank to apply all the requests irrespective of file extension.]]></desc>
+				</valueField>
+                <add_file_extensions n="3">
+                    <comment>Added File Extensions</comment>
+                    <value>add_file_extensions</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc><![CDATA[ List of Response Profiles that will be added to connection, if the above specified tests result true.]]></desc>
+				</add_file_extensions>
+				<group n="4">
+                    <comment>group</comment>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+					<value>add_content_category</value>
+                    <desc><![CDATA[ Category of content signatures]]></desc>
+				</group>
+			</content_file_extensions_entry>
+		</template>
+        <select>
+			<enabled>
+				<false>
+					<comment>false</comment>
+					<value>false</value>
+					<desc>
+					<![CDATA[ Disable this entry.]]>
+					</desc>
+				</false>
+				<true>
+					<comment>true</comment>
+					<value>true</value>
+					<desc>
+					<![CDATA[ Enable this entry.]]>
+					</desc>
+				</true>
+			</enabled>
+			<content_enable>
+				<false>
+					<comment>false</comment>
+					<value>false</value>
+					<desc>
+					<![CDATA[ Disable content signatures.]]>
+					</desc>
+				</false>
+				<true>
+					<comment>true</comment>
+					<value>true</value>
+					<desc>
+					<![CDATA[ Enable content signatures.]]>
+					</desc>
+				</true>
+			</content_enable>
+            <xfer_chunk>
+                <false>
+                    <comment>No</comment>
+                    <value>false</value>
+                    <desc><![CDATA[ Select this if you don\'t want to apply profile if transfer encoding chunked present in response header.]]></desc>
+				</false>
+                <true>
+                    <comment>Yes</comment>
+                    <value>false</value>
+                    <desc><![CDATA[ Select this if you want to apply profile if transfer encoding chunked present in response header.]]></desc>
+				</true>
+                <any>
+                    <comment>Any</comment>
+                    <value>true</value>
+                    <desc><![CDATA[ Select this if transfer encoding chunked does not matter in response header.]]></desc>
+				</any>
+			</xfer_chunk>
+            <multi_byterange>
+                <false>
+                    <comment>No</comment>
+                    <value>false</value>
+                    <desc><![CDATA[ Select this if you don\'t want to apply profile if multipart/ byteranges present in response header.]]></desc>
+				</false>
+                <true>
+                    <comment>Yes</comment>
+                    <value>false</value>
+                    <desc><![CDATA[ Select this if you want to apply profile if multipart/ byteranges present in response header.]]></desc>
+				</true>
+                <any>
+                    <comment>Any</comment>
+                    <value>true</value>
+                    <desc><![CDATA[ Select this if multipart/ byterange does not matter in response header.]]></desc>
+				</any>
+			</multi_byterange>
+			<profile_tracing>
+                <false>
+                    <comment>No</comment>
+                    <value>true</value>
+                    <desc><![CDATA[ Select this to disable profile tracing.]]></desc>
+				</false>
+                <true>
+                    <comment>Yes</comment>
+                    <value>false</value>
+                    <desc><![CDATA[ Select this to enable profile tracing.]]></desc>
+				</true>
+			</profile_tracing>
+			<add_content_signatures>
+			</add_content_signatures>
+			<add_content_category>
+			</add_content_category>
+			<add_file_extensions>
+			</add_file_extensions>
+		</select>
+        <subsection>
+            <content_entry>
+                <enabled>true</enabled>
+                <comment>Content Signatures List</comment>
+                <template>content_entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <wizard_action>false</wizard_action>
+                <type>section</type>
+                <desc><![CDATA[ The following rules are tested for each connection. The testing is done in top-down order. The first entry that matches the Response Profile of a connection, will be applied to it.
+				Click on Add below, to add a new entry.]]></desc>
+			</content_entry>
+			<content_categories_entry>
+                <enabled>true</enabled>
+                <comment>Content Categories List</comment>
+                <template>content_categories_entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo />
+                <wizard_action>false</wizard_action>
+                <type>section</type>
+                <desc>
+                    <![CDATA[ The following rules are tested for each connection. The testing is done in top-down order. The first entry that matches the Request Profile of a connection, will be applied to it. Click on Add below, to add a new entry.]]>
+                </desc>
+            </content_categories_entry>
+			<content_file_extensions_entry>
+                <enabled>true</enabled>
+                <comment>Content File Extensions</comment>
+                <template>content_file_extensions_entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo />
+                <wizard_action>false</wizard_action>
+                <type>section</type>
+                <desc>
+                    <![CDATA[ The following rules are tested for each connection. The testing is done in top-down order. The first entry that matches the Request Profile of a connection, will be applied to it. Click on Add below, to add a new entry.]]>
+                </desc>
+            </content_file_extensions_entry>
+		</subsection>
+	</contentSignatures>
+</section>

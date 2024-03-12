@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>    
+	<configure>
+        <enabled>true</enabled>
+        <comment>Configure</comment>
+        <parentgroup>quick-icon</parentgroup>
+        <logo>fa-cogs</logo>
+		<render>3</render>
+        <desc><![CDATA[ 
+			<p>Configure SafeSquid to serve your internet access policies.
+			</p>
+			]]></desc>
+			<type>group</type>
+			<flags>1</flags>
+        <wizard>false</wizard>
+	</configure>
+</section>

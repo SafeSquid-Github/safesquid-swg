@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<buitins>
+        <enabled>true</enabled>
+        <comment>Suggested Profiles</comment>
+        <parentgroup>policymgr</parentgroup>
+        <logo>fa-briefcase</logo>
+        <wizard>true</wizard>
+        <type>section</type>
+		<flags>1</flags>
+		<desc>List of Built-in Profiles</desc>	
+		<global/>
+		<subsection>
+			<hints>
+				<enabled>true</enabled>
+				<comment>Default Policies</comment>
+				<template>entry</template>
+				<parentgroup>inherit</parentgroup>
+				<logo/>
+			</hints>
+		</subsection>
+		<template>
+			<entry>
+				<enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ 
+						Enable or Disable this Entry.
+						]]>
+					</desc>
+				</enabled>
+				<comment n="1">
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[
+						<p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>
+						]]>
+					</desc>
+				</comment>
+				<builtin_cookie_profiles n="2">
+                    <value>builtin_cookie_profiles</value>
+                    <type>STRING_LIST</type>
+                    <desc>
+                        <![CDATA[
+						<p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>
+						]]>
+					</desc>
+				</builtin_cookie_profiles>
+			</entry>
+		</template>
+		<select>
+			<builtin_cookie_profiles parent="_0" group="TEST GROUP" list="builtin_cookie_profiles">
+				<ooo>
+					<comment>Test Entry</comment>
+					<value>Test Entry</value>
+					<desc>
+						This is a Test entry.
+					</desc>
+				</ooo>				
+				<oow>
+					<comment>Test Entry Two</comment>
+					<value>Test Entry Two</value>
+					<desc>
+						This is a Test entry two.
+					</desc>
+				</oow>
+			</builtin_cookie_profiles>
+		</select>
+	</buitins>
+</section>

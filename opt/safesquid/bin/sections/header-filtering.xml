@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+    <header-filtering>
+        <enabled>true</enabled>
+        <comment>Header filter</comment>
+        <parentgroup>filter</parentgroup>
+        <logo>fa-lock</logo>
+        <wizard>false</wizard>
+        <type>section</type>
+        <flags>1</flags>
+        <desc>
+            <![CDATA[ 
+				<p>Here, you can control how the SafeSquid edits the HTTP header messages that pass between your browser and the Internet.</p>
+				<p>You can increase internet usage privacy levels.</p>
+				<p>Control the client requests and web server responses.</p>
+				<p>You can add, delete or modify the Request and Response headers based on their content.</p>
+				<p>Apart from allowing or denying request or response headers, you can also use Insert sub-section to add a new header or to modify them.</p>
+				<p>This section analyzes:<br>
+				Request header patterns that are passed from browsers to webservers.<br>
+				Response header patterns that are coming from webservers to clients.</p>]]>
+        </desc>
+        <select>
+			<header_enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable header filter section.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable header filter section.]]>
+					</desc>
+				</TRUE>
+			</header_enabled>
+			<header_policy>
+				<ALLOW>
+					<comment>ALLOW</comment>
+					<value>TRUE</value>
+					<desc>
+							<![CDATA[Allow everything Except rules defined under Deny sub section.]]>
+						</desc>
+					<desc/>
+				</ALLOW>
+				<DENY>
+					<comment>DENY</comment>
+					<value>FALSE</value>
+					<desc>
+							<![CDATA[Deny everything Except rules defined under Allow sub section.]]>
+						</desc>
+				</DENY>
+			</header_policy>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+			<which>
+				<CLIENT>
+					<comment>CLIENT HEADER</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ This entry will be applied only for request headers, sent by the client.]]>
+					</desc>
+				</CLIENT>
+				<SERVER>
+					<comment>SERVER HEADER</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ This entry will be applied only for response headers, sent by the server.]]>
+					</desc>
+				</SERVER>
+			</which>
+        </select>
+        <global>
+            <enabled n="0">
+                <comment>Enabled</comment>
+                <value>header_enabled</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[ Enable or Disable header filter section.]]>
+                </desc>
+            </enabled>
+            <policy n="1">
+                <comment>Policy</comment>
+                <value>header_policy</value>
+                <type>STRING_SELECT_ONE</type>
+                <desc>
+                    <![CDATA[ <p>Select the default action to take, when no matching entry for a requested header is found.</p>]]>
+                </desc>
+            </policy>
+        </global>
+        <template>
+            <entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Enable or Disable this entry.]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ <p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>]]>
+                    </desc>
+                </comment>
+                <profiles n="2">
+                    <comment>Profiles</comment>
+                    <value>add_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[ <P>Specify the Profiles applicable for this entry.</P>
+						<P>This entry will be applicable only if the connection has any one of the specified profiles.</P>
+						<P>Leave it Blank, to apply for all connections, irrespective of any applied profile.</P>
+						<P>To avoid application to a connection that has a profile, use negated profile (! profile).</P>]]>
+                    </desc>
+                </profiles>
+                <type n="3">
+                    <comment>Type</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ <p>A regular expression matching the header type to which this entry applies to.</p>
+						<p>Headers are in the form of type and value.</p>
+						<p>Leave blank to match everything.</p>
+						<p>Example: X-GoogApps-Allowed-Domains.</p>]]>
+                    </desc>
+                </type>
+                <value n="4">
+                    <comment>Value</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[<p>A regular expression matching the header values this entry applies to.</p>
+						<p>Leave blank to Match everything.</p>
+						<p>Example: text/html.</p>]]>
+                    </desc>
+                </value>
+                <which n="5">
+                    <comment>Applies to</comment>
+                    <value>which</value>
+                    <type>STRING_SELECT_MANY</type>
+                    <desc>
+                        <![CDATA[ This option is to select whether this entry applies to the server header, client header, or both.]]>
+                    </desc>
+                </which>
+            </entry>
+            <header_template>
+                <![CDATA[ 
+                    <div id="filtered_log"></div>
+                    <br />
+                    <div id="unfiltered_log"></div>
+					]]>
+            </header_template>
+        </template>
+        <subsection>
+            <allow>
+				<enabled>true</enabled>
+                <comment>Allow</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[<p>When the Policy is Deny, rules defined under this sub-section, are allowed access, exclusively.</p>
+					<p>Here, you can add a new ‘allow’ entry that would result in acceptance or allowance of header filter to all or specific set of conditions, explicitly.</p>]]>
+                </desc>
+                <wizard_action>false</wizard_action>
+            </allow>
+            <deny>
+				<enabled>true</enabled>
+                <comment>Deny</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[<p>When the Policy is Allow, rules defined under this sub-section, are denied access, exclusively.</p>
+					<p>Here you can add a new ‘allow’ entry that would explicitly result in blocking or denying the header filter to all or specific set of conditions.</p>]]>
+                </desc>
+                <wizard_action>false</wizard_action>
+            </deny>
+            <insert>
+				<enabled>true</enabled>
+                <comment>Insert</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[ <p>In this sub section you can add the rules to modify the request and response headers.</p>
+					<p>You can insert additional information in the headers sent by your browser.</p>]]>
+                </desc>
+                <wizard_action>false</wizard_action>
+            </insert>
+            <headers>
+                <enabled>true</enabled>
+                <comment>View headers</comment>
+                <function>onclick="load_scripts('header_filter');SHOW_DESC_DETAILS('desc_header-filtering_headers')"</function>
+                <template>header_template</template>
+                <parentgroup>inherit</parentgroup>
+                <logo>fa-header</logo>
+                <desc>
+                    <![CDATA[<p>In this sub section you can find the example headers with type and values.</p>]]>
+                </desc>
+                <wizard>false</wizard>
+                <type>app</type>
+            </headers>
+        </subsection>
+    </header-filtering>
+</section>

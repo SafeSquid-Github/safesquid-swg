@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>    
+	<upload>
+        <enabled>true</enabled>
+        <comment>Upload templates</comment>
+        <parentgroup>utilities</parentgroup>
+        <logo>fa-pencil-square-o</logo>
+        <wizard>false</wizard>
+        <type>app</type>
+		<flags>1</flags>
+        <desc/>
+        <select/>
+        <global/>
+        <template>
+		<passwd>
+		<![CDATA[
+<div class="box-body adjust_div upload_xml" id="upload_xml">
+	<div>
+		<div class="form-group">
+			<label for="upload">Upload template</label>
+			<input  name="media[]" type="file" multiple>
+		</div>
+	</div>
+	<div class="box-footer">
+	<input type="submit"  onclick="upload_file('template')" class="btn btn-primary btn-xs" value="upload"/>
+	</div>
+</div>    
+			]]>
+		</passwd>
+        </template>
+        <subsection>
+            <pass>
+                <enabled>true</enabled>
+                <comment>Upload templates</comment>
+                <template>passwd</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <wizard_action>false</wizard_action>
+                <type>app</type>
+                <desc/>
+				</pass>
+		</subsection>
+	</upload>
+</section>

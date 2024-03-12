@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<access>
+        <enabled>true</enabled>
+        <comment>Access restrictions</comment>
+        <parentgroup>infrastructure</parentgroup>
+        <logo>fa-check-square</logo>
+        <wizard>false</wizard>
+        <type>section</type>
+        <flags>1</flags>
+        <desc>
+            <![CDATA[ <p>Use Access Restriction to Allow/Deny access to SafeSquid's service for specific user/user groups.</p>
+			<p>This allows you to specify the Access rights for various users.</p>
+			<p>Also, it categorizes the users into user groups for being uniquely processed in other sections.</p>
+			]]>
+        </desc>
+        <select>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+			<pamauth>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable PAM authentication.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable PAM authentication.]]>
+					</desc>
+				</TRUE>
+			</pamauth>
+            <profile_tracing>
+                <FALSE>
+                    <comment>FALSE</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Select this to disable profile tracing.]]>
+                    </desc>
+                </FALSE>
+                <TRUE>
+                    <comment>TRUE</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this if you want to enable profile tracing.]]>
+                    </desc>
+                </TRUE>
+            </profile_tracing>
+            <access_policy>
+                <ALLOW>
+                    <comment>ALLOW</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ When Policy is set to Allow,a request is allowed access, when no matching entry is found.]]>
+                    </desc>
+                </ALLOW>
+                <DENY>
+                    <comment>DENY</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ When Policy is set to Deny, a request is denied access, if no matching entry is found.]]>
+                    </desc>
+                </DENY>
+            </access_policy>
+            <ntlm>
+                <FALSE>
+                    <comment>FALSE</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this if you DO NOT want to use NTLM Authentication.]]>
+                    </desc>
+                </FALSE>
+                <TRUE>
+                    <comment>TRUE</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Select this if you want to use NTLM Authentication]]>
+                    </desc>
+                </TRUE>
+            </ntlm>
+            <access>
+                <CONFIG>
+                    <comment>Web interface</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ selecting this option will allow the user to access the SafeSquid Web GUI (http://safesquid.cfg).
+							If this option is deselected, the user will be sent an Access Denied template, when he tries to access the web GUI.
+							Note: Access to http://safesquid.cfg/template/(templatename) is always allowed regardless of selecting / deselecting this 
+						option.]]>
+                    </desc>
+                </CONFIG>
+                <PROXY>
+                    <comment>Proxy requests</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will allow the user to make regular proxy requests.]]>
+                    </desc>
+                </PROXY>
+                <HTTP>
+                    <comment>HTTP requests</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will allow the user to make regular HTTP requests to proxy (for	Web interface and redirected requests).]]>
+                    </desc>
+                </HTTP>
+                <TRANSPARENT>
+                    <comment>Transparent proxying</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will allow the user to make transparent proxy requests (must be	allowed to make HTTP requests as well).]]>
+                    </desc>
+                </TRANSPARENT>
+                <CONNECT>
+                    <comment>CONNECT requests</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will allow the user to make CONNECT requests for secure connections like HTTPS requests, or use of Internet Applications like FTP or SSH Clients.]]>
+                    </desc>
+                </CONNECT>
+                <BYPASS>
+                    <comment>Allow bypassing</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will allow the user to use the URL Command xx--bypass to bypass filtering rules.
+							This feature can be used to diagnose filtering reasons, and hence should be selected only for proxy administrators, and not for other users.
+						Note: The URL Commands option below should also be selected, to allow this option.]]>
+                    </desc>
+                </BYPASS>
+                <URLCOMMAND>
+                    <comment>URL commands</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will allow the user to use URL Commands(except bypass, which needs to be allowed separately).
+							URL Commands allow you to test the functionalities and verify your configurations remotely, from the browser.
+						URL commands can be used to show information about a webpage and to bypass certain features.]]>
+                    </desc>
+                </URLCOMMAND>
+            </access>
+            <bypass>
+                <HEADER-FILTERING>
+                    <comment>Header filtering</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will bypass Header filtering section for the users to whom this policy will get applied.]]>
+                    </desc>
+                </HEADER-FILTERING>
+                <REDIRECT>
+                    <comment>URL redirecting</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will bypass URL redirecting section for the users to whom this policy will get applied.]]>
+                    </desc>
+                </REDIRECT>
+                <COOKIES-FILTERING>
+                    <comment>Cookie filtering</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will bypass Cookie filtering section for the users to whom this policy will get applied.]]>
+                    </desc>
+                </COOKIES-FILTERING>
+                <REWRITE>
+                    <comment>Document rewriting</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will bypass Document rewriting section for the users to whom this policy will get applied.]]>
+                    </desc>
+                </REWRITE>
+                <EXTERNAL>
+                    <comment>External Applications</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will bypass External parsers section for the users to whom this policy will get applied.]]>
+                    </desc>
+                </EXTERNAL>
+                <FORWARD>
+                    <comment>Forwarding</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will bypass Request forwarding section for the users to whom this policy will get applied.]]>
+                    </desc>
+                </FORWARD>
+                <KEYWORDS-FILTERING>
+                    <comment>Keyword filtering</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will bypass Keyword filtering section for the users to whom this policy will get applied.]]>
+                    </desc>
+                </KEYWORDS-FILTERING>
+                <DNSBL>
+                    <comment>DNS blacklist</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will bypass DNS blacklist section for the users to whom this policy will get applied.]]>
+                    </desc>
+                </DNSBL>
+                <LIMITS>
+                    <comment>Limits</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will bypass Limits section for the users to whom this policy will get applied.]]>
+                    </desc>
+                </LIMITS>
+                <ANTIVIRUS>
+                    <comment>Antivirus</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will bypass Virus scanning for the users to whom this policy will get applied.]]>
+                    </desc>
+                </ANTIVIRUS>
+                <ICAP>
+                    <comment>ICAP</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will bypass ICAP section for the users to whom this policy will get applied.]]>
+                    </desc>
+                </ICAP>
+                <DLP>
+                    <comment>DLP</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Selecting this option will bypass DLP module for the users to whom this policy will get applied.]]>
+                    </desc>
+                </DLP>
+            </bypass>
+			<interface>
+			</interface>
+			<add_user_groups>
+			</add_user_groups>
+        </select>
+        <global>
+            <policy n="0">
+                <comment>Default Access Policy</comment>
+                <value>access_policy</value>
+                <type>STRING_SELECT_ONE</type>
+                <desc>
+                    <![CDATA[<p>You can set your Default Access Policy to either Allow or Deny.</p>
+					<p>When you set your Default Access Policy as allow, all requests are allowed.</p>
+					<p>Those that match an entry in the Deny Sub-Section are not allowed.</p>
+					<p>Conversely, if you set the Default Access Policy set to deny, all requests are blocked.</p>
+					<p>Those that match an entry in the Allow Sub-Section are not allowed.</p>
+					<p>Recommended:</p>
+					<p>If you set the default policy to Deny, you must create entries in the Allow sub-section.</p>
+					<p>You do this to specify which users should be allowed access.</p>
+					<p>Conversely, if you set the default policy to Allow, you must create entries in the Deny List Sub-Section.</p>
+					<p>This is to specify which users should be denied access.</p>]]>
+                </desc>
+            </policy>
+            <ntlm_authentication n="1">
+                <comment>SSO</comment>
+                <value>ntlm</value>
+                <type>STRING_SELECT_ONE</type>
+                <desc>
+                    <![CDATA[ Enable or Disable SSO Authentication.]]>
+                </desc>
+            </ntlm_authentication>
+        </global>
+        <template>
+            <entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Enable or Disable this Entry.]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[<p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+						<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>]]>
+                    </desc>
+                </comment>
+                <profile_tracing n="2">
+                    <comment>Trace Entry</comment>
+                    <value>profile_tracing</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[ <p>Enable or Disable Tracing of this entry</p>
+						<p>Select “Yes” to debug the application of entry using SafeSquid logs.</p>
+						<p>Enable entry tracing, is useful if you wish to validate, its application.</p>
+						]]>
+                    </desc>
+                </profile_tracing>
+                <ldap_profiles n="3">
+                    <comment>LDAP Profiles</comment>
+                    <value>ldap_entries</value>
+                    <type>STRING_LIST</type>
+		            <neg>0</neg>
+                    <button>ldap</button>
+                    <desc>
+                        <![CDATA[<p>When you want to apply this rule, specify the LDAP users/groups/OUs.</p>
+						<p>When your LDAP Server is integrated with Safesquid only, this can be done.</p>
+						<p>To integrate your LDAP Server with Safesquid, use Integrate LDAP section.</p>
+						<p></p>]]>
+                    </desc>
+                </ldap_profiles>
+                <profiles n="4">
+                    <comment>Profiles</comment>
+                    <value>add_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[ <p>Prepare the list of all Profiles for which this entry should be applicable.</p>
+						<p>Leave it Blank, if you do not want to carry out this applicability test.</p>
+						<p>Leave it Blank, to apply for all connections regardless of their Profiles.</p>
+						<p>To avoid application of this entry to a connection that has a profile, use negation (! profile)</p>
+						]]>
+                    </desc>
+                </profiles>
+                <interface n="5">
+                    <comment>Interface</comment>
+                    <value>interface</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc>
+                        <![CDATA[ <p>When SafeSquid is listening on multiple interfaces, specify here the interface (IP: PORT) that you want this entry to apply to. </p>
+									<p>Leaving it blank implies to all interfaces (leave it blank if SafeSquid is listening on only one interface). </p>
+									<p>This can be used to: Allow access to the Web interface (http://safesquid.cfg), only on a specific interface (IP: PORT), to enhance security. </p>
+									<p>Allow authenticated access on one interface and unauthenticated access to specific websites on another.</p>
+									<p>Make proxy.pac file at http://safesquid.cfg/template/proxy.pac available for auto proxy script</p> 
+									<p>Make it auto proxy detection on another interface, when only authenticated access is allowed on the primary interface.</p>
+									]]>
+                    </desc>
+                </interface>
+                <ip n="6">
+                    <comment>IP Address</comment>
+                    <value/>
+                    <type>IP_RANGE_LIST</type>
+                    <desc>
+                        <![CDATA[ <p>When you want this rule to match, specify the IP Address (es).</p>
+						<p> If you wish the rule to match a specific IP address, simply specify that IP address.</p>
+						<p>Alternatively, if you want the rule to be matched for more than one IP address, you can specify a comma separated list of IP addresses.</p>
+						<p>You can also specify range of IPs.</p>
+						<p>For E.g.: 192.168.0.10-192.168.0.44, this ensures that all clients with IP address from 192.168.0.10 to 192.168.0.44 will be matched.</p>
+						<p>If you leave it blank, this rule will apply to all the clients irrespective of their IP Address (es).</p>
+						<p>If you use in a combination of User name field, matched users are allowed access only from IPs defined in this field.</p>
+						]]>
+                    </desc>
+                </ip>
+                <pamauth n="7">
+                    <comment>PAM authentication</comment>
+                    <value>pamauth</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ <p>Enables authentication for users</p>
+						<p>You are prompted for a username/password by the browser.</p>
+						<p>Then you have to enter a proper username/password.</p>
+						]]>
+                    </desc>
+                </pamauth>
+                <username n="8">
+                    <comment>User name</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ <p>If you would want the user(s) to be authenticated, only, fill this field.</p>
+						<p>It depends on the following conditions:</p>
+						<p>(a) With No Authentication selected, fill in the user name with which you would like the user to authenticate.</p>
+						<p>You also have to fill in the Password field for this user.</p>
+						<p>The user is allowed to access, with the specified User name and Password.</p>
+						<p>(b) With Pam Authentication selected, fill in existing user name(s) on the server configured for PAM, and leave the Password field blank.</p>
+						<p>Only users specified in this field are allowed authenticated access.</p>
+						<p>You can specify multiple user names, separated with pipe, e.g. ^(john|abraham|mary|laurent)$.</p>
+						<p>If you leave this field blank, authenticated access is allowed to all the users on the authenticating server.</p>
+					]]>
+                    </desc>
+                </username>
+                <password n="9">
+                    <comment>Password</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ <p>You have to fill in the User name field.</p>
+						<p>This is the password for the user defined in the User name field. </p>
+						<p>You are allowed access, if you meet the authentication challenge, by responding with the entry in User name field, and this password.</p>]]>
+                    </desc>
+                </password>
+                <access n="10">
+                    <comment>Access</comment>
+                    <value>access</value>
+                    <type>STRING_SELECT_MANY</type>
+                    <desc>
+                        <![CDATA[ Specify the features that connections matching this entry are allowed to access.
+						]]>
+                    </desc>
+                </access>
+                <bypass n="11">
+                    <comment>Bypass</comment>
+                    <value>bypass</value>
+                    <type>STRING_SELECT_MANY</type>
+                    <desc>
+                        <![CDATA[ <p>Specify the features which you can bypass for connections matching this entry.</p>
+						<p>To match this entry, specify the features which you can bypass for connections.</p>
+						]]>
+                    </desc>
+                </bypass>
+                <ifusername n="12">
+                    <comment>Interface username</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ <p>You can use this field, along with Interface password, to allow authenticated access to the Web Interface (http://safesquid.cfg).</p>
+						<p>When you don’t define users, this single entry allows access to everyone, globally.</p>
+						<p>A user is allowed access to the web interface of SafeSquid, only if he/she meets the authentication challenge, by responding with this User name field, and corresponding Password.</p>
+						<p>Recommended: </p>
+						<p>Create a second layer of security, for accessing the Web Interface by creating multiple proxy admin accounts each possessing individual username and password for accessing the Web Interface.</p>
+						]]>
+                    </desc>
+                </ifusername>
+                <ifpassword n="13">
+                    <comment>Interface password</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ <p>You must fill this field, only if you have filled in the Interface username field above.</p>
+						<p>This is the password for the user defined in the Interface username field. </p>
+						<p>A user is allowed access to the web interface of SafeSquid, if he/she meets the authentication challenge, by responding with this User name, and corresponding Password.</p>
+						]]>
+                    </desc>
+                </ifpassword>
+                <add_user_groups n="14">
+                    <comment>Add to User-Groups</comment>
+                    <value>add_user_groups</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc>
+                        <![CDATA[ <p>Group the users based on the similarities of their profiling that are going to be in the other sections.</p>
+						<p>If you wish the users defined in this entry can be grouped with any existing groups, simply add those user groups here.</p>
+						<p>If you wish to create a new user group for these users, give a new name to the new user group.</p>
+						<p>When defining a new User Group, use terms that uniquely describe the user groups.</p>
+						]]>
+                    </desc>
+                </add_user_groups>
+                <max_concurrency n="15">
+                    <comment>MAX Concurrent Connections</comment>
+                    <value>0</value>
+                    <type>INT</type>
+                    <desc>
+                        <![CDATA[ <p>Set the maximum number of concurrent connections permissible per IP.<BR/>
+						Default is 0 (unlimited).<BR/>
+						]]>
+                    </desc>
+                </max_concurrency>
+				
+            </entry>
+        </template>
+        <subsection>
+            <allow>
+				<enabled>true</enabled>
+                <comment>Allow list</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[<p>When the Policy is Deny, requests matching an entry listed in this Allow Sub-Section are exclusively allowed access, denying all the other requests.</p>
+					<p>The entries are matched in the top-down order, so the entry in the top of a sub-section is matched first.</p>
+					<p>Then, the first entry that matches is used for the connection, and the remaining entries are ignored.</p>
+					<p>So, the order of the entries listed is very important.</p>
+						]]>
+                </desc>
+                <wizard_action>true</wizard_action>
+            </allow>
+            <deny>
+				<enabled>true</enabled>
+                <comment>Deny list</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[
+						<p>When the Default Access Policy is set to Allow, only requests matching an entry listed in this Deny Sub-Section are exclusively denied access, allowing all the other requests.</p>
+						<p>The entries are matched in the top-down order, so that the entry in the top of a sub-section is matched first, and the first entry that matches is used for the connection, while the remaining entries are ignored.</p>
+						<p>So the order of the entries listed is very important.</p>
+					]]>
+                </desc>
+                <wizard_action>false</wizard_action>
+            </deny>
+            <!--password_cache>
+				<enabled>true</enabled>
+				<comment>Manage password-cache</comment>
+				<template>password_cache_template</template>
+				<parentgroup>inherit</parentgroup>
+				<logo>fa-barcode</logo>
+				<wizard>false</wizard>
+				<desc>
+					<![CDATA[<p>Clear entries from the password cache.</p><p>SafeSquid's password caching mechanism caches authenticated usernames/passwords, reducing the stress on network resources for further authentications.</p><p>SafeSquid caches both valid and invalid credentials as positive and negative password caches respectively. Positive password cache stores usernames and passwords for successful authentications and Negative password cache stores usernames and passwords for unsuccessful authentications.</p><p>There are certain abnormal situations wherein valid credentials are stored in password_cache. You can clear those using this application.</p>]]>
+				</desc>
+				<type>app</type>
+			</password_cache>	
+			<manage_usergroups>
+				<enabled>true</enabled>
+				<comment>Manage User Groups</comment>
+				<template>password_cache_template</template>
+				<parentgroup>inherit</parentgroup>
+				<logo>fa-barcode</logo>
+				<wizard>false</wizard>
+				<desc>
+					<![CDATA[<p>Clear entries from the password cache.</p><p>SafeSquid's password caching mechanism caches authenticated usernames/passwords, reducing the stress on network resources for further authentications.</p><p>SafeSquid caches both valid and invalid credentials as positive and negative password caches respectively. Positive password cache stores usernames and passwords for successful authentications and Negative password cache stores usernames and passwords for unsuccessful authentications.</p><p>There are certain abnormal situations wherein valid credentials are stored in password_cache. You can clear those using this application.</p>]]>
+				</desc>
+				<type>app</type>
+			</manage_usergroups-->
+        </subsection>
+ </access>
+</section>

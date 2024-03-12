@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>	
+   <ldap>
+        <enabled>true</enabled>
+        <comment>Integrate LDAP</comment>
+        <parentgroup>infrastructure</parentgroup>
+        <logo>fa-bars</logo>
+        <wizard>true</wizard>
+        <type>section</type>
+		<flags>1</flags>
+        <desc>
+            <![CDATA[ 
+				<p>Integrate with Microsoft Active Directory or OpenLDAP.<br></p>
+				<p>SafeSquid can also use the Directory Server for authenticating the users.<br></p>
+				<p>This will be useful specially when a user cannot be authenticated via Kerberos/SSO. </p>
+			]]>
+        </desc>
+        <select>
+			<ldap_enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable ldap section.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable ldap section.]]>
+					</desc>
+				</TRUE>
+			</ldap_enabled>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+            <ssl>
+                <FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Select this for simple LDAP communications.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Select this for SSL based LDAP communications.]]>
+					</desc>
+				</TRUE>
+            </ssl>
+            <method>
+                <SIMPLE_LDAP_AUTH>
+                    <comment>Simple</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Select this, if your Directory Server supports Simple LDAP Authentication.]]>
+                    </desc>
+                </SIMPLE_LDAP_AUTH>
+                <NTLM_LDAP_AUTH>
+                    <comment>NTLM</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this, if your Directory Server supports NTLM based LDAP Authentication.]]>
+                    </desc>
+                </NTLM_LDAP_AUTH>
+                <NEGOTIATE_LDAP_AUTH>
+                    <comment>Negotiate</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this, if your Directory Server supports Negotiate based LDAP Authentication.]]>
+                    </desc>
+                </NEGOTIATE_LDAP_AUTH>
+            </method>
+			<ldap_attributes group="Standard Login Attributes">
+				<UserPrincipalName>
+					<comment>UserPrincipalName</comment>
+					<value>true</value>
+					<desc> <![CDATA[
+					The User Principal Name (UPN) is an Internet-style login name for the user based on the Internet standard RFC 822.<BR/>
+					The user logon name format is: UserName@DomainName.com.
+					]]>
+					</desc>
+				</UserPrincipalName>		
+				<sAMAccountname>
+					<comment>sAMAccountname</comment>
+					<value>true</value>
+					<desc> <![CDATA[
+						The samAccountName attribute is the user logon name used to support clients and servers from a previous version of Windows ( Pre-Windows 2000).<BR/>
+						The user logon name format is: DomainName\UserName.
+					]]>
+					</desc>
+				</sAMAccountname>		
+				<uid>
+					<comment>uid</comment>
+					<value>true</value>
+					<desc><![CDATA[
+						The UID attribute associated with users in a Directory Service.<BR/>
+						It may be a simple string (such as username), or look like an email address (such as username@department.domain.com), that reflects part of the organizational hierarchy.
+					]]>
+					</desc>
+				</uid>
+			</ldap_attributes>
+			<ldap_group_attributes group="Standard Group Identifiers">
+				<member>
+					<comment>member</comment>
+					<value>true</value>
+					<desc>Member</desc>
+				</member>		
+				<memberof>
+					<comment>memberof</comment>
+					<value>true</value>
+					<desc>MemberOf</desc>
+				</memberof>		
+				<memberuid>
+					<comment>memberuid</comment>
+					<value>true</value>
+					<desc>MemberUID</desc>
+				</memberuid>
+			</ldap_group_attributes>
+			<ldaploginattr>
+			</ldaploginattr>
+			<ldapgroupid>
+			</ldapgroupid>
+        </select>
+        <global>
+            <enabled n="0">
+                <comment>Enabled</comment>
+                <value>ldap_enabled</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[ Enable or Disable LDAP section.]]>
+                </desc>
+            </enabled>
+        </global>
+        <template>
+            <ldap_entries>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Enable or Disable this Entry.]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ <p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>]]>
+                    </desc>
+                </comment>
+                <ldaphost n="2">
+                    <comment>Host Name</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ <p>In a network with multiple LDAP Servers, and multiple SafeSquid Proxy Servers deployed in Master-Slave mode, this field can be used to specify the Host Name of the Proxy Server, which will communicate with the LDAP Server configured.</p><br>
+						Leave this field blank if this is the only SafeSquid proxy, or if you want all the proxies to communicate with the LDAP server configure.]]>
+                    </desc>
+                </ldaphost>
+                <ldapip n="3">
+                    <comment>Ldap FQDN\IP</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ <p>Enter FQDN of LDAP Server.<br></p>
+							<p>Use IP address of LDAP Server if user can't go for negotiate authentication.</p>
+							<p>For Kerberos SSO(single sign on) setup specify value like FQDN\IP (Ex:'ubuntu.safesquid.test\192.168.XX.XX') and select 'Negotiate' bind type.</p>
+						]]>
+                    </desc>
+                </ldapip>
+                <ldapport n="4">
+                    <comment>Ldap Port</comment>
+                    <value>389</value>
+                    <type>INT</type>
+                    <desc>
+                        <![CDATA[ Specify the Port for LDAP service. Usually this would be 389.]]>
+                    </desc>
+                </ldapport>
+                <ldapssl n="5">
+                    <comment>Use SSL</comment>
+                    <value>ssl</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[ <p>Communicate with LDAP service using TLS protocol by coping LDAP service CA certificate into security directory and rename CA certificate to LDAP_CA_FILE.cer file.</p><br>
+							<p>Note: If you do not wish to verify server certificate then do not mention CA certificate.
+						SafeSquid will perform SSL with out requesting server certificate.</p><br>]]>
+                    </desc>
+                </ldapssl>
+                <ldapmethod n="6">
+                    <comment>Ldap Bind Method</comment>
+                    <value>method</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[<p>Choose the method for binding (authenticating) with your Directory Server accoring to appropriate binding mechanisms.</p><br>]]>
+                    </desc>
+                </ldapmethod>
+                <ldaplimit n="7">
+                    <comment>Query Record Limit</comment>
+                    <value>1024</value>
+                    <type>INT</type>
+                    <desc>
+                        <![CDATA[ Specify the maximum number of records that should be fetched in a single LDAP query.]]>
+                    </desc>
+                </ldaplimit>
+                <ldapuserfilter n="8">
+                    <comment>Ldap User Filter</comment>
+                    <value>&amp;(objectclass=person)</value>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ <p>SafeSquid will apply LDAP user filter to narrow the scope of entries requested, to search the users in the LDAP.</p><br>
+						By default configuartion, LDAP server will return only entries that necessarily match the requirement of objectclass=person and also have atleast one of the attributes of UserPrincipalName or sAMAccountname or uid set.]]>
+                    </desc>
+                </ldapuserfilter>
+                <ldapgroupfilter n="9">
+                    <comment>Ldap Group Filter</comment>
+                    <value>(|(objectclass=posixGroup)(objectclass=groupofNames)(objectclass=group)(objectclass=groupOfUniqueNames)(objectclass=accessGroup))</value>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ 
+							Specify the LDAP Group Filter. This is required if the LDAP server does not support Reverse Group Membership.
+							Note: Microsoft Windows AD server normally supports Reverse Group Membership.
+							Legacy OpenLDAP implementations may not have support for Reverse Group Membership.
+							If the LDAP server supports Reverse Group Membership then leave this field blank.
+							SafeSquid will apply this filter to narrow the scope of entries requested, to search the groups in the LDAP.
+							For example if:
+							LDAP Group Filter: (|(objectclass=posixGroup)(objectclass=groupofNames)) and,
+							Group Identifier: member,members,memberof
+							SafeSquid will construct filter:
+							(|(objectclass=posixGroup)(objectclass=groupofNames)) and set member, members, memberof as the attributes that may be returned in the ldap search queries.
+						Thus LDAP server will return only entries that necessarily match the requirement of objectclass=posixGroup or  objectclass=groupofNames. The DN of the resulting entries will be considered as Groups and values assigned to attributes of member or members or memberof as the users belonging to the respective Groups.]]>
+                    </desc>
+                </ldapgroupfilter>
+                <ldapusername n="10">
+                    <comment>Ldap Username</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ Enter the any one Username to bind LDAP Server. Most OpenLDAP servers allow binding anonymosly. In such cases you may leave this blank. For Microsoft AD Servers specify a UserPrincipalName (username@domain.com) or sAMAccountname (Username)]]>
+                    </desc>
+                </ldapusername>
+                <ldappassword n="11">
+                    <comment>Ldap Password</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <button>password</button>
+                    <desc>
+                        <![CDATA[ Enter the Encrypted Password for the above username to bind to Microsoft AD or LDAP Server. 
+							When you click on 'Utilities', you will be presented with a dropdown menu on the left side of the UI. Select 'Encrypt Password' section.
+						For example - Test1 is an user  present in Microsoft AD Servers.Enter same password for user Test1, encrypt the password, and copy the encrypted password.]]>
+                    </desc>
+                </ldappassword>
+                <ldapbasedn n="12">
+                    <comment>Ldap Basedn</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ Enter the Basedn of the LDAP Server in Ldap format. For example, for a domain test1.testdomain1.com, enter dc=testdomain1,dc=com]]>
+                    </desc>
+                </ldapbasedn>
+                <ldapdomain n="13">
+                    <comment>Ldap Domain</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ Specify the LDAP Domain name, for the users that must be authenticated as users of this LDAP server.
+							If you have multiple LDAP servers, SafeSquid will select the appropriate LDAP server to identify and validate a user, by using this as the identifier.
+							For example if you set:
+							LDAP Domain: somedomain.com then all users who present their credentials as  username@somedomain.com will be identified and validated from this LDAP server.
+							Note: setting this is extremely important particularly if you are using multiple LDAP servers.
+						]]>
+                    </desc>
+                </ldapdomain>
+				<ldaploginattr n="14">
+                    <comment>Login Attributes</comment>
+                    <value>ldap_attributes,ldaploginattr</value>
+                    <type>STRING_LIST</type>
+                    <desc>
+                        <![CDATA[ 
+							Specify the attributes of a user's entry in LDAP server, that can be permitted for being used for validating user's credentials.
+							Any or all attributes that will be unique for each user in the LDAP server, can be specified here.<br>
+							SafeSquid extracts the user's DN using these attributes, and uses the DN, and the user's supplied password to bind with the LDAP server.<br>
+							For example if you could set:<br>
+							Login Attributes: sAMAccountname,uid,UserPrinicipalName,mail
+							and thus allow your users to use their  sAMAccountname or uid or UserPrinicipalName or emailid for the purpose of authentication and profiling.
+							Specifying Attributes that may not be supported by the LDAP server is permissible, though not effective.
+							Note: the list of Login Attributes is comma separated, and unnecessary spaces must be removed.
+						]]>
+                    </desc>
+                </ldaploginattr>
+                <ldapgroupid n="15">
+                    <comment>Group Identifier</comment>
+                    <value>ldap_group_attributes,ldapgroupid</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc>
+                        <![CDATA[ Specify the LDAP Attributes that may be used to as Group Identifiers identify a user's group membership.
+							For example:
+							Group Identifiers: member,memberof,members,memberuid,memberid,uniquemember
+							If Reverse Group Membership has been implemented on the LDAP server the values assigned to these attributes for a user, will be considered as their group memberships.
+							In such cases the entries resulting in the LDAP query for user search, on the basis of Login Attributes all values assigned to the specified Group Identifiers will be considered as groups to which the user subscribes to.<br>
+							Typically in case of Microsoft AD, you could have left the text box for Group Filter empty, and values assigned to memberof attributes would have been considered as the user's groups.
+							Legacy implementations of OpenLDAP does not support Reverse Group Membership by default. In such case you would have
+							specified an appropriate value in the Group Filter text box. SafeSquid would then be ale to extract all the entries in LDAP that qualify as Groups. Then the values assigned to the attributes listed in the Group Filter for each of the entries would be considered as users belonging to these Groups.
+							Note: Specifying Attributes that may not be supported by the LDAP server is harmless, though not effective.&&nbsp;
+							The list of Group Identifier is comma separated, and unnecessary spaces must be removed.
+						]]>
+                    </desc>
+                </ldapgroupid>
+            </ldap_entries>
+            <show_ldap_template>
+                <appcontent>
+                    <![CDATA[ 		
+						<div class="col-lg-12 col-md-12 col-xs-12" id="show_ldap_entries"></div>
+					]]>
+                </appcontent>
+            </show_ldap_template>
+        </template>
+        <subsection>
+            <ldapsection>
+				<enabled>true</enabled>
+                <comment>LDAP servers</comment>
+                <template>ldap_entries</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[<p>Define your LDAP server entries here.</p><p>Users from all the enabled entries will be fetched by SafeSquid and can be viewed in 'View LDAP cache'.</p>]]>
+                </desc>
+                <wizard_action>true</wizard_action>
+            </ldapsection>
+            <show_ldap>
+                <enabled>true</enabled>
+                <comment>LDAP Entries</comment>
+                <function>onclick="load_scripts('ldap_entries');view_ldap('show_ldap_entries');SHOW_DESC_DETAILS('desc_ldap_show_ldap')"</function>
+                <template>show_ldap_template</template>
+                <parentgroup>inherit</parentgroup>
+                <logo>fa-th-list</logo>
+                <desc>
+                    <![CDATA[<p>View list of LDAP entries that are fetched by SafeSquid from the LDAP service(s) configured.</p>]]>
+                </desc>
+                <wizard>false</wizard>
+                <type>app</type>
+            </show_ldap>
+        </subsection>
+    </ldap>
+</section>

@@ -1,0 +1,48 @@
+set daemon 10
+
+set httpd port 2812 and
+     use address localhost  # only accept connection from localhost
+     allow localhost        # allow localhost to connect to the server and
+#     allow admin:monit      # require user 'admin' with password 'monit'
+#     #with ssl {            # enable SSL/TLS and set path to server certificate
+#     #    pemfile: /etc/ssl/certs/monit.pem
+#     #}
+
+
+# Check if the safesquid process is running by monitoring the PID recorded in /var/run/safesquid/safesquid.pid
+check process safesquid_proxy_service with pidfile /var/run/safesquid/safesquid.pid
+	group root
+	start program = "/etc/init.d/safesquid start"
+	stop program = "/etc/init.d/safesquid stop"
+mode active
+
+# If safesquid process is active it must be updating the safesquid.pid file at
+# /var/run/safesquid/safesquid.pid every seconds.
+# If the file is more than 3 seconds old we definitely have a problem
+check file safesquid.pid with path /var/run/safesquid/safesquid.pid
+	start program = "/etc/init.d/safesquid start"
+	stop program = "/etc/init.d/safesquid stop"
+
+	if timestamp > 3 SECOND then alert
+	if timestamp > 4 SECOND then restart
+	depends on safesquid_proxy_service
+mode active
+
+check file upgrade with path /tmp/safesquid/upgrade
+group root
+	stop program = "/bin/bash /tmp/safesquid/upgrade" with timeout 60 seconds
+	# very important remove the upgrade script
+	start program = "/bin/cp --copy-contents -f /dev/null /tmp/safesquid/upgrade"
+	if not exist then start
+	if changed checksum then restart
+mode active
+
+
+check file expired_certificates with path /var/run/safesquid/cert.check
+group root
+	start program = "/bin/bash /usr/local/bin/remove_expired.sh" with timeout 60 seconds
+	stop program = "/bin/bash /usr/local/bin/remove_expired.sh" with timeout 60 seconds
+	if timestamp > 1 HOUR then start
+	if not exist then start
+mode active
+

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+    <keywords-filtering>
+        <enabled>true</enabled>
+        <comment>Text analyzer</comment>
+        <parentgroup>antivirus</parentgroup>
+        <logo>fa-file-word-o</logo>
+        <wizard>true</wizard>
+        <type>section</type>
+        <flags>1</flags>
+        <desc>
+            <![CDATA[
+		<p>Text Analyzer allows you to detect and block the access to websites that may contain inappropriate or pornographic content based on keyword scoring system.</p>
+		<p>Text analyzer is particularly useful in detecting unclassified websites that could serve inappropriate content.</p>
+		<p>This feature can be effectively used to block websites belonging to specific category, without having to depend on any database.</p>
+		<p>When a keyword from the list of words specified in an entry is found, the page is given the score specified in that entry. The total score of the page is equal to the sum of the score of all the rules that matches.</p>
+		<p>When the total score is equal to or greater than the threshold, then the page is blocked.</p>
+			]]>
+        </desc>
+        <select>
+			<text_enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable text analyzer section.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable text analyzer section.]]>
+					</desc>
+				</TRUE>
+			</text_enabled>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+        </select>
+        <global>
+            <enabled n="0">
+                <comment>Enabled</comment>
+                <value>text_enabled</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[ Enable or Disable text analyzer section.]]>
+                </desc>
+            </enabled>
+            <threshold n="1">
+                <comment>Threshold</comment>
+                <value>100</value>
+                <type>INT</type>
+                <desc>
+                    <![CDATA[ The number the total score must equal or exceed until it's blocked.]]>
+                </desc>
+            </threshold>
+            <templ n="2">
+                <comment>Template</comment>
+                <value>blocked_bypass</value>
+                <type>STRING</type>
+                <desc>
+                    <![CDATA[<p> Templates are used throughout Safesquid as a replacement for pages which can't be displayed due to filtering, error, or other conditions.</p>
+					<p>Specify the template name that should be displayed on a user's screen when this entry matches. The name should be selected from the template section. In template section you can find template’s name.</p>
+					<p> Leave this rule blank, to use default template.</p>]]>
+                </desc>
+            </templ>
+        </global>
+        <template>
+            <entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Enable or Disable this entry.]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[<p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>]]>
+                    </desc>
+                </comment>
+                <profiles n="2">
+                    <comment>Profiles</comment>
+                    <value>add_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[<p> Specify the Profiles applicable for this entry.</p> 
+						<p>This entry will be applicable only if the connection has any one of the specified profiles.</p>
+						<p>Leave it Blank, to apply for all connections irrespective of any applied profile.</p>
+						<p>To avoid application to a connection that has a profile, use negated profile (! profile).</p>]]>
+                    </desc>
+                </profiles>
+                <mime n="3">
+                    <comment>Mime type</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[<p>It's a way of identifying files on the Internet according to their nature and format.</p>
+						<p>It is highly advisable that you set this to some mime-type; otherwise all files will be checked.</p>
+						<p>A regular expression matching the mime-types this entry policy applies to.</p>
+						<p>Example: text/html, ^image/, ^application/, application/x-shockwave-flash.</p>]]>
+                    </desc>
+                </mime>
+                <keyword n="4">
+                    <comment>Keyword(s)</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[<p> A regular expression matching anything in the body of the document considered inappropriate, leave blank to match everything.</p>
+						<p>We can add more than one keyword in a single policy.</p>
+						<p>Example: (sex|sexy|porn|pornography).</p>]]>
+                    </desc>
+                </keyword>
+                <score n="5">
+                    <comment>Score</comment>
+                    <value>0</value>
+                    <type>INT</type>
+                    <desc>
+                        <![CDATA[<p> This entry adds to the total score when it matches, this may be a positive or negative integer.</p>
+						<p>If you mention keyword as adult, then every time this word is found in the document, the score mentioned will be added.</p>
+						<p>Example: If you mentioned score as 20, then if the word adult is found once in the requested document, 20 will be added, for two times it will be 40, three times it will be 60.</p>]]>
+                    </desc>
+                </score>
+            </entry>
+        </template>
+        <subsection>
+            <keyword>
+				<enabled>true</enabled>
+                <comment>Filtering policies</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[<p>Here you can add the new policies to block the websites based on content type.</p>
+					<p>You can give the score to each policy and the keywords to block the inappropriate content.</p>]]>
+                </desc>
+                <wizard_action>true</wizard_action>
+            </keyword>
+        </subsection>
+    </keywords-filtering>
+</section>

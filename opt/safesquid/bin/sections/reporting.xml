@@ -1,0 +1,1014 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<section>
+    <reporting>
+        <enabled>true</enabled>
+        <comment>Reports</comment>
+        <parentgroup>quick-icon</parentgroup>
+        <logo>fa-area-chart</logo>
+        <desc><![CDATA[]]></desc>
+        <wizard>false</wizard>
+        <type>app</type>
+        <flags>1</flags>
+        <select/>
+        <global/>
+        <render>0</render>
+        <template>
+            <account><![CDATA[					
+			]]></account>
+            <stat_template><![CDATA[
+				<div class="row stats_div">
+				<div id="stat_left_" class="col-25P"></div>
+				<div id="stat_center_" class="col-55P">
+				<div id="stat_middle_" class="stat_info"></div>
+				<div class="stat_row">
+				<div id="stat_middle_l_" class="col-50P"></div>
+				<div id="stat_middle_r_" class="col-50P"></div>
+				</div>
+				</div>
+				<div id="stat_right_" class="col-20P"></div>
+			</div>]]>
+            </stat_template>
+            <report_template><![CDATA[<div id="modal_report" class="modal fade">
+				<div id="report_content" class="modal-dialog">
+				<div class="modal-content">
+				<div class="modal-header">
+				<button onclick="flush()" type="button" class="float_right btn-primary">Flush</button>
+				<button onclick="filter()" type="button" class="float_right btn-primary">Filter</button>
+				<button type="button" class="float_right btn-primary" data-dismiss="modal">Close</button>
+				<div class="float_right clear_both">
+				<label class="radio-inline">
+				<input type="radio" name="report_opt" value="date">Date Range					</label>
+				<label class="radio-inline">
+				<input type="radio" name="report_opt" value="line" checked>Transactions					</label>
+				</div>
+				<h5 class="modal-title">Filter</h5>
+				<div class="option_report float_left">
+				<div id="report-date">
+				<div class='input-group date' id='_datetimepicker2'>
+				<input class="input_calender" id="_date_select_start" name="from_date" placeholder="Select Start date" type='text' />
+				<span class="input-group-addon">
+				<span class="glyphicon glyphicon-calendar"></span>
+				</span>
+				</div>
+				<div class='input-group date'  id='_datetimepicker1'>
+				<input class="input_calender" id="_date_select_end" name="to_date" data-date-end-date="0d"  placeholder="Select End date" type='text' />
+				<span class="input-group-addon">
+				<span class="glyphicon glyphicon-calendar"></span>
+				</span>
+				</div>
+				</div>
+				<div id="report-line">
+				<input type="text" id="report_lines_data" name="report_lines" value="">
+				</div>
+				</div>
+				</div>
+				<div class="modal-body">
+				<div class="menu_report">
+				<div id="reporting_query" class="fullHeight entry">
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">UserName</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_username[]" id="report_option_username" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">User Group</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_usergroup[]" id="report_option_usergroup" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">IP Address</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_ipaddress[]" id="report_option_ipaddress" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">URL</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_url[]" id="report_option_url" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">Domain</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_domain[]" id="report_option_domain" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">Profile</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_profile[]" id="report_option_profile" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">Application</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_application[]" id="report_option_application" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">Categories</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_category[]" id="report_option_category" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">Upload Content</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_upload[]" id="report_option_upload" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">Download Content</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_download[]" id="report_option_download" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">Time Profile</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_time[]" id="report_option_time" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">Request Profile</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_request[]" id="report_option_request" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">Response Profile</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_response[]" id="report_option_response" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">Security Breach</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_filter[]" id="report_option_filter" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">Blocked website</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_Blocked[]" id="report_option_Blocked" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">Connection Failed</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_Connection[]" id="report_option_Connection" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">DNS failed</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_DNS[]" id="report_option_DNS" class="form-control input_detail">
+				</div>
+				</div>
+				<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+				<div class="label_input col-lg-3 col-md-3 col-xs-3">Bypass Websites</div>
+				<div class="col-lg-12 col-md-12 col-xs-12 flex">
+				<input name="report_option_Bypass[]" id="report_option_Bypass" class="form-control input_detail">
+				</div>
+				</div>
+				</div>
+				</div>
+				<table class="table table-borderless" id="section_option">
+				</table>
+				<table class="table table-borderless" id="source_option">
+				</table>
+				</div>
+				</div>
+				<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+				</div>
+				<!-- /.modal -->
+				<div  id="reporting_cdata">
+				<!--		<div class="report_unit" id="_range" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-file-archive-o"></span>
+				<div class="report_title">Size Distribution</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('_range')" class="button fa fa-search-plus" >
+				</div>
+				<div onclick="setting('_range','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_range','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_range')" class="button fa fa-times">
+				</div>
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_range_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_range_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				-->
+				<div class="report_unit" id="_ipaddress" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-laptop"></span>
+				<div class="report_title">IP Address</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('ip')" class="button fa fa-search-plus" >
+				</div>
+				<!--div onclick="setting('_ipaddress','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_ipaddress','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_ipaddress')" class="button fa fa-times">
+				</div-->
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_ipaddress_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_ipaddress_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="report_unit" id="_user" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-user">
+				</span>
+				<div class="report_title">Users</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('users')" class="button fa fa-search-plus" >
+				</div>
+				<!--div onclick="setting('_user','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_user','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_user')" class="button fa fa-times">
+				</div-->
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_user_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_user_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="report_unit" id="_usergroup" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-users"></span>
+				<div class="report_title">User Groups</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('user_group')" class="button fa fa-search-plus" >
+				</div>
+				<!--div onclick="setting('_usergroup','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_usergroup','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_usergroup')" class="button fa fa-times">
+				</div-->
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_usergroup_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_usergroup_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="report_unit" id="_website" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-globe"></span>
+				<div class="report_title">Websites</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('request_host')" class="button fa fa-search-plus" >
+				</div>
+				<!--div onclick="setting('_website','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_website','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_website')" class="button fa fa-times">
+				</div-->
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_website_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_website_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="report_unit" id="_subdomain" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-server"></span>
+				<div class="report_title">Domains</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('request_tld')" class="button fa fa-search-plus" >
+				</div>
+				<!--div onclick="setting('_subdomain','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_subdomain','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_subdomain')" class="button fa fa-times">
+				</div-->
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_subdomain_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_subdomain_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="report_unit" id="_profiles" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-map-pin"></span>
+				<div class="report_title">Profiles</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('profiles')" class="button fa fa-search-plus" >
+				</div>
+				<div onclick="setting('_profiles','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_profiles','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_profiles')" class="button fa fa-times">
+				</div>
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_profiles_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_profiles_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="report_unit" id="_application" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-cubes"></span>
+				<div class="report_title">Application</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('application')" class="button fa fa-search-plus" >
+				</div>
+				<div onclick="setting('_application','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_application','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_application')" class="button fa fa-times">
+				</div>
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_application_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_application_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="report_unit" id="_category" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-database"></span>
+				<div class="report_title">Categories</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('categories')" class="button fa fa-search-plus" >
+				</div>
+				<div onclick="setting('_category','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_category','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_category')" class="button fa fa-times">
+				</div>
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_category_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_category_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="report_unit" id="_uploadcontent" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-upload"></span>
+				<div class="report_title">Upload Content</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('upload_content')" class="button fa fa-search-plus" >
+				</div>
+				<div onclick="setting('_uploadcontent','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_uploadcontent','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_uploadcontent')" class="button fa fa-times">
+				</div>
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_uploadcontent_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_uploadcontent_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="report_unit" id="_downloadcontent" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-download"></span>
+				<div class="report_title">Download Content</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('download_content')" class="button fa fa-search-plus" >
+				</div>
+				<div onclick="setting('_downloadcontent','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_downloadcontent','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_downloadcontent')" class="button fa fa-times">
+				</div>
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_downloadcontent_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_downloadcontent_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="report_unit" id="_timeprofile" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-clock-o"></span>
+				<div class="report_title">Time Profile</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('time_profile')" class="button fa fa-search-plus" >
+				</div>
+				<div onclick="setting('_timeprofile','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_timeprofile','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_timeprofile')" class="button fa fa-times">
+				</div>
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_timeprofile_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_timeprofile_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="report_unit" id="_blockedwebsite" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-exclamation-triangle"></span>
+				<div class="report_title">Blocked Website</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('blocked_website')" class="button fa fa-search-plus" >
+				</div>
+				<!--div onclick="setting('_blockedwebsite','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_blockedwebsite','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_blockedwebsite')" class="button fa fa-times">
+				</div-->
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_blockedwebsite_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_blockedwebsite_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="report_unit" id="_securitybreaches" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-exclamation"></span>
+				<div class="report_title">Security Breaches</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('security_breaches')" class="button fa fa-search-plus" >
+				</div>
+				<!--div onclick="setting('_securitybreaches','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_securitybreaches','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_securitybreaches')" class="button fa fa-times">
+				</div-->
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_securitybreaches_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_securitybreaches_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="report_unit" id="_connectionfailed" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-tags"></span>
+				<div class="report_title">Connection Failed</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('connection_failed')" class="button fa fa-search-plus" >
+				</div>
+				<!--div onclick="setting('_connectionfailed','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_connectionfailed','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_connectionfailed')" class="button fa fa-times">
+				</div-->
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_connectionfailed_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_connectionfailed_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="report_unit" id="_dnsfailed" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-sitemap"></span>
+				<div class="report_title">DNS Failed</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('dns_failed')" class="button fa fa-search-plus" >
+				</div>
+				<!--div onclick="setting('_dnsfailed','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_dnsfailed','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_dnsfailed')" class="button fa fa-times">
+				</div-->
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_dnsfailed_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_dnsfailed_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="report_unit" id="_bypass" >
+				<div class="report-header hidden">
+				<div class="report-title">
+				<span class="fa fa-shield"></span>
+				<div class="report_title">Bypassed Websites</div>
+				</div>
+				<div class="report-display-controls">
+				<div onclick="search('bypass_website')" class="button fa fa-search-plus" >
+				</div>
+				<!--div onclick="setting('_bypass','graphs')" class="button fa fa-bar-chart">
+				</div>
+				<div onclick="setting('_bypass','tables')" class="button fa fa-table">
+				</div>
+				<div onclick="hide_div_id('_bypass')" class="button fa fa-times">
+				</div-->
+				</div>
+				</div>
+				<div class="report-chart">
+				<div id="_bypass_graphs" class="_reportparams charts hidden">
+				<div class="loader">
+				</div>
+				</div>
+				<div id="_bypass_tables" class="_reportparams tabular">
+				<div class="loader">
+				</div>
+				</div>
+				</div>
+				</div>
+				</div>
+				<script type="text/javascript" src="js/reports.js"  charset="UTF-8">
+				</script>
+				<script type="text/javascript">
+				$(document).ready(function () {
+				$('#report_lines_data').val($.ssquid.params.report.line);
+				$(".option_report > div").hide();
+				$("#report-line").show();
+				$("input[name$='report_opt']").click(function () {
+				var test = $(this).val();
+				$(".option_report > div").hide();
+				$("#report-" + test).show();
+				});
+				});
+				</script>
+			]]>
+            </report_template>
+            <native_logs><![CDATA[
+				<div id="_log_div" class="table_width">
+				<table  id="table_native"  class="table _table_reference table-striped table-bordered">
+				<thead >
+				<tr>
+				<th class="no-sort" style="width: 100%;">
+				<input type="text" id ="native_search" data-id="0" placeholder="Search" class="native_search" />
+				<label><input class="" id="disableAutoPause"   type="checkbox"><span class=""> Disable Auto Pause</span></label>
+				 <div id="native_controller" class="pull-right"><button id ="pause_refresh" class="floatRight pause_refresh btn btn-xs" onclick="pause_refresh()">Pause</button>
+				<button id ="resume_refresh" class="floatRight resume_refresh btn btn-xs hidden" onclick="resume_refresh()">Resume</button></div>
+				</th>
+				</tr>
+				</thead>
+				<tbody>
+				</tbody>
+				</table>
+				</div>
+			]]>
+            </native_logs>
+            <extended_logs><![CDATA[
+				<div id="_extended_log_div" class="table_width">
+				<table  id="table_extended"  class="table _table_reference table-striped table-bordered">
+				<thead id="extended_head">
+				
+				</thead>
+				<tbody>
+				</tbody>
+				</table>
+			</div>]]>
+            </extended_logs>
+            <bypass_logs><![CDATA[
+				<div id="_bypass_log_div" class="table_width">
+				<table  id="table_bypass"  class="table _table_reference table-striped table-bordered">
+				<thead id="bypass_head">
+				
+				</thead>
+				<tbody>
+				</tbody>
+				</table>
+			</div>]]>
+            </bypass_logs>
+            <config_logs><![CDATA[
+				<div class="table_width" id="_config_log_div">
+				<table  id="table_config"  class = "table _table_reference table-striped table-bordered">
+				<thead >
+				<tr>
+				<th class="_sort_me">Time</th>
+				<th>Interface</th>
+				<th >Username</th>
+				<th>Section</th>
+				<th>Action</th>
+				<th>Arguments</th>
+				<th>Config File</th>						
+				</tr>
+				</thead>
+				<tbody> 
+				</tbody>
+				</table>
+			</div>]]>
+            </config_logs>
+            <ssl_info><![CDATA[<div class="col-lg-12 col-md-12 col-xs-12">
+				<div class="btn-group pull-right">
+				<button type="button" class="btn btn-xs btn-primary"  onclick="ssl_download()" >Download <i class="fa  fa-download"></i></button>
+				<button type="button" class="btn btn-xs btn-primary" data-toggle="modal"  data-target="#upload_modal1">Upload <i class="fa  fa-upload"></i></button>
+				<button type="button" class="btn btn-xs btn-primary" onclick ="get_ssl_cache()">Cache Refresh <i class="fa  fa-refresh"></i></button>
+				</div>
+				</div>
+				<!--UPLOAD  Modal -->
+				<div id="upload_modal1" class="modal fade" role="dialog">
+				<div class="modal-dialog js_modal_container">
+				<!-- Modal content-->
+				<div class="modal-content">
+				<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Upload files</h4>
+				</div>
+				<div class="modal-body">
+				<div class="box-body adjust_div" >
+				<form id="file_upload" name="form" method="POST" enctype="multipart/form-data">
+				<div class="form-group col-lg-8 col-sm-8 col-md-8 col-xs-8">
+				<label for="upload">Upload Your file</label>
+				<input id="upload" name="media[]" type="file" multiple>
+				<input type="password" id="ca_password" class="form-control input-sm" placeholder="Enter the CA password"/>
+				</div>
+				</div>
+				<!-- /.box-body -->
+				<div class="box-footer">
+				<input type="submit"   onclick="upload_file('ssl_certificate')" class="btn btn-primary btn-xs" value="upload"/>
+				</div>
+				</form>
+				</div>
+				<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+				</div>
+				</div>
+				</div>
+				<div class="session_cache box-body col-lg-6 col-md-6 col-xs-6">
+				</div>
+				<div class="context_cache box-body col-lg-6 col-md-6 col-xs-6">
+				</div>
+			]]>
+            </ssl_info>
+            <active><![CDATA[
+				<div id="_active_connections" class="table_width">
+				<table  id="table_active_connections"  class="table _table_reference table-striped table-bordered">
+				<thead >
+				<tr>
+				<th style="width:5%;max-width:6ex">Age</th>
+				<th style="width:50%;max-width:50ex">URL</th>
+				<th style="width:5%;max-width:10ex">Method</th>
+				<th style="width:5%;max-width:10ex">Requests</th>
+				<th style="width:10%;max-width:20ex">IP</th>
+				<th style="width:5%;max-width:6ex">Client ID</th>
+				</tr>
+				</thead>
+				<tbody>
+				</tbody>
+				</table>
+				</div>
+			]]>
+            </active>
+            <cpool><![CDATA[
+				<div id="_cpool_div" class="table_width">
+				<table  id="table_pool"  class="table table-striped table-bordered">
+				<thead >
+				<tr>
+				<th style="width: 10%;max-width: 10ex;">Protocol</th>
+				<th style="width: 40%;max-width: 50ex;" >Host</th>
+				<th style="width: 5%;max-width: 5ex;" >Port</th>
+				<th style="width: 30%;max-width: 35ex;" >Username</th>
+				<th style="width: 5%;max-width: 5ex;" >Age</th>						
+				</tr>
+				</thead>
+				<tbody> 
+				</tbody>
+				</table>
+				</div>
+			]]>		
+            </cpool>
+            <dns><![CDATA[
+				<div id="_dns_cache" class="table_width">
+				<table  id="table_dns"  class = "table _table_reference table-striped table-bordered">
+				<thead >
+				<tr>
+				<th style="width:5%;max-width:6ex">Age</th>
+				<th style="width:10%;max-width:20ex">IP</th>
+				<th style="width:50%;max-width:50ex">Hostname</th>
+				</tr>
+				</thead>
+				<tbody>
+				</tbody>
+				</table>
+				</div>
+			]]>
+            </dns>
+            <ldap><![CDATA[
+				<div id="_show_ldap" class="table_width"></div>
+			]]>
+            </ldap>
+            <password_cache_template>
+                <appcontent><![CDATA[
+					<div id="_password_cache_status">
+					</div>
+					<div class="box-body" id="password_cache_div">
+					<input class="form-control" name="password_list" placeholder="select user" id="_password_cache" type="text">
+					<button type="button" class="btn btn-xs btn-remove" onclick="delete_password()">Remove</button>
+					</div>
+				]]>
+                </appcontent>
+			</password_cache_template>
+            <module_status>
+                <appcontent><![CDATA[
+					<div id="_module_status" class="col-lg-6 col-sm-6 col-xs-6">
+					</div>
+					<div id="_sscore_status" class="col-lg-6 col-sm-6 col-xs-6">
+					</div>
+				]]>
+                </appcontent>
+			</module_status>
+		</template>
+        <subsection>
+            <reporting>
+                <comment>Dashboard</comment>
+                <template>report_template</template>
+                <parentgroup>inherit</parentgroup>
+                <function>onclick="form_values('fresh', 'line');"</function>
+                <type>app</type>
+                <logo/>
+                <desc><![CDATA[ View repors.]]></desc>
+                <wizard_action>false</wizard_action>
+			</reporting>
+            <stat>
+                <comment>Statistics</comment>
+                <template>stat_template</template>
+                <parentgroup>inherit</parentgroup>
+                <function>onclick="load_scripts('stats_data');render_stats()"</function>
+                <type>app</type>
+                <logo/>
+                <desc><![CDATA[ View stat.]]></desc>
+                <wizard_action>false</wizard_action>
+			</stat>
+            <account_information>
+                <enabled>false</enabled>
+                <comment>License/Users Info</comment>
+                <function>onclick="load_scripts('account_info')"</function>
+                <template>account</template>
+                <parentgroup>inherit</parentgroup>
+                <type>app</type>
+                <logo/>
+                <desc><![CDATA[ View reports.]]></desc>
+                <wizard_action>false</wizard_action>
+			</account_information>
+            <native>
+                <comment>Native logs</comment>
+                <function>onclick="view_log('native')"</function>
+                <template>native_logs</template>
+                <parentgroup>inherit</parentgroup>
+                <type>app</type>
+                <logo/>
+                <desc><![CDATA[ View reports.]]></desc>
+                <wizard_action>false</wizard_action>
+			</native>
+            <extended>
+                <comment>Detailed logs</comment>
+                <function>onclick="view_log('extended')"</function>
+                <template>extended_logs</template>
+                <parentgroup>inherit</parentgroup>
+                <type>app</type>
+                <logo/>
+                <desc><![CDATA[ View reports.]]></desc>
+                <wizard_action>false</wizard_action>
+			</extended>
+<!--
+            <bypass>
+                <comment>Bypass logs</comment>
+                <function>onclick="view_log('bypass')"</function>
+                <template>bypass_logs</template>
+                <parentgroup>inherit</parentgroup>
+                <type>app</type>
+                <logo/>
+                <desc><![CDATA[ View Bypass Events.]]></desc>
+                <wizard_action>false</wizard_action>
+			</bypass>
+-->
+            <config>
+                <comment>Config logs</comment>
+                <function>onclick="view_log('config')"</function>
+                <template>config_logs</template>
+                <parentgroup>inherit</parentgroup>
+                <type>app</type>
+                <logo/>
+                <desc><![CDATA[ View reports.]]></desc>
+                <wizard_action>false</wizard_action>
+			</config>
+            <active_connections>
+                <comment>Active Connections</comment>
+                <function>onclick="load_scripts('active_connections');network_connection('active');"</function>
+                <template>active</template>
+                <parentgroup>inherit</parentgroup>
+                <type>app</type>
+                <logo/>
+                <desc/>
+                <wizard_action>false</wizard_action>
+			</active_connections>
+            <connection_pool>
+                <comment>Connection Pool</comment>
+                <function>onclick="load_scripts('active_connections');network_connection('cpool')"</function>
+                <template>cpool</template>
+                <parentgroup>inherit</parentgroup>
+                <type>app</type>
+                <logo/>
+                <desc/>
+                <wizard_action>false</wizard_action>
+			</connection_pool>
+            <dns_cache>
+                <comment>DNS Cache</comment>
+                <function>onclick="load_scripts('active_connections'); network_connection('dns');"</function>
+                <template>dns</template>
+                <parentgroup>inherit</parentgroup>
+                <type>app</type>
+                <logo/>
+                <desc/>
+                <wizard_action>false</wizard_action>
+			</dns_cache>
+            <show_ldap>
+                <comment>LDAP Entries</comment>
+                <function>onclick="load_scripts('ldap_entries');view_ldap('_show_ldap');"</function>
+                <template>ldap</template>
+                <parentgroup>inherit</parentgroup>
+                <type>app</type>
+                <logo/>
+                <desc/>
+                <wizard_action>false</wizard_action>
+			</show_ldap>
+            <password_cache>
+                <comment>Password Cache</comment>
+                <function>onclick="load_scripts('password_cache');show_all_password();"</function>
+                <template>password_cache_template</template>
+                <parentgroup>inherit</parentgroup>
+                <type>app</type>
+                <logo/>
+                <desc/>
+                <wizard_action>false</wizard_action>
+			</password_cache>
+            <status>
+                <enabled>false</enabled>
+                <comment>Modules Status</comment>
+                <function>onclick="load_scripts('modules_status');module_status('#_module_status','#_sscore_status');"</function>
+                <template>module_status</template>
+                <parentgroup>inherit</parentgroup>
+                <type>app</type>
+                <logo/>
+                <desc/>
+                <wizard_action>false</wizard_action>
+			</status>
+            <ssl_manage>
+                <enabled>false</enabled>
+                <comment>SSL Certs/Cache</comment>
+                <function>onclick="load_scripts('ssl_cache')"</function>
+                <template>ssl_info</template>
+                <parentgroup>inherit</parentgroup>
+                <type>app</type>
+                <logo/>
+                <desc/>
+                <wizard_action>false</wizard_action>
+			</ssl_manage>
+		</subsection>
+	</reporting>
+</section>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+   <category_editor>
+        <enabled>true</enabled>
+        <comment>Categorize Web-Sites</comment>
+        <parentgroup>profilesdef</parentgroup>
+        <logo>fa-database</logo>
+        <desc>
+            <![CDATA[
+					<p>Use Categorize websites to Manage Web-Site Categorization.</p>
+					<p>Review and modify the categorization of any website.</p>
+					<p>You can also create new categories, and associate websites with those categories.</p>
+					<p>To Modify a web-site's categorization, you must first use the search box to view its existing categorization.</p>
+					<p>It will show you the details of Total Number of Categories, Last updated and last changed.</p>
+				]]>
+        </desc>
+        <wizard>false</wizard>
+        <type>app</type>
+        <flags>1</flags>
+        <select/>
+        <global/>
+        <template>
+            <category_template>
+                <![CDATA[ 
+<link rel="stylesheet" type="text/css" href="css/category_manager.css">
+<div class="row">
+<div id="modify_success" class="col-md-6 modify_success hidden"></div> 
+<div class="col-md-6 refreshDatabase">
+<div class="square_buttons floatRight _round_button btn-refresh fa fa-refresh" data-toggle="tooltip" title="Update from database" onclick="update_cats()"></div>
+<div id="cat_refresh" class="floatRight"></div>
+</div>
+</div>
+<div class="category-box-div">
+	<div class="category-info-box total_cat">
+		<span class="category-icons fa fa-cubes"></span>
+		<div class="category-content">
+			<span class="category-text">Total categories</span>
+			<p class="category-data" id="cat_count"></p>
+		</div>    
+	</div>
+	<div class="category-info-box lchange_cat">
+		<span class="category-icons fa fa-user"></span>
+		<div class="category-content">
+			<span class="category-text">Last changes by</span>
+			<p class="category-data" id="modified_user"></p>
+		</div>    
+	</div>
+	<div class="category-info-box lupdate_cat">
+		<span class="category-icons fa fa-clock-o"></span>
+		<div class="category-content">
+			<span class="category-text">Last update time</span>
+			<p class="category-data" id="modified_time"></p>
+		</div>    
+	</div>
+</div>
+<div class="category_search">	
+	<div class="category_unit search_cat" >
+		<div class="category-header search_cat_header">
+			<div class="category_title">
+				<i class="fa  fa-search"></i> Search for category
+			</div>
+		</div>
+		<div class="category-input">
+			<div>
+				<input onKeyPress="if (event.which == 13) search();" type="text" class="form-control" id="search_cat" placeholder="Enter the website/domain">
+			</div>
+			<div class="category_footer">
+				<button type="submit" class="btn btn-primary btn-xs" onclick="search();">Search</button>
+			</div>
+		</div>
+	</div>
+	<div class="category_unit upload_cat"  >
+		<div class="category-header upload-cat_header">
+			<div class="category_title ">
+				<i class="fa  fa-upload"></i> Upload websites file
+			</div>
+		</div>
+		<div class="category-input">
+			<div id="file_upload" name="form" >		
+				<div id="loading_file" ></div>
+				<input id="upload" class="form-control" name="media[]" type="file" multiple>
+				<input id="websites_show" class="form-control" placeholder="Select categories" name="website_cats[]" type="text" >	
+				<div class="category_footer">
+					<input type="submit"  id="form_submit" onclick="upload_websites_file('websites_file')" class="btn btn-primary btn-xs" value="upload"/>
+				</div>
+			</div> 
+		</div>
+	</div>
+</div>
+<div class="category_search">	
+	<div id="categories_main_div" class="category_unit list_cat hidden" >
+		<div class="category-header list_cat_header">
+			<div class="category_title">
+				<i class="fa  fa-cogs"></i> Categories
+			</div>
+		</div>
+		<div class="category-input">
+			<span id="error_message"></span>
+			<p class="cat_mod_message">You can add,delete,modify categories</p>
+			<div class="box-body" id="modify_div">
+			</div>
+			<div class="category_footer">
+				<button type="submit" class="btn btn-primary btn-xs" onclick="modify()">Modify</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="js/category.js"></script>
+			]]>
+            </category_template>
+        </template>
+        <subsection>
+            <category>
+				<enabled>true</enabled>
+                <comment>CATEGORY EDITOR</comment>
+                <template>category_template</template>
+                <parentgroup>inherit</parentgroup>
+                <type>app</type>
+                <logo/>
+                <desc>
+                    <![CDATA[<p>Here you can edit or modify the previously existed category of any website.</p>
+					<p><b>Search for category</b>: Here you can find the category of any website in which it is categorized.</p>
+					<p>Enter the name of the website in the search box, then it will show the list of categories in which it is categorized.</p>
+					<p><b>Upload websites file</b>: Here you can upload a file, which contains the list of websites and adds the category to those websites.</p>
+					<p>Example: search for yahoo.com.It will display: news, portals, search engines </p>
+					<p>Make one text file with the list of websites and Upload that file and add the category. Then check the website from that file by searching its category, following which, it shows the category added by you.</p>
+					]]>
+                </desc>
+                <wizard_action>false</wizard_action>
+            </category>
+        </subsection>
+    </category_editor>
+</section>

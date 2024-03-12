@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<infrastructure>
+        <enabled>true</enabled>
+        <comment>Application Setup</comment>
+        <parentgroup>configure</parentgroup>
+        <logo>fa-briefcase</logo>
+        <desc>
+            <![CDATA[
+				<p>Setup your Secure Web Gateway.</p>
+			<p>Most of these configuration options are best done during initial application setup.</p>
+			]]>
+		</desc>
+        <type>group</type>
+		<flags>1</flags>
+        <wizard>false</wizard>
+	</infrastructure>
+</section>

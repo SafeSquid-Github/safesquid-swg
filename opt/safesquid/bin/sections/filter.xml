@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<filter>
+        <enabled>true</enabled>
+        <comment>Privacy control</comment>
+        <parentgroup>policymgr</parentgroup>
+        <logo>fa-ban</logo>
+        <desc>
+            <![CDATA[ 
+				<p>Setup controls to ensure safe information exchange between users and remote websites.</p>
+			]]>
+		</desc>
+        <handler/>
+        <type>group</type>
+		<flags>1</flags>
+        <wizard>false</wizard>
+	</filter>
+</section>

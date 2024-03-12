@@ -1,0 +1,13 @@
+#%PAM-1.0
+
+##  This enables authentication of the users from a Windows Domain Server or a Samba Server
+#auth    sufficient      /lib/security/pam_smb_auth.so debug nolocal
+
+
+# This enables authentication of users created in the local system
+auth    sufficient      pam_unix.so shadow
+
+
+## This is a pretty standard directive and needs to be changed only in a very few special cases
+account sufficient      pam_permit.so
+

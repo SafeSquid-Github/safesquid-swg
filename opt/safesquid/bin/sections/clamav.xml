@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+   <clamav>
+        <enabled>true</enabled>
+        <comment>Clam antivirus</comment>
+        <parentgroup>antivirus</parentgroup>
+        <logo>fa-asterisk</logo>
+        <wizard_action>false</wizard_action>
+        <type>section</type>
+        <flags>1</flags>
+        <desc>
+            <![CDATA[ 
+				With this antivirus feature you can detect and block files containing viruses known to the ClamAV daemon scanner.
+			]]>
+        </desc>
+        <global>
+            <enabled n="0">
+                <comment>Enabled</comment>
+                <value>clamav_enable</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[ 
+						<p>Enable or Disable ClamAV.</p>
+					]]>
+                </desc>
+            </enabled>
+            <clamavhost n="1">
+                <comment>ClamAV hostname or socket path</comment>
+                <value>127.0.0.1</value>
+                <type>STRING</type>
+                <desc>
+                    <![CDATA[ <p>Specify the host on which ClamAV daemon is running or path, to its local socket.</p>]]>
+                </desc>
+            </clamavhost>
+            <clamavport n="2">
+                <comment>ClamAV port</comment>
+                <value>3310</value>
+                <type>INT</type>
+                <desc>
+                    <![CDATA[ <p>Specify Port of ClamAV daemon.</p>
+					<p>Leave it blank if you are using local socket. The default port will be 3310.</p>
+					]]>
+                </desc>
+            </clamavport>
+            <dtempl n="3">
+                <comment>Default template</comment>
+                <value/>
+                <type>STRING</type>
+                <desc>
+                    <![CDATA[ <p>You can send name of the Template, when this entry is matched</p>
+					<p>Leave it blank for Default template.</p>
+					]]>
+                </desc>
+            </dtempl>
+        </global>
+        <template>
+            <entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ 
+							<p>Enable or Disable this entry</p>
+						]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ 
+							<p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+							<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>
+						]]>
+                    </desc>
+                </comment>
+                <profiles n="2">
+                    <comment>Profiles</comment>
+                    <value>add_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[ <p>Specify the Profiles applicable for this entry.</p>
+						<p>This entry will be applicable only if the connection has any one of the specified profiles.</p>
+						<p>Leave it Blank, to apply for all connections, irrespective of any applied profile.</p>
+						<p>To avoid application to a connection that has a profile, use negated profile (!profile).</p>
+						]]>
+                    </desc>
+                </profiles>
+                <templ n="3">
+                    <comment>Template</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ <p>Specify the name of the template to be sent, when this entry is matched.</p>]]>
+                    </desc>
+                </templ>
+            </entry>
+        </template>
+        <select>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+			<clamav_enable>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable clamav section.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable clamav section.]]>
+					</desc>
+				</TRUE>
+			</clamav_enable>
+        </select>
+        <subsection>
+            <clamav>
+				<enabled>true</enabled>
+                <comment>clamav</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[ ClamAV entries.]]>
+                </desc>
+                <wizard_action>false</wizard_action>
+            </clamav>
+        </subsection>
+    </clamav>
+</section>

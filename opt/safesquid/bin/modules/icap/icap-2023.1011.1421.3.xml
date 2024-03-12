@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<icap>
+        <enabled>true</enabled>
+        <comment>ICAP</comment>
+        <parentgroup>antivirus</parentgroup>
+        <logo>fa-connectdevelop</logo>
+        <wizard>false</wizard>
+        <type>section</type>
+        <flags>1</flags>
+        <desc>
+            <![CDATA[<p>Use ICAP to perform virus scanning, content modification and blocking inappropriate content.</p>
+			<p>Here, you can integrate the SafeSquid with any ICAP (Internet Content Adaptation Protocol) based network services like:</p>
+			<p>Dr. Web’s ICAP based antivirus.</p>
+			<p>Kaspersky Antivirus for Proxy Server.</p>
+			<p>Symantec Scan Engine.</p>
+			<p>Trend Micro IWSS.</p>
+			<p>You can use in DLP (Data Loss Prevention) configuration.</p>			
+]]>
+        </desc>
+        <select>
+			<icap_enable>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable ICAP interaction.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable ICAP interaction.]]>
+					</desc>
+				</TRUE>
+			</icap_enable>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+            <which>
+                <REQUESTS>
+                    <comment>REQUESTS</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ The ICAP server will be used to modify or satisfy requests.]]>
+                    </desc>
+                </REQUESTS>
+                <RESPONSES>
+                    <comment>RESPONSES</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ The ICAP server will be used to modify responses.]]>
+                    </desc>
+                </RESPONSES>
+            </which>
+            <quarantine_enabled>
+                <DISABLED>
+                    <comment>DISABLED</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Disable Quarantining.]]>
+                    </desc>
+                </DISABLED>
+                <ENABLED>
+                    <comment>ENABLED</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Enable Quarantining.]]>
+                    </desc>
+                </ENABLED>
+            </quarantine_enabled>
+            <quarantine_inclreq_headers>
+                <NO>
+                    <comment>NO</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ No, Do Not include the Request Headers, in the quarantined Responses.]]>
+                    </desc>
+                </NO>
+                <YES>
+                    <comment>YES</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[Yes, Include the Request Headers, in the quarantined Responses]]>
+                    </desc>
+                </YES>
+            </quarantine_inclreq_headers>
+            <quarantine_clean>
+                <NO>
+                    <comment>NO</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[	Quarantine Infected Files But DO NOT Quarantine Clean Files]]>
+                    </desc>
+                </NO>
+                <YES>
+                    <comment>YES</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[	Quarantine Clean Files AND Infected Files]]>
+                    </desc>
+                </YES>
+            </quarantine_clean>
+			<threat_strings>
+				<X-VIRUS-ID>
+				  <comment>X-VIRUS-ID</comment>
+                    <value>true</value>
+                    <desc>
+                        <![CDATA[ Inspect response headers from server and look for X-VIRUS-ID. ]]>
+                    </desc>
+				</X-VIRUS-ID>
+				<X-Infection-Found>
+					<comment>X-Infection-Found</comment>
+                    <value>true</value>
+                    <desc>
+                        <![CDATA[ Inspect response headers from server and look for X-Infection-Found. ]]>
+                    </desc>
+				</X-Infection-Found>
+			</threat_strings>
+			<threat_string>
+			</threat_string>
+        </select>
+        <global>
+            <enabled n="0">
+                <comment>Enabled</comment>
+                <value>icap_enable</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[ Enable or Disable this section.]]>
+                </desc>
+            </enabled>
+        </global>
+        <template>
+            <entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Enable or Disable this Policy.]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ <p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>]]>
+                    </desc>
+                </comment>
+                <profiles n="2">
+                    <comment>Profiles</comment>
+                    <value>add_profiles</value>
+                    <button>profiles</button>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[<P>Specify the Profiles applicable for this entry.</P>
+									<P>This entry will be applicable only if the connection has any one of the specified profiles.</P>
+									<P>Leave it Blank, to apply for all connections, irrespective of any applied profile.</P>
+									<P>To avoid application to a connection that has a profile, use negated profile (! profile).</P>]]>
+                    </desc>
+                </profiles>
+                <icaptimeout n="3">
+                    <comment>ICAP Timeout</comment>
+                    <value>60</value>
+                    <type>INT</type>
+                    <desc>
+                        <![CDATA[ SafeSquid will timeout if the ICAP server does not respond within the specified ICAP Timeout.]]>
+                    </desc>
+                </icaptimeout>
+                <host n="4">
+                    <comment>Host</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ The ICAP server hostname.]]>
+                    </desc>
+                </host>
+                <file n="5">
+                    <comment>File</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ The file to request from the ICAP server.]]>
+                    </desc>
+                </file>
+                <port n="6">
+                    <comment>Port</comment>
+                    <value/>
+                    <type>INT</type>
+                    <desc>
+                        <![CDATA[ The ICAP server port.]]>
+                    </desc>
+                </port>
+                <which n="7">
+                    <comment>Applies to</comment>
+                    <value>which</value>
+                    <type>STRING_SELECT_MANY</type>
+                    <desc>
+                        <![CDATA[ Which part of the HTTP request this entry applies to.]]>
+                    </desc>
+                </which>
+                <threat_string n="8">
+                    <comment>Threat ID Header</comment>
+                    <value>threat_strings,threat_string</value>
+                    <type>STRING_LIST</type>
+                    <desc>
+                        <![CDATA[<p>ICAP server's response header that contains the luggable identification of the Detected Threat.</p>
+						<p>You can specify a comma-separated list of possible headers.</p>
+						<p>SafeSquid will use the first that is found in the response headers.</p>]]>
+                    </desc>
+                </threat_string>
+                <quarantine_enabled n="9">
+                    <comment>Quaranatine</comment>
+                    <value>quarantine_enabled</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[ Preserve a local copy of the content sent to ICAP for processing]]>
+                    </desc>
+                </quarantine_enabled>
+                <quarantine_inclreq_headers n="10">
+                    <comment>Include Request Headers in Response Quarantine</comment>
+                    <value>quarantine_inclreq_headers</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[ The Quarantined Response, will include the Request Headers, for co-relating responses with requests.]]>
+                    </desc>
+                </quarantine_inclreq_headers>
+                <quarantine_clean n="11">
+                    <comment>Quarantine Clean Data</comment>
+                    <value>quarantine_clean</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[Specify if Quarantine should be done for only when malware is detected.]]>
+                    </desc>
+                </quarantine_clean>
+                <quarantine_root n="12">
+                    <comment>Quarantine Root Folder</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[<p>The folder that must be used to save the Quarantined Data.</p>
+					<p>Make sure that the Folder exists, and SafeSquid has Read / Write Permissions.</p>]]>
+                    </desc>
+                </quarantine_root>
+            </entry>
+        </template>
+        <subsection>
+            <icap>
+                <enabled>true</enabled>
+                <comment>ICAP</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <wizard_action>false</wizard_action>
+                <desc>
+                    <![CDATA[ Here we can create the policies for ICAP section.]]>
+                </desc>
+            </icap>
+        </subsection>
+    </icap>
+</section>

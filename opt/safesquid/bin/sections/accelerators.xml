@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+    <accelerator>
+        <enabled>true</enabled>
+        <comment>Accelerators</comment>
+        <parentgroup>infrastructure</parentgroup>
+        <logo>fa-subway</logo>
+        <desc>
+            <![CDATA[ 
+			<p>Use accelarators to optimize resource utilization and improve response time.</p>
+			]]>
+        </desc>
+        <handler/>
+        <type>group</type>
+        <wizard>false</wizard>
+    </accelerator>
+</section>

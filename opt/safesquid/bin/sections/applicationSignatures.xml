@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<applicationSignatures>
+        <enabled>true</enabled>
+        <comment>Application Signatures</comment>
+        <parentgroup>profilesdef</parentgroup>
+        <logo>fa-tasks</logo>
+        <wizard>true</wizard>
+        <type>section</type>
+        <flags>0</flags>
+        <desc>
+            <![CDATA[ This Section allows you to manage SafeSquid's Application Signatures Engine.]]>
+        </desc>
+        <global>
+            <enabled n="0">
+                <comment>Enabled</comment>
+                <value>app_enabled</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[ Enable or Disable the use of Application Signatures.]]>
+                </desc>
+            </enabled>
+        </global>
+        <template>
+            <app>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+					<desc>
+                        <![CDATA[ Enable or Disable this Entry.]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value />
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ Enter your comments here for future references, explaining what this entry does.]]>
+                    </desc>
+                </comment>
+                <app_signatures n="2">
+                    <comment>Application signatures</comment>
+                    <value>add_app_category,add_app_signatures</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[ Comma separated list of Request Profiles to which this entry will be applied. This could be one or more Request Profiles already applied(ADDED REQUEST PROFILES) to the connection, due to this entry in the list. If kept Blank, it will apply to all connections irrespective of any applied request profile.]]>
+                    </desc>
+                </app_signatures>
+                <method n="3">
+                    <comment>Method</comment>
+                    <value>method</value>
+                    <type>STRING_SELECT_MANY</type>
+					<desc>
+                        <![CDATA[ This entry applies to requests matching the selected list of Method(s). If this entry should be applied to all requests irrespective of methods do not select any method.]]>
+                    </desc>
+                </method>
+                <protocol n="4">
+                    <comment>Protocol</comment>
+                    <value>protocol</value>
+                    <type>STRING_SELECT_MANY</type>
+					<desc>
+                        <![CDATA[ This entry applies to requests matching the selected list of protocol(s). IF this entry should be applied to all requests irrespective of protocols do not select any protocol.]]>
+                    </desc>
+                </protocol>
+                <mime n="5">
+                    <comment>Mime type</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ This entry applies to regular expression matching the MIME-type. Here MIME-type indicates the entity-body sent to the recipient(used with POST and PUT requests).
+					Example: Content-Type: application/x-www-form-urlencoded. IF this entry should be applied to all requests irrespective of MIME-type leave it blank.]]>
+                    </desc>
+                </mime>
+                <portrange n="6">
+                    <comment>Port range list</comment>
+                    <value/>
+                    <type>PORT_RANGE_LIST</type>
+                    <desc>
+                        <![CDATA[ Comma separated list of ports or port ranges to which this entry will be applied. Here portrange indicates TCP port(s) number on which the server is listening.
+					Example: value "80,21-25" means port 80 and port range from 21 to 25. Applies to all ports if left blank.]]>
+                    </desc>
+                </portrange>
+                <url_commands n="7">
+                    <comment>URL Command</comment>
+                    <value>url_commands</value>
+                    <type>STRING_LIST</type>
+		            <neg>0</neg>
+                    <desc>
+                        <![CDATA[ Comma separated list of URL command(s) to which this entry will be applied. If this entry should be applied to all requests irrespective of any urlcommand leave it blank.]]>
+                    </desc>
+                </url_commands>
+                <postdata_min_length n="8">
+                    <comment>Minimum Post Data Size</comment>
+                    <value>0</value>
+                    <type>FILE_SIZE</type>
+                    <optional>true</optional>
+                    <desc>
+                        <![CDATA[ This entry applies only if Request body is more than this size. 
+					Example: Content-Length: 48]]>
+                    </desc>
+                </postdata_min_length>
+                <postdata_max_length n="9">
+                    <comment>Maximum Post Data Size</comment>
+                    <value>0</value>
+                    <type>FILE_SIZE</type>
+                    <optional>true</optional>
+                    <desc>
+                        <![CDATA[ This entry applies only if Request body is less than this size.
+					Example: Content-Length: 480]]>
+                    </desc>
+                </postdata_max_length>
+                <file n="10">
+                    <comment>File</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ This entry applies to regular expression matching the file portion of requested web-server(the part of a URL that succeeds hostname).
+					Example: (cgi-bin|\?) will apply to queries in a URL. Leave it blank to apply all the requests irrespective of file portion of URI(Uniform Resource Identifier).]]>
+                    </desc>
+                </file>
+                <registered_domain n="11">
+                    <comment>Registered Domain</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+						<![CDATA[ Regular expression matching the Registered domain name of the requested host.<BR>  
+						Example:<BR>
+						Registered Domain: <b>^wikipedia\.</b>
+						will match all sites like wikipedia.org, www.wikipedia.com, en.wikipedia.org, etc. <BR>
+						Leave it blank to apply all the requests irrespective of registered domain. ]]>
+                    </desc>
+                </registered_domain>
+                <hostname n="12">
+                    <comment>Host Name</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+						<![CDATA[ Regular expression matching the FQDN (Fully Qualified Domain Name) of the requested host.<BR>  
+						Example:<BR>
+						Host Name: <b>mail\.</b>
+						will match all sites like mail.google.com, www.email.com, etc. <BR>
+						Leave it blank to apply all the requests irrespective of host name. ]]>
+                    </desc>
+                </hostname>
+                <referer_domain n="13">
+                    <comment>Referer Domain Name</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+						<![CDATA[ Regular expression matching the registered domain of the referrer host.<BR>  
+						Example:<BR>
+						Referer Domain Name: <b>^wikipedia\.</b>
+						will match all requests with referer hostnames like 
+						wikipedia.org, www.wikipedia.com, en.wikipedia.org, etc. <BR>
+						Leave it blank to apply all the requests irrespective of referer domain. ]]>
+                    </desc>
+                </referer_domain>
+                <referer_host n="14">
+                    <comment>Referer Host Name</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+						<![CDATA[ Regular expression matching the FQDN (Fully Qualified Domain Name) referrer host.<BR>  
+						Example:<BR>
+						Host Name: <b>mail\.</b>
+						will match all requests referred by sites like mail.google.com, www.email.com, etc. <BR>
+						Leave it blank to apply all the requests irrespective of host name. ]]>
+                    </desc>
+                </referer_host>
+				
+				
+				
+                <referer n="15">
+                    <comment>Referer</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ This entry applies to regular expression matching the referer(the address of the resource from which the requested URI was obtained) of requested web-server. 
+						Example: Referer: http://en.wikipedia.org/wiki/Main_Page
+					Leave it blank to apply all requests irrespective of referer of header.]]>
+                    </desc>
+                </referer>
+                <user_agent n="16">
+                    <comment>User Agent</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ This entry applies to regular expression matching to a specific internet client or web client(application requesting the information from the server). 
+						Example: User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/21.0 
+					Leave it blank to apply all requests irrespective of any application requesting the information from the server.]]>
+                    </desc>
+                </user_agent>
+                <xforwardedfor n="17">
+                    <comment>X-Forwarded-For</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ This entry applies to regular expression matching the X-Forwarded-For(the IP address from where the original request came from either proxy or load balancer). 
+						Example: X-Forwarded-For: 129.78.138.66, client1, proxy1 .
+					To apply all requests irrespective of X-forwarded-for leave it blank.]]>
+                    </desc>
+                </xforwardedfor>
+                <requestheader n="18">
+                    <comment>Request header pattern</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ This entry applies to regular expression matching the request header pattern. Apply to all request patterns if left blank.]]>
+                    </desc>
+                </requestheader>
+                <add_app_signatures n="19">
+                    <comment>Added application signatures</comment>
+                    <value>add_app_signatures</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc>
+                        <![CDATA[ Comma separated list of Request Profiles that will be added to connection, if the above specified tests result true.]]>
+                    </desc>
+                </add_app_signatures>
+                <remove_app_signatures n="20">
+                    <comment>Removed application signatures</comment>
+                    <value>add_app_signatures</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc>
+                        <![CDATA[ Comma separated list of Request Profiles to be removed when all the above rules match. If any of these Request profiles have been already applied to the connection by any of the other Request Profile rules, they will be removed.]]>
+                    </desc>
+                </remove_app_signatures>
+				<group n="21">
+                    <comment>category</comment>
+					<value>add_app_category</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <value />
+                    <desc>
+                        <![CDATA[ Category of application signatures]]>
+                    </desc>
+                </group>
+            </app>
+			<app_categories_entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+					<desc>
+                        <![CDATA[ Enable or Disable this Entry.]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value/>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ Enter your comments here for future references, explaining what this entry does.]]>
+                    </desc>
+                </comment>
+                <add_app_category n="2">
+                    <comment>Add Application Category</comment>
+                    <value>add_app_category</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc>
+                        <![CDATA[Add New application category.]]>
+                    </desc>
+                </add_app_category>
+            </app_categories_entry>
+        </template>
+        <select>
+			<url_commands>
+			</url_commands>
+			<app_enabled>
+				<false>
+					<comment>false</comment>
+					<value>false</value>
+					<desc>
+						<![CDATA[ Disable application signatures section.]]>
+					</desc>
+				</false>
+				<true>
+					<comment>true</comment>
+					<value>true</value>
+					<desc>
+						<![CDATA[ Enable application signatures section.]]>
+					</desc>
+				</true>
+			</app_enabled>
+			<enabled>
+				<false>
+					<comment>false</comment>
+					<value>false</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</false>
+				<true>
+					<comment>true</comment>
+					<value>true</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</true>
+			</enabled>
+            <method>
+                <GET>
+                    <comment>GET</comment>
+                    <value>GET</value>
+                    <desc>
+                        <![CDATA[ GET method is used to retrieve information from server using a given requested web-server. Requests using GET should only retrieve data and should have no other effect on the data. Select this if you want to apply this entry for requests with GET method.]]>
+                    </desc>
+                </GET>
+                <POST>
+                    <comment>POST</comment>
+                    <value>POST</value>
+                    <desc>
+                        <![CDATA[ POST method is used to submit data to be processed (Example: customer information, file upload etc. using HTML forms). The data is included in the body of the request. This may result in the creation of a new resource or the updates of existing resources or both. Select this if you want to apply this entry for requests with POST method.]]>
+                    </desc>
+                </POST>
+                <CONNECT>
+                    <comment>CONNECT</comment>
+                    <value>CONNECT</value>
+                    <desc>
+                        <![CDATA[ CONNECT Converts the request connection to a transparent TCP/IP tunnel, usually to facilitate SSL-encrypted communication(HTTPS) through an unencrypted HTTP proxy(e.g. SSL tunnelling). Select this if you want to apply this entry for requests with CONNECT method.]]>
+                    </desc>
+                </CONNECT>
+                <HEAD>
+                    <comment>HEAD</comment>
+                    <value>HEAD</value>
+                    <desc>
+                        <![CDATA[ HEAD method is identical to GET. However in response to HEAD request server shall not return a message body. Select this if you want to apply this entry for requests with HEAD method.]]>
+                    </desc>
+                </HEAD>
+                <PUT>
+                    <comment>PUT</comment>
+                    <value>PUT</value>
+                    <desc>
+                        <![CDATA[ PUT method is used to upload a representation of the specified resource. If request for any web-server refers to an already existing resource, it will be modified. Otherwise server can create the resource with present URI(Uniform Resource Identifier). Select this if you want to apply this entry for requests with PUT method. 
+					Unused.]]>
+                    </desc>
+                </PUT>
+                <DELETE>
+                    <comment>DELETE</comment>
+                    <value>DELETE</value>
+                    <desc>
+                        <![CDATA[ DELETE method removes the specified resource. It intends to delete the resource or move it to an inaccessible location identified by the requested web-server. Select this if you want to apply this entry for requests with DELETE method. 
+					Unused.]]>
+                    </desc>
+                </DELETE>
+                <TRACE>
+                    <comment>TRACE</comment>
+                    <value>TRACE</value>
+                    <desc>
+                        <![CDATA[ TRACE Echoes back the received request, so that a client can see what intermediate servers are adding or changing in the request. The final recipient of the request SHOULD reflect the message received back to the client as the entity-body of a 200 (OK) response. Select this if you want to apply this entry for requests with TRACE method. 
+					Unused.]]>
+                    </desc>
+                </TRACE>
+                <OPTIONS>
+                    <comment>OPTIONS</comment>
+                    <value>OPTIONS</value>
+                    <desc>
+                        <![CDATA[ OPTIONS method returns the HTTP methods that server supports for specified URL. OPTIONS can be used to check the functionality of a web server by requesting * instead of a specific resource. Select this if you want to apply this entry for requests with OPTIONS method. 
+					Unused.]]>
+                    </desc>
+                </OPTIONS>
+            </method>
+            <protocol>
+                <ftp>
+                    <comment>FTP</comment>
+                    <value>FTP</value>
+                    <desc>
+                        <![CDATA[ File Transfer Protocol(FTP) is a standard network protocol used to transfer files from any host to another host over a TCP-based network. Select this if you want to apply this entry for FTP clients.]]>
+                    </desc>
+                </ftp>
+                <http>
+                    <comment>HTTP</comment>
+                    <value>HTTP</value>
+                    <desc>
+                        <![CDATA[ Hypertext Transfer Protocol(HTTP) is an application protocol for distributed, collaborative, hypermedia information systems. HTTP is the protocol to exchange or transfer hypertext. Select this if you want to apply this entry for HTTP clients.]]>
+                    </desc>
+                </http>
+                <https>
+                    <comment>HTTPS</comment>
+                    <value>HTTPS</value>
+                    <desc>
+                        <![CDATA[ Hypertext Transfer Protocol Secure (HTTPS) is a communications protocol for secure communication over a computer network. <b>Very first request for HTTPS will be CONNECT request, subsequently it will be changed to HTTPS. Therefore lower down in protocol it is HTTPS request. Select this if you want to apply this entry for HTTP clients who want to access websites using SSL.]]>
+                    </desc>
+                </https>
+            </protocol>
+			<add_app_signatures>
+			</add_app_signatures>
+			<add_app_category>
+			</add_app_category>
+        </select>
+        <subsection>
+            <app>
+                <enabled>true</enabled>
+                <comment>Application Signatures List</comment>
+                <template>app</template>
+                <parentgroup>inherit</parentgroup>
+                <logo />
+                <wizard_action>false</wizard_action>
+                <type>section</type>
+                <desc>
+                    <![CDATA[ The following rules are tested for each connection. The testing is done in top-down order. The first entry that matches the Request Profile of a connection, will be applied to it. Click on Add below, to add a new entry.]]>
+                </desc>
+            </app>
+            <app_categories_entry>
+                <enabled>true</enabled>
+                <comment>Application Categories List</comment>
+                <template>app_categories_entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo />
+                <wizard_action>false</wizard_action>
+                <type>section</type>
+                <desc>
+                    <![CDATA[ The following rules are tested for each connection. The testing is done in top-down order. The first entry that matches the Request Profile of a connection, will be applied to it. Click on Add below, to add a new entry.]]>
+                </desc>
+            </app_categories_entry>
+        </subsection>
+    </applicationSignatures>
+</section>

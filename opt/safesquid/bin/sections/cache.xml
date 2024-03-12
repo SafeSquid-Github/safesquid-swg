@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+ <cache>
+        <enabled>true</enabled>
+        <comment>Caching</comment>
+        <parentgroup>accelerator</parentgroup>
+        <logo>fa-server</logo>
+        <wizard>false</wizard>
+        <type>section</type>
+        <flags>1</flags>
+        <desc>
+            <![CDATA[ 				
+				<p>You can add/remove cache stores in this section, and configure: Global cache options</p>
+				<p>What objects are cacheable or un-cacheable?</p>
+				<p>How cacheable objects are distributed between various stores?</p>
+				<p>Minimum and maximum size of the objects to be stored</p>
+				<p>Revalidation period of cached objects, etc</p>
+				]]>
+        </desc>
+        <select>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+			<cache_policy>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+					<![CDATA[ Disable caching section.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+					<![CDATA[ Enable caching section.]]>
+					</desc>
+				</TRUE>
+			</cache_policy>
+            <method>
+                <FILLSIZE>
+                    <comment>FILL SIZE</comment>
+                    <value>true</value>
+                    <desc>
+                        <![CDATA[ select the storage directory with the least total bytes used]]>
+                    </desc>
+                </FILLSIZE>
+                <FILLPERCENT>
+                    <comment>FILL PERCENT</comment>
+                    <value>false</value>
+                    <desc>
+                        <![CDATA[ select the storage directory with the lowest percentage of space used.]]>
+                    </desc>
+                </FILLPERCENT>
+            </method>
+			<violate_rfc>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable violating the RFC standards.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable violating the RFC standards.]]>
+					</desc>
+				</TRUE>
+			</violate_rfc>
+			<md5_check>				
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable MD5 integrity check.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable MD5 integrity check.]]>
+					</desc>
+				</TRUE>
+			</md5_check>
+			<cachable>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable cachability.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable cachability.]]>
+					</desc>
+				</TRUE>
+			</cachable>
+        </select>
+        <global>
+            <enabled n="0">
+                <comment>Enabled</comment>
+                <value>cache_policy</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[ Enable or Disable caching.]]>
+                </desc>
+            </enabled>
+            <violate_rfc n="1">
+                <comment>Violate RFC</comment>
+                <value>violate_rfc</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[<p>This option causes the proxy server to violate some rules in the HTTP RFC to help improve cache performance specifically.</p>
+					<p>When a website requests that the file must not be cached with the "No-Cache" directive in the Cache-Control header, the proxy caches it anyway but always validates it with an If-Modified-Since conditional request.</p>
+		              ]]>
+                </desc>
+            </violate_rfc>
+            <maxmemsize n="2">
+                <comment>Memory cache size</comment>
+                <value>0</value>
+                <type>FILE_SIZE</type>
+                <desc>
+                    <![CDATA[ <p>The maximum size in bytes of the memory cache.</p>
+					<p>You can enter values in KB,MB,GB as 20K,20M,20G respectively.</p>]]>
+                </desc>
+            </maxmemsize>
+            <memextra n="3">
+                <comment>Memory free extra</comment>
+                <value>0</value>
+                <type>FILE_SIZE</type>
+                <desc>
+                    <![CDATA[ <p>This is the memory cache size that is emptied, when the content cached in the memory is refreshed.</p>
+					<p>The stalest content is removed, to free up space for new content.</p>
+					<p>This prevents frequently used content from being deleted, when the store reaches its maximum allowed limit.</p>
+					<p>You can enter values in KB,MB,GB as 20K,20M,20G respectively.</p>
+					]]>
+                </desc>
+            </memextra>	
+            <minsize n="4">
+                <comment>Minimum file size</comment>
+                <value>0</value>
+                <type>FILE_SIZE</type>
+                <desc>
+                    <![CDATA[ The minimum file size in bytes of any cached file.]]>
+                </desc>
+            </minsize>
+            <maxsize n="5">
+                <comment>Maximum file size</comment>
+                <value>0</value>
+                <type>FILE_SIZE</type>
+                <desc>
+                    <![CDATA[ The maximum file size in bytes of any cached file; if set to	0, no maximum file size is imposed.]]>
+                </desc>
+            </maxsize>
+            <prefetchwindow n="6">
+                <comment>Prefetch window</comment>
+                <value>10</value>
+                <type>INT</type>
+                <desc>
+                    <![CDATA[ Use this option to specify the time period after a file is pre-fetched, to exempt from refresh or expiry rules.]]>
+                </desc>
+            </prefetchwindow>
+            <icpport n="7">
+                <comment>ICP port</comment>
+                <value>0</value>
+                <type>INT</type>
+                <desc>
+                    <![CDATA[ The UDP port to listen for ICP packets on.]]>
+                </desc>
+            </icpport>
+            <icptimeout n="8">
+                <comment>ICP timeout</comment>
+                <value>1000</value>
+                <type>INT</type>
+                <desc>
+                    <![CDATA[ The timeout in milliseconds for response ICP packets.]]>
+                </desc>
+            </icptimeout>
+            <sbalancemethod n="9">
+                <comment>Store balance method</comment>
+                <value>method</value>
+                <type>STRING_SELECT_ONE</type>
+                <desc>
+                    <![CDATA[ <p>This option controls how the storage directory file is selected.</p>
+						<p>Fill size selects the storage directory with the least total bytes used.</p>
+						<p>Fill percent selects the storage directory with the lowest percentage of space used.</p>]]>
+                </desc>
+            </sbalancemethod>
+            <journalsize n="10">
+                <comment>journal size</comment>
+                <value>0</value>
+                <type>UINT</type>
+                <desc>
+                    <![CDATA[ The maximum size in bytes of the journal.]]>
+                </desc>
+            </journalsize>
+            <cleaninterval n="11">
+                <comment>Clean Interval</comment>
+                <value>0</value>
+                <type>UINT</type>
+                <desc>
+                    <![CDATA[ Clean Interval.]]>
+                </desc>
+            </cleaninterval>
+        </global>
+        <template>
+            <storetempl>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Enable or Disable this entry.]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[<p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+						<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>]]>
+                    </desc>
+                </comment>
+                <profiles n="2">
+                    <comment>Profiles</comment>
+                    <value>add_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[ <p>Specify the Profiles applicable for this entry.</p>
+						<p>This entry will be applicable only if the connection has any one of the specified profiles.</p>
+						<p>Leave it Blank, to apply for all connections irrespective of any applied profile.</p>
+						<p>To avoid application to a connection that has a profile, use negated profile (!profile).</p>]]>
+                    </desc>
+                </profiles>
+                <path n="3">
+                    <comment>Path</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ Path of the directory where cached files are stored.]]>
+                    </desc>
+                </path>
+                <maxdisksize n="4">
+                    <comment>Maximum disk size</comment>
+                    <value>0</value>
+                    <type>LONG_FILE_SIZE</type>
+                    <desc>
+                        <![CDATA[ <p>The amount of space that should be used to store cached files in this directory. </p>
+						<p>You can enter values in KB,MB,GB as 20K,20M,20G respectively.</p>]]>
+                    </desc>
+                </maxdisksize>
+                <diskextra n="5">
+                    <comment>Disk free extra</comment>
+                    <value>0</value>
+                    <type>FILE_SIZE</type>
+                    <desc>
+                        <![CDATA[<p>This is the size of the cache store that is emptied, when the content in the store is refreshed.</p><p>The stalest content is removed, to free up space for new content.</p><p> This prevents frequently used content from being deleted, when the store reaches its maximum allowed limit.</p><p> The value here is normally set to 30% of the total size of the store. e.g. when Maximum Disk Size is 1G, then the value entered here would be 250M.</p>
+						]]>
+                    </desc>
+                </diskextra>
+                <md5 n="6">
+                    <comment>MD5 integrity check</comment>
+                    <value>md5_check</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[<p>Perform MD5 check on cache files when saving them and loading them from disk.</p>
+						<p>With this you can ensure that the corrupted cache files are not used.</p>]]>
+                    </desc>
+                </md5>
+            </storetempl>
+            <refreshtempl>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Enable or Disable this entry.]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value/>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ <p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+						<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>]]>
+                    </desc>
+                </comment>
+                <profiles n="2">
+                    <comment>Profiles</comment>
+                    <value>add_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[ <p>Specify the Profiles applicable for this entry.</p>
+						<p>This entry will be applicable only if the connection has any one of the specified profiles.</p>
+						<p>Leave it Blank, to apply for all connections irrespective of any applied profile.</p>
+						<p>To avoid application to a connection that has a profile, use negated profile (!profile).</p>]]>
+                    </desc>
+                </profiles>
+                <cachable n="3">
+                    <comment>Cachable</comment>
+                    <value>cachable</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Whether or not requests matching this entry are cached.]]>
+                    </desc>
+                </cachable>
+                <minage n="4">
+                    <comment>Minimum age</comment>
+                    <value>0</value>
+                    <type>UINT</type>
+                    <desc>
+                        <![CDATA[ The minimum age of any file according to the Last-Modified header. Only files older than this age are cached.]]>
+                    </desc>
+                </minage>
+                <maxage n="5">
+                    <comment>Maximum age</comment>
+                    <value>0</value>
+                    <type>UINT</type>
+                    <desc>
+                        <![CDATA[ <p>The maximum age of any cached file before it must be revalidated.</p><p>This overrides any given expiry time.</p>]]>
+                    </desc>
+                </maxage>
+                <validate n="6">
+                    <comment>Revalidate age</comment>
+                    <value>0</value>
+                    <type>UINT</type>
+                    <desc>
+                        <![CDATA[ <p>The maximum age of any cached file which doesn't include any headers that indicate, when it should expire before it must be revalidated;</p><p>if set to 0, all cached files whose expiry time is uncertain are verified.</p> <p>If no "Last-Modified" header is received to calculate the Last-Modified time factor, the cached file is always revalidated.</p>]]>
+                    </desc>
+                </validate>
+                <lmfactor n="7">
+                    <comment>Last-Modified time factor</comment>
+                    <value>0</value>
+                    <type>UINT</type>
+                    <desc>
+                        <![CDATA[<p>The maximum age of any cached file which doesn't include any headers that indicate when it should expire before it must be revalidated;</p><p> if set to 0, all cached files whose expiry time is uncertain are verified.</p><p>If no "Last-Modified" header is received to calculate the Last-Modified time factor, the cached file is always revalidated.</p>]]>
+                    </desc>
+                </lmfactor>
+            </refreshtempl>
+            <cachetempl>
+                <![CDATA[ 					
+<div class="entry form-control">
+	<h5>Cache Info</h5>
+	<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+		<div class="label_input col-lg-2 col-md-2 col-xs-2">Memory Cache</div>
+		<span id="memory_cache" class="details_search col-lg-10 col-md-10 col-xs-10"></span>
+	</div>	
+	<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+		<div class="label_input col-lg-2 col-md-2 col-xs-2">Disk Cache</div>
+		<span id="disk_cache" class="details_search col-lg-10 col-md-10 col-xs-10"></span>
+	</div>
+</div>
+<hr></hr>
+<div class="form-control">
+	<h5>Search Cache Entries</h5>	
+	<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+		<div class="label_input col-lg-2 col-md-2 col-xs-2">Regular expression match</div>		
+		<input class="no_border details_search col-lg-10 col-md-10 col-xs-10" id="regex_match" placeholder="Enter your regex" type="text" >		
+	</div>
+	<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+		<div class="label_input col-lg-2 col-md-2 col-xs-2">Modify</div>
+		<div class="col-lg-10 col-md-10 col-xs-10">
+			<div class="label_input_range col-lg-2 col-md-2 col-xs-2">Before</div>
+			<input class="no_border col-lg-3 col-md-3 col-xs-3 calendar" id="modify_after" placeholder="Select date & time"  type="text" >
+			<div class="label_input_range col-lg-2 col-md-2 col-xs-2">After</div>
+			<input class="no_border col-lg-3 col-md-3 col-xs-3 calendar" id="modified_before" placeholder="Select date & time" type="text" >
+		</div>
+	</div>
+	<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+		<div class="label_input col-lg-2 col-md-2 col-xs-2">Accessed</div>
+		<div class="col-lg-10 col-md-10 col-xs-10">
+			<div class="label_input_range col-lg-2 col-md-2 col-xs-2">Before</div>
+			<input class="no_border col-lg-3 col-md-3 col-xs-3 calendar" id="accessed_after" placeholder="Select date & time"   type="text" >
+			<div class="label_input_range col-lg-2 col-md-2 col-xs-2">After</div>
+			<input class="no_border col-lg-3 col-md-3 col-xs-3 calendar" id="accessed_before" placeholder="Select date & time"  type="text" >
+		</div>
+	</div>
+	<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+		<div class="label_input col-lg-2 col-md-2 col-xs-2">File size</div>
+		<div class="col-lg-10 col-md-10 col-xs-10">
+			<div class="label_input_range col-lg-2 col-md-2 col-xs-2">From</div>
+			<input class="no_border col-lg-3 col-md-3 col-xs-3" id="file_size_from" value="0" type="text" >&nbsp;&nbsp;
+			<div class="label_input_range col-lg-2 col-md-2 col-xs-2">To</div>
+			<input class="no_border col-lg-3 col-md-3 col-xs-3" id="file_size_to" value="42949672" type="text" >
+		</div>
+	</div>
+	<div class="_form-group col-lg-12 col-md-12 col-xs-12">
+		<div class="label_input col-lg-2 col-md-2 col-xs-2">Delete matches</div>
+		<input class="no_border col-lg-1 col-md-1 col-xs-1" type="checkbox" id="check_matches" >					
+	</div>
+	<div class="_form-group no_border">
+		<button type="button"  class="btn btn-xs btn-primary" onclick="submit_cache_values()">Search</button>
+	</div>	
+</div>
+<div class="form-control width99" id="cache_list">
+</div>
+			]]>
+            </cachetempl>
+        </template>
+        <subsection>
+            <store>
+				<enabled>true</enabled>
+                <comment>Store</comment>
+                <template>storetempl</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[ List of storage locations for disk cache.]]>
+                </desc>
+                <wizard_action>true</wizard_action>
+            </store>
+            <refresh>
+				<enabled>true</enabled>
+                <comment>Refresh</comment>
+                <template>refreshtempl</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[ List of refresh policies.]]>
+                </desc>
+                <wizard_action>true</wizard_action>
+            </refresh>
+            <view_cache>
+				<enabled>true</enabled>
+                <comment>Manage cached objects</comment>
+                <function>onclick="load_scripts('cache');SHOW_DESC_DETAILS('desc_cache_view_cache')"</function>
+                <template>cachetempl</template>
+                <parentgroup>inherit</parentgroup>
+                <type>app</type>
+                <logo/>
+                <desc>
+                    <![CDATA[ List of view cache.]]>
+                </desc>
+                <wizard_action>false</wizard_action>
+            </view_cache>
+        </subsection>
+    </cache>
+</section>

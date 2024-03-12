@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<respProfiles>
+        <enabled>true</enabled>
+        <comment>Response Types</comment>
+        <parentgroup>profilesdef</parentgroup>
+        <logo>fa-reply</logo>
+        <wizard>true</wizard>
+        <type>section</type>
+		<flags>1</flags>
+        <desc>
+            <![CDATA[ 
+				<p>Use Response profiles to manage profiling based on the responses received from the webserver.</p>
+				<p>You can manage Profiling based on the following parameters present in the responses received from the webserver.</p><br>
+				<p>
+				<ul>
+				<li>Mime</li>
+				<li>File</li>
+				<li>Content-Length</li>
+				<li>Response header pattern, etc.,</li>
+			    </ul></p>
+			]]>
+		</desc>
+        <global>
+            <enabled n="0">
+                <comment>Enabled</comment>
+                <value>res_policy</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[ Enable or Disable response types section. ]]>
+				</desc>
+			</enabled>
+		</global>
+        <template>
+            <entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Enable or Disable this Entry.]]>
+					</desc>
+				</enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ Explain the relevance of this entry with your policies, for documentation, and future references.]]>
+					</desc>
+				</comment>
+                <profile_tracing n="2">
+                    <comment>Trace Entry</comment>
+                    <value>profile_tracing</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[<p>Enable or Disable Tracing of this entry.</p>
+                               <p>Select “Yes” to debug the application of entry using SafeSquid logs.</p>
+                               <p>Enable entry tracing, is useful if you wish to validate, its application.</p>]]>
+					</desc>
+				</profile_tracing>
+                <res_types n="3">
+                    <comment>Response Types</comment>
+					<value>add_res_types</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[ Specify the list of Response Profile(s) for which this entry should be applicable.<br>
+                        Leave it Blank, to ignore this applicability test.<br>
+                        If one or more Response Profiles are specified, this entry will be applicable, only after response has been received from the web server.<br>
+                        To avoid application to a connection for specific Response Profile(s), use negation (! Response Profile) ]]>
+					</desc>
+				</res_types>
+                <mime n="4">
+                    <comment>Content type</comment>
+                    <value>add_content_signatures</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc>
+                        <![CDATA[ Specify the MIME-type for which this entry should be applicable.<br>
+                        MIME-type is a way of identifying files on the Internet according to their nature and format.<br>
+                        Here, MIME-type indicates the response-body received from the server.<br>
+						This entry applies to the regular expression matching the MIME-type.<br>
+						Example: text/html, ^image/, ^application/, application/x-shockwave-flash.<br>
+						If this entry should be applied to all responses, irrespective of MIME-type, leave it blank ]]>
+					</desc>
+				</mime>
+                <file_extension n="5">
+                    <comment>File Extension</comment>
+                    <value>add_file_extensions</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc>
+                        <![CDATA[ Specify the file extensions for which this entry should be applicable.<br>
+                        This entry applies to the regular expression matching the extension of file(s) obtained in response body. <br>
+                        Leave it blank to apply all the requests, irrespective of file extension. ]]>
+					</desc>
+				</file_extension>
+                <transfer_encoding_chunk n="6">
+                    <comment>Transfer Encoding Chunk</comment>
+                    <value>xfer_chunk</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[ This option is to control how the transfer encoding chunk header should be handled.<br> 
+                        Example: Transfer-Encoding: chunked
+                        ]]>
+					</desc>
+				</transfer_encoding_chunk>
+                <multipart_byterange n="7">
+                    <comment>multipart_byterange</comment>
+                    <value>multi_byterange</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[ This option is to control how the multi part/ byte ranges header should be handled.
+							Example: Content-type: multipart/x-byteranges; boundary=THIS_STRING_SEPARATES
+							--THIS_STRING_SEPARATES
+							Content-type: application/x-pdf
+							Content-range: bytes 500-999/8000
+							...the first range...
+							--THIS_STRING_SEPARATES
+							Content-type: application/x-pdf
+							Content-range: bytes 7000-7999/8000
+							...the second range...
+							--THIS_STRING_SEPARATES--
+							 ]]>
+					</desc>
+				</multipart_byterange>
+                <content_min_length n="8">
+                    <comment>Minimum Content Size</comment>
+                    <value>0</value>
+                    <type>LONG_FILE_SIZE</type>
+                    <desc>
+                        <![CDATA[ Specify the minimum content size of the response body for which this entry is applicable.
+						]]>
+					</desc>
+				</content_min_length>
+                <content_max_length n="9">
+                    <comment>Maximum Content Size</comment>
+                    <value>0</value>
+                    <type>LONG_FILE_SIZE</type>
+                    <desc>
+                        <![CDATA[Specify the maximum content size of the response body for which this entry is applicable.
+						]]>
+					</desc>
+				</content_max_length>
+                <responseheader n="10">
+                    <comment>Response header pattern</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ Specify the regular expression matching the response header pattern for which this entry is applicable.<br>
+                               If left blank, it applies to all response patterns.
+]]>
+					</desc>
+				</responseheader>
+                <add_res_types n="11">
+                    <comment>Added Response Types</comment>
+					<value>add_res_types</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc>
+                        <![CDATA[ Specify the list of Response Profiles, to append to the connection’s existing Response Profiles, if all the applicability test rules match.<br>
+                        Subsequent applicable Entry may further modify the connection’s Response Profiles.<br>
+                        Define a new Response Profile(s), or Select previously defined Response Profile(s) from the drop-down menu to apply to the connection, if it matches this entry.<br>
+                        When defining a new Response Profile, use terms that uniquely represent your needs.<br>
+]]>
+					</desc>
+				</add_res_types>
+                <remove_res_types n="12">
+                    <comment>Removed Response Types</comment>
+   					<value>add_res_types</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc>
+                        <![CDATA[ Specify the list of Response Profile(s), to remove the connection’s existing Profiles, if all the applicability test rules match.<br>
+                        Subsequent applicable Entry may further modify the connection’s Response Profiles.<br>
+                        Select previously defined Response Profile(s) from the drop-down menu to apply to the connection, if it matches this entry.<br>
+]]>
+					</desc>
+				</remove_res_types>
+			</entry>
+		</template>
+        <select>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+            <profile_tracing>
+                <FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Select this option to disable profile tracing.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Select this option to enable profile tracing.]]>
+					</desc>
+				</TRUE>
+			</profile_tracing>
+			<res_policy>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable response types section.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable response types section.]]>
+					</desc>
+				</TRUE>
+			</res_policy>
+            <xfer_chunk>
+                <FALSE>
+                    <comment>NO</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this if you don\'t want to apply profile if transfer encoding chunked present in response header.]]>
+					</desc>
+				</FALSE>
+                <TRUE>
+                    <comment>YES</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this if you want to apply profile if transfer encoding chunked present in response header.]]>
+					</desc>
+				</TRUE>
+                <ANY>
+                    <comment>ANY</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Select this if transfer encoding chunked does not matter in response header.]]>
+					</desc>
+				</ANY>
+			</xfer_chunk>
+            <multi_byterange>
+                <FALSE>
+                    <comment>NO</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this if you don\'t want to apply profile if multipart/ byteranges present in response header.]]>
+					</desc>
+				</FALSE>
+                <TRUE>
+                    <comment>YES</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this if you want to apply profile if multipart/ byteranges present in response header.]]>
+					</desc>
+				</TRUE>
+                <ANY>
+                    <comment>ANY</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Select this if multipart/ byterange does not matter in response header.]]>
+					</desc>
+				</ANY>
+			</multi_byterange>
+			<add_res_types>
+			</add_res_types>
+		</select>
+        <subsection>
+            <response_section>
+				<enabled>true</enabled>
+                <comment>Response Types</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[ <p>The following rules are tested for each connection.</p>
+						<p>The testing is done in top-down order.</p>
+					<p>The first entry that matches the Response Profile of a connection, will be applied to it. Click on Add below, to add a new entry.</p>]]>
+				</desc>
+                <wizard_action>true</wizard_action>
+			</response_section>
+		</subsection>
+	</respProfiles>
+</section>

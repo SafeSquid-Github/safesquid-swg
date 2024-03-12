@@ -1,0 +1,20 @@
+check file ntp-init with path /etc/init.d/ntp
+group ntp
+	if not exist then unmonitor 
+mode active
+
+check file apparmour.disable.ntpd with path /etc/apparmor.d/disable/usr.sbin.ntpd
+group ntp
+	stop program = "/bin/ln -fs /etc/apparmor.d/usr.sbin.ntpd /etc/apparmor.d/disable/"
+	start program = "/sbin/apparmor_parser -R /etc/apparmor.d/usr.sbin.ntpd"	
+	if not exist then restart
+	depends on ntp-init
+mode active
+
+check process ntpd with pidfile /var/run/ntpd.pid
+group ntp
+   start program = "/usr/sbin/service ntp start"
+   stop  program = "/usr/sbin/service ntp stop"
+   if failed host 127.0.0.1 port 123 type udp then restart
+   depends on apparmour.disable.ntpd
+mode active

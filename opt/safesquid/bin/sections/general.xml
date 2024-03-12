@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<general>
+		<enabled>true</enabled>
+		<comment>System configuration</comment>
+		<parentgroup>infrastructure</parentgroup>
+		<logo>fa-puzzle-piece</logo>
+		<wizard>true</wizard>
+		<type>section</type>
+		<flags>1</flags>
+		<desc>
+<![CDATA[
+<p>Use 'System configuration' to tune various parameters with respective network infrastructure.</p>
+<p>By this tuning you can improve overall Internet service performance and manage your secure port utilization.</p> 
+]]>
+		</desc>
+		<select>
+			<compressout>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+<![CDATA[
+Disable Compress outgoing. 
+]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+<![CDATA[
+Enable Compress outgoing. 
+]]>
+					</desc>
+				</TRUE>
+			</compressout>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+<![CDATA[
+Disable this entry. 
+]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+<![CDATA[
+Enable this entry. 
+]]>
+					</desc>
+				</TRUE>
+			</enabled>
+			<xforwardedfor>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+<![CDATA[
+Disable additon of X-Forwarded-For header. 
+]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+<![CDATA[
+Enable additon of X-Forwarded-For header. 
+]]>
+					</desc>
+				</TRUE>
+			</xforwardedfor>
+			<compressin>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+<![CDATA[
+Never Request Compressed data from remote web-server. 
+]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+<![CDATA[
+Always Request Compressed data from remote web-server.
+]]>
+					</desc>
+				</TRUE>
+				<AUTO>
+					<comment>AUTO</comment>
+					<value>TRUE</value>
+					<desc>
+<![CDATA[
+Request Compressed data from remote web-server ONLY if supported by client.
+]]>
+					</desc>
+				</AUTO>
+			</compressin>
+			<via>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+<![CDATA[
+Disable via header.
+]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+<![CDATA[
+Enable via header.
+]]>
+					</desc>
+				</TRUE>
+			</via>
+			<dheaders>
+				<NONE>
+					<comment>NONE</comment>
+					<value>TRUE</value>
+					<desc>
+<![CDATA[
+Do not send debugging headers to client or server 
+]]>
+					</desc>
+				</NONE>
+				<CLIENT>
+					<comment>CLIENT</comment>
+					<value>TRUE</value>
+					<desc>
+<![CDATA[
+Send debugging headers to client 
+]]>
+					</desc>
+				</CLIENT>
+				<SERVER>
+					<comment>SERVER</comment>
+					<value>TRUE</value>
+					<desc>
+<![CDATA[
+Send debugging headers to server 
+]]>
+					</desc>
+				</SERVER>
+				<BOTH>
+					<comment>BOTH</comment>
+					<value>TRUE</value>
+					<desc>
+<![CDATA[
+Send debugging headers to both client and server 
+]]>
+					</desc>
+				</BOTH>
+			</dheaders>
+			<catreferer>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+<![CDATA[
+Apply only the Categories associated with the Requested URL
+]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+<![CDATA[
+Append Custom Categories applicable to the Referring Web-Page to the Categories associated with the Requested URL
+]]>
+					</desc>
+				</TRUE>
+			</catreferer>
+			<buffer_chunked>
+				<NEVER>
+					<comment>NEVER</comment>
+					<value>TRUE</value>
+					<desc>
+<![CDATA[
+Never Buffer Chunked Responses. 
+]]>
+					</desc>
+				</NEVER>
+				<ENCODED>
+					<comment>ENCODED</comment>
+					<value>FALSE</value>
+					<desc>
+<![CDATA[
+Buffer only Encoded (compressed) Chunked Responses if demanded by a content inspector. 
+]]>
+					</desc>
+				</ENCODED>
+				<ALWAYS>
+					<comment>ALWAYS</comment>
+					<value>FALSE</value>
+					<desc>
+<![CDATA[
+Always Buffer Chunked Responses if demanded by a content inspector. 
+]]>
+					</desc>
+				</ALWAYS>
+			</buffer_chunked>
+		</select>
+		<global>
+			<hostname n="0">
+				<comment>Proxy hostname</comment>
+				<value>localhost</value>
+				<type>STRING</type>
+				<desc>
+<![CDATA[
+<p>When your enterprise has multiple instances of SafeSquid, various instances will identify each other by this 'Proxy hostname'.</p>
+<p>If your enterprise maintains single LDAP domain, then set proxy hostname parameter as 'your LDAP domain'.</p>
+<p>Then you can login over LDAP authentication without mentioning the domain.</p> 
+]]>
+				</desc>
+			</hostname>
+			<poolsize n="1">
+				<comment>Connection pool size</comment>
+				<value>100</value>
+				<type>INT</type>
+				<desc>
+<![CDATA[
+<p>Set the maximum concurrent outbound connections.</p>
+<p>SafeSquid can reuse an established outbound connection, from the Connection Pool.</p>
+<p>Connection Pool Size should be at least equal to anticipated concurrent requests,Minimally</p>
+<p>If the Connection Pool is full, SafeSquid will automatically delete the oldest connection, to accommodate a new outbound connection.</p> 
+]]>
+				</desc>
+			</poolsize>
+			<pooltimeout n="2">
+				<comment>Connection pool timeout</comment>
+				<value>15</value>
+				<type>INT</type>
+				<desc>
+<![CDATA[
+<p>You can set here the maximum time period in seconds, that a connection may be kept in the connection pool.</p>
+<p>The age of a connection is reset every-time it gets used.</p>
+<p>When the age of a connection exceeds the timeout specified here, it will be automatically removed from the pool.</p>
+]]>
+				</desc>
+			</pooltimeout>
+			<dheaders n="3">
+				<comment>Send Debugging Headers To</comment>
+				<value>dheaders</value>
+				<type>STRING_SELECT_ONE</type>
+				<desc>
+<![CDATA[
+<p>Vital debugging information like application of profiling and filtering policies can be included in the HTTP protocol headers.<BR> Specify if this information should be sent to client, server, or both.<BR> Leave the field empty if this information should not be sent at all. </p> 
+]]>
+				</desc>
+			</dheaders>
+			<catreferer n="4">
+				<comment>Dynamic Categorization</comment>
+				<value>catreferer</value>
+				<type>BOOL</type>
+				<desc>
+					<![CDATA[
+						<p>
+							The requested URL is normally considered for categorization purposes.</BR>
+							However, when accessing a web page, Internet Browsers may require connecting to various other URLs to complete the portrayal of the web-page.</BR>
+							Requests to these <i>dependency URLs</i> may thus get differently categorized than the originally requested web-page.</BR>
+							Thus even if the initially requested URL is included in a "Custom Category" created by you, and permitted for access, the proxy users may witness "broken pages".</BR>
+							Providing a satisfactory web-experience to the users, thus requires identification and explicit access permission for each of such <i>dependency URL</i>.
+						</p>
+						<p>
+							<b>Dynamic Categorization</b> determines requests made by Internet Browser to serve a web-page included in a Custom Category.</BR>
+							Custom Categories applicable to the "Referring Web-Page" are added to the list of categories determined for the requested URL.
+						</p>
+						<p>
+							Dynamic Categorization enables a holistic web-experience to the users, when accessing permitted web-sites.
+						</p>
+					]]>
+				</desc>
+			</catreferer>
+		</global>
+		<subsection>
+			<general>
+				<enabled>true</enabled>
+				<comment>Compression and buffering policies</comment>
+				<template>entry</template>
+				<parentgroup>inherit</parentgroup>
+				<type>section</type>
+				<desc>
+<![CDATA[
+<p>The following entries will be applied on each connection based on the profiles defined.</p>
+<p>Policy evaluation is done in top-down order. The first entry matching the profile will be applied to the connection.</p> 
+]]>
+				</desc>
+				<wizard_action>true</wizard_action>
+			</general>
+			<pool>
+				<enabled>false</enabled>
+				<comment>Connection pool</comment>
+				<function>onclick="load_scripts('connection_pool');SHOW_DESC_DETAILS('desc_general_pool')"</function>
+				<template>pool_template</template>
+				<parentgroup>inherit</parentgroup>
+				<logo>fa-bitbucket</logo>
+				<desc>
+<![CDATA[
+<p>View information of the current connection(s) that are being held open in the connection pool and/or awaiting reuse.</p>
+]]>
+				</desc>
+				<wizard>false</wizard>
+				<type>app</type>
+			</pool>
+		</subsection>
+		<template>
+			<entry>
+				<enabled n="0">
+					<comment>Enabled</comment>
+					<value>enabled</value>
+					<type>BOOL</type>
+					<desc>
+<![CDATA[
+Enable or Disable this entry.
+]]>
+					</desc>
+				</enabled>
+				<comment n="1">
+					<comment>Comment</comment>
+					<value>This entry ...</value>
+					<type>MULTILINE_STRING</type>
+					<desc>
+<![CDATA[
+<p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>
+]]>
+					</desc>
+				</comment>
+				<profiles n="2">
+					<comment>Profiles</comment>
+					<value>add_profiles</value>
+					<type>STRING_LIST</type>
+					<neg>1</neg>
+					<desc>
+<![CDATA[
+<p>Specify the Profiles applicable for this entry.</p>
+<p>This entry will be applicable only if the connection has any one of the specified profiles.</p>
+<p>Leave it Blank, to apply for all connections irrespective of any applied profile.</p>
+<p>To avoid application to a connection that has a profile, use negated profile (! profile).</p>
+]]>
+					</desc>
+				</profiles>
+				<ctimeout n="3">
+					<comment>Connection timeout</comment>
+					<value>10</value>
+					<type>INT</type>
+					<desc>
+<![CDATA[
+<p>You can specify maximum time in seconds, for safesquid to wait for the establishment of connection.</p>
+<p>This affects the outbound connections made by SafeSquid.</p>
+<p>Example:</p>
+<p>If you have a slow Internet Connection.</p>
+<p>Create a profile for slow to connect web-sites, and select them by increasing this timeout value.</p>
+]]>
+					</desc>
+				</ctimeout>
+				<timeout n="4">
+					<comment>Header timeout</comment>
+					<value>5</value>
+					<type>INT</type>
+					<desc>
+<![CDATA[
+<p>Depending upon your network conditions, a significant amount of time may pass between the events of connection set up and the receipt of initial headers from the client.</p>
+<p>The timeout in seconds to wait for a client to make the	initial HTTP request.</p>
+<p>The default value of "5" seconds may not be enough when used by ISPs to service dial-up customers.</p>
+]]>
+					</desc>
+				</timeout>
+				<keeptimeout n="5">
+					<comment>Keepalive timeout</comment>
+					<value>15</value>
+					<type>INT</type>
+					<desc>
+<![CDATA[
+<p>SafeSquid can keep a connection established with a client, in a client pool. Thus, it can quickly respond to further requests from such clients.</p>
+<p>You can specify here in seconds, the maximum time for which the connection may be held at the pool.</p>
+]]>
+					</desc>
+				</keeptimeout>
+				<maxdbuffer n="6">
+					<comment>Maximum download buffer size</comment>
+					<value>10M</value>
+					<type>FILE_SIZE</type>
+					<desc>
+<![CDATA[
+<p>Some of the SafeSquid\'s functions like keyword filtering, content rewrite, image filter, virus scanning, etc. require content to be downloaded for processing.</p>
+<p>SafeSquid buffers such content, and then passes then to the relevant processors. You can specify here, the maximum size of the downloaded content that may be buffered, and therefore processed. You may use units (K) kilobytes, (M) Megabytes</p>
+]]>
+					</desc>
+				</maxdbuffer>
+				<maxubuffer n="7">
+					<comment>Maximum upload buffer size</comment>
+					<value>500K</value>
+					<type>FILE_SIZE</type>
+					<desc>
+<![CDATA[
+<p>The maximum size of uploads that are buffered for processing, larger uploads will be sent directly to the Web server without processing.</p>
+<p>Having an upload buffer that is too large will cause the browser to timeout since all the data is received by safesquid immediately, but may take more time to process and transfer to the website.</p>
+]]>
+					</desc>
+				</maxubuffer>
+				<bufferwait n="8">
+					<comment>Buffer wait time</comment>
+					<value>5</value>
+					<type>INT</type>
+					<desc>
+<![CDATA[
+<p>When the content is being buffered, the client may be sent an intimation of the downloading status.</p>
+<p>SafeSquid can automatically send the template "downloading", when the content is being downloaded into the buffer. You can specify, the time interval in seconds, at which the downloading template will be resent.</p>
+]]>
+					</desc>
+				</bufferwait>
+				<cportrange n="9">
+					<comment>CONNECT ports</comment>
+					<value>80,443,24-25</value>
+					<type>PORT_RANGE_LIST</type>
+					<desc>
+<![CDATA[
+<p>SafeSquid can be used by applications that support, like FTP-clients and other utilities to make "CONNECT", requests. CONNECT over HTTP allows these applications to create a direct tunnel for the required target services.</p>
+<p>The specification may be done as a port range. For example - 20,21,1023-65535.</p>
+<p>Caution:<br>The data exchanged by CONNECT protocol cannot be buffered, and therefore analyzed for filtering purposes.</p>
+]]>
+					</desc>
+				</cportrange>
+				<encodemime n="10">
+					<comment>Always compress mimetype</comment>
+					<value>add_content_signatures</value>
+					<type>STRING_LIST</type>
+					<neg>0</neg>
+					<desc>
+<![CDATA[
+A regular expression matching the MIME-types which should always be buffered and compressed even if they would not be buffered otherwise. 
+]]>
+					</desc>
+				</encodemime>
+				<compressout n="11">
+					<comment>Compress outgoing</comment>
+					<value>compressout</value>
+					<type>BOOL</type>
+					<desc>
+<![CDATA[
+<p>SafeSquid can compress data using gzip compression, before sending data to clients.</p>
+<p>This can significantly boost throughput if SafeSquid is being used as remotely hosted solution.</p>
+<p>For networks wherein SafeSquid is deployed locally, it is recommended you disable this feature.</p>
+]]>
+					</desc>
+				</compressout>
+				<compressin n="12">
+					<comment>Compress incoming</comment>
+					<value>compressin</value>
+					<type>STRING_SELECT_ONE</type>
+					<desc>
+<![CDATA[
+<p>This option will make Safesquid attach an Accept-Encoding header that lets the Web server know we can accept gzip and deflate content encodings regardless of whether or not the browser making the request supports it</p>
+<p>If the browser doesn't support it, it will be buffered and decompressed before sending.</p>
+]]>
+					</desc>
+				</compressin>
+				<buffer_chunked n="13">
+					<comment>Buffer Chunked Responses</comment>
+					<value>buffer_chunked</value>
+					<type>STRING_SELECT_ONE</type>
+					<desc>
+<![CDATA[
+<p>
+	Buffering Chunked Responses is generally never advisable. <BR/>
+	Unfortunately however, real-time content inspection requires buffering of response payload. <BR/>
+	Therefore under certain conditions, if you have no choice, you may want to buffer chunked responses. <BR/> 
+	Select one of the options very wisely.<BR/>
+	Recommended and default is <B>FALSE</B>.
+</p>
+
+]]>
+					</desc>
+				</buffer_chunked>
+				<xforwardedfor n="14">
+					<comment>Add X-Forwarded-For header</comment>
+					<value>xforwardedfor</value>
+					<type>BOOL</type>
+					<desc>
+<![CDATA[
+<p>This option will add a header letting an upstream proxy or Web server know the IP address where the original request came from.</p>
+<p>This feature must be enabled if you are deploying SafeSquid as an ISP based solution.</p>
+]]>
+					</desc>
+				</xforwardedfor>
+				<via n="15">
+					<comment>Add Via header</comment>
+					<value>via</value>
+					<type>BOOL</type>
+					<desc>
+<![CDATA[
+<p>This option will add a header letting an upstream proxy or Web server know what proxy server the request passed through.</p>
+<p>This feature must be enabled if you are deploying SafeSquid as an ISP based solution.</p>
+]]>
+					</desc>
+				</via>
+			</entry>
+			<pool_template>
+				<appcontent/>
+			</pool_template>
+		</template>
+	</general>
+</section>

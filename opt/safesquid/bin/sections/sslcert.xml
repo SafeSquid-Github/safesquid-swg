@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<section>
+	<sslcert>
+		<enabled>true</enabled>
+		<comment>HTTPS Inspection</comment>
+		<parentgroup>antivirus</parentgroup>
+		<logo>fa-eye</logo>
+		<wizard>true</wizard>
+		<type>section</type>
+		<flags>1</flags>
+		<desc><![CDATA[				<p>This section allows you to configure the overall operation to handle scanning of connections under HTTPS (HTTP over SSL).</p>				<p>SSL (Secure Sockets Layer), is the standard security technology for encrypting a connection between a web server and a browser.</p>				<p>Once established, this connection will encrypt all traffic and ensure that all data passed between the web server and browser remains private.</p>				<p>You must set this carefully, depending on the usage of web applications handling HTTPS requests, particularly web 2.0 applications.</p>				<p>All HTTPS requests are matched with the rules defined under the HTTPS scanning policies and actions taken based on the matching entry.</p>]]></desc>
+		<global>
+			<enabled n="0">
+				<comment>Enabled</comment>
+				<value>ssl_policy</value>
+				<type>BOOL</type>
+				<desc><![CDATA[ Enable or Disable HTTPS inspection section.]]></desc>
+			</enabled>
+		</global>
+		<template>
+			<https_scan_policies>
+				<enabled n="0">
+					<comment>Enabled</comment>
+					<value>enabled</value>
+					<type>BOOL</type>
+					<desc><![CDATA[ Enable or Disable this Entry.]]></desc>
+				</enabled>
+				<comment n="1">
+					<comment>Comment</comment>
+					<value>This entry ...</value>
+					<type>MULTILINE_STRING</type>
+					<desc><![CDATA[ <p>For documentation, and future references, explain the relevance of this entry with your policies.</p><p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>]]></desc>
+				</comment>
+				<profiles n="2">
+					<comment>Profiles</comment>
+					<value>add_profiles</value>
+					<type>STRING_LIST</type>
+					<neg>1</neg>
+					<desc><![CDATA[ <P>Specify the Profiles applicable for this entry.</P>						<P>This entry will be applicable only if the connection has any one of the specified profiles.</P>						<P>Leave it Blank, to apply for all connections, irrespective of any applied profile.</P>						<P>To avoid application to a connection that has a profile, use negated profile (! profile).</P>]]></desc>
+				</profiles>
+				<deepscan n="3">
+					<comment>DeepScan</comment>
+					<value>deep_scanning</value>
+					<type>STRING_SELECT_ONE</type>
+					<desc><![CDATA[ Decide if you want to enable scanning within encrypted SSL connections matching this entry.]]></desc>
+				</deepscan>
+				<block_no_cert n="4">
+					<comment>Block Access to Sites that do not have an SSL Certificate</comment>
+					<value>no_cert</value>
+					<type>STRING_SELECT_ONE</type>
+					<desc><![CDATA[ Decide whether Sites that do not have SSL Certificate should be blocked or not.]]></desc>
+				</block_no_cert>
+				<block_err_level n="5">
+					<comment>Acceptable Errors in SSL Verification</comment>
+					<value>ssl_error_types</value>
+					<type>STRING_SELECT_ONE</type>
+					<desc><![CDATA[ <p>SafeSquid verifies the SSL certificate to remote SSL web-servers.</p>						<p>You can specify here, the acceptable level of error.</p>						<p>Only in specific or exceptional cases choose anything besides X509_V_OK.</p>]]></desc>
+				</block_err_level>
+				<block_domain_mismatch n="6">
+					<comment>Block domain mismatch in the web-site SSL certificate</comment>
+					<value>domain_mismatch</value>
+					<type>STRING_SELECT_ONE</type>
+					<desc><![CDATA[ <p>Decide whether domain name mismatch is to be allowed or no.</p>						<p>SafeSquid validates the DNS and Common Name in the SSL certificates supplied by the remote web-server.</p>						<p>Only in exceptional cases set this as FALSE.</p>]]></desc>
+				</block_domain_mismatch>
+			</https_scan_policies>
+			<server_scan_policies>
+				<enabled n="0">
+					<comment>Enabled</comment>
+					<value>enabled</value>
+					<type>BOOL</type>
+					<desc><![CDATA[ Enable or Disable this entry]]></desc>
+				</enabled>
+				<comment n="1">
+					<comment>Comment</comment>
+					<value>This entry ...</value>
+					<type>MULTILINE_STRING</type>
+					<desc><![CDATA[ <p>Explain the relevance of this entry with your policies, for documentation, and future references.</p>]]></desc>
+				</comment>
+				<proxy_server n="2">
+					<comment>Proxy Host</comment>
+					<value/>
+					<type>STRING</type>
+					<desc><![CDATA[ Specify the host name of the proxy server as specified in the Startup Parameters.]]></desc>
+				</proxy_server>
+				<enc_pwd n="3">
+					<comment>Encrypted Password</comment>
+					<value/>
+					<type>STRING</type>
+					<button>password</button>
+					<desc><![CDATA[ Specify the Encrypted password for disk based caching of SSL certificates.]]></desc>
+				</enc_pwd>
+				<ssl_cache_store_size n="4">
+					<comment>SSL Cache Store Size</comment>
+					<value>0</value>
+					<type>INT</type>
+					<desc><![CDATA[ <p>Configure SSL cache size.</p>						<p>SSL cache size is used to set max store sizes for SSL session and context stores.</p> 						<p>This setting affects memory consumption and performance.</p>						<p>Memory consumption is proportional to this setting.</p>						<p>It is recommended to set as 500, if the server's RAM size is less than 8GB.</p>						<p>If the size is more than 8GB then set up to 1000.</p>						<p>You have to set Store size at the beginning itself.</p>						<p>You need to restart if you want to change it.</p> ]]></desc>
+				</ssl_cache_store_size>
+			</server_scan_policies>
+			<SSL_download>
+				<appcontent><![CDATA[        	<div class="col-lg-12 col-md-12 col-xs-12">			 <div class="btn-group pull-right">				<button type="button" class="btn btn-xs btn-primary"  onclick="ssl_download()" >Download <i class="fa  fa-download"></i></button>				<button type="button" class="btn btn-xs btn-primary" data-toggle="modal"  data-target="#upload_modal1">Upload <i class="fa  fa-upload"></i></button>				<button type="button" class="btn btn-xs btn-primary" onclick ="get_ssl_cache()">Cache Refresh <i class="fa  fa-refresh"></i></button>			</div>				</div>			<!--UPLOAD  Modal --><div id="upload_modal1" class="modal fade" role="dialog">  <div class="modal-dialog">    <!-- Modal content-->    <div class="modal-content">      <div class="modal-header">        <button type="button" class="close" data-dismiss="modal">&times;</button>        <h4 class="modal-title">Upload files</h4>      </div>      <div class="modal-body">         <div class="box-body adjust_div" >                <div style="width:60%;float:left;">                <form id="file_upload" name="form" method="POST" enctype="multipart/form-data">                <div class="form-group col-lg-8 col-sm-8 col-md-8 col-xs-8">                  <label for="upload">Upload Your file</label>                  <input id="upload" name="media[]" type="file" multiple>                </div>				</div>				<div style="width:40%;float:right;">								* Upload private key file with "ROOT_PrivateKeyFile.pem" name only<br></br>				* Upload public key file with "ROOT_X509File.cer" name only<br></br>				* Upload trusted-ca certificate with ".crt" extension only<br></br>				</div>              </div>              <!-- /.box-body -->              <div class="box-footer">                <input type="submit"   onclick="upload_file('ssl_certificate')" class="btn btn-xs btn-primary" value="upload"/>              </div>              </form>      </div>      <div class="modal-footer">        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>      </div>    </div>  </div></div>			<div class="session_cache box-body col-lg-12 col-md-12 col-xs-12"></div>			<div class="context_cache box-body col-lg-12 col-md-12 col-xs-12"></div>]]></appcontent>
+			</SSL_download>
+		</template>
+		<subsection>
+			<https_scan>
+				<enabled>true</enabled>
+				<comment>Inspection Policies</comment>
+				<template>https_scan_policies</template>
+				<parentgroup>inherit</parentgroup>
+				<logo/>
+				<desc><![CDATA[  <p>Each CONNECT request is tested only once for the applicability of the following entries. </p>					<p>The first matching entry is applied, and the rest are ignored.</p>					<p>If the matching entry deems that a Deep Scan should not be performed, the CONNECT request is handled without inspecting the subsequent requests.</p>					<p>If, however the matching entry seems a Deep Scan should be performed, the connection to the remote webserver is security checked for SSL properties as per the rule in the matched entry.</p>					<p>If the remote webserver fails to meet the desired standards, connection to that webserver is terminated.</p>					<p><b>Note:</b><i> Deep Scan should only be performed on encrypted connections, if the underlying application protocol is HTTP.</p>					<p>Applications like Google drive, Subversion Client, WinScp, etc., do not work if you attempt a Deep Scan on them.</p></i>]]></desc>
+				<wizard_action>false</wizard_action>
+			</https_scan>
+			<server_config>
+				<enabled>false</enabled>
+				<comment>Setup</comment>
+				<template>server_scan_policies</template>
+				<parentgroup>inherit</parentgroup>
+				<logo>fa-cogs</logo>
+				<desc><![CDATA[  <p>List of Security Passphrase(s) or Server Policies required to generate or load an existing ROOT CA SSL Certificate (RCSC).</p>					<p>The first matching entry below is used and the remaining is ignored.</p>					<p>RCSC is created automatically, if none exists already.</p>					<p>If an RCSC exists, passphrase in the applicable entry is used to load it.</p>					<p>The Private key of the generated RCSC can be used only with the passphrase used to generate it.</p>					<p>The passphrase prevents the private key of your RCSC from being stolen or fraudulent use.</p>					<p>After you generate RCSC successfully, you can download the public key of your RCSC from http://safesquid.cfg/safesquid.cer. </p>					<p>The public key must be installed on all the Web-Clients and browsers that are subjected to Deep Scan.</p>]]></desc>
+				<wizard_action>true</wizard_action>
+			</server_config>
+			<Download_SSL>
+				<enabled>true</enabled>
+				<comment>SSL Certs/Cache</comment>
+				<function>onclick="load_scripts('ssl_cache');SHOW_DESC_DETAILS('desc_sslcert_Download_SSL')"</function>
+				<template>SSL_download</template>
+				<parentgroup>inherit</parentgroup>
+				<logo>fa-download</logo>
+				<desc><![CDATA[<p> <b>Download:</b> Download the SafeSquid certificate.<br>                                        <b>Upload:</b> Upload the corporate certificates or corporate trusted-ca-certificate.<br>                                        <b>Cache Refresh:</b> Refresh the SSL cache.</p>]]></desc>
+				<wizard>false</wizard>
+				<type>app</type>
+			</Download_SSL>
+		</subsection>
+		<select>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+			<ssl_policy>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable HTTPS inspection section.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable HTTPS inspection section.]]>
+					</desc>
+				</TRUE>
+			</ssl_policy>
+			<deep_scanning>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Select this option to disable Deep Scanning.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Select this option to enable Deep Scanning.]]>
+					</desc>
+				</TRUE>
+			</deep_scanning>
+			<no_cert>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Select this option only if you want to allow SSL access to web-sites without SSL certificates.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ This is the default and safe option.]]>
+					</desc>
+				</TRUE>
+			</no_cert>
+			<domain_mismatch>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Select this option only if you want to allow SSL access to web-sites that are using certificates issued to domains other than the web-site.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ This is the default and safe option.]]>
+					</desc>
+				</TRUE>
+			</domain_mismatch>
+			<ssl_error_types>
+				<X509_V_OK>
+					<comment>X509_V_OK</comment>
+					<value>true</value>
+					<desc><![CDATA[							ok 							The operation was successful.						This is the default and safest option.]]></desc>
+				</X509_V_OK>
+				<X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT>
+					<comment>X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT</comment>
+					<value>X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT</value>
+					<desc><![CDATA[ Unable to get issuer certificate							The issuer certificate of a looked up certificate could not be found.						This normally means the list of trusted certificates is not complete.]]></desc>
+				</X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT>
+				<X509_V_ERR_UNABLE_TO_GET_CRL>
+					<comment>X509_V_ERR_UNABLE_TO_GET_CRL</comment>
+					<value>X509_V_ERR_UNABLE_TO_GET_CRL</value>
+					<desc><![CDATA[ Unable to get certificate CRL.						The CRL of a certificate could not be found.]]></desc>
+				</X509_V_ERR_UNABLE_TO_GET_CRL>
+				<X509_V_ERR_UNABLE_TO_DECRYPT_CERT_SIGNATURE>
+					<comment>X509_V_ERR_UNABLE_TO_DECRYPT_CERT_SIGNATURE</comment>
+					<value>X509_V_ERR_UNABLE_TO_DECRYPT_CERT_SIGNATURE</value>
+					<desc><![CDATA[ Unable to decrypt certificate\'s signature. 							The certificate signature could not be decrypted.						This means that the actual signature value could not be determined rather than it not matching the expected value, this is only meaningful for RSA keys.]]></desc>
+				</X509_V_ERR_UNABLE_TO_DECRYPT_CERT_SIGNATURE>
+				<X509_V_ERR_UNABLE_TO_DECRYPT_CRL_SIGNATURE>
+					<comment>X509_V_ERR_UNABLE_TO_DECRYPT_CRL_SIGNATURE</comment>
+					<value>X509_V_ERR_UNABLE_TO_DECRYPT_CRL_SIGNATURE</value>
+					<desc><![CDATA[ Unable to decrypt CRL\'s signature. 							The CRL signature could not be decrypted: this means that the actual signature value could not be determined rather than it not matching the expected value.						Unused.]]></desc>
+				</X509_V_ERR_UNABLE_TO_DECRYPT_CRL_SIGNATURE>
+				<X509_V_ERR_UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY>
+					<comment>X509_V_ERR_UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY</comment>
+					<value>X509_V_ERR_UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY</value>
+					<desc><![CDATA[ Unable to decode issuer public key 							The public key in the certificate SubjectPublicKeyInfo could not be read.]]></desc>
+				</X509_V_ERR_UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY>
+				<X509_V_ERR_CERT_SIGNATURE_FAILURE>
+					<comment>X509_V_ERR_CERT_SIGNATURE_FAILURE</comment>
+					<value>X509_V_ERR_CERT_SIGNATURE_FAILURE</value>
+					<desc><![CDATA[ Certificate signature failure 						The signature of the certificate is invalid.]]></desc>
+				</X509_V_ERR_CERT_SIGNATURE_FAILURE>
+				<X509_V_ERR_CRL_SIGNATURE_FAILURE>
+					<comment>X509_V_ERR_CRL_SIGNATURE_FAILURE</comment>
+					<value>X509_V_ERR_CRL_SIGNATURE_FAILURE</value>
+					<desc><![CDATA[ CRL signature failure 						The signature of the certificate is invalid.]]></desc>
+				</X509_V_ERR_CRL_SIGNATURE_FAILURE>
+				<X509_V_ERR_CERT_NOT_YET_VALID>
+					<comment>X509_V_ERR_CERT_NOT_YET_VALID</comment>
+					<value>X509_V_ERR_CERT_NOT_YET_VALID</value>
+					<desc><![CDATA[ Certificate is not yet valid						The certificate is not yet valid: the notBefore date is after the current time.]]></desc>
+				</X509_V_ERR_CERT_NOT_YET_VALID>
+				<X509_V_ERR_CERT_HAS_EXPIRED>
+					<comment>X509_V_ERR_CERT_HAS_EXPIRED</comment>
+					<value>X509_V_ERR_CERT_HAS_EXPIRED</value>
+					<desc><![CDATA[ Certificate has expired.						The certificate has expired: that is the notAfter date is before the current time.]]></desc>
+				</X509_V_ERR_CERT_HAS_EXPIRED>
+				<X509_V_ERR_CRL_NOT_YET_VALID>
+					<comment>X509_V_ERR_CRL_NOT_YET_VALID</comment>
+					<value>X509_V_ERR_CRL_NOT_YET_VALID</value>
+					<desc><![CDATA[ CRL is not yet valid							The CRL is not yet valid.]]></desc>
+				</X509_V_ERR_CRL_NOT_YET_VALID>
+				<X509_V_ERR_CRL_HAS_EXPIRED>
+					<comment>X509_V_ERR_CRL_HAS_EXPIRED</comment>
+					<value>X509_V_ERR_CRL_HAS_EXPIRED</value>
+					<desc><![CDATA[ CRL has expired						The CRL has expired.]]></desc>
+				</X509_V_ERR_CRL_HAS_EXPIRED>
+				<X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD>
+					<comment>X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD</comment>
+					<value>X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD</value>
+					<desc><![CDATA[ Format error in certificate\'s notBefore field.						The certificate notBefore field contains an invalid time.]]></desc>
+				</X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD>
+				<X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD>
+					<comment>X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD</comment>
+					<value>X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD</value>
+					<desc><![CDATA[ Format error in certificate\'s notAfter field						The certificate notAfter field contains an invalid time.]]></desc>
+				</X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD>
+				<X509_V_ERR_ERROR_IN_CRL_LAST_UPDATE_FIELD>
+					<comment>X509_V_ERR_ERROR_IN_CRL_LAST_UPDATE_FIELD</comment>
+					<value>X509_V_ERR_ERROR_IN_CRL_LAST_UPDATE_FIELD</value>
+					<desc><![CDATA[ Format error in CRL\'s lastUpdate field.						The CRL lastUpdate field contains an invalid time.]]></desc>
+				</X509_V_ERR_ERROR_IN_CRL_LAST_UPDATE_FIELD>
+				<X509_V_ERR_ERROR_IN_CRL_NEXT_UPDATE_FIELD>
+					<comment>X509_V_ERR_ERROR_IN_CRL_NEXT_UPDATE_FIELD</comment>
+					<value>X509_V_ERR_ERROR_IN_CRL_NEXT_UPDATE_FIELD</value>
+					<desc><![CDATA[ Format error in CRL\'s nextUpdate field.						The CRL nextUpdate field contains an invalid time.]]></desc>
+				</X509_V_ERR_ERROR_IN_CRL_NEXT_UPDATE_FIELD>
+				<X509_V_ERR_OUT_OF_MEM>
+					<comment>X509_V_ERR_OUT_OF_MEM</comment>
+					<value>X509_V_ERR_OUT_OF_MEM</value>
+					<desc><![CDATA[ Out of memory.						An error occurred trying to allocate memory. This should never happen.]]></desc>
+				</X509_V_ERR_OUT_OF_MEM>
+				<X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT>
+					<comment>X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT</comment>
+					<value>X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT</value>
+					<desc><![CDATA[ Self signed certificate.							The passed certificate is self signed and the same certificate cannot be found in the list of trusted certificates. 						Note: Acceptable secenario is when the webserver is privately owned by orgaization.]]></desc>
+				</X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT>
+				<X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN>
+					<comment>X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN</comment>
+					<value>X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN</value>
+					<desc><![CDATA[ Self signed certificate in certificate chain.						The certificate chain could be built up using the untrusted certificates but the root could not be found locally.]]></desc>
+				</X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN>
+				<X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY>
+					<comment>X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY</comment>
+					<value>X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY</value>
+					<desc><![CDATA[ Unable to get local issuer certificate.						The issuer certificate could not be found: this occurs if the issuer certificate of an untrusted certificate cannot be found.]]></desc>
+				</X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY>
+				<X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE>
+					<comment>X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE</comment>
+					<value>X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE</value>
+					<desc><![CDATA[ Unable to verify the first certificate.						No signatures could be verified because the chain contains only one certificate and it is not self signed.]]></desc>
+				</X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE>
+				<X509_V_ERR_CERT_CHAIN_TOO_LONG>
+					<comment>X509_V_ERR_CERT_CHAIN_TOO_LONG</comment>
+					<value>X509_V_ERR_CERT_CHAIN_TOO_LONG</value>
+					<desc><![CDATA[ Certificate chain too long.							The certificate chain length is greater than the supplied maximum depth. 						Unused.]]></desc>
+				</X509_V_ERR_CERT_CHAIN_TOO_LONG>
+				<X509_V_ERR_CERT_REVOKED>
+					<comment>X509_V_ERR_CERT_REVOKED</comment>
+					<value>X509_V_ERR_CERT_REVOKED</value>
+					<desc><![CDATA[ Certificate revoked.						The certificate has been revoked.]]></desc>
+				</X509_V_ERR_CERT_REVOKED>
+				<X509_V_ERR_INVALID_CA>
+					<comment>X509_V_ERR_INVALID_CA</comment>
+					<value>X509_V_ERR_INVALID_CA</value>
+					<desc><![CDATA[ Invalid CA certificate.							A CA certificate is invalid.						Either it is not a CA or its extensions are not consistent with the supplied purpose.]]></desc>
+				</X509_V_ERR_INVALID_CA>
+				<X509_V_ERR_PATH_LENGTH_EXCEEDED>
+					<comment>X509_V_ERR_PATH_LENGTH_EXCEEDED</comment>
+					<value>X509_V_ERR_PATH_LENGTH_EXCEEDED</value>
+					<desc><![CDATA[ Path length constraint exceeded.						The basic Constraints pathlength parameter has been exceeded.]]></desc>
+				</X509_V_ERR_PATH_LENGTH_EXCEEDED>
+				<X509_V_ERR_INVALID_PURPOSE>
+					<comment>X509_V_ERR_INVALID_PURPOSE</comment>
+					<value>X509_V_ERR_INVALID_PURPOSE</value>
+					<desc><![CDATA[ Unsupported certificate purpose.				The supplied certificate cannot be used for the specified purpose.]]></desc>
+				</X509_V_ERR_INVALID_PURPOSE>
+				<X509_V_ERR_CERT_UNTRUSTED>
+					<comment>X509_V_ERR_CERT_UNTRUSTED</comment>
+					<value>X509_V_ERR_CERT_UNTRUSTED</value>
+					<desc><![CDATA[ Certificate not trusted.						The root CA is not marked as trusted for the specified purpose.]]></desc>
+				</X509_V_ERR_CERT_UNTRUSTED>
+				<X509_V_ERR_CERT_REJECTED>
+					<comment>X509_V_ERR_CERT_REJECTED</comment>
+					<value>X509_V_ERR_CERT_REJECTED</value>
+					<desc><![CDATA[ Certificate rejected.						The root CA is marked to reject the specified purpose.]]></desc>
+				</X509_V_ERR_CERT_REJECTED>
+				<X509_V_ERR_SUBJECT_ISSUER_MISMATCH>
+					<comment>X509_V_ERR_SUBJECT_ISSUER_MISMATCH</comment>
+					<value>X509_V_ERR_SUBJECT_ISSUER_MISMATCH</value>
+					<desc><![CDATA[ Subject issuer mismatch.							The current candidate issuer certificate was rejected because its subject name did not match the issuer name of the current certificate.						Only displayed when the -issuer_checks option is set.]]></desc>
+				</X509_V_ERR_SUBJECT_ISSUER_MISMATCH>
+				<X509_V_ERR_AKID_SKID_MISMATCH>
+					<comment>X509_V_ERR_AKID_SKID_MISMATCH</comment>
+					<value>X509_V_ERR_AKID_SKID_MISMATCH</value>
+					<desc><![CDATA[ Authority and subject key identifier mismatch.							The current candidate issuer certificate was rejected because its subject key identifier was present and did not match the authority key identifier current certificate.						Only displayed when the -issuer_checks option is set.]]></desc>
+				</X509_V_ERR_AKID_SKID_MISMATCH>
+				<X509_V_ERR_AKID_ISSUER_SERIAL_MISMATCH>
+					<comment>X509_V_ERR_AKID_ISSUER_SERIAL_MISMATCH</comment>
+					<value>X509_V_ERR_AKID_ISSUER_SERIAL_MISMATCH</value>
+					<desc><![CDATA[ Authority and issuer serial number mismatch.							The current candidate issuer certificate was rejected because its issuer name and serial number was present and did not match the authority key identifier of the current certificate.						Only displayed when the -issuer_checks option is set.]]></desc>
+				</X509_V_ERR_AKID_ISSUER_SERIAL_MISMATCH>
+				<X509_V_ERR_KEYUSAGE_NO_CERTSIGN>
+					<comment>X509_V_ERR_KEYUSAGE_NO_CERTSIGN</comment>
+					<value>X509_V_ERR_KEYUSAGE_NO_CERTSIGN</value>
+					<desc><![CDATA[ Key usage does not include certificate signing.						The current candidate issuer certificate was rejected because its keyUsage extension does not permit certificate signing.]]></desc>
+				</X509_V_ERR_KEYUSAGE_NO_CERTSIGN>
+				<X509_V_ERR_APPLICATION_VERIFICATION>
+					<comment>X509_V_ERR_APPLICATION_VERIFICATION</comment>
+					<value>X509_V_ERR_APPLICATION_VERIFICATION</value>
+					<desc><![CDATA[ Application verification failure.							An application specific error.]]></desc>
+				</X509_V_ERR_APPLICATION_VERIFICATION>
+			</ssl_error_types>
+		</select>
+	</sslcert>
+</section>

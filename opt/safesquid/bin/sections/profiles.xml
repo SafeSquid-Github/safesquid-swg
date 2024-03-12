@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<profiles>
+        <enabled>true</enabled>
+        <comment>Access Profiles</comment>
+        <parentgroup>policymgr</parentgroup>
+        <logo>fa-briefcase</logo>
+        <wizard>true</wizard>
+        <type>section</type>
+		<flags>1</flags>
+        <desc>
+            <![CDATA[  
+				<dl>
+					<dt>Use Access Profiles to setup your Profiled Internet Access policies.</dt>
+					<dd>Implement your policies, by creating a logical order of Entries.</dd>
+					<dd>Each Request within a connection, and the Response received from the remote web server:
+						<ul>
+							<li>is first evaluated against the Default Policies List of Entries,</li>
+							<li>and then aganst the Secondary Policies List of Entries.</li>
+						</ul>
+					 </dd>
+					
+					<dt>After all Entries are tested:</dt>
+					<dd>
+						<ol>
+							<li>
+								The Connection will be <b>Blocked</b> if the resultant Action is <i>not set to Allow</i>.
+							</li>
+							<li>
+								The Resultant Connection's Profiles then determines the applicability of the Policy Entries in the other Configurable Sections.
+							</li>
+						</ol>						
+					</dd>
+				</dl>
+			]]>
+		</desc>
+        <global/>
+        <subsection>
+            <defaults>
+				<enabled>true</enabled>
+                <comment>Default Policies</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[
+						<dl>
+							<dt>
+								Connections are tested against the Secondary Policies List after they are tested against the Default Policies List.
+							</dt>
+							<dd>The Policies List of Entries is processed top-down for each request and response in a Connection.</dd>
+							<dd>Implement your Policies, by creating a logical order of Entries.</dd>
+							<dt>Each Entry consists of Rules for testing applicability.</dt>
+							<dd>An Entry is applicable only if a Request matches all the Rules of an Entry.</dd>
+							<dd>When an Entry is applicable:
+								<ol>
+									<li>The corresponding set of <b>Added Profiles</b>, is appended to the Connection's Profiles</li>
+									<li>The corresponding set of <b>Removed Profiles</b>, is deleted from the Connection's Profiles</li>
+									<li>The corresponding <b>Action</b> is set against the Connection.</li>
+									<li>The Request is now tested against subsequent Entry, based on the resulting state of modified Connection's Profiles</li>
+								</ol>
+							</dd>
+						</dl>
+					]]>
+				</desc>
+                <wizard_action>true</wizard_action>
+			</defaults>
+            <profile>
+				<enabled>true</enabled>
+                <comment>Seondary Policies</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[
+						<dl>
+							<dt>
+								Connections are tested against the Secondary Policies List after they are tested against the Default Policies List.
+							</dt>
+							<dd>The Policies List of Entries is processed top-down for each request and response in a Connection.</dd>
+							<dd>Implement your Policies, by creating a logical order of Entries.</dd>
+							<dt>Each Entry consists of Rules for testing applicability.</dt>
+							<dd>An Entry is applicable only if a Request matches all the Rules of an Entry.</dd>
+							<dd>When an Entry is applicable:
+								<ol>
+									<li>The corresponding set of <b>Added Profiles</b>, is appended to the Connection's Profiles</li>
+									<li>The corresponding set of <b>Removed Profiles</b>, is deleted from the Connection's Profiles</li>
+									<li>The corresponding <b>Action</b> is set against the Connection.</li>
+									<li>The Request is now tested against subsequent Entry, based on the resulting state of modified Connection's Profiles</li>
+								</ol>
+							</dd>
+						</dl>
+					]]>
+				</desc>
+                <wizard_action>true</wizard_action>
+			</profile>
+		</subsection>
+        <template>
+            <entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ 
+						Enable or Disable this Entry.
+						]]>
+					</desc>
+				</enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[
+						<p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>
+						]]>
+					</desc>
+				</comment>
+                <profile_tracing n="2">
+                    <comment>Trace Entry</comment>
+                    <value>profile_tracing</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[ 						   
+						<p>Enable or Disable Tracing of this entry</p>
+						<p>Select “Yes” to debug the application of entry using SafeSquid logs.</p> 
+						<p>“Enable entry tracing” is useful if you wish to validate its application.</p>
+						]]>
+					</desc>
+				</profile_tracing>
+				<proxyhost n="3">
+                    <comment>Proxy instance</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ 
+						<p>Leave this blank, if this configuration is not shared across multiple instances of SafeSquid.</p>
+						<p>Leave it blank to apply this entry to all your instances of SafeSquid.</p>
+						<p>Specify the hostname(s) of the instances, for which this entry should be applicable, if multiple instances share this configuration.</p>
+						<p>Mostly used in master-slave and cluster environments.</p>
+						]]>
+					</desc>
+				</proxyhost>
+				<profiles n="4">
+                    <comment>Applicable Profiles</comment>
+                    <value>add_profiles,cookie_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[ 										
+						<p>Specify the list of Profiles for which this entry should be applicable.</p>
+						<p>Leave it Blank, to ignore this applicability test.</p>
+						<p>Leave it Blank, to apply for all connections irrespective of their Profile.</p>
+						<p>To avoid application of this entry to a connection that has a profile, use negation (!profile).</p>
+						]]>
+					</desc>
+				</profiles>
+				<time_profiles n="5">
+                    <comment>Time Schedule</comment>
+                    <value>add_time_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+					<button>timeProfiles</button>
+                    <desc>
+                        <![CDATA[
+						<p>Specify the list of Time Profile(s) for which this entry should be applicable.</p>
+						<p>Leave it Blank, to ignore this applicability test.</p>
+						<p>This entry will be applicable only if the connection has at-least one of the specified Time Profile(s).</p>
+						<p>To avoid application of this entry to a connection that has a Time Profile, use negation (!Weekday).</p>
+						<p>Go to Time Profiler to review, or define new Time Profiles.</p>
+						]]>
+					</desc>
+				</time_profiles>
+                <user_groups n="6">
+                    <comment>User Groups</comment>
+                    <value>add_user_groups,ldap_entries</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+					<button>access</button>
+                    <desc>
+                        <![CDATA[
+						<p>Specify the list of User Group(s), to which this entry is applicable.</p>
+						<p>Leave it Blank, to ignore this applicability test.</p>
+						<p>If one or more User Groups is/are specified, this entry will be applicable after it is determined, if user authentication is required. If user authentication is required, then this entry will be applicable only after successful user authentication.</p>
+						<p>This entry will be applicable only if the connection has at-least one of the specified User Group(s).</p>
+						<p>To avoid application to a connection for specific User Group(s), use negation (!User Group).</p>
+						<p>Go to Access Restrictions to review or define new User Groups.</p>
+						]]>
+					</desc>
+				</user_groups>
+				<req_types n="7">
+                    <comment>Request Types</comment>
+                    <value>add_app_category,add_app_signatures,add_req_types</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+					<button>reqProfiles</button>
+                    <desc><![CDATA[
+						<p>List of Request Types or application categories, to which this entry will be applicable.</p>
+						<p>The connection should have been already profiled to have one or more of these Request Types or application categories.</p>
+						<p>Use Negation "!", to check this entry only, when specified Request Types or application categories are not applied to the connection.</p>
+						<p>Leave it Blank to check this entry irrespective of applied Request Types or application categories.</p>
+						<p>If you set this to "Browsers,Skype,Webinar,!Safari", then this entry will be applicable to only those connections that have been profiled as Browsers, or Skype or Webinar, or not profiled as Safari.</p>
+						]]>
+					</desc>
+				</req_types>
+                <web_categories n="8">
+                    <comment>Categories</comment>
+                    <value>website_categories,custom_categories,youtube_categories</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[ 	
+						<p>List of categories, to which this entry will be applicable.</p>
+						<p>The connection should have been already categorized to have one or more of these categories.</p>
+						<p>Use Negation "!", to check this entry only, when specified categories are not applied to the connection.</p>
+						<p>Leave it Blank to check this entry irrespective of applied categories.</p>
+						<p>If you set this to "Social,Chat,IM,!Porn ", then this entry will be applicable to only those connections that have been categorized as Social, or Chat, or IM, or not categorized as Porn.</p>
+						]]>
+					</desc>
+					<button>category_editor</button>
+				</web_categories>
+				<res_types n="9">
+                    <comment>Response Types</comment>
+                    <value>add_res_types</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+					<button>respProfiles</button>
+                    <desc><![CDATA[
+						<p>List of Response Types or content categories, to which this entry will be applicable.</p>
+						<p>The connection should have been already profiled to have one or more of these Response Types or content categories.</p>
+						<p>Use Negation "!", to check this entry only, when specified Response Types or content categories are not applied to the connection.</p>
+						<p>Leave it Blank to check this entry irrespective of applied Response Types or content categories.</p>
+						<p>If you set this to "Image,Pdf,Audio,!Text,!Jpeg", then this entry will be applicable to only those connections that have been profiled as Image, or Pdf, or Audio, or not profiled as Text or Jpeg.</p>
+						]]>
+					</desc>
+				</res_types>
+				<action n="10">
+                    <comment>Action</comment>
+                    <value>action_to_perform</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[
+						<p>Specify action to enforce on matched connections.</p>
+						<p>ALLOW: Allow users to access.Default action.
+							When action is allow SafeSquid uses applied profiles to do various filtering.
+							Otherwise blocks access without doing further filtering.</p>
+						<p>DENY: Block access but allow users to bypass and access sites for couple of hours.
+							You can configure bypass access to the users using access restrictions.</p>
+						<p>DO NOT BYPASS: Strictly Block access.</p>
+						<p>INHERIT: Apply previously applied action.</p>
+						]]>
+					</desc>
+				</action>
+                <add_profiles n="11">
+                    <comment>Added Profiles</comment>
+                    <value>add_profiles,cookie_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc>
+                        <![CDATA[ 
+						<p>Specify the list of Profiles, to append to the connection’s existing Profiles, if the all applicability test rules match.</p>
+						<p>Subsequent applicable Entry may further modify the connection’s Profiles.</p>
+						<p>Define a new Profile(s), or Select previously defined Profile(s) from the drop-down menu to apply to the connection, if they match this entry.</p>
+						<p>When defining a new Profile, use terms that uniquely represent your needs.</p>	
+						<p>You can use added profiles in Virus scanning, SSL inspection and other filtering sections.</p>
+						]]>
+					</desc>
+				</add_profiles>
+                <remove_profiles n="12">
+                    <comment>Removed profiles</comment>
+                    <value>add_profiles,cookie_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc>
+                        <![CDATA[
+						<p>Select profiles to remove from connection when matches.</p>
+						<p>The connection should have been already profiled to have one or more of these profiles.</p>
+						<p>Use remove profiles adequately to ensure white-list profiles does not conflict with block profiles.</p>
+						<p>When a connection matches to block profile and as well white-list profile then your white-list entry should be configured with to remove block profile from connection.</p>
+						<p>Leave it Blank to ignore.</p>				
+						]]>
+					</desc>
+				</remove_profiles>
+			</entry>
+		</template>
+        <select>
+			<profile_tracing>
+                <FALSE>
+                    <comment>FALSE</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Select this to disable profile tracing.]]>
+					</desc>
+				</FALSE>
+                <TRUE>
+                    <comment>TRUE</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Select this to enable profile tracing.]]>
+					</desc>
+				</TRUE>
+			</profile_tracing>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+					<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+					<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+            <action_to_perform>
+                <ALLOW>
+					<comment>ALLOW</comment>
+					<value>FALSE</value>
+					<desc><![CDATA[ Select this, if you want to allow requests or responses matching this policy]]></desc>
+				</ALLOW>
+				<DENY>
+					<comment>DENY</comment>
+					<value>FALSE</value>
+					<desc><![CDATA[ Select, if you want to block requests or responses matching this policy.  Will not block the requests or responses to those users who have allow bypass set from the access section.]]></desc>
+				</DENY>
+				<INHERIT>
+					<comment>INHERIT</comment>
+					<value>TRUE</value>
+					<desc><![CDATA[ Select, if you want to apply the action based on previous profiles match up.]]></desc>
+				</INHERIT>
+				<DO_NOT_BYPASS>
+					<comment>DO NOT BYPASS</comment>
+					<value>FALSE</value>
+					<desc><![CDATA[ Select, if you want to strictly block the websites.]]></desc>
+				</DO_NOT_BYPASS>
+			</action_to_perform>
+			<add_profiles>
+			</add_profiles>
+			<cookie_profiles parent="_0" group="Used In Cookie Filtering" list="cookie_profiles">
+				<ooo>
+					<comment>Read Only</comment>
+					<value>Read Only</value>
+                    <desc>
+                        <![CDATA[
+						<p>Drop all cookies sent in Request and Response Headers, and thus prevent login</p>				
+						]]>
+					</desc>
+				</ooo>				
+				<oow>
+					<comment>Crazy Entry Two</comment>
+					<value>Crazy Entry Two</value>
+					<desc>
+						This is a crazy entry two.
+					</desc>
+				</oow>
+			</cookie_profiles>
+		</select>
+	</profiles>
+</section>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<limits>
+        <enabled>true</enabled>
+        <comment>Speed Limits</comment>
+        <parentgroup>policymgr</parentgroup>
+        <logo>fa-street-view</logo>
+        <wizard>true</wizard>
+        <type>section</type>
+		<flags>1</flags>
+        <desc>
+            <![CDATA[ <p>Set data transfer rate (speed or QoS) limits.</p>
+			]]>
+		</desc>
+        <select>
+			<limits_enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable limits section.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable limits section.]]>
+					</desc>
+				</TRUE>
+			</limits_enabled>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+            <action>
+                <ALLOW>
+                    <comment>ALLOW</comment>
+					<desc><![CDATA[ Connections will be allowed after matching this entry. ]]></desc>
+                    <value>TRUE</value>
+				</ALLOW>
+                <DENY>
+                    <comment>DENY</comment>
+					<desc><![CDATA[ Connections will be denied after matching this entry.]]></desc>
+                    <value>FALSE</value>
+				</DENY>
+			</action>
+            <flags>
+                <LIMITCACHE>
+                    <comment>LIMIT CACHE TRANSFERS</comment>
+                    <desc>
+                        <![CDATA[ Transfer limit will be applied even if the content is being served from the cache. ]]>
+					</desc>
+                    <value>FALSE</value>
+				</LIMITCACHE>
+                <PERREQUEST>
+                    <comment>PER-REQUEST LIMIT</comment>
+                    <desc>
+                        <![CDATA[ Transfer limit will be applied to each single request. ]]>
+					</desc>
+                    <value>FALSE</value>
+				</PERREQUEST>
+                <GROUPLIMIT>
+                    <comment>GROUP LIMIT</comment>
+                    <desc>
+                        <![CDATA[ Transfer bandwidth limit will be shared between all matching connections. ]]>
+					</desc>
+                    <value>TRUE</value>
+				</GROUPLIMIT>
+			</flags>
+		</select>
+        <global>
+            <enabled n="0">
+                <comment>Enabled</comment>
+                <value>limits_enabled</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[ <p>Enable or Disable limits section to apply data transfer rate (speed or QoS) limits.</p>]]>
+				</desc>
+			</enabled>
+		</global>
+        <template>
+            <entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ <p>Enable or Disable this Entry.</p> ]]>
+					</desc>
+				</enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ <p>Enter your comments here for future references, explaining what this entry does.</p> ]]>
+					</desc>
+				</comment>
+                <profiles n="2">
+                    <comment>Profiles</comment>
+                    <value>add_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[ <p>Select the previously created profiles, to which this rule will be applied.
+							</br>Leave this rule blank, when you want to apply this entry to all connections.</p>
+						]]>
+					</desc>
+				</profiles>
+                <action n="3">
+                    <comment>Action</comment>
+                    <value>action</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[ <p>Select the appropriate action to apply when this entry matches.</p>
+							<p>For example: Select allow if you desire to set a limit on data transfer or the number of requests that can be made. When limit is reached action will be denied automatically.
+							</br>If action is set to deny then any request falling into the specified time range will be blocked, otherwise request is allowed.</p>
+						]]>
+					</desc>
+				</action>
+                <templ n="4">
+                    <comment>Template</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ <p>Specify the template name that should be displayed on a user's screen when this entry matches.</p>
+							<p>Leave this rule blank, to use default template "blocked".</p>
+							<p>For example: Templates like maxbandwidth and maxrequests are used for excessive bandwidth or requests, respectively.</p>
+						]]>
+					</desc>
+				</templ>
+                <maxdownloadbytes n="5">
+                    <comment>Download transfer limit</comment>
+                    <value>0</value>
+                    <type>LONG_FILE_SIZE</type>
+                    <desc>
+                        <![CDATA[ Specify the maximum number of bytes(download limit) that can be downloaded by the proxy during the time span of this matching entry.
+							<BR>No download limit is applied, if left blank.
+						]]>
+					</desc>
+				</maxdownloadbytes>
+                <maxuploadbytes n="6">
+                    <comment>Upload transfer limit</comment>
+                    <value>0</value>
+                    <type>LONG_FILE_SIZE</type>
+                    <desc>
+                        <![CDATA[ Specify the maximum number of bytes(<font color="orange">upload limit</font>) that can be uploaded by the proxy during the time span of this matching entry.
+						<BR>No upload limit is applied, if left blank.
+						]]>
+					</desc>
+				</maxuploadbytes>
+                <maxrequests n="7">
+                    <comment>Request limit</comment>
+                    <value>0</value>
+                    <type>UINT</type>
+                    <desc>
+                        <![CDATA[ Specify the maximum number of requests(maximum request) that would be allowed during the specified time.
+						<BR>No request limit is applied, if left blank.
+						]]>
+					</desc>
+				</maxrequests>
+                <downloadrate n="8">
+                    <comment>Download rate</comment>
+                    <value>0</value>
+                    <type>LONG_FILE_SIZE</type>
+                    <desc>
+                        <![CDATA[ Specify the maximum download transfer rate(<font color="orange">download rate</font>) that should be allowed.
+						<BR>No download transfer rate will be applied, if left blank.
+						]]>
+					</desc>
+				</downloadrate>
+                <flags n="9">
+                    <comment>Adjust Transfer Limits</comment>
+                    <value>flags</value>
+                    <type>STRING_SELECT_MANY</type>
+                    <desc>
+                        <![CDATA[ Select one or more options affecting how transfer limits should be applied to fine tune the rule.
+						<BR><BR>Transfer Limits will apply:<BR>
+						<ul>
+						<li><b>Limit cache transfers:</b> When the content is being served from the cache.</li>
+						<li><b>Per-request limit:</b> Will be applied to each single request.</li>
+						<li><b>Group limit:</b> Share transfer limit between all matching connections.</li>
+						</ul>
+						<br>For example:<br> When download transfer limit is set as 5 MB.
+						<BR>For Per-request limit each and every matching request will be allowed 5 MB.
+						<BR>For Group limit 5 MB will be shared between all the matching connections.
+						]]>
+					</desc>
+				</flags>
+			</entry>
+		</template>
+        <subsection>
+            <limit>
+				<enabled>true</enabled>
+                <comment>Set limits</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[ <p>The list of entries below will be processed from top to down.
+						<br>Each entry describes limitations on users for accessing content from the Internet.
+						<br>Disable entries, to ignore them.
+						<br>Every entry that matches the connection parameters specified in the entry will be processed for that connection.</p>
+					]]>
+				</desc>
+                <wizard_action>true</wizard_action>
+			</limit>
+		</subsection>
+	</limits>
+</section>

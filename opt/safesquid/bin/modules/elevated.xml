@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+    <elevated>
+        <enabled>true</enabled>
+        <comment>Elevated Privacy</comment>
+        <parentgroup>filter</parentgroup>
+        <logo>fa-barcode</logo>
+        <wizard>false</wizard>
+        <type>section</type>
+        <flags>1</flags>
+        <desc>
+            <![CDATA[
+						<p>Use Elevated Privacy to protect privacy activity across different websites.</p>
+						<p>Otherwise, third-party cookies will be tracking your activities.</p>
+						<p>Ex: When you are surfing internet by logging into any of your accounts like Hotmail, Yahoo, Gmail, Online Banking, etc. your activities will be tracked by third party and referral domains.</p>]]>
+        </desc>
+        <global>
+            <enabled n="0">
+                <comment>Enabled</comment>
+                <value>elevated_enable</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[ <p>Enable or Disable this section.</p> ]]>
+                </desc>
+            </enabled>
+        </global>
+        <template>
+            <entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[  Enable or Disable this Entry ]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ <p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p> ]]>
+                    </desc>
+                </comment>
+                <profiles n="2">
+                    <comment>Profiles</comment>
+                    <value>add_profiles</value>
+                    <button>profiles</button>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[ <p>Specify the Profiles applicable for this entry.</p>
+						<p>This entry will be applicable only if the connection has any one of the specified profiles.</p>
+						<p>Leave it Blank, to apply for all connections irrespective of any applied profile.</p>
+						<p>To avoid application to a connection that has a profile, use negated profile (!profile).</p>]]>
+                    </desc>
+                </profiles>
+                <action n="3">
+                    <comment>Privacy Levels</comment>
+                    <value>action_to_privacy</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[ <p>Apply 'Privacy Level' as per you requirement.</p>
+						        <p>Caution: If you select 'Paranoid' level privacy, it may cause problems for web servers which give response based on User-Agent.</p>
+                        ]]>
+                    </desc>
+                </action>
+            </entry>
+        </template>
+        <subsection>
+            <ELEVATED>
+                <enabled>true</enabled>
+                <comment>Elevated policies</comment>
+                <template>entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <wizard_action>false</wizard_action>
+                <type>section</type>
+                <desc>
+                    <![CDATA[ <p>Create the Policies for Elevated Privacy.</p>
+					<p>ALL The Following Entries will be tested from top to bottom.</p> 
+					<p>Click on Add below, to add a new entry.</p>
+					<p>Example: After enabling this section and creating a policy, you are unable to log into websites with third-party account details like, you are unable to login into flipkart or amazon with Facebook or Gmail accounts.</p>]]>
+                </desc>
+            </ELEVATED>
+        </subsection>
+        <select>
+			<elevated_enable>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable strict privacy and third party cookies blocking.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable strict privacy and third party cookies blocking.]]>
+					</desc>
+				</TRUE>
+			</elevated_enable>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+            <action_to_privacy>
+                <NOT-REQUIRED>
+                    <comment>NOT-REQUIRED</comment>
+                    <value>FALSE</value>
+                    <desc><![CDATA[Select this, to bypass enforcement of Elevated Privacy]]></desc>
+                </NOT-REQUIRED>
+                <LOW>
+                    <comment>LOW</comment>
+                    <value>TRUE</value>
+                    <desc><![CDATA[Select this, to block Third-Party Cookies only]]></desc>
+                </LOW>
+                <STANDARD>
+                    <comment>STANDARD</comment>
+                    <value>FALSE</value>
+                    <desc><![CDATA[Select this, to block Third-Party Cookies and hide the HTTP(s) referrer]]></desc>
+                </STANDARD>
+                <PARANOID>
+                    <comment>PARANOID</comment>
+                    <value>FALSE</value>
+                    <desc><![CDATA[Select this, to block Third-Party Cookies, Hide the HTTP(s) referrer and Hide different User-Agent]]></desc>
+                </PARANOID>
+            </action_to_privacy>
+        </select>
+    </elevated>
+</section>

@@ -1,0 +1,39 @@
+
+check file bind9-init with path /etc/init.d/bind9
+group named
+	if not exist then unmonitor 
+mode active
+
+check directory run/named with path /run/named
+	stop program = "/bin/mkdir /run/named"
+	start program = "/bin/chown bind: /run/named"
+	if not exist then restart
+	if failed uid "bind" then start
+	depends on bind9-init
+mode active
+
+check file apparmour.disable.named with path /etc/apparmor.d/disable/usr.sbin.named
+group named
+	stop program = "/bin/ln -fs /etc/apparmor.d/usr.sbin.named /etc/apparmor.d/disable/"
+	start program = "/sbin/apparmor_parser -R /etc/apparmor.d/usr.sbin.named"	
+	if not exist then restart
+	depends on run/named
+mode active
+
+check process bind9 with pidfile /run/named/named.pid
+group named
+	start program = "/usr/sbin/service bind9 start"
+	stop program = "/usr/sbin/service bind9 stop"
+	if failed host 127.0.0.1 port 53 type udp protocol dns then alert
+	depends on apparmour.disable.named
+mode active
+
+check file watch.safesquid.dns.conf with path /usr/local/safesquid/security/dns/safesquid.dns.conf
+group named
+	start program = "/usr/sbin/service bind9 reload"
+	stop program = "/usr/bin/install -o bind -g bind /usr/local/safesquid/security/dns/safesquid.dns.conf -m 751 -t /etc/bind/"
+	if not exist then exec "/bin/cp --copy-contents -f /dev/null /usr/local/safesquid/security/dns/safesquid.dns.conf"
+	if changed checksum then restart
+	depends on bind9
+mode active
+

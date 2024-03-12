@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>  
+    <timeProfiles>
+        <enabled>true</enabled>
+        <comment>Time Profiler</comment>
+        <parentgroup>profilesdef</parentgroup>
+        <logo>fa-hourglass-half</logo>
+        <wizard>true</wizard>
+        <type>section</type>
+        <flags>1</flags>
+        <desc>
+            <![CDATA[<p>Use Time Profiler to setup your Time based Internet Access policies.</p>
+						<p>The time ranges are: Month range, Day range, Weekday range, Hour range and Minute range.</p>
+			<p>Create an Entry to define Time Profile(s) as a combination of one or more combinations of time ranges.</p>
+			<p>Time Profiler Enables you to allow or block the categories, websites based on the time ranges.</p>
+			]]>
+        </desc>
+        <global>
+            <enabled n="0">
+                <comment>Enabled</comment>
+                <value>time_policy</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[ Enable or Disable time profiles section.]]>
+                </desc>
+            </enabled>
+        </global>
+        <template>
+            <time_entry>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Enable or Disable this entry. ]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ <p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p> ]]>
+                    </desc>
+                </comment>
+                <profile_tracing n="2">
+                    <comment>Trace Entry</comment>
+                    <value>profile_tracing</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[ <p>Enable or Disable Tracing of this entry.</p>
+						<p>Select “Yes” to debug the application of entry using SafeSquid logs.</p>
+						<p>Enable entry tracing, is useful if you wish to validate, its application.</p>
+						]]>
+                    </desc>
+                </profile_tracing>
+                <timeprofiles n="3">
+                    <comment>Time Profiles</comment>
+                    <value>add_time_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[ <p>Specify the list of Time Profile(s) for which this entry should be applicable.</p>
+						<p>Leave it Blank, to ignore this applicability test.</p>
+						<p>This entry will be applicable only if the connection has at-least one of the specified Time Profile(s).</p>
+						<p>To avoid application of this entry to a connection that has a Time Profile, use negation (! Weekday).</p>
+						<p>Go to Time Profiler to review, or define new Time Profiles.</p>
+						]]>
+                    </desc>
+                </timeprofiles>
+                <tmonth n="4">
+                    <comment>Month range</comment>
+                    <value>month</value>
+                    <type>STRING_RANGE</type>
+                    <optional>true</optional>
+                    <desc>
+                        <![CDATA[ <p>Set the month range for which this entry is active.</p>
+						<p>By default, it applies to all months. </p>
+						<p> For example:</p>
+						<p> January to March: Keeps this policy active from the month of January through March.</p>
+						]]>
+                    </desc>
+                </tmonth>
+                <tday n="5">
+                    <comment>Day range</comment>
+                    <value>1,31</value>
+                    <type>INT_RANGE</type>
+                    <optional>true</optional>
+                    <desc>
+                        <![CDATA[ <p>Set the day range for which this entry is active.</p>
+						<p> By default, it applies to all days. </p>
+						<p>For example: Day 5 to 15 keeps this profile active from day 5th through day 15th.</p>
+						<p>If you mentioned month range as January to March, then this profile will be active after every month 5 to 15 from January through March.</p>
+						]]>
+                    </desc>
+                </tday>
+                <tweekday n="6">
+                    <comment>Weekday range</comment>
+                    <value>weekday</value>
+                    <type>STRING_RANGE</type>
+                    <optional>true</optional>
+                    <desc>
+                        <![CDATA[ <p>Set the weekday range for which this entry is active.</p>
+						<p> By default, it applies to all weekdays.</p>
+						<p>For example: Monday to Thursday: Keeps this profile active from Monday through Thursday.</p>
+						<p>If you mentioned Month Range and Day Range, then this profile is active for a combination of all ranges. (Month Range + Day range + weekday range).</p>
+						]]>
+                    </desc>
+                </tweekday>
+                <thour n="7">
+                    <comment>Hour range</comment>
+                    <value>0,23</value>
+                    <type>INT_RANGE</type>
+                    <optional>true</optional>
+                    <desc>
+                        <![CDATA[ <p>Set the hour range for which this entry is active. By default, it applies to every hour.</p>
+						<p>For example:  Hour 9 to 12: keeps this profile active from 9 AM to 12 PM.</p>
+						]]>
+                    </desc>
+                </thour>
+                <tminute n="8">
+                    <comment>Minute range</comment>
+                    <value>0,59</value>
+                    <type>INT_RANGE</type>
+                    <optional>true</optional>
+                    <desc>
+                        <![CDATA[<p>Set the minute range for which this entry is active, if left blank applies to every minute. This can be used in conjunction with Hour Range. </p>
+						<p>For example:
+If the hour range is 9 to 12 and minute range is 15 to 30, then the profile remains active from 9:15 through 12:30.
+</p>
+						]]>
+                    </desc>
+                </tminute>
+                <matchmode n="9">
+                    <comment>Time match mode</comment>
+                    <value>matchmode</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[ Select the appropriate mode to match the multiple time ranges.
+						]]>
+                    </desc>
+                </matchmode>
+                <add_time_profiles n="10">
+                    <comment>Added Time profiles</comment>
+                    <value>add_time_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc>
+                        <![CDATA[ <p>Specify the list of Profiles, to append to the connection’s existing Profiles, if all the applicability test rules match.</p>
+						<p>Subsequent applicable Entry may further modify the connection’s Profiles.</p>
+						<p>Define a new Profile(s), or Select previously defined Profile(s) from the drop-down menu to apply to the connection, if it matches this entry.</p>
+						<p>When defining a new Profile, use terms that uniquely represent your needs.</p>
+						<p>You can use added profiles in Virus scanning, SSL inspection and other filtering sections.</p>
+						]]>
+                    </desc>
+                </add_time_profiles>
+                <remove_time_profiles n="11">
+                    <comment>Removed Time profiles</comment>
+                    <value>add_time_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>0</neg>
+                    <desc>
+                        <![CDATA[ <p>Specify the list of Profile(s), to remove the connection’s existing Profiles, if all the applicability test rules match.</p>
+						<p>Subsequent applicable Entry may further modify the connection’s Profiles.</p>
+						<p>Select previously defined Profile(s) from the drop-down menu to apply to the connection, if it matches this entry.</p>
+						]]>
+                    </desc>
+                </remove_time_profiles>
+            </time_entry>
+        </template>
+        <select>	
+			<time_policy>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable time profiles section.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable time profiles section.]]>
+					</desc>
+				</TRUE>
+			</time_policy>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+            <profile_tracing>
+                <FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Select this option to disable profile tracing. ]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Select this option to enable profile tracing. ]]>
+					</desc>
+				</TRUE>
+            </profile_tracing>
+            <month>
+                <JANUARY>
+                    <value>TRUE</value>
+					<comment>JANUARY</comment>
+                    <desc>
+                        <![CDATA[ Select this for january month. ]]>
+                    </desc>
+                </JANUARY>
+                <FEBRUARY>
+					<value>FALSE</value>
+					<comment>FEBRUARY</comment>
+                    <desc>
+                        <![CDATA[ Select this for february month. ]]>
+                    </desc>
+				</FEBRUARY>
+                <MARCH>
+					<value>FALSE</value>
+					<comment>MARCH</comment>
+                    <desc>
+                        <![CDATA[ Select this for march month. ]]>
+                    </desc>
+				</MARCH>
+                <APRIL>
+					<value>FALSE</value>
+					<comment>APRIL</comment>
+                    <desc>
+                        <![CDATA[ Select this for april month. ]]>
+                    </desc>
+				</APRIL>
+                <MAY>
+					<value>FALSE</value>
+					<comment>MAY</comment>
+                    <desc>
+                        <![CDATA[ Select this for may month. ]]>
+                    </desc>
+				</MAY>
+                <JUNE>
+					<value>FALSE</value>
+					<comment>JUNE</comment>
+                    <desc>
+                        <![CDATA[ Select this for june month. ]]>
+                    </desc>
+				</JUNE>
+                <JULY>
+					<value>FALSE</value>
+					<comment>JULY</comment>
+                    <desc>
+                        <![CDATA[ Select this for july month. ]]>
+                    </desc>
+				</JULY>
+                <AUGUST>
+					<value>FALSE</value>
+					<comment>AUGUST</comment>
+                    <desc>
+                        <![CDATA[ Select this for august month. ]]>
+                    </desc>
+				</AUGUST>
+                <SEPTEMBER>
+					<value>FALSE</value>
+					<comment>SEPTEMBER</comment>
+                    <desc>
+                        <![CDATA[ Select this for september month. ]]>
+                    </desc>
+				</SEPTEMBER>
+                <OCTOBER>
+					<value>FALSE</value>
+					<comment>OCTOBER</comment>
+                    <desc>
+                        <![CDATA[ Select this for october month. ]]>
+                    </desc>
+				</OCTOBER>
+                <NOVEMBER>
+					<value>FALSE</value>
+					<comment>NOVEMBER</comment>
+                    <desc>
+                        <![CDATA[ Select this for november month. ]]>
+                    </desc>
+				</NOVEMBER>
+                <DECEMBER>
+					<value>FALSE</value>
+					<comment>DECEMBER</comment>
+                    <desc>
+                        <![CDATA[ Select this for december month. ]]>
+                    </desc>
+				</DECEMBER>
+            </month>
+            <weekday>
+                <SUNDAY>
+                    <value>TRUE</value>
+					<comment>SUNDAY</comment>
+                    <desc>
+                        <![CDATA[ Select this for sunday. ]]>
+                    </desc>
+                </SUNDAY>
+                <MONDAY>
+					<value>FALSE</value>
+					<comment>MONDAY</comment>
+                    <desc>
+                        <![CDATA[ Select this for monday. ]]>
+                    </desc>
+				</MONDAY>
+                <TUESDAY>
+					<value>FALSE</value>
+					<comment>TUESDAY</comment>
+                    <desc>
+                        <![CDATA[ Select this for tuesday. ]]>
+                    </desc>
+				</TUESDAY>
+                <WEDNESDAY>
+					<value>FALSE</value>
+					<comment>WEDNESDAY</comment>
+                    <desc>
+                        <![CDATA[ Select this for wednesday. ]]>
+                    </desc>
+				</WEDNESDAY>
+                <THURSDAY>
+					<value>FALSE</value>
+					<comment>THURSDAY</comment>
+                    <desc>
+                        <![CDATA[ Select this for thursday. ]]>
+                    </desc>
+				</THURSDAY>
+                <FRIDAY>
+					<value>FALSE</value>
+					<comment>FRIDAY</comment>
+                    <desc>
+                        <![CDATA[ Select this for friday. ]]>
+                    </desc>
+				</FRIDAY>
+                <SATURDAY>
+					<value>FALSE</value>
+					<comment>SATURDAY</comment>
+                    <desc>
+                        <![CDATA[ Select this for saturday. ]]>
+                    </desc>
+				</SATURDAY>
+            </weekday>
+            <matchmode>
+                <ABSOLUTETIME>
+                    <comment>ABSOLUTE</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ When the absolute time match mode is used, any time between the starting and ending time only will match. ]]>
+                    </desc>
+                </ABSOLUTETIME>
+                <ALLRANGES>
+                    <comment>ALL RANGES</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ With the all ranges time match mode however, a time within all of the ranges will match. ]]>
+                    </desc>
+                </ALLRANGES>
+            </matchmode>
+			<add_time_profiles>
+			</add_time_profiles>
+        </select>
+        <subsection>
+            <time_section>
+				<enabled>true</enabled>
+                <comment>Time profiles</comment>
+                <template>time_entry</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <desc>
+                    <![CDATA[ <p>Create list of Entries to implement your Time profile Policies.</p>
+					<p>Safesquid evaluates the entries in the order of top to bottom.</p>
+					<p>All the entries within the time range are applicable.</p>
+					<p>Add month, day, weekday, hour and minute ranges for each entry.</p>
+					<p>Each entry will be applicable for all combinations mentioned in that entry.</p>
+					<p>Click on ADD below to create a new policy.</p>
+					<p>Example:</br>
+Month range: January to May</br>
+Day range: 1 to 15</br>
+Weekday range: Monday to Friday</br>
+Hour range: 9 to 16</br>
+Minute range: 30 to 00</br>
+</p>
+					<p>The Above profile will block all social categories, every month 1st-15th, from Jan to May and every day from 9:30 AM to 4:00 PM, from Monday to Friday, if you select Time match mode as allranges.</p>
+					<p> The Above profile will block all social categories, every month 1st-15th,  from Jan to May and every week from Monday- 9:30 AM to Friday - 4:00 PM, if you select Time match mode as absolutemode.</p>
+					]]>
+                </desc>
+                <wizard_action>true</wizard_action>
+            </time_section>
+        </subsection>
+    </timeProfiles>  
+</section>    

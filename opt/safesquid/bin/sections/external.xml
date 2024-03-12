@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<external>
+		<enabled>true</enabled>
+		<comment>External applications</comment>
+		<parentgroup>profilesdef</parentgroup>
+		<logo>fa-external-link-square</logo>
+		<wizard>false</wizard>
+		<type>section</type>
+		<flags>1</flags>
+		<desc>
+            <![CDATA[ <p>The external feature allows you to use any program or script to parse the contents of a file.</p>
+			<p>The external parser must send a complete HTTP request or response header, which overrules the ones sent by the browser or Web server.</p>
+			<p>If nobody is sent after the header, the original body with modified headers is used.</p>]]>
+        </desc>
+		<global>
+            <enabled n="0">
+                <comment>Enabled</comment>
+                <value>external_enable</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[ 
+						Enable or Disable external applications section.]]>
+                </desc>
+            </enabled>
+        </global>
+		<template>
+            <external_template>
+                <enabled n="0">
+                    <comment>Enabled</comment>
+                    <value>enabled</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ 
+							Enable or Disable this entry.
+						]]>
+                    </desc>
+                </enabled>
+                <comment n="1">
+                    <comment>Comment</comment>
+                    <value>This entry ...</value>
+                    <type>MULTILINE_STRING</type>
+                    <desc>
+                        <![CDATA[ 
+							<p>For documentation, and future references, explain the relevance of this entry with your policies.</p>
+<p>That is, by reading the policies, a future user can understand the purpose of that entry.</p>
+						]]>
+                    </desc>
+                </comment>
+                <profiles n="2">
+                    <comment>Profiles</comment>
+                    <value>add_profiles</value>
+                    <type>STRING_LIST</type>
+					<neg>1</neg>
+                    <desc>
+                        <![CDATA[ Comma separated List of Profiles to which this entry will be applied. Leave it Blank to apply to all.]]>
+                    </desc>
+                </profiles>
+                <exec n="3">
+                    <comment>Executable</comment>
+                    <value/>
+                    <type>STRING</type>
+                    <desc>
+                        <![CDATA[ The path to the executable; if no absolute path is given, the
+							path as given in the PATH environment variable is searched.
+							Any number of arguments can be passed by separating them by spaces;
+							if you're using a temporary file as the method to pass the
+							contents of the file, it's path will be the last argument.
+							If an executable returns with a non-zero status code, the original content is returned.
+						]]>
+                    </desc>
+                </exec>
+                <type n="4">
+                    <comment>Type</comment>
+                    <value>type</value>
+                    <type>STRING_SELECT_ONE</type>
+                    <desc>
+                        <![CDATA[ The method in which content is passed to the external program;
+							if set to Pipe the content is piped to the program's STDIN, if
+							set to File the content is stored in a temporary file and it's
+							path is passed as the last argument.
+						]]>
+                    </desc>
+                </type>
+                <flags n="5">
+                    <comment>Applies to</comment>
+                    <value>flags</value>
+                    <type>STRING_SELECT_MANY</type>
+                    <desc>
+                        <![CDATA[ Select whether the external application is used on the request, response or both]]>
+                    </desc>
+                </flags>
+                <persession n="6">
+                    <comment>Run once per session</comment>
+                    <value>persession</value>
+                    <type>BOOL</type>
+                    <desc>
+                        <![CDATA[ Run external parser for every request in a session until it returns a non-zero status code, this is useful
+						for performing authentication through an external program.]]>
+                    </desc>
+                </persession>
+                <sendheader n="7">
+                    <comment>Send header</comment>
+                    <value>sendheader</value>
+                    <type>STRING_SELECT_MANY</type>
+                    <desc>
+                        <![CDATA[ Which header(s), if any, to send to the external program before sending the body. The response header option
+							only applies to external programs that process the response. If both headers are sent, the request header is sent first.
+						]]>
+                    </desc>
+                </sendheader>
+            </external_template>
+        </template>
+		<select>
+			<persession>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+					<![CDATA[ Disable run once per session.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+					<![CDATA[ Enable run once per session.]]>
+					</desc>
+				</TRUE>
+			</persession>
+			<external_enable>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable external applications section.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable external applications section.]]>
+					</desc>
+				</TRUE>
+			</external_enable>
+			<enabled>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Disable this entry.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Enable this entry.]]>
+					</desc>
+				</TRUE>
+			</enabled>
+			<type>
+                <PIPE>
+                    <comment>PIPE</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ The data will be passed to the external program by writing to STDIN.]]>
+                    </desc>
+                </PIPE>
+                <FILE>
+                    <comment>FILE</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ The data will be passed to the external program by writing it to a temporary file and passing the filename
+						as the last argument.]]>
+                    </desc>
+                </FILE>
+            </type>
+			<sendheader>
+				<REQUEST>
+                    <comment>Request header</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Send the request header before the body.]]>
+                    </desc>
+                </REQUEST>
+				<RESPONSE>
+                    <comment>Response header</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Send the response header before the body.]]>
+                    </desc>
+                </RESPONSE>
+            </sendheader>
+			<flags>
+				<REQUESTS>
+                    <comment>REQUESTS</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ This external program will be used on requests. An external program used on requests may modify the request
+							by sending a request header and possibly a request body for POST or PUT requests, it may also satisfy
+						the request by sending back a response header and possibly a body.]]>
+                    </desc>
+                </REQUESTS>
+				<RESPONSES>
+                    <comment>RESPONSES</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ This external program will be used on responses. An external program used on responses may modify the response
+						by sending a response header and possibly a body.]]>
+                    </desc>
+                </RESPONSES>
+			</flags>
+        </select>
+		<subsection>
+            <external>
+				<enabled>true</enabled>
+                <comment>Application policies</comment>
+                <template>external_template</template>
+                <parentgroup>inherit</parentgroup>
+                <logo/>
+                <type>section</type>
+                <desc>
+                    <![CDATA[ List of external parsers to process content with.]]>
+                </desc>
+                <wizard_action>false</wizard_action>
+            </external>
+        </subsection>
+	</external>
+</section>

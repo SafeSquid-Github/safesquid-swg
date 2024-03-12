@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <ftp>
+        <enabled>true</enabled>
+        <comment>FTP browsing</comment>
+        <parentgroup>infrastructure</parentgroup>
+        <logo>fa-files-o</logo>
+        <wizard>true</wizard>
+        <type>section</type>
+        <flags>1</flags>
+        <desc>
+            <![CDATA[ 				
+				<p>FTP Browsing section lets you configure how the FTP connections are established, and results are displayed.</p>
+				<p>SafeSquid can provide support for browsing FTP Servers, anonymously.</p>
+				<p>This can be useful when the client (some of the older web-browsers) applications lack the support to directly access FTP sites.</p>
+				<p>Such Internet Clients may also set SafeSquid as their HTTP/1.1 Proxy to access FTP sites.</p>
+				<p>The settings made here apply to all requests for ftp: // URLs.</p>]]>
+        </desc>
+        <global>
+            <passive n="0">
+                <comment>Passive mode</comment>
+                <value>ftp_enable</value>
+                <type>BOOL</type>
+                <desc>
+                    <![CDATA[ <p>When you are behind a firewall, it prevents the FTP server from opening a data connection to you.</p>
+					<p>Thus, it prevents the FTP transfers.</p>
+					<p>Enabling Passive mode solves this by opening up both (Command and Data) channels from your side.</p>
+					<p>So, it is recommended to use Passive mode when you are behind a firewall.</p>]]>
+                </desc>
+            </passive>
+            <timeout n="1">
+                <comment>Timeout</comment>
+                <value>15</value>
+                <type>INT</type>
+                <desc>
+                    <![CDATA[ The timeout to wait for a response to commands sent to the FTP server.]]>
+                </desc>
+            </timeout>
+            <anonlogin n="2">
+                <comment>Username for anonymous login</comment>
+                <value>anonymous</value>
+                <type>STRING</type>
+                <desc>
+                    <![CDATA[ Specify the username to be used when none is given in the URL, explicitly ]]>
+                </desc>
+            </anonlogin>
+            <anonpass n="3">
+                <comment>Password for anonymous login</comment>
+                <value>noone@nowhere.com</value>
+                <type>STRING</type>
+                <desc>
+                    <![CDATA[ The password to be used when none is given in the URL, explicitly]]>
+                </desc>
+            </anonpass>
+            <sortorder n="4">
+                <comment>Sort order</comment>
+                <value>order</value>
+                <type>STRING_SELECT_ONE</type>
+                <desc>
+                    <![CDATA[ Specify the order by which FTP directory listings should be sorted.]]>
+                </desc>
+            </sortorder>
+            <sortfield n="5">
+                <comment>Sort field</comment>
+                <value>field</value>
+                <type>STRING_SELECT_ONE</type>
+                <desc>
+                    <![CDATA[Specify the field by which FTP directory listings should be sorted.]]>
+                </desc>
+            </sortfield>
+        </global>
+        <select>
+		    <ftp_enable>
+				<FALSE>
+					<comment>FALSE</comment>
+					<value>TRUE</value>
+					<desc>
+						<![CDATA[ Disable Passive mode.]]>
+					</desc>
+				</FALSE>
+				<TRUE>
+					<comment>TRUE</comment>
+					<value>FALSE</value>
+					<desc>
+						<![CDATA[ Enable Passive mode.]]>
+					</desc>
+				</TRUE>
+			</ftp_enable>
+            <order>
+                <ASCENDING>
+                    <comment>ASCENDING</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Sort in ascending order.]]>
+                    </desc>
+                </ASCENDING>
+                <DESCENDING>
+                    <comment>DESCENDING</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Sort in descending order.]]>
+                    </desc>
+                </DESCENDING>
+            </order>
+            <field>
+                <NONE>
+                    <comment>NONE</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Don't sort.]]>
+                    </desc>
+                </NONE>
+                <NAME>
+                    <comment>NAME</comment>
+                    <value>TRUE</value>
+                    <desc>
+                        <![CDATA[ Sort by name.]]>
+                    </desc>
+                </NAME>
+                <SIZE>
+                    <comment>SIZE</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Sort by size.]]>
+                    </desc>
+                </SIZE>
+                <DATE>
+                    <comment>DATE</comment>
+                    <value>FALSE</value>
+                    <desc>
+                        <![CDATA[ Sort by date.]]>
+                    </desc>
+                </DATE>
+            </field>
+        </select>
+    </ftp>
+</section>

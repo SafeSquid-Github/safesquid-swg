@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>    
+	<profilesdef>
+        <enabled>true</enabled>
+        <comment>Custom Settings</comment>
+        <parentgroup>configure</parentgroup>
+        <logo>fa-sliders</logo>
+        <desc><![CDATA[ 
+		<p>Customize configuration to suit your internet access policies.</p>
+		]]></desc>
+        <type>group</type>
+		<flags>1</flags>
+        <wizard>false</wizard>
+	</profilesdef>
+</section>

@@ -1,0 +1,754 @@
+#!/bin/bash
+THIS_PROCESS=$BASHPID
+NOW=`date +"%Y%m%d%H%M%S"`
+shopt -s expand_aliases
+
+
+if [[ -t 1 ]]; then
+	[ "x${DEBUGGER}" == "x" ] && exec 1> >( exec logger --id=${THIS_PROCESS} -s -t "safesquid.init" ) 2>&1
+	CHILD=$!
+else
+	[ "x${DEBUGGER}" == "x" ] && exec 1> >( exec logger --id=${THIS_PROCESS} -t "safesquid.init" ) 2>&1
+	CHILD=$!
+fi
+
+
+trap 'echo "error: ${FUNCNAME[*]}:${LINENO}"' ERR
+INIT_PID="/tmp/safesquid.init.pid"
+set -o pipefail;
+
+unset WAIT_FOR
+. /opt/safesquid/safesquid_params.sh && EXPORT_INI
+
+
+# Intra-function Global Status Variables
+declare -x RAM_DISK_MOUNTED="N"
+declare -x PID_FILE_EXISTS="N"
+declare -x PROCESS_RUNNING="N"
+declare -x MOD="ug=rwX,o=r"
+declare -x -i PID=0
+declare -x -i _KPID=0
+declare -x -a ALL_PIDS
+declare -x CRASH_DETECTED="N"
+declare -x HEALTHY_PROCESS="N"
+declare -x UNHEALTHY_PROCESS="N"
+declare -x -a STOP_SIGNAL
+
+USER_EXISTS=""
+GROUP_MEMBERSHIP=""
+
+# ordered array of the kill signals we will use to stop SafeSquid
+STOP_SIGNAL=( 15 2 3 6 18 20 24 9 17 19 23  )
+
+
+_BT()
+{
+	unset trace
+	unset backtrace
+	typeset -i d=0
+	[ $* -gt 1 ] && let d=$1
+	trace=( ${FUNCNAME[*]} )
+	
+	x=${#trace[*]}
+	for i in `seq $[x - 1] -1 $[d + 1]`
+	do
+		backtrace+=( "${trace[$i]}:${BASH_LINENO[$i-1]}: " )
+	done
+	
+	echo "${backtrace[*]}"
+}
+
+_LOCK_RUNNING ()
+{
+	[ "x${INIT_PID}" == "x" ] && return
+	echo -n -e "${THIS_PROCESS}" > "${INIT_PID}"
+	trap _CLEANUP `seq 0 15`
+}
+
+_CLEANUP()
+{
+	echo "cleaning up"
+	[ "x${INIT_PID}" != "x" ] && rm -v "${INIT_PID}"
+	#trap "kill 0" `seq 0 15`
+#	kill $(jobs -p)
+#	return;
+	set -e
+	trap 'echo "exiting.. $$";' `seq 0 15`
+#	kill -15 $(jobs -p) ${CHILD} ${THIS_PROCESS}  2>&1 > /dev/null
+	kill -15 ${CHILD}  ${THIS_PROCESS}  2>&1 > /dev/null
+	exit 0
+}
+
+# return 1 (fail) => another process not running
+# return 0 (success) => another process running
+_IS_ANOTHER ()
+{
+	declare -x -i LOCKED_PROCESS=0
+	[ "x${INIT_PID}" == "x" ] && echo "INIT_PID: undefined " return 1;
+	[ -f "${INIT_PID}" ] && LOCKED_PROCESS=`<${INIT_PID}`
+	
+	[ -d "/proc/${LOCKED_PROCESS}/" ] && echo "another instance of init script is still running" && exit 0;
+	
+	_LOCK_RUNNING
+	return 1;
+}
+
+_SLEEP()
+{
+	sleep 1s
+}
+
+
+_DEBUG ()
+{
+	setcap -r `readlink -f ${PROG}`
+	trap 'echo "exiting.. $$";' `seq 0 15`
+	${DEBUGGER} ${DEBUG_OPTIONS} ${PROG} ${FOREGROUND}
+}
+
+_START()
+{
+	SET_ENVIRONMENT
+	EXE=`readlink -f ${PROG}`
+	echo "${PROGRAM_NAME}: starting ${EXE}"
+	[ "x${SETCAP}" != "x" ] && echo "setcap ${SETCAP} ${EXE}"   
+	[ "x${SETCAP}" != "x" ] && setcap ${SETCAP} ${EXE} 
+	getcap ${EXE} 
+	[ "x${DEBUGGER}" != "x" ] && _DEBUG
+	[ "x${DEBUGGER}" == "x" ] && ${PROG} ${FOREGROUND}
+}
+
+
+_STOP2()
+{
+	for ((i = 0 ; i < ${#STOP_SIGNAL[*]} ; i++)); do
+		_ALL_PIDS
+		[ ${#ALL_PIDS[*]} -eq 0 ] && PROCESS_RUNNING="N" && echo "${PROGRAM_NAME}: not running" && break;
+		PROCESS_RUNNING="Y"
+		SIG=`kill -l ${STOP_SIGNAL[$i]}`
+		echo "kill -s ${SIG} ${ALL_PIDS[*]}"
+		kill -s ${SIG} ${ALL_PIDS[*]} && echo "killed" && _SLEEP && continue;
+		sleep 3s
+	done
+	_SLEEP
+
+}
+
+_STOP1()
+{
+	for ((i = 0 ; i < ${#STOP_SIGNAL[*]} ; i++)); 
+	do
+		_ALL_PIDS
+		[ ${#ALL_PIDS[*]} -eq 0 ] && PROCESS_RUNNING="N" && echo "${PROGRAM_NAME}: not running" && break;
+		PROCESS_RUNNING="Y"
+		SIG=`kill -l ${STOP_SIGNAL[$i]}`
+		echo "fuser -k -${SIG} -u ${PROG}"
+		fuser -v -k -${SIG} -u ${PROG} && echo "killed" && _SLEEP && continue;
+		sleep 3s
+	done	
+}
+
+_STOP()
+{
+	PROCESS_RUNNING="Y"
+	_STOP2
+	[ "x${PROCESS_RUNNING}" == "xY" ] && _STOP1
+	[ "x${PROCESS_RUNNING}" == "xY" ] && echo "${PROGRAM_NAME}: stop failed" && exit 1
+	
+	_REMOVE_PID
+}
+
+_STOP_()
+{
+	r=0
+	for ((i = 0 ; i < ${#STOP_SIGNAL[*]} ; i++));
+	do
+		_ALL_PIDS
+		[ ${#ALL_PIDS[*]} -eq 0 ] && PROCESS_RUNNING="N" && echo "${PROGRAM_NAME}: not running" && break;
+		PROCESS_RUNNING="Y"
+		SIG=`kill -l ${STOP_SIGNAL[$i]}`
+		echo "${PROGRAM_NAME}: signal ${SIG} to PID(s) ${ALL_PIDS[*]}"
+
+		echo "fuser -k -${STOP_SIGNAL[$i]} -u ${PROG}"
+		fuser -k -${STOP_SIGNAL[$i]} -u ${PROG} 
+		_SLEEP
+	done
+	
+	[ "x${PROCESS_RUNNING}" == "xY" ] && _STOP2
+	
+	[ "x${PROCESS_RUNNING}" == "xY" ] && echo "${PROGRAM_NAME}: stop failed" && exit 1
+	
+	_REMOVE_PID
+}
+
+_REMOVE_PID()
+{
+	[ "x${PIDFILE}" == "x" ] && return;
+	[ -f "${PIDFILE}" ] || return;
+	rm "${PIDFILE}"
+}
+
+_SET_SID()
+{
+	[ "x${PROG}" == "x" ] && return;
+	[ ! -f ${PROG} ] && return;
+	PROG_=`readlink -e ${PROG}`
+	[ "x${PROG_}" == "x" ] && return;
+	[ ! -f ${PROG_} ] && return;
+	SMOD=`stat -t --printf="%a" ${PROG_}`
+	[ ${SMOD} -gt 4000 ] && return;
+	chmod $[ SMOD + 4000 ] ${PROG_} 
+}
+
+SET_PERMISSIONS()
+{
+	WHAT="$1"
+	WHERE="${!WHAT}"
+	_MOD="$2"
+	_R="--changes";
+	[ "x${_MOD}" == "x" ] &&  _MOD="u=rwX,go=r"
+	echo "SET_PERMISSION: ${WHAT}:${WHERE} ${_MOD}" 
+	[ "x${WHAT}" == "x" ] && return;
+	[ "x${WHERE}" == "x" ] && return;
+	[ "x${_MOD}" == "x" ] && return;
+	
+	[ ! -d "${WHERE}" ] && [ ! -f "${WHERE}" ] && echo "warn: SET_PERMISSION: not found: ${WHAT}:${WHERE}" && return;
+	
+	[ -d "${WHERE}" ] && _R="--recursive --changes"
+
+	chmod ${_R} ${_MOD} "${WHERE}" 	
+	chown ${_R} ${USER}:${GROUP} "${WHERE}"
+}
+
+
+
+REMOVE_FILE()
+{
+	[ "x${1}" == "x" ] && return;
+	[ ! -f "${1}" ] && return;	
+	echo "REMOVE_FILE ${1}"
+	rm ${1}
+}
+
+
+COMPRESS_TEXT_FILE()
+{
+	[ "x${1}" == "x" ] && return;
+	[ ! -f "${1}" ] && return;
+	
+	S=`file -b -p --mime-type ${1}`
+	X="text/"
+	
+	[[ "${S#$X}" == "${S}" ]] && return; # Not a text file, we shouldn't bother to compress
+	
+	echo "compressing: ${1}"
+	D=`date -r ${1}`
+	gzip -c ${1} > ${1}.gz && touch -m --date="${D}" ${1}.gz 	
+}
+
+
+CHECK_FILE()
+{
+	while read FF; 
+	do
+		echo "CHECK_FILE: ${FF}"
+		lsof -f -- ${FF} && echo "not removing file in use: ${FF}" && continue;
+		USED=0
+		VV=(`df -H --output=size,used,avail,pcent -B 1 "${FILESYSTEM}" | tail -n 1`)
+		
+		USED=${VV[3]//[!0-9]/}
+				
+		[ ${USED} -lt ${GOAL} ] && echo "achieved GOAL: Free: ${GOAL} %" && break;
+	
+		[ ${USED} -gt 90 ] && REMOVE_FILE "${FF}" && continue; # Not enough space to attempt compression
+	
+		[ "x${S}" == "x${X}" ] && COMPRESS_TEXT_FILE "${FF}"
+		[ -f "${FF}" ] && REMOVE_FILE "${FF}" # remove file if compression fails
+		
+	done
+}
+
+
+
+DISK_CLEAN ()
+{
+	WHAT="$1"
+	TARGET="${!WHAT}"
+	
+	G=${2}
+	[ "x${G}" != "x" ] && G=${G//[!0-9]/}
+	[ "x${G}" == "x" ] && G=80
+	GOAL=$(( G * 1 ))
+	
+	[ "x${TARGET}" == "x" ] && echo "no target specified" && return;
+	TT=(`df -H --out=target --output="file" -B 1 "${TARGET}" | tail -n 1`)
+	FILESYSTEM="${TT[0]}"
+	[ "x${FILESYSTEM}" == "x" ] && echo "no FILESYSTEM specified for TARGET: ${TARGET}" && return;
+	echo "cleaning: ${FILESYSTEM}"
+	df -H --output=size,used,avail,pcent -B 1 "${FILESYSTEM}"	
+	find "${TARGET}" -type f -printf '%TY-%Tm-%Td-%TH.%TM.%Ts  %p %s\n' | sort -n | awk '{print $2}' | CHECK_FILE
+}
+
+
+SPACE_CHECK()
+{
+	trap _CLEANUP `seq 0 15`
+	case "$1" in
+		VAR_LOG_DIR)
+			DISK_CLEAN "VAR_LOG_DIR" "$2" 
+		;;
+		REPORT_DB_DIR)
+			DISK_CLEAN "REPORT_DB_DIR" "$2" 
+		;;
+		*)	
+			DISK_CLEAN "VAR_LOG_DIR" "$2" 
+			DISK_CLEAN "REPORT_DB_DIR" "$2" 
+		;;
+	esac
+}
+
+
+
+# create a file if it does not exist, and set required permissions
+ASSURE_FILE()
+{
+	WHAT="$1"
+	WHERE="${!WHAT}"
+	_MOD="$2"
+	[ "x${_MOD}" == "x" ] &&  _MOD="ug=rwX,o=r"
+
+	echo "${FUNCNAME[0]}:${LINENO[*]}: validating: ${WHAT}:${WHERE} has permissions ${_MOD}"   
+	
+	[ "x${WHERE}" == "x" ] && echo "warn: ${WHAT} not defined" && return;
+	[ -f "${WHERE}" ] && echo "already exists: ${WHAT}:${WHERE}"  
+	[ ! -f "${WHERE}" ] && echo "creating: ${WHAT}:${WHERE}" && > "${WHERE}" 
+	[ ! -f "${WHERE}" ] && echo "warn: not created: ${WHAT}:${WHERE}" && return;
+	
+	SET_PERMISSIONS "${WHAT}" "${_MOD}"
+}
+
+# create a directory if it does not exist, and set required permissions
+ASSURE_DIRECTORY()
+{
+	WHAT="$1"
+	WHERE="${!WHAT}"
+	_MOD="$2"
+	[ "x${_MOD}" == "x" ] &&  _MOD="ug=+rwX,o=r"
+
+	echo "${FUNCNAME[0]}:${LINENO[*]}: validating: ${WHAT}:${WHERE} has permissions ${_MOD}"   
+	
+	[ "x${WHERE}" == "x" ] && echo "warn: ${WHAT} not defined" && return;
+	[ -d "${WHERE}" ] && echo "already exists: ${WHAT}:${WHERE}"  
+	[ ! -d "${WHERE}" ] && echo "creating: ${WHAT}:${WHERE}" && mkdir -p "${WHERE}" 
+	[ ! -d "${WHERE}" ] && echo "warn: not created: ${WHAT}:${WHERE}" && return;
+	
+	SET_PERMISSIONS "${WHAT}" "${_MOD}"
+}
+
+FIX_DIRECTORIES()
+{	
+	ASSURE_DIRECTORY "OPT_DIR" "ug+rwX,o=r";
+	ASSURE_DIRECTORY "USR_LOCAL_DIR" "ug+rwX,o=r";
+	ASSURE_DIRECTORY "TMP_DIR" "ug+rwX,o=r";
+	ASSURE_DIRECTORY "VAR_CACHE_DIR" "ug+rwX,o=";
+	ASSURE_DIRECTORY "VAR_DB_DIR" "ug+rwX,o+r";
+	ASSURE_DIRECTORY "VAR_LOG_DIR" "ug+rwX,o=";
+	ASSURE_DIRECTORY "VAR_LIB_DIR" "ug+rwX,o=r";
+	ASSURE_DIRECTORY "VAR_RUN_DIR" "ug+rwX,o=r";
+	ASSURE_DIRECTORY "DNS_DIR" "ug+rwX,o=r"
+}
+
+FILE_CHECK ()
+{
+	ASSURE_FILE "DNS_STUB_PATH" "ug+rwX,o=r" 
+	SET_PERMISSIONS "KRB5_KTNAME" "ug+rwX,go=r"
+	SET_PERMISSIONS "KRB5CCNAME" "ug+rwX,go=r"	
+}
+
+_RAM_DISK()
+{
+	RET=1;
+	mount | grep "${RAMDEVICE}"  && RET=0
+	[ "x${RET}" == "x0" ] && RAM_DISK_MOUNTED="Y" && echo "RAMDEVICE: ${RAMDEVICE} already mounted" && return ${RET};
+
+	RET=1
+	[ ! -b "${RAMDEVICE}" ] && mknod "${RAMDEVICE}" b 1 1  && RET=0 
+	[ ! -b "${RAMDEVICE}" ] && echo "RAMDEVICE ${RAMDEVICE} does not exist, and therefore cannot be used" && return ${RET};
+
+	RET=1	
+	echo y | mke2fs -t ext2 ${RAMDEVICE}   && RET=0 
+	[ "x${RET}" != "x0" ] && echo "failed: formatting the RAMDEVICE: ${RAMDEVICE}" && return ${RET}
+	echo "success: formatting the ${RAMDEVICE}"   
+
+	RET=1
+	mount ${RAMDEVICE} ${TMP_DIR}  && RET=0
+
+	[ "x${RET}" != "x0" ] && echo "failed: mount TMP_DIR: ${TMP_DIR} to RAMDEVICE: ${RAMDEVICE}" && return ${RET}
+	RAM_DISK_MOUNTED="Y";
+}
+
+RAM_DISK ()
+{
+	typeset -i RET=0
+	[ "x${RAMDEVICE}" == "x" ] && echo "RAMDEVICE not specified to create a RAMDISK" && return;
+	[ "x${TMP_DIR}" == "x" ] && echo "TMP_DIR not specified to mount a RAMDISK" && return;
+	[ ! -d ${TMP_DIR} ] &&  echo "creating TMP_DIR: ${TMP_DIR}" && mkdir -p ${TMP_DIR} 
+	[ ! -d ${TMP_DIR} ] &&  echo "error: creating TMP_DIR: ${TMP_DIR}" && return;
+	_RAM_DISK
+	return;
+}
+
+PRELOAD_LIBS ()
+{
+	if [ -f ${LIB_KEEP_ALIVE} ]
+	then
+		export KEEPIDLE=${TCP_KEEPIDLE_TIME}  KEEPINTVL=${TCP_KEEPINTVL_TIME} KEEPCNT=${TCP_KEEPCNT_COUNTS}
+		export LD_PRELOAD=${LD_PRELOAD}:${LIB_KEEP_ALIVE}	
+	fi
+	
+	[ "x${LIBS_DIR}" == "x" ] && echo "LIBS_DIR not specified" && return;
+	
+	[ ! -d ${LIBS_DIR} ] && echo "LIBS_DIR: ${LIBS_DIR} does not exist, not preloading any libraries" && return;
+	
+	LIBS=( `ls ${LIBS_DIR}` )
+	[ ${#LIBS[*]} -le 0 ] && echo "LIBS_DIR: ${LIBS_DIR} no preload libraries found" && return;
+	
+	for LIBS in ${LIBS_DIR}/*
+	do
+		LIB=`readlink -f ${LIBS}`
+		[ ! -f ${LIB} ] &&  echo "error: pre_loading: ${LIBS} -> ${LIB}: file not found" && continue;
+		echo "pre_loading: ${LIBS} -> ${LIB}"  
+		export LD_PRELOAD=${LD_PRELOAD}:${LIBS}	
+	done
+}
+
+
+CRASH_REPORT()
+{
+	[ "x${CRASH_DETECTED}" == "xN" ] && return; 
+	
+	[ "x${CGIBIN_DIR}" == "x" ] && echo "CGIBIN_DIR: not set" && return;
+	[ "x${SUPPORT_SCRIPT}" == "x" ] && echo "SUPPORT_SCRIPT: not set" && return;
+	[ ! -f ${CGIBIN_DIR}/${SUPPORT_SCRIPT}  ] && echo "SUPPORT_SCRIPT: not found" && return;
+	
+	/bin/bash ${CGIBIN_DIR}/${SUPPORT_SCRIPT} 
+}
+
+GROUP_ADD()
+{
+	GROUP_CHECK
+	[ "x${GROUP_MEMBERSHIP}" == "xY" ] && return;
+	echo "${USER}: adding to group: ${GROUP}"   
+	usermod ${USER} -g ${GROUP} 
+	R=$?
+
+	# we cannot proceed if the user is not a member of the required group, and we can't modify the group membership
+	[ "x${R}" != "x0" ] && echo "error: adding ${USER} to group: ${GROUP} .... exiting" && exit 1
+}
+
+
+GROUP_CHECK()
+{
+	GID=( `id -Gn ${USER} 2> /dev/null` )
+	for i in `seq 0 ${#GID}`
+	do 
+		[ "x${GID[$i]}" == "x${GROUP}" ] && echo "${USER}: is member of group: ${GROUP}" && GROUP_MEMBERSHIP=Y && return;
+	done
+	
+	echo "${USER}: is NOT member of group: ${GROUP}"
+}
+
+
+ADD_USER()
+{
+	USER_CHECK
+	[ "x${USER_EXISTS}" == "xY" ] && return;
+	
+	echo "Creating user ${USER} in group ${GROUP}"   
+	useradd -r ${USER} -g ${GROUP} --shell ${SHELL} 
+	R=$? 
+	# we cannot proceed if the user does not exist and we cannot create it
+	[ "x${R}" != "x0" ] && echo "error: creating USER: ${USER} .... exiting" && exit 1
+	return $R
+}
+
+
+USER_CHECK()
+{
+	declare -i R=1
+	
+	[ "x${USER}" == "x" ] && echo "USER: not specified" && return $R;
+	[ "x${GROUP}" == "x" ] && echo "GROUP: not specified" && return $R;
+
+	ID=`id -un ${USER} 2> /dev/null` ; R=$?
+	[ "x${R}" == "x0" ] && USER_EXISTS=Y && echo "USER: ${USER} exists" && return $R
+	echo "USER: ${USER} does not exist"
+}
+
+_TCP_TUNE()
+{	
+	[ "x${SYSTEM_INI}" == "x" ] && echo "warn: SYSTEM_INI not defined" && return;
+	echo "debug: invoking tcp_tune"  
+	/bin/bash /etc/init.d/tcp_tune.sh 
+	SYSTEM_TUNE 
+}
+
+_MALLOC_CHECK ()
+{
+	[ "x${MALLOC_CHECKING}" == "x" ] && echo "warn: MALLOC_CHECKING not defined" && return;
+	
+	for x in 0 1 2 3 5 7
+	do
+		[ ${MALLOC_CHECKING} -eq $x ] || continue;
+		export MALLOC_CHECK_=${MALLOC_CHECKING}
+		echo "export MALLOC_CHECK_=${MALLOC_CHECKING}"  
+		return;	
+	done
+	
+	echo "error: unacceptable value MALLOC_CHECKING: ${MALLOC_CHECKING}"  
+}
+
+SET_ENVIRONMENT()
+{
+	ADD_USER
+	GROUP_ADD
+	_MALLOC_CHECK	
+	ulimit -HSn ${MAX_FDS}
+	_TCP_TUNE
+	RAM_DISK
+	PRELOAD_LIBS
+	FIX_DIRECTORIES
+	FILE_CHECK
+}
+
+CHECK_PID()
+{
+	PID=0
+	PID_FILE_EXISTS="N"
+
+	[ "x${PIDFILE}" == "x" ] && echo "error: PIDFILE not defined" && return;
+	[ ! -f "${PIDFILE}" ] && return;
+
+	PID=`< ${PIDFILE}`
+	PID_FILE_EXISTS="Y"
+
+	return;
+}
+
+#grab all pids of safesquid process into array ALL_PIDS
+_ALL_PIDS()
+{
+	unset ALL_PIDS
+	ALL_PIDS=()
+	#if we are debugging then get the PID of the debugger
+	[ "x${DEBUGGER}" != "x" ] && ALL_PIDS+=( `pidof ${DEBUGER}` )
+	
+	# we will use pidof with the full path of the executable
+	ALL_PIDS+=( `pidof ${PROG}` )
+	[ ${#ALL_PIDS[*]} -le 0 ] && return;
+	echo "${PROGRAM_NAME}: detected ${#ALL_PIDS[*]} PID(s): ${ALL_PIDS[*]}"
+}
+
+
+_PID_INFO()
+{
+	[ "x${PID_FILE_EXISTS}" == "xN" ] && echo "PIDFILE: ${PIDFILE} not found" && return;
+	PID_FILE_DATE=`date --reference=${PIDFILE} +"%a %Y %b %d %T %Z"`
+	echo "PID: ${PID} created PIDFILE[${PIDFILE}] on ${PID_FILE_DATE}"  
+}
+
+# make sure _ALL_PIDS was called before calling this
+# display stats of all running instances of SafeSquid
+_PS_INFO()
+{
+	_SPACE="6,18,24,34,44,54,61,73,77,84,91,98,106,114,121"
+	[ ${#ALL_PIDS[*]} -le 0 ] && return;
+	
+	export PS_FORMAT="lstart,etime:9=AGE,pid:6=PID,%cpu:5,cputime:12=CPUTIME,nlwp:7=THREADS,%mem:5,sz:12,rss:12,vsz:12,state"
+	
+	ps $1 ww -p ${ALL_PIDS[*]}
+	
+	return;	
+}
+
+STATUS()
+{
+	_PROCESS_HEALTH
+	[ "x${PROCESS_RUNNING}" == "xN" ] && echo "${PROGRAM_NAME}: not running" && return;
+	[ "x${UNHEALTHY_PROCESS}" == "xY" ] && echo "${PROGRAM_NAME}: unhealthy"
+	[ "x${HEALTHY_PROCESS}" == "xY" ] && echo "${PROGRAM_NAME}: running ok"
+	
+	echo "${PROGRAM_NAME}: detected ${#ALL_PIDS[*]} PID(s): ${ALL_PIDS[*]}"
+
+	PS_OUT=$(_PS_INFO)
+	
+	echo "${PS_OUT}"
+}
+
+
+
+_PROCESS_HEALTH()
+{
+	HEALTHY_PROCESS="N"
+	PROCESS_RUNNING="N"
+	CRASH_DETECTED="N"
+	_USER=""
+	
+	_ALL_PIDS
+	CHECK_PID
+	
+	if [ ${#ALL_PIDS[*]} -eq 0 ]
+	then
+		[ "x${PID_FILE_EXISTS}" == "xY" ] && CRASH_DETECTED="Y" 
+		return 1;
+	fi
+	
+	PROCESS_RUNNING="Y"
+
+	#detect multiple PIDs
+	[ ${#ALL_PIDS[*]} -gt 1 ] && UNHEALTHY_PROCESS="Y" && return;
+		
+	[ "x${ALL_PIDS[0]}" != "x${PID}" ] && UNHEALTHY_PROCESS="Y" && return;	
+
+	for i in ${ALL_PIDS[*]}
+	do
+		_USER=""
+		_USER=$( ps --noheader -p $i -o euser= )
+		
+		[  "x${_USER}" == "x${USER}" ] && continue;
+		
+		UNHEALTHY_PROCESS="Y"
+		return 2;
+	done		
+	
+	HEALTHY_PROCESS="Y" 
+	return 0;
+}
+
+_CONFIRM_START()
+{
+	HEALTHY_PROCESS="N"
+	PROCESS_RUNNING="N"
+#	i=0
+	
+	[ "x${DEBUGER}" != "x" ] &&  echo "DEBUGGER set: not confirming process start" && return;
+	[ "x${FOREGROUND}" != "x" ] &&  echo "FOREGROUND set: not confirming process start" && return;
+	
+	LIMIT=10
+	h=""
+	
+	for ((a=0; a <= LIMIT ; a++))
+	do
+		[ $a != 0 ] && _SLEEP
+		
+		_PROCESS_HEALTH
+		[ "x${PROCESS_RUNNING}" != "xY" ] && echo "start: waiting process start" && continue;
+
+		# provide stats of the process just started
+		PS_OUT=$(_PS_INFO $h)
+		
+		h="--no-header"
+		
+		echo "${PS_OUT}"
+		
+		[ "x${HEALTHY_PROCESS}" != "xY" ] && continue;
+		
+		netstat -lntp | grep -i "${PID}/${PROGRAM_NAME}"
+		x=$?
+		
+		[ $x != 0 ] && continue;
+		break;
+		
+	done
+	
+	[ "x${HEALTHY_PROCESS}" != "xY" ] && echo "start: failed"	&& return;
+
+	echo "start: successful PID: ${PID}"
+}
+
+
+
+START()
+{
+	echo "${PROGRAM_NAME}: start called"
+		
+	#check if safesquid is running ok, or a previous execution crashed
+	_PROCESS_HEALTH
+
+	#show the stats about current running process
+	_PS_INFO
+	
+	# if there are any unhelathy processes, stop them
+	[ "x${UNHEALTHY_PROCESS}" == "xY" ] && _STOP
+
+	# if a previous execution crashed, generate a support tar-ball
+	[ "x${CRASH_DETECTED}" == "xY" ] && CRASH_REPORT& 
+
+	# if SafeSquid is already running ok, there's nothing to do, get out
+	[ "x${HEALTHY_PROCESS}" == "xY" ] && echo "already running healthy process: ${PID}" && return;
+	
+	# start SafeSquid
+	_START
+
+	# if a foreground mode execution was requested then the user has a clear visual, get out
+	[ "x${FOREGROUND}" != "x" ] && return;
+
+	# validate the process has started properly
+	_CONFIRM_START
+	
+	return;
+}
+
+
+STOP()
+{
+	echo "${PROGRAM_NAME}: stop called"	
+	_STOP	
+	return 0;
+}
+
+RESTART()
+{
+	STOP
+	START
+}
+
+
+MAIN()
+{
+	_IS_ANOTHER 
+	FOREGROUND=""
+	case "$1" in
+		restart|--restart)
+			RESTART
+		;;
+		start|--start)
+			START
+		;;
+		stop|--stop)
+			STOP	
+		;;
+		status|--status)
+			STATUS
+		;;  
+		foreground|--foreground)
+			FOREGROUND="-f"
+			START
+		;;
+		space_clean|--space_clean)
+			SPACE_CHECK "$2" "$3"  
+		;;
+		*)
+			echo "USAGE: /etc/init.d/${PROGRAM_NAME} {start|stop|restart|status|foreground|space_clean [VAR_LOG_DIR|REPORT_DB_DIR]}"
+		;;
+	esac
+	echo "waiting completion of all background processes"
+	echo "${THIS_PROCESS} ... exiting"
+	return;
+	exit 0;
+}
+
+MAIN $* 
+#MAIN $* | LOGGER
+echo BASHPID=$BASHPID
+exit 0

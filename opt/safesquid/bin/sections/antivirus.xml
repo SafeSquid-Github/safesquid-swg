@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+	<antivirus>
+        <enabled>true</enabled>
+        <comment>Real time content security</comment>
+        <parentgroup>configure</parentgroup>
+        <logo>fa-bug</logo>
+        <desc>
+            <![CDATA[ 
+			<p>Setup options to ensure secure access.</p>
+			]]>
+        </desc>
+        <wizard>false</wizard>
+        <type>group</type>
+        <flags>1</flags>
+    </antivirus>
+</section>
