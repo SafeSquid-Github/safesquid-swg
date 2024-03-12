@@ -1,0 +1,128 @@
+.category-box-div{
+ display:flex;   
+ .padding-top: 1em;
+ margin-bottom: 1em;
+}
+.category-info-box{
+    width: 33.3333%;
+    margin-left: 1ex;
+    height: 100%;
+    max-height: 100%;
+}
+.category-icons{
+    background: var(--grey6) none repeat scroll 0% 0%;
+    font-size: 11ex;
+    width: 2.5ex;
+    float: left;
+    text-align: center;
+}
+
+.category-content{
+    padding: 5px 10px;
+    margin-left: 90px;
+}
+.category-text{
+    text-transform: uppercase;    
+}
+.category-data{
+    .font-weight: bold;
+	margin-top: .5em;
+	word-wrap: break-word;
+}
+
+.category_unit{
+    position: relative;
+    height: auto;
+    float: left;
+    min-height: 1px;
+    width: 50%;
+    margin-left: 3ex;
+	border: .1ex solid var(--grey0);
+}
+
+.category_footer{
+    border-top: 1px solid #F4F4F4;
+    padding: 5px;
+    background-color: #FFF;
+    float: right;
+}
+
+.category-header{
+    width: 100%;
+    height: auto;
+    display: inline-block;
+    padding: 1ex;
+    .color: #FFF;
+}
+.category-input{
+    padding:1ex;
+}
+
+.category_title{
+    line-height: 1;
+    display: inline-block;
+}
+.category_search{
+    margin-top:0.5ex;
+    display:flex;
+    margin-left: -2ex;
+}
+
+.bg-maroon-border{
+border: 1px solid #D81B60;
+}
+
+.bg-navy-border{
+border: 1px solid #001F3F;
+}
+
+.bg-yellow-border{
+border: 1px solid #F39C12;
+}
+
+.category_update{
+width: 40px;
+height: 40px;
+border-radius: 50%;
+opacity: 1;
+-webkit-transition: all 0.7s ease;
+transition: all 0.7s ease;
+border: 0px none;
+background-color: green;
+color:white;
+float:right;
+position: relative;
+font-size:14px;
+outline: none;
+}
+.category_update:hover{
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+
+
+.modify_success{
+	width: 50%;
+	text-align:	center;
+	margin-left: 35ex; 
+	padding: 0.8ex;
+}
+#loading_file{
+    text-align: center;
+}
+
+.refreshDatabase{
+	display:contents;
+}
+
+#section_category_category_editor .row {
+    margin-top: 4em;
+}
+
+.list_cat {
+    margin-top: 1em;
+}
+
+.cat_mod_message , .error_message{
+	text-align: center;
+}

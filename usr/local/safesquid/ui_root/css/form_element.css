@@ -1,0 +1,178 @@
+._form-group{
+margin-bottom:15px;
+}
+
+._form-group-sm .form-control{
+height:30px;
+padding:5px 10px;
+font-size:12px;
+line-height:1.5;
+border-radius:3px;
+
+}
+
+._form-group-sm select.form-control{
+height:30px;
+line-height:30px;
+
+}
+
+._form-group-lg select._form-control{
+	height:46px;
+line-height:46px;
+
+}
+
+._form-group-lg select[multiple]._form-control,._form-group-lg textarea._form-control{
+height:auto;
+
+}
+
+
+
+._form-group-sm select[multiple].form-control,._form-group-sm textarea.form-control{
+height:auto;
+
+}
+
+._form-group-sm .form-control-static{
+height:30px;
+min-height:32px;
+padding:6px 10px;
+font-size:12px;
+line-height:1.5;
+
+}
+
+
+
+.form-horizontal ._form-group{
+margin-right:-15px;
+margin-left:-15px;
+
+}
+
+
+
+.navbar-form ._form-group:last-child{
+margin-bottom:0;
+
+}
+
+.btn-group-vertical>.btn-group:after,.btn-group-vertical>.btn-group:before,.btn-toolbar:after,.btn-toolbar:before,.clearfix:after,.clearfix:before,.container-fluid:after,.container-fluid:before,.container:after,.container:before,.dl-horizontal dd:after,.dl-horizontal dd:before,.form-horizontal ._form-group:after,.form-horizontal ._form-group:before,.modal-footer:after,.modal-footer:before,.nav:after,.nav:before,.navbar-collapse:after,.navbar-collapse:before,.navbar-header:after,.navbar-header:before,.navbar:after,.navbar:before,.pager:after,.pager:before,.panel-body:after,.panel-body:before,.row:after,.row:before{
+display:table;
+content:" ";
+
+}
+
+.btn-group-vertical>.btn-group:after,.btn-toolbar:after,.clearfix:after,.container-fluid:after,.container:after,.dl-horizontal dd:after,.form-horizontal ._form-group:after,.modal-footer:after,.nav:after,.navbar-collapse:after,.navbar-header:after,.navbar:after,.pager:after,.panel-body:after,.row:after{
+clear:both;
+
+}
+
+/*---form-control --*/
+
+.form-control{
+display:block;
+width:100%;
+height:34px;
+padding:6px 12px;
+font-size:14px;
+line-height:1.42857143;
+color:#555;
+background-color:#fff;
+background-image:none;
+border:1px solid #ccc;
+border-radius:4px;
+-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
+box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
+-webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+-o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+
+}
+
+.form-control:focus{
+border-color:#66afe9;
+outline:0;
+-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+
+}
+
+.form-control::-moz-placeholder{
+color:#999;
+opacity:1;
+
+}
+
+.form-control:-ms-input-placeholder{
+color:#999;
+
+}
+
+.form-control::-webkit-input-placeholder{
+color:#999;
+
+}
+
+.form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control{
+background-color:#eee;
+opacity:1;
+
+}
+
+.form-control[disabled],fieldset[disabled] .form-control{
+cursor:not-allowed;
+
+}
+
+textarea.form-control{
+height:auto;
+
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0){
+input[type=date].form-control,input[type=time].form-control,input[type=datetime-local].form-control,input[type=month].form-control{
+line-height:34px;
+
+}
+
+.input-group-sm input[type=date],.input-group-sm input[type=time],.input-group-sm input[type=datetime-local],.input-group-sm input[type=month],input[type=date].input-sm,input[type=time].input-sm,input[type=datetime-local].input-sm,input[type=month].input-sm{
+line-height:30px;
+
+}
+
+.input-group-lg input[type=date],.input-group-lg input[type=time],.input-group-lg input[type=datetime-local],.input-group-lg input[type=month],input[type=date].input-lg,input[type=time].input-lg,input[type=datetime-local].input-lg,input[type=month].input-lg{
+line-height:46px;
+
+}
+
+}
+
+
+.form-group-sm .form-control{
+height:30px;
+padding:5px 10px;
+font-size:12px;
+line-height:1.5;
+border-radius:3px;
+
+}
+
+.has-success .form-control{
+border-color:#3c763d;
+-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
+box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
+
+}
+
+.has-success .form-control:focus{
+border-color:#2b542c;
+-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #67b168;
+box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #67b168;
+
+}
+
+
+

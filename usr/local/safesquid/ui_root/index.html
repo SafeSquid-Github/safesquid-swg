@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>			
+        <title>SafeSquid SWG</title>
+        <link defer rel="icon" type="image/png" href="img/safesquid.png">
+
+        <link defer rel="stylesheet" type="text/css" href="css/fontawesome.css">		
+        <link defer rel="stylesheet" type="text/css" href="css/magicsuggest.css">
+        <link defer rel="stylesheet" href="css/jquery-ui.css">
+        <link defer rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.min.css">
+        <link defer rel="stylesheet" type="text/css" href="css/date_time.css">		
+        <link defer rel="stylesheet" type="text/css" href="css/slider.css">		
+
+        <link defer rel="stylesheet" type="text/css" href="css/safesquid.min.css">		
+        <link defer rel="stylesheet" type="text/css" href="css/javascript.css">	
+        <link defer rel="stylesheet" type="text/css" href="css/reporting.css">		
+        <link defer rel="stylesheet" type="text/css" href="css/safesquid.css">		
+        <link defer rel="stylesheet" type="text/css" href="css/manish.css">
+        <link defer rel="stylesheet" type="text/css" href="css/colors.css">	
+
+        <script type="text/javascript" src="js/jQuery.min.js"></script>        
+        <script defer type="text/javascript" src="js/jquery-ui.js"></script>
+        <script defer type="text/javascript" src="js/bootstrap.min.js"></script> 
+        <script defer type="text/javascript" src="js/upload.js"></script>
+        <script defer type="text/javascript" src="js/restart.js"></script>       
+        <script defer type="text/javascript" src="js/chrome_patch.js"></script>
+        <script defer type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+        <script defer type="text/javascript" src="js/dataTables.bootstrap.min.js"></script>
+        <script defer type="text/javascript" src="js/moment.js"></script>		       
+        <script defer type="text/javascript" src="js/date_time.js"></script>
+        <script defer type="text/javascript" src="js/view_log.js"></script>
+        <script defer type="text/javascript" src="js/magicsuggest.js"></script>        
+
+        <script defer type="text/javascript" src="js/jspdf.debug.js"></script>
+        <script defer type="text/javascript" src="js/underscore.js"></script>
+        <script defer type="text/javascript" src="js/params.js"></script>		
+        <script defer type="text/javascript" src="js/proto.js"></script>
+        <script defer type="text/javascript" src="js/policy_search.js"></script>
+
+        <script defer type="text/javascript" src="js/safesquid.js"></script>		
+    </head>
+
+    <body onload="LOAD_RENDER()">
+
+        <div class="container_section">
+            <div id="pageHeader" class="pageHeader">        
+                <div id="_top-menu" class="navIcons"></div>		
+            </div>
+
+            <div id="mainBody" class="mainBody">								
+                <div id="_pageLeft" class="pageLeft">		
+                    <div class="scrollContent">				
+                        <div class="main-sidebar">				
+                            <div class="sidebar" id="_menulist"></div>			
+                        </div>					
+                    </div>
+                </div>		
+
+                <div id="pageMiddle" class="pageMiddle">
+
+                    <div id="_breadcrumb_details" class="breadcrumb_details hidden fullWidth">	
+                        <ul id="_breadcrumb_info" class="breadcrumb"></ul>
+                    </div>
+
+
+                    <div id="dialog_prompt" title="Confirmation Required">			
+                    </div>
+
+                    <div id="_details" class="details fullWidth fullHeight">						
+                        <div class="section_content _section_content fullWidth fullHeight">							
+                            <div class="nav-tabs-custom fullWidth fullHeight cFlex">
+                                <div id="policy_setup_options" class="section_title fullWidth">
+                                    <ul class="nav nav-tabs nav-justified _nav_tabs"></ul>
+                                </div>                            
+                                <div id="policy_content" class="tab-content _tab_content fullHeight fullWidth cFlex"></div>
+                            </div>							
+                        </div>						
+                    </div>
+
+                    <div id="_search_details" class="details search_overflow hidden">						
+                    </div>
+
+                    <!--div class="col-md-5 hidden box-primary" id="_authentication" >
+                        <div class="box box-primary box-solid" >
+                            <div class="box-header with-border box-primary">
+                                <h5 class="box-title"><i class="fa fa-eye"></i>SafeSquid Interface Authentication</h5>
+                            </div>
+                            <div class="box-body">	
+                                <span id="_auth_error" class="hidden">Invalid credentials</span>
+                                <input type="text" class="form-control adjust_div" name="username" id="inter_username" placeholder="User Name" required="" autofocus="" />
+                                <input type="password" class="form-control adjust_div" name="password" id="inter_password" placeholder="Password" required=""/><br />
+                                <button class="btn btn-primary" style="float:right" type="button" onclick="auth_submit();">Login</button> 
+                            </div>
+                        </div>
+                    </div-->		
+
+
+                    <div class="authentication hidden" id="_authentication">
+                        <div class="col-lg-4 col-lg-offset-4 center_align" >   
+							<div id="_auth_error" class="auth_error fa fa-exclamation-triangle hidden">   Wrong Credentials</div>
+                            <div class="header">SafeSquid Interface Authentication</div>
+                            <div class="credentials">
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input name="username" class="form-control" placeholder="Username" id="inter_username" required="" type="text">
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                    <input name="password" class="form-control" placeholder="Password" id="inter_password" onkeypress="handle(event)" required="" type="password">
+                                </div>
+                            </div>
+                            <button class="btn btn-block" type="button" onclick="auth_submit();">Login</button> 
+                        </div>
+                    </div>
+
+
+
+                    <div id="_popups" class="modal" role="dialog">
+                        <div class="modal-dialog _modal_container">
+                            <!-- Modal content-->
+                            <div class="modal-content content_popup">
+                                <div class="modal-header hidden">				
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>				
+                                </div>
+                                <div class="modal-body popup_body _modal_body">
+                                    <div class="box-body adjust_div popup_modal" id="modal_data">
+                                        <div class="section_content _section_content">
+
+                                            <div class="nav-tabs-custom _tabs_height">
+                                                <div id="policy_setup_options">
+                                                    <ul class="nav nav-tabs _nav_tabs">
+
+                                                    </ul>
+                                                </div>
+                                                <div id="policy_content" class="tab-content _tab_content">
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer popup_footer _modal_footer">
+                                        <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div> <!-- end of popups -->
+
+                </div> <!-- end of pageMiddle -->
+
+                <div id="_pageRight" class="pageRight">		
+                    <div class="scrollContent">						
+                        <div id="_desc" class="desc">	<!-- used to hide/unhide -->
+                            <div id="section_header" class="section_desc unhide"></div>
+                            <div id="descripion_view" class="section_desc _section_desc"></div>	                    
+                        </div>
+                    </div>	
+                </div>	
+            </div>
+
+            <div id="pageFooter" class="pageFooter">
+                <div id="policy_search"></div>
+                <div id="_reporting_footer" class="control_button">					
+                    <span class="square_buttons _round_button bg-gray" id="search" onclick="DOWNLOAD_PDF();" ><i class="fa fa-file-pdf-o"></i></span> 					
+                </div>	
+
+                <div id="_icons" class="control_button _control_buttons">
+                    <div id="save_icon" class="square_buttons _round_button bg-gray fa fa-save" data-toggle="tooltip" title="Save Config" onclick="save_config()"></div><div id="show_save_msg"></div>
+                    <span class="square_buttons _round_button bg-gray" id="search" class="btn btn-xs" data-toggle="modal" onclick="search_policy();" data-target="#_popups"><i class="fa fa-search"></i></span> 				
+                </div>
+
+                <div id="filter_notation"></div>
+
+                <div id="version" class="version"></div>
+            </div>
+        </div> 
+
+        <script type="text/javascript">
+            var auto_refresh = setInterval(
+                    function ()
+                    {
+
+                            //chk_cnf = $($.conf_check());
+                            if(!status_log_)
+                                return;
+                            
+                            var MAKE_SHOW = "_details";
+                            if (divID_chk) {
+                                if (divID_chk === "reporting") {
+									if(report_check == "start"){
+										status_log('Refreshing Reports');
+										form_values('fresh', 'line');
+									}
+                                    return;
+                                }else if(divID_chk === 'profiles'){
+                                    //status_log('');
+                                    put_log('config fetch');
+                                    chk_cnf = $($.conf_check());
+                                    
+                                }                                
+                            }
+                        
+                    }, 15000);
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#dialog").dialog({
+                    autoOpen: false,
+                    modal: true
+                });
+
+            });
+            $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+                //status_log('');
+                abort_all_xhr();
+                abort = "";
+            })
+
+        </script>
+
+        <script type="text/javascript" src="js/app.js"></script>		
+        <!--script type="text/javascript" src="js/demo.js"></script-->
+
+    </body>
+</html>	
+
+

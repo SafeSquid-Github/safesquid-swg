@@ -1,0 +1,123 @@
+
+.support_box { 
+	.width: 16.6667%;
+	width: 25%;
+	height: auto;
+	float: left;
+	position: relative;
+	.min-height: 1px;
+	.padding-right: 15px;
+	.padding-left: 15px;
+	min-height: .1ex;
+	padding-right: 1.5em;
+	padding-left: 1.5em;
+	cursor: pointer;
+}
+
+.support_button{
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    -moz-user-select: none;
+    background-image: none;
+    display: inline-block;
+    padding:1ex;
+}
+
+.support_modal_content{
+    position: relative;
+    background-color: var(--grey10);
+    background-clip: padding-box;
+	border: .1ex solid var(--grey7);
+    .border-radius: 6px;
+    outline: 0px none;
+    .box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, .5)
+}
+
+.support_modal_header{
+    min-height: 1.6ex;
+	padding: 1.5ex;
+	border-bottom: .1ex solid var(--grey7);
+    .display:flex;
+}
+
+.support_modal_body{
+    position: relative;
+    .padding: 15px;
+    overflow: auto;
+	padding: 1.5em;
+}
+
+.support_modal_footer{
+    padding: 1em;
+    text-align: right;
+    border-top: .1ex solid var(--grey7);
+}
+
+.support_modal_title{
+    margin: 0px;
+    line-height: 1.4;
+}
+.support_float_right{
+    float:right;
+}
+.support_align_center{
+    text-align:center;
+}
+.support_startup_icon{
+    font-size:2em;
+}
+.support_text_area{
+    width:15em;
+}
+.loading_image{
+    text-align: center;
+}
+
+
+._loading_display{
+    margin-left:45ex;
+    max-width:80ex;
+    max-height:30ex;
+    margin-left:27em;
+}
+
+._plot_display{
+    max-width:120ex;
+    margin-left:4em
+}
+
+.support_text_area{
+	border: .1ex solid var(--grey0);
+	border-radius: 0;
+}
+
+
+.support_page {
+    display: flex;
+}
+
+.license_div {
+    width: 30%;
+}
+
+.license_info {
+    background-color: var(--grey10);
+    margin: 2em 0 0 0;
+}
+.license_info  td{
+	word-wrap: break-word;
+	max-width: 20ex !important;
+}
+
+.l_val{
+	text-align: right;
+}
+.l_refresh{
+	margin-top: .5em;
+}
+
+.support_boxes {
+    border-left: .1ex solid var(--grey10);
+}
