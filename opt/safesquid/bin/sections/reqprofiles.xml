@@ -48,7 +48,7 @@
                     <type>STRING_SELECT_ONE</type>
                     <desc>
                         <![CDATA[ <p>Enable or Disable tracing of this entry</p>
-                                  <p>Select “Yes” to debug the application of entry using SafeSquid logs.</p>
+                                  <p>Select "Yes" to debug the application of entry using SafeSquid logs.</p>
                                  <p> Enabling entry tracing, is useful if you wish to validate, its application.</p> 
 								  ]]>
 					</desc>

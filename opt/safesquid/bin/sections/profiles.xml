@@ -125,8 +125,8 @@
 					<desc>
 						<![CDATA[ 						   
 						<p>Enable or Disable Tracing of this entry</p>
-						<p>Select “Yes” to debug the application of entry using SafeSquid logs.</p> 
-						<p>“Enable entry tracing” is useful if you wish to validate its application.</p>
+						<p>Select "Yes" to debug the application of entry using SafeSquid logs.</p> 
+						<p>"Enable entry tracing" is useful if you wish to validate its application.</p>
 						]]>
 					</desc>
 				</profile_tracing>
@@ -145,7 +145,7 @@
 				</proxyhost>
 				<profiles n="4">
 					<comment>Applicable Profiles</comment>
-					<value>add_profiles,network_settings_profiles,https_inspection_profiles,clamav_profiles,text_analyzer_profiles,redirection_profiles,image_analyzer_profiles,dlp_profiles,time_profiler_profiles,cookie_profiles,header_filter_profiles,elevated_privacy_profiles,speed_limits_profilese</value>
+					<value>add_profiles,network_settings_profiles,https_inspection_profiles,clamav_profiles,text_analyzer_profiles,redirection_profiles,image_analyzer_profiles,dlp_profiles,time_profiler_profiles,cookie_profiles,header_filter_profiles,elevated_privacy_profiles,speed_limits_profiles</value>
 					<type>STRING_LIST</type>
 					<neg>1</neg>
 					<desc>
@@ -255,7 +255,7 @@
 				</action>
 				<add_profiles n="11">
 					<comment>Added Profiles</comment>
-					<value>add_profiles,network_settings_profiles,https_inspection_profiles,clamav_profiles,text_analyzer_profiles,redirection_profiles,image_analyzer_profiles,dlp_profiles,time_profiler_profiles,cookie_profiles,header_filter_profiles,elevated_privacy_profiles,speed_limits_profilese</value>
+					<value>add_profiles,network_settings_profiles,https_inspection_profiles,clamav_profiles,text_analyzer_profiles,redirection_profiles,image_analyzer_profiles,dlp_profiles,time_profiler_profiles,cookie_profiles,header_filter_profiles,elevated_privacy_profiles,speed_limits_profiles</value>
 					<type>STRING_LIST</type>
 					<neg>0</neg>
 					<desc>
@@ -270,7 +270,7 @@
 				</add_profiles>
 				<remove_profiles n="12">
 					<comment>Removed profiles</comment>
-					<value>add_profiles,network_settings_profiles,https_inspection_profiles,text_analyzer_profiles,redirection_profiles,image_analyzer_profiles,dlp_profiles,time_profiler_profiles,cookie_profiles,header_filter_profiles,elevated_privacy_profiles,speed_limits_profilese</value>
+					<value>add_profiles,network_settings_profiles,https_inspection_profiles,text_analyzer_profiles,redirection_profiles,image_analyzer_profiles,dlp_profiles,time_profiler_profiles,cookie_profiles,header_filter_profiles,elevated_privacy_profiles,speed_limits_profiles</value>
 					<type>STRING_LIST</type>
 					<neg>0</neg>
 					<desc>
@@ -348,8 +348,7 @@
 						<value>ALTERNATE OUTBOUND IP</value>
 						<desc><![CDATA[
 							<p>
-								Enforce network traffic to be routed through an alternate outbound IP.<br/>
-								Enhance network performance or reliability by distributing profiled traffic through a specific outbound IP.
+								Enforce network traffic to be routed through an alternate outbound IP.
 							</p>
 						]]></desc>
 					</zero>
@@ -361,7 +360,8 @@
 						<desc><![CDATA[
 							<p>
 								Bypass inspection of SSL/TLS encrypted traffic.<br/>
-								Allow encrypted data to flow without any inspection, used for highly sensitive applications where privacy is paramount or where the inspection process could disrupt the application's functionality.
+								Tunnel Non-Browser applications to remote web servers.<br/>
+								Facilitate use of Client side SSL certificates for Digital Signature.
 							</p>
 						]]></desc>
 					</zero>
@@ -370,8 +370,7 @@
 						<value>BYPASS INTRANET SITES SSL VERIFICATION</value>
 						<desc><![CDATA[
 							<p>
-								Bypass SSL error triggered by self-signed certificates.<br/>
-								Allows traffic to websites with self-signed certificates, useful for testing environments where the use of self-signed certificates is common.
+								Allow traffic to websites with self-signed certificates.
 							</p>
 						]]></desc>
 					</one>
@@ -380,8 +379,7 @@
 						<value>BYPASS NO ISSUER CERT LOCALLY ERROR</value>
 						<desc><![CDATA[
 							<p>
-								Bypass SSL errors for missing issuer certificates.<br/>
-								Allows traffic to websites with missing issuer certificate, useful for scenarios where SafeSquid is unable to complete AIA fetching.
+								Bypass SSL errors for incomplete certificate chain due to missing issuer certificates.
 							</p>
 						]]></desc>
 					</two>
@@ -392,7 +390,7 @@
 						<value>BYPASS CLAMAV SCANNING</value>
 						<desc><![CDATA[
 							<p>
-								Bypass clamav for websites which are tusted or where clamav virus scanning is not required.
+								Bypass scanning of request and response payloads with ClamAV.
 							</p>
 						]]></desc>
 					</zero>
@@ -401,7 +399,7 @@
 						<value>ENFORCE CLAMAV SCANNING</value>
 						<desc><![CDATA[
 							<p>
-								Enforce clamav to scan all in-coming content for virus, worm, Trojan and other malware, at the gateway, before the content is delivered to the users.
+								Enforce scanning of request and response payloads with ClamAV.
 							</p>
 						]]></desc>
 					</one>
@@ -412,9 +410,7 @@
 						<value>BYPASS TEXT FILTER</value>
 						<desc><![CDATA[
 							<p>
-								Bypass text analyzer for disabling content-based keyword scoring.<br\>
-								Intended to prevent false positives in content blocking, ensuring legitimate access is not incorrectly denied.<br/>
-								Use this bypass cautiously, as it could potentially allow sensitive or inappropriate content to pass through unchecked.
+								Bypass scanning of request and response payloads with Text Analyzer.
 							</p>
 						]]></desc>
 					</zero>
@@ -423,8 +419,7 @@
 						<value>ENFORCE TEXT FILTER</value>
 						<desc><![CDATA[
 							<p>
-								Restrict access to websites based on inappropriate or pornographic content using keyword scoring system.<br\>
-								Text analyzer is particularly useful in detecting unclassified websites that could serve inappropriate content.
+								Enforce scanning of request and response payloads with Text Analyzer.
 							</p>
 						]]></desc>
 					</one>
@@ -687,7 +682,7 @@
 						]]></desc>
 					</two>
 				</elevated_privacy_profiles>
-				<speed_limits_profilese parent="_0" group="Profiles: Speed Limits" list="speed_limits_profilese">
+				<speed_limits_profiles parent="_0" group="Profiles: Speed Limits" list="speed_limits_profiles">
 					<zero>
 						<comment>RESTRICTED DOWNLOAD TRANSFER RATES</comment>
 						<value>RESTRICTED DOWNLOAD TRANSFER RATES</value>
@@ -716,7 +711,7 @@
 							</p>
 						]]></desc>
 					</two> 
-				</speed_limits_profilese>
+				</speed_limits_profiles>
 		</select>
 	</profiles>
 </section>

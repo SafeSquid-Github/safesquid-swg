@@ -111,7 +111,7 @@
 				</comment>
                 <profiles n="2">
                     <comment>Profiles</comment>
-                    <value>add_profiles,speed_limits_profilese</value>
+                    <value>add_profiles,speed_limits_profiles</value>
                     <type>STRING_LIST</type>
 					<neg>1</neg>
                     <desc>
