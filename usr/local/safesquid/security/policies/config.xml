@@ -279,6 +279,7 @@
             <encodemime>excel,html,javascript,text,text/css,word,xml</encodemime>
             <compressout>TRUE</compressout>
             <compressin>AUTO</compressin>
+            <buffer_chunked>NEVER</buffer_chunked>
             <xforwardedfor>FALSE</xforwardedfor>
             <via>FALSE</via>
         </general>
