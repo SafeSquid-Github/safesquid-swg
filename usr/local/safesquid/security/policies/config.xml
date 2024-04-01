@@ -13,8 +13,10 @@
             <add_user_groups>TUNNELLED_UI_ACCESS</add_user_groups>
         </allow>
         <allow id="3">
-            <enabled>FALSE</enabled>
-            <comment>Connections tagged with the &quot;BYPASS AUTHENTICATION&quot; profile are exempt from user authentication prompts. &#x0A;Ensures compatibility with applications that do not support proxy authentication</comment>
+            <enabled>TRUE</enabled>
+            <comment>
+						Bypass Authentication requirements for Applications, that may not fully support RFC 2616 standards for Proxy-Authentication
+            </comment>
             <profile_tracing>FALSE</profile_tracing>
             <profiles>BYPASS AUTHENTICATION</profiles>
             <pamauth>FALSE</pamauth>
@@ -22,7 +24,7 @@
             <add_user_groups>USER_AUTHENTICATION_BYPASSED</add_user_groups>
         </allow>
         <allow id="5">
-            <enabled>FALSE</enabled>
+            <enabled>TRUE</enabled>
             <comment>For configuration sync in a proxy cluster environment, specify the IP address of your slave proxy servers.&#x0A;IP addresses of slave Proxy Instances: 192.168.2.116,192.168.2.117</comment>
             <profile_tracing>FALSE</profile_tracing>
             <ip>192.168.2.116,192.168.2.117</ip>
@@ -32,15 +34,22 @@
         </allow>
         <allow id="7">
             <enabled>TRUE</enabled>
-            <comment>Default access rule for initial admin access to the SafeSquid web interface (accessible via http(s)://safesquid.cfg) does not require user authentication.&#x0A;INFO: Employ user authentication for ensures that only authorized users can access the web interface.</comment>
+            <comment>
+						We allow administrators to access the SafeSquid Interface from any IP
+            </comment>
             <profile_tracing>FALSE</profile_tracing>
-            <pamauth>FALSE</pamauth>
+            <pamauth>TRUE</pamauth>
+            <username>administrator</username>
+            <password></password>
             <access>CONFIG,PROXY,HTTP,TRANSPARENT,CONNECT</access>
             <add_user_groups>SAFESQUID_ADMIN</add_user_groups>
         </allow>
         <allow id="9">
-            <enabled>FALSE</enabled>
-            <comment>Any authenticated users who have not been explicitly assigned to a specific group will automatically be placed in the &quot;GENERAL_USERS&quot; group.</comment>
+            <enabled>TRUE</enabled>
+            <comment>
+				All authenticated users not added to any specific user group are placed in the &lt;b&gt;GENERAL_USERS&lt;&#x2F;b&gt; user group.&lt;br&#x2F;&gt;
+				GENERAL_USERS are permitted to access the web as per policies, but not permitted to access the SafeSquid Interface
+			</comment>
             <profile_tracing>FALSE</profile_tracing>
             <pamauth>TRUE</pamauth>
             <access>PROXY,HTTP,TRANSPARENT,CONNECT</access>
@@ -126,13 +135,14 @@
         <DLP id="23">
             <enabled>TRUE</enabled>
             <comment>We  Allow Users to Upload Textual Content.</comment>
-            <mime>application/json,text/html,text/json,text/plain,text/xml</mime>
+            <profiles>ALLOW BASIC TEXT POSTS</profiles>
+			<mime>application/json,text/html,text/json,text/plain,text/xml</mime>
             <action>ALLOW</action>
         </DLP>
         <DLP id="25">
             <enabled>TRUE</enabled>
             <comment>Allow Uploading of Spread Sheets.</comment>
-            <profiles>ALLOW SPREADSHEETS</profiles>
+            <profiles>ALLOW SPREADSHEETS UPLOAD</profiles>
             <mime>application/vnd.ms-excel*,application/vnd.oasis.opendocument.spreadsheet*,application/vnd.openxmlformats-officedocument.spreadsheetml.*,application/vnd.sun.xml.calc*</mime>
             <action>ALLOW</action>
         </DLP>
@@ -189,27 +199,31 @@
         <enabled>TRUE</enabled>
         <policy id="41">
             <enabled>TRUE</enabled>
-            <comment>We want to mitigate potential risks associated with accessing unknown or unclassified content or in the event of categorization failure, protecting users from potential security threats, inappropriate material, or compliance breaches.</comment>
+            <comment>
+						We Block DNS queries for websites that are uncategorized or unclassified.
+				</comment>
             <bl_categories>#,Unknown</bl_categories>
         </policy>
         <policy id="43">
             <enabled>TRUE</enabled>
-            <comment>We want to enforce restriction on categories which encompasses websites associated with various security risks and threats, including malware distribution, hacking-related activities, (potentially hosting suspicious content), fraudulent schemes, spamming, and compromised platforms.</comment>
+            <comment>
+				We Block DNS queries for websites categorized as Anonymizers,Botnets,Compromised,Hacking,Illegal Software,Malware,Phishing &amp; Fraud,Spam Sites.
+				</comment>
             <bl_categories>Anonymizers,Botnets,Compromised,Hacking,Illegal Software,Malware,Phishing &amp; Fraud,Spam Sites</bl_categories>
         </policy>
         <policy id="45">
             <enabled>TRUE</enabled>
-            <comment>We want to enforce restriction on categories which includes websites containing adult-oriented content such as pornography, sexual content, nudity, and related materials</comment>
+            <comment>We Block DNS queries for websites categorized as Child Abuse Images,Nudity,Pornography/Sexually Explicit,Sex Education.</comment>
             <bl_categories>Child Abuse Images,Nudity,Pornography/Sexually Explicit,Sex Education</bl_categories>
         </policy>
         <policy id="47">
             <enabled>TRUE</enabled>
-            <comment>We want to enforce organizational policies, maintain a safe and compliant browsing environment, and protect users from exposure to content that may promote illegal or harmful behavior.</comment>
+            <comment>We Block DNS queries for websites categorized as Alcohol &amp; Tobacco,Criminal Activity,Cults,Gambling,Hate &amp; Intolerance,Illegal Drug,School Cheating,Tasteless,Violence,Weapons</comment>
             <bl_categories>Alcohol &amp; Tobacco,Criminal Activity,Cults,Gambling,Hate &amp; Intolerance,Illegal Drug,School Cheating,Tasteless,Violence,Weapons</bl_categories>
         </policy>
         <policy id="49">
             <enabled>TRUE</enabled>
-            <comment>We want to enforce restriction on all websites based on geographic location those originating from China,</comment>
+            <comment>We Block DNS queries for websites Geo-Located in China</comment>
             <bl_countries>CN</bl_countries>
         </policy>
     </dnsbl>
@@ -268,14 +282,17 @@
         <catreferer>TRUE</catreferer>
         <general id="59">
             <enabled>TRUE</enabled>
-            <comment>Default policy and applicable for all cases.</comment>
+            <comment>
+				Default policy and applicable for all cases.&lt;br&#x2F;&gt;
+				Our Default policy is to prohibit all Connect requests except to ports 80,443,2000 to 2100, 8080, and 9000 to 10000
+			</comment>
             <ctimeout>6</ctimeout>
             <timeout>6</timeout>
             <keeptimeout>6</keeptimeout>
             <maxdbuffer>10M</maxdbuffer>
             <maxubuffer>10M</maxubuffer>
             <bufferwait>6</bufferwait>
-            <cportrange>80,443</cportrange>
+            <cportrange>80,443,2000-2100,8080,9000-10000</cportrange>
             <encodemime>excel,html,javascript,text,text/css,word,xml</encodemime>
             <compressout>TRUE</compressout>
             <compressin>AUTO</compressin>
@@ -288,10 +305,10 @@
         <policy>ALLOW</policy>
         <insert id="61">
             <enabled>TRUE</enabled>
-            <comment>We require users to login to Google with only our corporate domains - safesquid.com, safesquid.net, and safesquid.org</comment>
+            <comment>We require users to login to Google with only our corporate domains - our_domain.com, our_domain.net, and our_domain.org</comment>
             <profiles>ENFORCE CORPORATE GOOGLE ACCOUNTS</profiles>
             <type>X-GoogApps-Allowed-Domains</type>
-            <value>safesquid.com, safesquid.net, safesquid.org</value>
+            <value>our_domain.com,our_domain.net,our_domain.org</value>
             <which>CLIENT</which>
         </insert>
         <insert id="63">
@@ -304,18 +321,22 @@
         </insert>
         <insert id="65">
             <enabled>TRUE</enabled>
-            <comment>Restrict destinations to which web-based connections (like API calls) can be made.&#x0A;Header Filtering policy inserts Content-Security-Policy: connect-src &apos;self&apos; @HOST_DOMAIN@ *.@HOST_DOMAIN@;; in response headers.</comment>
+            <comment>
+						Restrict loading of cross-site URLs using script interfaces
+			</comment>
             <profiles>ENFORCE CONTENT SECURITY POLICY - CONNECT</profiles>
             <type>Content-Security-Policy</type>
-            <value>connect-src &apos;self&apos; @HOST_DOMAIN@ *.@HOST_DOMAIN@; report-uri https://safesquid.cfg/csp</value>
+            <value>connect-src &apos;self&apos; @HOST_DOMAIN@ *.@HOST_DOMAIN@; report-uri https://safesquid.cfg/csp?CLIENT</value>
             <which>SERVER</which>
         </insert>
         <insert id="67">
             <enabled>TRUE</enabled>
-            <comment>Restrict functions by disabling scripts, form submissions, and block other interactive features making the website read-only.&#x0A;Header Filtering policy inserts Content-Security-Policy: sandbox; in response headers.</comment>
+            <comment>
+				Restrict web-page from triggering popups, or any plugins, scripts, cross-orgin traffic, etc. and prevent users to make any form submissions or downloads.
+			</comment>
             <profiles>ENFORCE CONTENT SECURITY POLICY - SANDBOX</profiles>
             <type>Content-Security-Policy</type>
-            <value>sandbox; report-uri https://safesquid.cfg/csp</value>
+            <value>sandbox;</value>
             <which>SERVER</which>
         </insert>
     </header-filtering>
@@ -620,37 +641,63 @@
             <action>INHERIT</action>
             <add_profiles>ENFORCE YOUTUBE RESTRICTED MODE</add_profiles>
         </defaults>
-        <defaults id="133">
-            <enabled>TRUE</enabled>
-            <comment>Enforce image filtering to block images from websites which servers pornographic content, including surrogate websites.&#x0A;Image filter blocks inappropriate images by analyzing the graphical content of an image, in real time.&#x0A;Prevents such material from being accessed or displayed. </comment>
-            <profile_tracing>FALSE</profile_tracing>
-            <action>INHERIT</action>
-            <add_profiles>ENFORCE IMAGE FILTER</add_profiles>
-        </defaults>
         <defaults id="135">
-            <enabled>FALSE</enabled>
+            <enabled>TRUE</enabled>
             <comment>We want to bypass user authentication for applications that do not supports proxy authentication</comment>
             <profile_tracing>FALSE</profile_tracing>
-            <req_types>Custom Application</req_types>
+            <req_types>Requires Authentication Bypass</req_types>
             <action>INHERIT</action>
             <add_profiles>BYPASS AUTHENTICATION</add_profiles>
         </defaults>
-        <profile id="2473">
+        <defaults id="135">
+            <enabled>TRUE</enabled>
+            <comment>Prevent Login to Cyber-slacking Sites</comment>
+            <profile_tracing>FALSE</profile_tracing>
+            <web_categories>Advertisements &amp; Pop-Ups,Forums &amp; Newsgroups,Instant Messaging,News,Social Networking</web_categories>
+            <action>INHERIT</action>
+            <add_profiles>READ ONLY</add_profiles>
+        </defaults>
+        <defaults id="222">
+            <enabled>TRUE</enabled>
+            <comment>For websites which are categorized as unknown, restrict functions by disabling scripts, form submissions, and block other interactive features making the website read-only.&#x0A;NOTE: Enable this rule if you wish to disable the global rule of  Blocking website of &quot;Unknown Category&quot;</comment>
+            <profile_tracing>FALSE</profile_tracing>
+            <web_categories>#,Unknown</web_categories>
+            <action>INHERIT</action>
+			<req_types>!Background Traffic</req_types>
+            <add_profiles>ENFORCE CONTENT SECURITY POLICY - SANDBOX</add_profiles>
+        </defaults>
+        <defaults id="2473">
             <enabled>TRUE</enabled>
             <comment>Restrict destinations to which web-based connections (like API calls) can be made, by using profile &quot;ENFORCE CONTENT SECURITY POLICY - CONNECT&quot;</comment>
             <profile_tracing>FALSE</profile_tracing>
             <web_categories>Advertisements &amp; Pop-Ups,Forums &amp; Newsgroups,Instant Messaging,News</web_categories>
             <action>INHERIT</action>
+			<req_types>!Background Traffic</req_types>
             <add_profiles>ENFORCE CONTENT SECURITY POLICY - CONNECT</add_profiles>
-        </profile>
-        <profile id="2472">
-            <enabled>FALSE</enabled>
-            <comment>For websites which are categorized as unknown, restrict functions by disabling scripts, form submissions, and block other interactive features making the website read-only.&#x0A;NOTE: Enable this rule if you wish to disable the global rule of  Blocking website of &quot;Unknown Category&quot;</comment>
+        </defaults>
+        <defaults id="2473">
+            <enabled>TRUE</enabled>
+            <comment>We forbid use of personal Google accounts, and allow use of only our Corporate Google account</comment>
             <profile_tracing>FALSE</profile_tracing>
-            <web_categories>#,Unknown</web_categories>
             <action>INHERIT</action>
-            <add_profiles>ENFORCE CONTENT SECURITY POLICY - SANDBOX</add_profiles>
-        </profile>
+			<req_types>Google</req_types>
+            <add_profiles>ENFORCE CORPORATE GOOGLE ACCOUNTS</add_profiles>
+        </defaults>
+        <defaults id="2473">
+            <enabled>TRUE</enabled>
+            <comment>We Forbid Unsanctioned Access To YouTube Videos</comment>
+            <profile_tracing>FALSE</profile_tracing>
+            <action>DO_NOT_BYPASS</action>
+			<web_categories>YouTube Any Video</web_categories>
+            <add_profiles></add_profiles>
+        </defaults>
+        <defaults id="2473">
+            <enabled>FALSE</enabled>
+            <comment>We Forbid Unsanctioned Access To Web Sites and Internet Applications</comment>
+            <profile_tracing>FALSE</profile_tracing>
+            <action>DO_NOT_BYPASS</action>
+            <add_profiles></add_profiles>
+        </defaults>		
         <profile id="137">
             <enabled>FALSE</enabled>
             <comment>We Forbid access to websites that are categorized inside Company Blacklisted Websites&#x0A;</comment>
@@ -668,6 +715,16 @@
             <add_profiles>COMPANY APPROVED WEBSITES</add_profiles>
             <remove_profiles>COMPANY BLACKLISTED WEBSITES,READ ONLY</remove_profiles>
         </profile>
+        <profile id="139">
+            <enabled>TRUE</enabled>
+            <comment>We Permit access to our Intranet Web Sites that use self-signed certificates</comment>
+            <profile_tracing>FALSE</profile_tracing>
+            <web_categories>Intranet Sites</web_categories>
+            <action>ALLOW</action>
+            <add_profiles>Allow Self-Signed Certificate</add_profiles>
+            <remove_profiles>READ ONLY</remove_profiles>
+        </profile>
+		
     </profiles>
     <redirect>
         <enabled>TRUE</enabled>
@@ -911,7 +968,7 @@
         <https_scan id="189">
             <enabled>TRUE</enabled>
             <comment>We permit bypass of ssl certificate check for domain name related errors.</comment>
-            <profiles>BYPASS INTRANET SITES SSL VERIFICATION</profiles>
+            <profiles>Allow Self-Signed Certificate</profiles>
             <deepscan>TRUE</deepscan>
             <block_no_cert>TRUE</block_no_cert>
             <block_err_level>X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT</block_err_level>
@@ -952,8 +1009,8 @@
         <template id="197">
             <enabled>TRUE</enabled>
             <comment>Default template displayed , when the there is no access to internet or any websites are blocked.</comment>
-            <name>blocked_bypass</name>
-            <file>block_bypass.html</file>
+            <name>blocked</name>
+            <file>blocked.html</file>
             <mime>text/html</mime>
             <code>403</code>
             <type>FILE</type>
@@ -962,8 +1019,8 @@
         <template id="199">
             <enabled>FALSE</enabled>
             <comment>Default template displayed , when the there is no access to internet or any websites are blocked.</comment>
-            <name>blocked_bypass</name>
-            <file>blockall.html</file>
+            <name>error</name>
+            <file>error.html</file>
             <mime>text/html</mime>
             <code>200</code>
             <type>FILE</type>
@@ -1018,7 +1075,7 @@
         </WCCP>
     </wccp>
     <rewrite>
-        <enabled>FALSE</enabled>
+        <enabled>TRUE</enabled>
         <rewrite id="179">
             <enabled>TRUE</enabled>
             <comment>Request for png image instead of avif, required for image filter for image scanning. </comment>
