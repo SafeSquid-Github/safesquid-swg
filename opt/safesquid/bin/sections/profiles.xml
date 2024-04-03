@@ -624,8 +624,8 @@
 						<value>ENFORCE CORPORATE GOOGLE ACCOUNTS</value>
 						<desc><![CDATA[
 							<p>
+								Header Filtering policy inserts <b>X-GoogApps: <i>our_domain.com</i></b> into response headers sent to the client.<br/>
 								Prevent use of personal account and force use of corporate email account for Google mail.<br/>
-								Header Filtering policy inserts X-GoogApps in request headers sent for Google user authentication.
 							</p>
 						]]></desc>
 					</zero>
@@ -634,8 +634,8 @@
 						<value>ENFORCE YOUTUBE RESTRICTED MODE</value>
 						<desc><![CDATA[
 							<p>
+								Header Filtering policy inserts <b>YouTube-Restrict: Strict</b> into request headers sent to YouTube.<br/>
 								Enforces YouTube's "Strict" restriction mode across our network, aiming to filter out potentially adult content and ensure a safer browsing environment.<br/>
-								Header Filtering policy inserts YouTube-Restrict: Strict in request headers sent for youtube videos.
 							</p>
 						]]></desc>
 					</one>
@@ -644,7 +644,9 @@
 						<value>ENFORCE CONTENT SECURITY POLICY - SANDBOX</value>
 						<desc><![CDATA[
 							<p>
-								Restrict web-page from triggering popups, or any plugins, scripts, cross-orgin traffic, etc. and prevent users to make any form submissions or downloads.
+								Header Filtering policy inserts <b>Content-Security-Policy: sandbox</b> into response headers sent to the client.<br/>
+								Present a very minimalistic view of websites.<br/>
+								Prevent any form submission, all javascripts and background XHR.
 							</p>
 						]]></desc>
 					</two>
@@ -653,7 +655,8 @@
 						<value>ENFORCE CONTENT SECURITY POLICY - CONNECT</value>
 						<desc><![CDATA[
 							<p>
-								Restrict loading of cross-site URLs using script interfaces.
+								Header Filtering policy inserts <b>Content-Security-Policy: connect-src</b> into response headers sent to the client.<br/>
+								Prevent javascripts from triggering cross-site background traffic.
 							</p>
 						]]></desc>
 					</three>
