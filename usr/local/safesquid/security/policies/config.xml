@@ -639,7 +639,7 @@
         </defaults>
         <defaults id="137">
             <enabled>TRUE</enabled>
-            <comment>For websites which are categorized as unknown, restrict functions by disabling scripts, form submissions, and block other interactive features making the website read-only.&#x0A;NOTE: Enable this rule if you wish to disable the global rule of  Blocking website of &quot;Unknown Category&quot;</comment>
+            <comment>Restrict web-page from triggering popups, or any plugins, scripts, cross-orgin traffic, etc. and prevent users to make any form submissions or downloads for websites which are unclassified.</comment>
             <profile_tracing>FALSE</profile_tracing>
             <req_types>User Triggered Request</req_types>
             <web_categories>#,Unknown</web_categories>
@@ -648,10 +648,10 @@
         </defaults>
         <defaults id="139">
             <enabled>TRUE</enabled>
-            <comment>Restrict destinations to which web-based connections (like API calls) can be made, by using profile &quot;ENFORCE CONTENT SECURITY POLICY - CONNECT&quot;</comment>
+            <comment>Restrict loading of cross-site URLs using script interfaces. for web categories &quot;Advertisements &amp; Pop-Ups,Forums &amp; Newsgroups,News&quot;</comment>
             <profile_tracing>FALSE</profile_tracing>
             <req_types>User Triggered Request</req_types>
-            <web_categories>Advertisements &amp; Pop-Ups,Forums &amp; Newsgroups,Instant Messaging,News</web_categories>
+            <web_categories>Advertisements &amp; Pop-Ups,Forums &amp; Newsgroups,News</web_categories>
             <action>INHERIT</action>
             <add_profiles>ENFORCE CONTENT SECURITY POLICY - CONNECT</add_profiles>
         </defaults>

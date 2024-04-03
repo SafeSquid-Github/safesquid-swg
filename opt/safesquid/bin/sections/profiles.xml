@@ -640,15 +640,23 @@
 						]]></desc>
 					</one>
 					<two>
-						<comment>ENFORCE CONTENT SECURITY POLICY</comment>
-						<value>ENFORCE CONTENT SECURITY POLICY</value>
+						<comment>ENFORCE CONTENT SECURITY POLICY - SANDBOX</comment>
+						<value>ENFORCE CONTENT SECURITY POLICY - SANDBOX</value>
 						<desc><![CDATA[
 							<p>
-								Enforces CSP headers to enhance web application security by preventing XSS attacks, data injection, and other malicious content from executing.<br/>
-								Header Filtering policy inserts YouTube-Content-Security-Policy in response headers received for all requests.
+								Restrict web-page from triggering popups, or any plugins, scripts, cross-orgin traffic, etc. and prevent users to make any form submissions or downloads.
 							</p>
 						]]></desc>
 					</two>
+					<three>
+						<comment>ENFORCE CONTENT SECURITY POLICY - CONNECT</comment>
+						<value>ENFORCE CONTENT SECURITY POLICY - CONNECT</value>
+						<desc><![CDATA[
+							<p>
+								Restrict loading of cross-site URLs using script interfaces.
+							</p>
+						]]></desc>
+					</three>
 				</header_filter_profiles>
 				<elevated_privacy_profiles parent="_0" group="Profiles: Elevated Privacy" list="elevated_privacy_profiles">
 					<zero>
