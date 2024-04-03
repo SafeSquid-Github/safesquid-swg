@@ -67,7 +67,7 @@
 			</defaults>
 			<profile>
 				<enabled>true</enabled>
-				<comment>Seondary Policies</comment>
+				<comment>Secondary Policies</comment>
 				<template>entry</template>
 				<parentgroup>inherit</parentgroup>
 				<logo/>
@@ -649,26 +649,6 @@
 							</p>
 						]]></desc>
 					</two>
-					<three>
-						<comment>ENFORCE CONTENT SECURITY POLICY - CONNECT</comment>
-						<value>ENFORCE CONTENT SECURITY POLICY - CONNECT</value>
-						<desc><![CDATA[
-							<p>
-								Restrict destinations to which web-based connections (like API calls) can be made.
-								Header Filtering policy inserts Content-Security-Policy: connect-src 'self' @HOST_DOMAIN@ *.@HOST_DOMAIN@;; in response headers.
-							</p>
-						]]></desc>
-					</three>
-					<four>
-						<comment>ENFORCE CONTENT SECURITY POLICY - SANDBOX</comment>
-						<value>ENFORCE CONTENT SECURITY POLICY - SANDBOX</value>
-						<desc><![CDATA[
-							<p>
-								Restrict functions by disabling scripts, form submissions, and block other interactive features making the website read-only.
-								Header Filtering policy inserts Content-Security-Policy: sandbox; in response headers.
-							</p>
-						]]></desc>
-					</four>
 				</header_filter_profiles>
 				<elevated_privacy_profiles parent="_0" group="Profiles: Elevated Privacy" list="elevated_privacy_profiles">
 					<zero>

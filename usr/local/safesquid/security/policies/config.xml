@@ -14,9 +14,7 @@
         </allow>
         <allow id="3">
             <enabled>TRUE</enabled>
-            <comment>
-						Bypass Authentication requirements for Applications, that may not fully support RFC 2616 standards for Proxy-Authentication
-            </comment>
+            <comment>Bypass Authentication requirements for Applications, that may not fully support RFC 2616 standards for Proxy-Authentication</comment>
             <profile_tracing>FALSE</profile_tracing>
             <profiles>BYPASS AUTHENTICATION</profiles>
             <pamauth>FALSE</pamauth>
@@ -34,22 +32,16 @@
         </allow>
         <allow id="7">
             <enabled>TRUE</enabled>
-            <comment>
-						We allow administrators to access the SafeSquid Interface from any IP
-            </comment>
+            <comment>We allow administrators to access the SafeSquid Interface from any IP     </comment>
             <profile_tracing>FALSE</profile_tracing>
             <pamauth>TRUE</pamauth>
             <username>administrator</username>
-            <password></password>
             <access>CONFIG,PROXY,HTTP,TRANSPARENT,CONNECT</access>
             <add_user_groups>SAFESQUID_ADMIN</add_user_groups>
         </allow>
         <allow id="9">
             <enabled>TRUE</enabled>
-            <comment>
-				All authenticated users not added to any specific user group are placed in the &lt;b&gt;GENERAL_USERS&lt;&#x2F;b&gt; user group.&lt;br&#x2F;&gt;
-				GENERAL_USERS are permitted to access the web as per policies, but not permitted to access the SafeSquid Interface
-			</comment>
+            <comment>All authenticated users not added to any specific user group are placed in the &quot;GENERAL_USERS&quot; user group.&#x0A;GENERAL_USERS are permitted to access the web as per policies, but not permitted to access the SafeSquid Interface</comment>
             <profile_tracing>FALSE</profile_tracing>
             <pamauth>TRUE</pamauth>
             <access>PROXY,HTTP,TRANSPARENT,CONNECT</access>
@@ -136,41 +128,41 @@
             <enabled>TRUE</enabled>
             <comment>We  Allow Users to Upload Textual Content.</comment>
             <profiles>ALLOW BASIC TEXT POSTS</profiles>
-			<mime>application/json,text/html,text/json,text/plain,text/xml</mime>
+            <mime>application/json,text/html,text/json,text/plain,text/xml</mime>
             <action>ALLOW</action>
         </DLP>
         <DLP id="25">
             <enabled>TRUE</enabled>
             <comment>Allow Uploading of Spread Sheets.</comment>
-            <profiles>ALLOW SPREADSHEETS UPLOAD</profiles>
+            <profiles>ALLOW SPREADSHEET DOCUMENT UPLOAD</profiles>
             <mime>application/vnd.ms-excel*,application/vnd.oasis.opendocument.spreadsheet*,application/vnd.openxmlformats-officedocument.spreadsheetml.*,application/vnd.sun.xml.calc*</mime>
             <action>ALLOW</action>
         </DLP>
         <DLP id="27">
             <enabled>TRUE</enabled>
             <comment>Allow Uploading of Word Documents</comment>
-            <profiles>ALLOW WORD DOCUMENTS</profiles>
+            <profiles>ALLOW WORD DOCUMENT UPLOAD</profiles>
             <mime>application/msword|application/vnd.ms-word.*,application/vnd.openxmlformats-officedocument.wordprocessingml.*</mime>
             <action>ALLOW</action>
         </DLP>
         <DLP id="29">
             <enabled>TRUE</enabled>
             <comment>Allow Uploading of PowerPoint Documents</comment>
-            <profiles>ALLOW POWERPOINT DOCUMENTS</profiles>
+            <profiles>ALLOW POWERPOINT DOCUMENT UPLOAD</profiles>
             <mime>application/vnd.ms-powerpoint*,vnd.openxmlformats-officedocument.presentationml.*</mime>
             <action>ALLOW</action>
         </DLP>
         <DLP id="31">
             <enabled>TRUE</enabled>
             <comment>Allow Uploading of PDF Documents</comment>
-            <profiles>ALLOW PDF DOCUMENTS</profiles>
+            <profiles>ALLOW PDF FILE UPLOAD</profiles>
             <mime>application/pdf</mime>
             <action>ALLOW</action>
         </DLP>
         <DLP id="33">
             <enabled>TRUE</enabled>
             <comment>Allow Uploading of ZIP Files [only .zip files]</comment>
-            <profiles>ALLOW ZIP FILES</profiles>
+            <profiles>ALLOW ZIP FILE UPLOAD</profiles>
             <mime>application/zip</mime>
             <action>ALLOW</action>
         </DLP>
@@ -199,16 +191,12 @@
         <enabled>TRUE</enabled>
         <policy id="41">
             <enabled>TRUE</enabled>
-            <comment>
-						We Block DNS queries for websites that are uncategorized or unclassified.
-				</comment>
+            <comment>We Block DNS queries for websites that are uncategorized or unclassified.&#x09;&#x09;&#x09;</comment>
             <bl_categories>#,Unknown</bl_categories>
         </policy>
         <policy id="43">
             <enabled>TRUE</enabled>
-            <comment>
-				We Block DNS queries for websites categorized as Anonymizers,Botnets,Compromised,Hacking,Illegal Software,Malware,Phishing &amp; Fraud,Spam Sites.
-				</comment>
+            <comment>We Block DNS queries for websites categorized as Anonymizers,Botnets,Compromised,Hacking,Illegal Software,Malware,Phishing &amp; Fraud,Spam Sites.</comment>
             <bl_categories>Anonymizers,Botnets,Compromised,Hacking,Illegal Software,Malware,Phishing &amp; Fraud,Spam Sites</bl_categories>
         </policy>
         <policy id="45">
@@ -282,10 +270,7 @@
         <catreferer>TRUE</catreferer>
         <general id="59">
             <enabled>TRUE</enabled>
-            <comment>
-				Default policy and applicable for all cases.&lt;br&#x2F;&gt;
-				Our Default policy is to prohibit all Connect requests except to ports 80,443,2000 to 2100, 8080, and 9000 to 10000
-			</comment>
+            <comment>Default policy and applicable for all cases.&#x0A;Our Default policy is to prohibit all Connect requests except to ports 80,443,2000 to 2100, 8080, and 9000 to 10000</comment>
             <ctimeout>6</ctimeout>
             <timeout>6</timeout>
             <keeptimeout>6</keeptimeout>
@@ -321,19 +306,15 @@
         </insert>
         <insert id="65">
             <enabled>TRUE</enabled>
-            <comment>
-						Restrict loading of cross-site URLs using script interfaces
-			</comment>
+            <comment>Restrict loading of cross-site URLs using script interfaces.</comment>
             <profiles>ENFORCE CONTENT SECURITY POLICY - CONNECT</profiles>
             <type>Content-Security-Policy</type>
-            <value>connect-src &apos;self&apos; @HOST_DOMAIN@ *.@HOST_DOMAIN@; report-uri https://safesquid.cfg/csp?CLIENT</value>
+            <value>connect-src &apos;self&apos; @HOST_DOMAIN@ *.@HOST_DOMAIN@; report-uri https://safesquid.cfg/csp</value>
             <which>SERVER</which>
         </insert>
         <insert id="67">
             <enabled>TRUE</enabled>
-            <comment>
-				Restrict web-page from triggering popups, or any plugins, scripts, cross-orgin traffic, etc. and prevent users to make any form submissions or downloads.
-			</comment>
+            <comment>Restrict web-page from triggering popups, or any plugins, scripts, cross-orgin traffic, etc. and prevent users to make any form submissions or downloads.</comment>
             <profiles>ENFORCE CONTENT SECURITY POLICY - SANDBOX</profiles>
             <type>Content-Security-Policy</type>
             <value>sandbox;</value>
@@ -394,7 +375,6 @@
             <enabled>TRUE</enabled>
             <comment>Standard Policy for detecting Pornographic Images</comment>
             <bypass>FALSE</bypass>
-            <profiles>ENFORCE IMAGE FILTER</profiles>
             <threshold>0.0</threshold>
             <template>checkeredgif</template>
             <debugmode>FALSE</debugmode>
@@ -641,7 +621,7 @@
             <action>INHERIT</action>
             <add_profiles>ENFORCE YOUTUBE RESTRICTED MODE</add_profiles>
         </defaults>
-        <defaults id="135">
+        <defaults id="133">
             <enabled>TRUE</enabled>
             <comment>We want to bypass user authentication for applications that do not supports proxy authentication</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -657,48 +637,46 @@
             <action>INHERIT</action>
             <add_profiles>READ ONLY</add_profiles>
         </defaults>
-        <defaults id="222">
+        <defaults id="137">
             <enabled>TRUE</enabled>
             <comment>For websites which are categorized as unknown, restrict functions by disabling scripts, form submissions, and block other interactive features making the website read-only.&#x0A;NOTE: Enable this rule if you wish to disable the global rule of  Blocking website of &quot;Unknown Category&quot;</comment>
             <profile_tracing>FALSE</profile_tracing>
+            <req_types>User Triggered Request</req_types>
             <web_categories>#,Unknown</web_categories>
             <action>INHERIT</action>
-			<req_types>!Background Traffic</req_types>
             <add_profiles>ENFORCE CONTENT SECURITY POLICY - SANDBOX</add_profiles>
         </defaults>
-        <defaults id="2473">
+        <defaults id="139">
             <enabled>TRUE</enabled>
             <comment>Restrict destinations to which web-based connections (like API calls) can be made, by using profile &quot;ENFORCE CONTENT SECURITY POLICY - CONNECT&quot;</comment>
             <profile_tracing>FALSE</profile_tracing>
+            <req_types>User Triggered Request</req_types>
             <web_categories>Advertisements &amp; Pop-Ups,Forums &amp; Newsgroups,Instant Messaging,News</web_categories>
             <action>INHERIT</action>
-			<req_types>!Background Traffic</req_types>
             <add_profiles>ENFORCE CONTENT SECURITY POLICY - CONNECT</add_profiles>
         </defaults>
-        <defaults id="2473">
+        <defaults id="141">
             <enabled>TRUE</enabled>
             <comment>We forbid use of personal Google accounts, and allow use of only our Corporate Google account</comment>
-            <profile_tracing>FALSE</profile_tracing>
+            <profile_tracing>TRUE</profile_tracing>
+            <req_types>Google</req_types>
             <action>INHERIT</action>
-			<req_types>Google</req_types>
             <add_profiles>ENFORCE CORPORATE GOOGLE ACCOUNTS</add_profiles>
         </defaults>
-        <defaults id="2473">
+        <defaults id="143">
             <enabled>TRUE</enabled>
             <comment>We Forbid Unsanctioned Access To YouTube Videos</comment>
             <profile_tracing>FALSE</profile_tracing>
+            <web_categories>YouTube Any Video</web_categories>
             <action>DO_NOT_BYPASS</action>
-			<web_categories>YouTube Any Video</web_categories>
-            <add_profiles></add_profiles>
         </defaults>
-        <defaults id="2473">
+        <defaults id="145">
             <enabled>FALSE</enabled>
             <comment>We Forbid Unsanctioned Access To Web Sites and Internet Applications</comment>
             <profile_tracing>FALSE</profile_tracing>
             <action>DO_NOT_BYPASS</action>
-            <add_profiles></add_profiles>
-        </defaults>		
-        <profile id="137">
+        </defaults>
+        <profile id="147">
             <enabled>FALSE</enabled>
             <comment>We Forbid access to websites that are categorized inside Company Blacklisted Websites&#x0A;</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -706,7 +684,7 @@
             <action>DO_NOT_BYPASS</action>
             <add_profiles>COMPANY BLACKLISTED WEBSITES</add_profiles>
         </profile>
-        <profile id="139">
+        <profile id="149">
             <enabled>FALSE</enabled>
             <comment>We Permit users to access &amp; login to websites that are categorized inside Company Approved Websites.&#x0A;</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -715,7 +693,7 @@
             <add_profiles>COMPANY APPROVED WEBSITES</add_profiles>
             <remove_profiles>COMPANY BLACKLISTED WEBSITES,READ ONLY</remove_profiles>
         </profile>
-        <profile id="139">
+        <profile id="151">
             <enabled>TRUE</enabled>
             <comment>We Permit access to our Intranet Web Sites that use self-signed certificates</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -724,11 +702,19 @@
             <add_profiles>Allow Self-Signed Certificate</add_profiles>
             <remove_profiles>READ ONLY</remove_profiles>
         </profile>
-		
+        <profile id="153">
+            <enabled>TRUE</enabled>
+            <comment>Enforce Content-Security-Policy for web response which does not already use Content-Security-Policy.</comment>
+            <profile_tracing>FALSE</profile_tracing>
+            <req_types>User Triggered Request</req_types>
+            <res_types>!HAS CONTENT SECURITY POLICY</res_types>
+            <action>INHERIT</action>
+            <add_profiles>ENFORCE CONTENT SECURITY POLICY - CONNECT</add_profiles>
+        </profile>
     </profiles>
     <redirect>
         <enabled>TRUE</enabled>
-        <redirection id="141">
+        <redirection id="155">
             <enabled>TRUE</enabled>
             <comment>Redirect the bing unsafe mode to safe mode.</comment>
             <profiles>ENFORCE BING SAFE SEARCH</profiles>
@@ -738,7 +724,7 @@
             <send302>FALSE</send302>
             <which>BOTH</which>
         </redirection>
-        <redirection id="143">
+        <redirection id="157">
             <enabled>TRUE</enabled>
             <comment>Enforces the google safe search by Redirect unsafe google search request to safe google search request.</comment>
             <profiles>ENFORCE GOOGLE SAFE SEARCH,ENFORCE YOUTUBE SAFESEARCH</profiles>
@@ -748,7 +734,7 @@
             <send302>FALSE</send302>
             <which>BOTH</which>
         </redirection>
-        <redirection id="145">
+        <redirection id="159">
             <enabled>TRUE</enabled>
             <comment>This entry enforces the Yahoo safe search by Redirect unsafe google search request to safe Yahoo search request.</comment>
             <profiles>ENFORCE YAHOO SAFE SEARCH</profiles>
@@ -758,7 +744,7 @@
             <send302>FALSE</send302>
             <which>BOTH</which>
         </redirection>
-        <redirection id="147">
+        <redirection id="161">
             <enabled>TRUE</enabled>
             <comment>This entry enforces the DuckDuckGo Safe Searching Experience</comment>
             <profiles>ENFORCE DUCKDUCKGO SAFE SEARCH</profiles>
@@ -771,7 +757,7 @@
     </redirect>
     <reqProfiles>
         <enabled>TRUE</enabled>
-        <request_section id="149">
+        <request_section id="163">
             <enabled>TRUE</enabled>
             <comment>Less than 1MB File uploads</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -781,7 +767,7 @@
             <smart_tld>TRUE</smart_tld>
             <add_req_types>SMALL UPLOADS</add_req_types>
         </request_section>
-        <request_section id="151">
+        <request_section id="165">
             <enabled>TRUE</enabled>
             <comment>1MB to 10MB File uploads</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -791,7 +777,7 @@
             <smart_tld>TRUE</smart_tld>
             <add_req_types>MEDIUM UPLOADS</add_req_types>
         </request_section>
-        <request_section id="153">
+        <request_section id="167">
             <enabled>TRUE</enabled>
             <comment>10MB to 100MB File uploads</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -801,7 +787,7 @@
             <smart_tld>TRUE</smart_tld>
             <add_req_types>LARGE UPLOADS</add_req_types>
         </request_section>
-        <request_section id="155">
+        <request_section id="169">
             <enabled>TRUE</enabled>
             <comment>Larger than 100MB File uploads</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -811,20 +797,10 @@
             <smart_tld>TRUE</smart_tld>
             <add_req_types>VERY LARGE UPLOADS</add_req_types>
         </request_section>
-        <request_section id="157">
-            <enabled>TRUE</enabled>
-            <comment>Post Request With Content-Type: application/x-protobuf</comment>
-            <profile_tracing>FALSE</profile_tracing>
-            <content_types>application/x-protobuf</content_types>
-            <postdata_min_length>0</postdata_min_length>
-            <postdata_max_length>0</postdata_max_length>
-            <smart_tld>FALSE</smart_tld>
-            <add_req_types>X-ProtoBuf Content-Type Allowed</add_req_types>
-        </request_section>
     </reqProfiles>
     <respProfiles>
         <enabled>TRUE</enabled>
-        <response_section id="159">
+        <response_section id="171">
             <enabled>TRUE</enabled>
             <comment>All Textual Contents [Few Content Specified in the Below Content-Type Field are used by Major web Applications to send status etc information to communicate with the Client-Side JS ]</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -835,7 +811,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>WEB CONTENTS</add_res_types>
         </response_section>
-        <response_section id="161">
+        <response_section id="173">
             <enabled>TRUE</enabled>
             <comment>Image Contents</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -846,7 +822,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>IMAGE CONTENT</add_res_types>
         </response_section>
-        <response_section id="163">
+        <response_section id="175">
             <enabled>TRUE</enabled>
             <comment>All audio files</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -857,7 +833,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>AUDIO CONTENT</add_res_types>
         </response_section>
-        <response_section id="165">
+        <response_section id="177">
             <enabled>TRUE</enabled>
             <comment>All video content</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -868,7 +844,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>VIDEO CONTENT</add_res_types>
         </response_section>
-        <response_section id="167">
+        <response_section id="179">
             <enabled>TRUE</enabled>
             <comment>Windows Executable Files</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -879,7 +855,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>WINDOWS EXECUTABLE FIELS</add_res_types>
         </response_section>
-        <response_section id="169">
+        <response_section id="181">
             <enabled>TRUE</enabled>
             <comment>Linux Debian Package File.</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -890,7 +866,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>LINUX DEBIAN PACKAGE FILE</add_res_types>
         </response_section>
-        <response_section id="171">
+        <response_section id="183">
             <enabled>TRUE</enabled>
             <comment>All audio and video content</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -901,7 +877,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>ALL MULTIMEDIA CONTENT</add_res_types>
         </response_section>
-        <response_section id="173">
+        <response_section id="185">
             <enabled>TRUE</enabled>
             <comment>Office Documents</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -910,9 +886,9 @@
             <multipart_byterange>ANY</multipart_byterange>
             <content_min_length>0</content_min_length>
             <content_max_length>0</content_max_length>
-            <add_res_types>All Office Document Types</add_res_types>
+            <add_res_types>ALL OFFICE DOCUMENT TYPES</add_res_types>
         </response_section>
-        <response_section id="175">
+        <response_section id="187">
             <enabled>FALSE</enabled>
             <comment>All the content that is not rendered on the WebBrowser.&#x0A;Whereas PDF files are displayed on web browsers but that is browsers feature to download and work as PDF Viewer.The Browser first downloads the PDF file and then it will render it directly [Depends on the type of Ajax Call OR Response]</comment>
             <profile_tracing>TRUE</profile_tracing>
@@ -924,7 +900,7 @@
             <responseheader>200 |206 </responseheader>
             <add_res_types>NON BROWSER RENDERING CONTENT</add_res_types>
         </response_section>
-        <response_section id="177">
+        <response_section id="189">
             <enabled>TRUE</enabled>
             <comment>All compressed files</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -935,10 +911,21 @@
             <content_max_length>0</content_max_length>
             <add_res_types>ALL COMPRESSED FILES</add_res_types>
         </response_section>
+        <response_section id="191">
+            <enabled>TRUE</enabled>
+            <comment>All web response which has Content Security Policy.</comment>
+            <profile_tracing>FALSE</profile_tracing>
+            <transfer_encoding_chunk>ANY</transfer_encoding_chunk>
+            <multipart_byterange>ANY</multipart_byterange>
+            <content_min_length>0</content_min_length>
+            <content_max_length>0</content_max_length>
+            <responseheader>content-security-policy:\s.*</responseheader>
+            <add_res_types>HAS CONTENT SECURITY POLICY</add_res_types>
+        </response_section>
     </respProfiles>
     <sqscan>
         <enabled>TRUE</enabled>
-        <SqScan id="183">
+        <SqScan id="197">
             <enabled>TRUE</enabled>
             <comment>AV Scan</comment>
             <scan_results>STANDARD</scan_results>
@@ -947,7 +934,7 @@
     </sqscan>
     <sslcert>
         <enabled>TRUE</enabled>
-        <https_scan id="185">
+        <https_scan id="199">
             <enabled>TRUE</enabled>
             <comment>We require bypassing of SSL Inspection for certain web-sites and applications</comment>
             <profiles>BYPASS SSL INSPECTION</profiles>
@@ -956,7 +943,7 @@
             <block_err_level>X509_V_OK</block_err_level>
             <block_domain_mismatch>TRUE</block_domain_mismatch>
         </https_scan>
-        <https_scan id="187">
+        <https_scan id="201">
             <enabled>TRUE</enabled>
             <comment>We permit bypass of ssl certificate check for domain name related errors.</comment>
             <profiles>BYPASS INTRANET SITES SSL VERIFICATION</profiles>
@@ -965,7 +952,7 @@
             <block_err_level>X509_V_OK</block_err_level>
             <block_domain_mismatch>FALSE</block_domain_mismatch>
         </https_scan>
-        <https_scan id="189">
+        <https_scan id="203">
             <enabled>TRUE</enabled>
             <comment>We permit bypass of ssl certificate check for domain name related errors.</comment>
             <profiles>Allow Self-Signed Certificate</profiles>
@@ -974,7 +961,7 @@
             <block_err_level>X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT</block_err_level>
             <block_domain_mismatch>FALSE</block_domain_mismatch>
         </https_scan>
-        <https_scan id="191">
+        <https_scan id="205">
             <enabled>TRUE</enabled>
             <comment>We permit access to websites that has ssl certificate issuer error on request bases.</comment>
             <profiles>BYPASS NO ISSUER CERT LOCALLY ERROR</profiles>
@@ -983,7 +970,7 @@
             <block_err_level>X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY</block_err_level>
             <block_domain_mismatch>TRUE</block_domain_mismatch>
         </https_scan>
-        <https_scan id="193">
+        <https_scan id="207">
             <enabled>TRUE</enabled>
             <comment>We permit access to intranet websites that has self-signed ssl certificates.</comment>
             <profiles>INTRANET SITES WITH SELF-SIGNED CERTIFICATE</profiles>
@@ -992,7 +979,7 @@
             <block_err_level>X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT</block_err_level>
             <block_domain_mismatch>TRUE</block_domain_mismatch>
         </https_scan>
-        <https_scan id="195">
+        <https_scan id="209">
             <enabled>TRUE</enabled>
             <comment>Our Default policy for HTTPS Inspection applies to all connections that do not match the above profiles</comment>
             <deepscan>TRUE</deepscan>
@@ -1006,7 +993,7 @@
         <heuristic>FALSE</heuristic>
     </ssqore>
     <templates>
-        <template id="197">
+        <template id="211">
             <enabled>TRUE</enabled>
             <comment>Default template displayed , when the there is no access to internet or any websites are blocked.</comment>
             <name>blocked</name>
@@ -1016,7 +1003,7 @@
             <type>FILE</type>
             <parsable>TRUE</parsable>
         </template>
-        <template id="199">
+        <template id="213">
             <enabled>FALSE</enabled>
             <comment>Default template displayed , when the there is no access to internet or any websites are blocked.</comment>
             <name>error</name>
@@ -1029,7 +1016,7 @@
     </templates>
     <timeProfiles>
         <enabled>FALSE</enabled>
-        <time_section id="201">
+        <time_section id="215">
             <enabled>FALSE</enabled>
             <comment>Our Office Timing is Monday to Saturday 9.30AM to 5.30PM</comment>
             <profile_tracing>TRUE</profile_tracing>
@@ -1041,7 +1028,7 @@
             <matchmode>ALLRANGES</matchmode>
             <add_time_profiles>OFFICE WORKING HOURS</add_time_profiles>
         </time_section>
-        <time_section id="203">
+        <time_section id="217">
             <enabled>FALSE</enabled>
             <comment>Our Lunch Timings are 1:00 PM to 2:00 PM</comment>
             <profile_tracing>TRUE</profile_tracing>
@@ -1057,7 +1044,7 @@
     </timeProfiles>
     <wccp>
         <enabled>FALSE</enabled>
-        <WCCP id="205">
+        <WCCP id="219">
             <enabled>FALSE</enabled>
             <comment>Transparently redirect traffic to WCCP router.</comment>
             <wccp_version>WCCPV2</wccp_version>
@@ -1076,21 +1063,1211 @@
     </wccp>
     <rewrite>
         <enabled>TRUE</enabled>
-        <rewrite id="179">
+        <rewrite id="193">
             <enabled>TRUE</enabled>
             <comment>Request for png image instead of avif, required for image filter for image scanning. </comment>
-            <profiles>ENFORCE IMAGE FILTER</profiles>
+            <profiles>!BYPASS IMAGE FILTER</profiles>
             <pattern>Accept:(.*)(avif)(.*)</pattern>
             <replace>Accept:$1png;q=0.5$3</replace>
             <which>CLIENT</which>
         </rewrite>
-        <rewrite id="181">
+        <rewrite id="195">
             <enabled>TRUE</enabled>
             <comment>Request for jpg image instead of webp, required for image filter for image scanning. </comment>
-            <profiles>ENFORCE IMAGE FILTER</profiles>
+            <profiles>!BYPASS IMAGE FILTER</profiles>
             <pattern>Accept:(.*)(webp)(.*)</pattern>
             <replace>Accept:$1jpg;q=0.5$3</replace>
             <which>CLIENT</which>
         </rewrite>
     </rewrite>
+    <applicationSignatures>
+        <enabled>true</enabled>
+        <app id="2239">
+            <enabled>true</enabled>
+            <comment>All Unidentified Client Applications</comment>
+            <add_app_signatures>Unidentified Application</add_app_signatures>
+        </app>
+        <app id="2241">
+            <enabled>true</enabled>
+            <comment>All Unidentified Web2.0 Applications</comment>
+            <add_app_signatures>Unidentified Web2.0</add_app_signatures>
+        </app>
+        <app id="2243">
+            <enabled>true</enabled>
+            <comment>All Post or Put requests</comment>
+            <method>POST,PUT</method>
+            <add_app_signatures>All Posts</add_app_signatures>
+        </app>
+        <app id="2245">
+            <enabled>true</enabled>
+            <comment>All Web Socket Connections</comment>
+            <requestheader>Upgrade:(\s)websocket</requestheader>
+            <add_app_signatures>Web Socket</add_app_signatures>
+        </app>
+        <app id="2247">
+            <enabled>true</enabled>
+            <comment>Requests for File Uploads</comment>
+            <app_signatures>All Posts</app_signatures>
+            <mime>multipart/(mixed|form-data|related)</mime>
+            <add_app_signatures>File Uploads</add_app_signatures>
+        </app>
+        <app id="2249">
+            <enabled>true</enabled>
+            <comment>Requests for Posting Forms on web applications</comment>
+            <app_signatures>All Posts</app_signatures>
+            <mime>application/x-www-form-urlencoded</mime>
+            <add_app_signatures>Form Post</add_app_signatures>
+        </app>
+        <app id="2251">
+            <enabled>true</enabled>
+            <comment>Post Request Containing Text Content</comment>
+            <app_signatures>All Uploads</app_signatures>
+            <mime>xml|json|plain|html</mime>
+            <add_app_signatures>Post Textual Contents</add_app_signatures>
+            <remove_app_signatures>All Uploads</remove_app_signatures>
+        </app>
+        <app id="2253">
+            <enabled>true</enabled>
+            <comment>Microsoft Windows Update Service</comment>
+            <app_signatures>Unidentified Application,Unidentified Web2.0</app_signatures>
+            <user_agent>Microsoft-Delivery-Optimization|MICROSOFT_DEVICE_METADATA_RETRIEVAL_CLIENT|Windows-Update-Agent|Microsoft-CryptoAPI/(.*)</user_agent>
+            <add_app_signatures>Windows Updates</add_app_signatures>
+            <remove_app_signatures>Unidentified Application,Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2255">
+            <enabled>true</enabled>
+            <comment>Avant Web browser for Trident</comment>
+            <app_signatures>!Internet Browser,Unidentified Application</app_signatures>
+            <user_agent>Mozilla\/[0-9]*\.[0-9]*.*Avant(.*)</user_agent>
+            <add_app_signatures>Avant</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Internet Browser</group>
+        </app>
+        <app id="2257">
+            <enabled>true</enabled>
+            <comment>Maxthon web browser</comment>
+            <app_signatures>!Internet Browser,Unidentified Application</app_signatures>
+            <user_agent>Mozilla\/[0-9]*\.[0-9]*.*Maxthon(.*)</user_agent>
+            <add_app_signatures>Maxthon</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Internet Browser</group>
+        </app>
+        <app id="2259">
+            <enabled>true</enabled>
+            <comment>Netscape Web browser</comment>
+            <app_signatures>!Internet Browser,Unidentified Application</app_signatures>
+            <user_agent>Mozilla\/[0-9]*\.[0-9]* \([^\)]*\) Gecko\/[0-9]*(.*)(Netscape[6]*|Navigator)\/[0-9.]*\.[a-zA-Z0-9]*</user_agent>
+            <add_app_signatures>Netscape</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Internet Browser</group>
+        </app>
+        <app id="2261">
+            <enabled>true</enabled>
+            <comment>Opera Web browser for Windows, MacOS &amp; Linux</comment>
+            <app_signatures>!Internet Browser,Unidentified Application</app_signatures>
+            <user_agent>Opera\/[0-9]*\.[0-9]* \([^\)]*\)(.*)|Mozilla\/[0-9]*\.[0-9]* \([^\)]*\) Opera(.*)|Mozilla\/[0-9]*\.[0-9]*.*OPR\/[0-9]*\.[0-9.]*</user_agent>
+            <add_app_signatures>Opera</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Internet Browser</group>
+        </app>
+        <app id="2263">
+            <enabled>true</enabled>
+            <comment>RockMelt Web browser</comment>
+            <app_signatures>!Internet Browser,Unidentified Application</app_signatures>
+            <user_agent>Mozilla\/[0-9]*\.[0-9]* \([^\)]*\) AppleWebKit\/[0-9]*\.[0-9]* \([^\)]*\) RockMelt\/[0-9.]* Chrome\/[0-9.]* Safari\/[0-9]*\.[0-9]*</user_agent>
+            <add_app_signatures>RockMelt</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Internet Browser</group>
+        </app>
+        <app id="2265">
+            <enabled>true</enabled>
+            <comment>Google Chrome web browser</comment>
+            <app_signatures>!Internet Browser,Unidentified Application</app_signatures>
+            <user_agent>Mozilla\/[0-9]*\.[0-9]* \([^\)]*\) AppleWebKit\/[0-9]*\.[0-9]* \([^\)]*\) Chrome\/[0-9.]* Safari\/[0-9]*\.[0-9]*$</user_agent>
+            <add_app_signatures>Chrome</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Internet Browser</group>
+        </app>
+        <app id="2267">
+            <enabled>true</enabled>
+            <comment>Firefox Web browser</comment>
+            <app_signatures>!Internet Browser,Unidentified Application</app_signatures>
+            <user_agent>Mozilla\/[0-9]*\.[0-9]* \([^\)]*\) Gecko\/[0-9]*(.*)Firefox\/[0-9.]*\.[a-zA-Z0-9]*</user_agent>
+            <add_app_signatures>Firefox</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Internet Browser</group>
+        </app>
+        <app id="2269">
+            <enabled>true</enabled>
+            <comment>Microsoft Internet Explorer</comment>
+            <app_signatures>!Internet Browser,Unidentified Application</app_signatures>
+            <user_agent>Mozilla\/[0-9]*\.[0-9]* \([^\)]*(Trident|MSIE)[^\)]*\)</user_agent>
+            <add_app_signatures>Internet Explorer</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Internet Browser</group>
+        </app>
+        <app id="2271">
+            <enabled>true</enabled>
+            <comment>Microsoft Edge Browser</comment>
+            <app_signatures>!Internet Browser,Unidentified Application</app_signatures>
+            <user_agent>Mozilla\/[0-9.]* \([^\)]*\) AppleWebKit\/[0-9.]* \([^\)]*\) Chrome\/[0-9.]* Safari\/[0-9.]* Edge?\/[0-9.]*</user_agent>
+            <add_app_signatures>Microsoft Edge</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Internet Browser</group>
+        </app>
+        <app id="2273">
+            <enabled>true</enabled>
+            <comment>Unidentified Mozilla based Internet Browser</comment>
+            <app_signatures>!Internet Browser,Unidentified Application</app_signatures>
+            <user_agent>Mozilla\/[0-9.].*</user_agent>
+            <add_app_signatures>Generic Mozilla Browser</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Internet Browser</group>
+        </app>
+        <app id="2275">
+            <enabled>true</enabled>
+            <comment>TeamViewer Desktop application for Remote Support &amp; Online Meeting</comment>
+            <app_signatures>!Remote Desktop,Unidentified Application</app_signatures>
+            <user_agent>DynGate</user_agent>
+            <add_app_signatures>TeamViewer</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Remote Desktop</group>
+        </app>
+        <app id="2277">
+            <enabled>true</enabled>
+            <comment>Cisco Web Conferencing Desktop Application</comment>
+            <app_signatures>Unidentified Application</app_signatures>
+            <user_agent>WbxAgent|WebexTeams</user_agent>
+            <add_app_signatures>Cisco WebEx App</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Remote Desktop</group>
+        </app>
+        <app id="2279">
+            <enabled>true</enabled>
+            <comment>AnyDesk Desktop Application for Remote Support</comment>
+            <app_signatures>!Remote Desktop,Unidentified Application</app_signatures>
+            <user_agent>AnyDesk</user_agent>
+            <add_app_signatures>AnyDesk</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Remote Desktop</group>
+        </app>
+        <app id="2281">
+            <enabled>true</enabled>
+            <comment>OpenOffice Desktop Applications Suite</comment>
+            <app_signatures>Unidentified Application</app_signatures>
+            <user_agent>OpenOffice\.org</user_agent>
+            <add_app_signatures>OpenOffice</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Business</group>
+        </app>
+        <app id="2283">
+            <enabled>true</enabled>
+            <comment>Microsoft Office</comment>
+            <app_signatures>Unidentified Application</app_signatures>
+            <user_agent>Microsoft\sOffice\/[0-9]*.[0-9](.*)|Microsoft\sOffice\s(.*)</user_agent>
+            <add_app_signatures>Microsoft Office</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Microsoft Office Suite</group>
+        </app>
+        <app id="2285">
+            <enabled>true</enabled>
+            <comment>Microsoft Excel</comment>
+            <app_signatures>Microsoft Office</app_signatures>
+            <user_agent>Microsoft\sOffice\/[0-9]*\.[0-9]*\s\(Windows\sNT\s[0-9]*\.[0-9];\sMicrosoft\sExcel\s[0-9]*\.[0-9]*\.[0-9]*;\sPro\)</user_agent>
+            <add_app_signatures>Microsoft Excel</add_app_signatures>
+            <group>Microsoft Office Suite</group>
+        </app>
+        <app id="2287">
+            <enabled>true</enabled>
+            <comment>Microsoft Word</comment>
+            <app_signatures>Microsoft Office</app_signatures>
+            <user_agent>Microsoft\sOffice\/[0-9]*\.[0-9]*\s\(Windows\sNT\s[0-9]*\.[0-9];\sMicrosoft\sWord\s[0-9]*\.[0-9]*\.[0-9]*;\sPro\)</user_agent>
+            <add_app_signatures>Microsoft Word</add_app_signatures>
+            <group>Microsoft Office Suite</group>
+        </app>
+        <app id="2289">
+            <enabled>true</enabled>
+            <comment>Microsoft PowerPoint</comment>
+            <app_signatures>Microsoft Office</app_signatures>
+            <user_agent>Microsoft\sOffice\/[0-9]*\.[0-9]*\s\(Windows\sNT\s[0-9]*\.[0-9];\sMicrosoft\sPowerPoint\s[0-9]*\.[0-9]*\.[0-9]*;\sPro\)</user_agent>
+            <add_app_signatures>Microsoft PowerPoint</add_app_signatures>
+            <group>Microsoft Office Suite</group>
+        </app>
+        <app id="2291">
+            <enabled>true</enabled>
+            <comment>Microsoft Access</comment>
+            <app_signatures>Microsoft Office</app_signatures>
+            <user_agent>Microsoft\sOffice\/[0-9]*\.[0-9]*\s\(Windows\sNT\s[0-9]*\.[0-9];\sMicrosoft\sAccess\s[0-9]*\.[0-9]*\.[0-9]*;\sPro\)</user_agent>
+            <add_app_signatures>Microsoft Access</add_app_signatures>
+            <group>Microsoft Office Suite</group>
+        </app>
+        <app id="2293">
+            <enabled>true</enabled>
+            <comment>Microsoft Outlook</comment>
+            <app_signatures>Microsoft Office</app_signatures>
+            <user_agent>Microsoft\sOffice\/[0-9]*\.[0-9]*\s\(Windows\sNT\s[0-9]*\.[0-9];\sMicrosoft\sOutlook\s[0-9]*\.[0-9]*\.[0-9]*;\sPro\)</user_agent>
+            <add_app_signatures>Microsoft Outlook</add_app_signatures>
+            <group>Microsoft Office Suite</group>
+        </app>
+        <app id="2295">
+            <enabled>true</enabled>
+            <comment>Microsoft Teams</comment>
+            <app_signatures>Unidentified Application</app_signatures>
+            <user_agent>(.*)\s(.*)teams\/[0-9](.*)|(.*)\sRT\sHttpStack</user_agent>
+            <add_app_signatures>Microsoft Teams</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Microsoft Office Suite</group>
+        </app>
+        <app id="2297">
+            <enabled>true</enabled>
+            <comment>Microsoft One Note</comment>
+            <app_signatures>Microsoft Office </app_signatures>
+            <user_agent>Microsoft\sOffice\soneNote/[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*(.*)</user_agent>
+            <add_app_signatures>Microsoft OneNote</add_app_signatures>
+            <group>Microsoft Office Suite</group>
+        </app>
+        <app id="2299">
+            <enabled>true</enabled>
+            <comment>Skype</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <hostname>www\.skype\.com|secure\.skypeassets\.com</hostname>
+            <add_app_signatures>Skype</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+            <group>Online Meeting</group>
+        </app>
+        <app id="2301">
+            <enabled>true</enabled>
+            <comment>Skype for Business</comment>
+            <app_signatures>Unidentified Application</app_signatures>
+            <user_agent>OC/[0-9]*.[0-9].[0-9]*.[0-9]*\s\(Skype\sfor\sBusiness\)</user_agent>
+            <add_app_signatures>SkypeforBusiness</add_app_signatures>
+            <remove_app_signatures>Unidentified Application,Unidentified Web2.0</remove_app_signatures>
+            <group>Online Meeting</group>
+        </app>
+        <app id="2303">
+            <enabled>true</enabled>
+            <comment>Thunderbird</comment>
+            <user_agent>Mozilla\/[0-9]*.[0-9]*\s\(Windows\sNT\s[0-9]*.[0-9];\sWin[0-9]*;\sx[0-9]*;\srv:[0-9]*.[0-9]*\)\sGecko\/[0-9]*\sThunderbird\/[0-9]*.[0-9]*.[0-1]*</user_agent>
+            <add_app_signatures>Mozilla Thunderbird</add_app_signatures>
+            <group>Mail Client</group>
+        </app>
+        <app id="2305">
+            <enabled>true</enabled>
+            <comment>Postman</comment>
+            <app_signatures>Unidentified Application</app_signatures>
+            <user_agent>PostmanRuntime/(.*)</user_agent>
+            <add_app_signatures>Postman</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>API Testing</group>
+        </app>
+        <app id="2307">
+            <enabled>true</enabled>
+            <comment>Android based Smart Phones &amp; Devices</comment>
+            <app_signatures>Unidentified Application</app_signatures>
+            <user_agent>(?i)Android</user_agent>
+            <add_app_signatures>Android Mobile App</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Android Apps</group>
+        </app>
+        <app id="2309">
+            <enabled>true</enabled>
+            <comment>Official pre-installed app on Android devices which provides access to the Google Play store</comment>
+            <app_signatures>Android Mobile App</app_signatures>
+            <user_agent>com\.(google\.)?android\.(vending|finsky)</user_agent>
+            <add_app_signatures>Google PlayStore</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Android Apps</group>
+        </app>
+        <app id="2311">
+            <enabled>true</enabled>
+            <comment>Youtube Mobile App for Android</comment>
+            <app_signatures>Android Mobile App</app_signatures>
+            <user_agent>com\.google\.android\.youtube</user_agent>
+            <add_app_signatures>Youtube Mobile App</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Android Apps</group>
+        </app>
+        <app id="2313">
+            <enabled>true</enabled>
+            <comment>LinkedIn Mobile App for Android</comment>
+            <app_signatures>Android Mobile App</app_signatures>
+            <user_agent>com\.linkedin\.android</user_agent>
+            <add_app_signatures>LinkedIn Mobile App</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Android Apps</group>
+        </app>
+        <app id="2315">
+            <enabled>true</enabled>
+            <comment>Twitter Mobile App for Android</comment>
+            <app_signatures>Unidentified Application</app_signatures>
+            <registered_domain>^(twitter|twimg)\.</registered_domain>
+            <user_agent>okhttp</user_agent>
+            <add_app_signatures>Twitter Mobile App</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Android Apps</group>
+        </app>
+        <app id="2317">
+            <enabled>true</enabled>
+            <comment>Generic Web client for Android and Java applications.</comment>
+            <app_signatures>Unidentified Application</app_signatures>
+            <user_agent>okhttp</user_agent>
+            <add_app_signatures>Android Mobile App</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Android Apps</group>
+        </app>
+        <app id="2319">
+            <enabled>true</enabled>
+            <comment>Apple iPhone Mobile Apps</comment>
+            <app_signatures>Unidentified Application</app_signatures>
+            <user_agent>(?i)iPhone</user_agent>
+            <add_app_signatures>IPhone</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>IPhone Apps</group>
+        </app>
+        <app id="2321">
+            <enabled>true</enabled>
+            <comment>All Mobile Phone Apps</comment>
+            <app_signatures>Android Apps,IPhone Apps</app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+            <group>Mobile Apps</group>
+        </app>
+        <app id="2323">
+            <enabled>true</enabled>
+            <comment>Generic Java Based Applications</comment>
+            <app_signatures>Unidentified Application</app_signatures>
+            <user_agent>(?i)java</user_agent>
+            <add_app_signatures>Java Application</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+        </app>
+        <app id="2325">
+            <enabled>true</enabled>
+            <comment>Curl command-line tool</comment>
+            <app_signatures>Unidentified Application</app_signatures>
+            <user_agent>curl\/[0-9].*</user_agent>
+            <add_app_signatures>Curl</add_app_signatures>
+            <remove_app_signatures>Unidentified Application</remove_app_signatures>
+        </app>
+        <app id="2327">
+            <enabled>true</enabled>
+            <comment>Microsoft Windows Update Service</comment>
+            <registered_domain>^(microsoft|windowsupdate)\.com</registered_domain>
+            <user_agent>Microsoft-Delivery-Optimization|MICROSOFT_DEVICE_METADATA_RETRIEVAL_CLIENT|Windows-Update-Agent</user_agent>
+            <add_app_signatures>Windows Updates</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2329">
+            <enabled>true</enabled>
+            <comment>Google Web Analytics and User Tracking Service</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>\bgoogle-analytics\b</registered_domain>
+            <add_app_signatures>Google Analytics</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+            <group>Advertisements</group>
+        </app>
+        <app id="2331">
+            <enabled>true</enabled>
+            <comment>Google Web Analytics and User Tracking Service</comment>
+            <registered_domain>\bgoogle\b</registered_domain>
+            <hostname>\banalytics\b</hostname>
+            <add_app_signatures>Google Analytics</add_app_signatures>
+            <group>Advertisements</group>
+        </app>
+        <app id="2333">
+            <enabled>true</enabled>
+            <comment>Google Advertisement and Tracking Services</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>\b(googleadsserving|doubleclick|googlesyndication|googleadservices)\b</registered_domain>
+            <add_app_signatures>Google Ads Services</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+            <group>Advertisements</group>
+        </app>
+        <app id="2335">
+            <enabled>true</enabled>
+            <comment>Google Advertisement and Tracking Services</comment>
+            <registered_domain>\bgoogle\b</registered_domain>
+            <hostname>\badservice</hostname>
+            <add_app_signatures>Google Ads Services</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+            <group>Advertisements</group>
+        </app>
+        <app id="2337">
+            <enabled>true</enabled>
+            <comment>FireFox Services</comment>
+            <registered_domain>\b(firefox|mozilla|firefoxusercontent)\b</registered_domain>
+            <add_app_signatures>FireFox</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+            <group>Internet Browser</group>
+        </app>
+        <app id="2339">
+            <enabled>true</enabled>
+            <comment>FireFox Portal Detection</comment>
+            <file>^\/success.txt</file>
+            <hostname>\bdetectportal\.firefox\.com</hostname>
+            <add_app_signatures>Firefox Detect</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2341">
+            <enabled>true</enabled>
+            <comment>FireFox SSO using cookie-less Bearer Authentication</comment>
+            <hostname>\baccounts\.firefox\.com</hostname>
+            <add_app_signatures>FireFox SSO</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2343">
+            <enabled>true</enabled>
+            <comment>Pocket Bookmarks</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>^getpocket\.com$</registered_domain>
+            <add_app_signatures>Pocket Bookmarks</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2345">
+            <enabled>true</enabled>
+            <comment>Pocket Image Cache</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>\bpocket-image-cache\.com</registered_domain>
+            <referer_host>\bgetpocket\.com$</referer_host>
+            <add_app_signatures>Pocket Images</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2347">
+            <enabled>true</enabled>
+            <comment>Pocket BookMark Login via Google Account</comment>
+            <hostname>\baccounts\.google\.com</hostname>
+            <referer_host>^getpocket\.com</referer_host>
+            <add_app_signatures>Pocket Google Login</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2349">
+            <enabled>true</enabled>
+            <comment>Pocket BookMark Login using Cookies via FireFox Account</comment>
+            <hostname>^getpocket\.com</hostname>
+            <referer_host>\baccounts\.firefox\.com</referer_host>
+            <add_app_signatures>Pocket FireFox Login</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2351">
+            <enabled>true</enabled>
+            <comment>HootSuite</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>^hootsuite\.com$</registered_domain>
+            <add_app_signatures>HootSuite</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2353">
+            <enabled>true</enabled>
+            <comment>HootSuite</comment>
+            <app_signatures>HootSuite</app_signatures>
+            <file>\/login|auth\b</file>
+            <referer_host>^www\.facebook\.com$</referer_host>
+            <add_app_signatures>HootSuite Facebook Login</add_app_signatures>
+        </app>
+        <app id="2355">
+            <enabled>true</enabled>
+            <comment>Google Web2.0</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>\bgoogle(drive|apis|usercontent|video|)|gmail|gv1\b</registered_domain>
+            <add_app_signatures>Google</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2357">
+            <enabled>true</enabled>
+            <comment>Google Mail</comment>
+            <app_signatures>Google</app_signatures>
+            <hostname>\b(g|)mail\.</hostname>
+            <add_app_signatures>Gmail</add_app_signatures>
+        </app>
+        <app id="2359">
+            <enabled>true</enabled>
+            <comment>Google Mail</comment>
+            <app_signatures>Google</app_signatures>
+            <file>^\/gmail/?</file>
+            <add_app_signatures>Gmail</add_app_signatures>
+        </app>
+        <app id="2361">
+            <enabled>true</enabled>
+            <comment>Google Hangout</comment>
+            <app_signatures>Google</app_signatures>
+            <hostname>\bhangouts\.google\b</hostname>
+            <add_app_signatures>Google Hangout</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2363">
+            <enabled>true</enabled>
+            <comment>Google Login</comment>
+            <app_signatures>Google</app_signatures>
+            <hostname>\baccounts\b</hostname>
+            <add_app_signatures>Google SSO</add_app_signatures>
+        </app>
+        <app id="2365">
+            <enabled>true</enabled>
+            <comment>Google Drive</comment>
+            <app_signatures>Google</app_signatures>
+            <hostname>\b(google|)drive\.</hostname>
+            <add_app_signatures>Google Drive</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2367">
+            <enabled>true</enabled>
+            <comment>Google Web 2.0 API Services</comment>
+            <app_signatures>Google</app_signatures>
+            <hostname>\b(google|)apis\.</hostname>
+            <add_app_signatures>Google APIs</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2369">
+            <enabled>true</enabled>
+            <comment>Serves Google Multimedia content on sites like Youtube</comment>
+            <app_signatures>Google</app_signatures>
+            <registered_domain>\bgooglevideo\b</registered_domain>
+            <add_app_signatures>Google Videos</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2371">
+            <enabled>true</enabled>
+            <comment>Google Video Intelligence</comment>
+            <app_signatures>Google APIs</app_signatures>
+            <hostname>\bvideointelligence\.googleapis\.</hostname>
+            <add_app_signatures>Google Video Intelligence</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2373">
+            <enabled>true</enabled>
+            <comment>Google SafeBrowsing</comment>
+            <app_signatures>Google APIs</app_signatures>
+            <hostname>\bsafebrowsing\b</hostname>
+            <add_app_signatures>Google SafeBrowsing</add_app_signatures>
+        </app>
+        <app id="2375">
+            <enabled>true</enabled>
+            <comment>Google Search Queries</comment>
+            <app_signatures>Google</app_signatures>
+            <file>^\/search\?</file>
+            <hostname>^www\.</hostname>
+            <add_app_signatures>Google Search</add_app_signatures>
+        </app>
+        <app id="2377">
+            <enabled>true</enabled>
+            <comment>Google Custom Search</comment>
+            <app_signatures>Google APIs</app_signatures>
+            <file>^\/customsearch/v1?</file>
+            <add_app_signatures>Google Custom Search</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2379">
+            <enabled>true</enabled>
+            <comment>Google Search Queries With Safety Mode Enabled</comment>
+            <app_signatures>Google Search</app_signatures>
+            <file>\bsafe=active\b</file>
+            <add_app_signatures>Google Safe Search</add_app_signatures>
+        </app>
+        <app id="2381">
+            <enabled>true</enabled>
+            <comment>Google Search Queries With Safety Mode Disabled</comment>
+            <app_signatures>!Google Safe Search,Google Search</app_signatures>
+            <add_app_signatures>Google UnSafe Search</add_app_signatures>
+        </app>
+        <app id="2383">
+            <enabled>true</enabled>
+            <comment>YouTube Web2.0 Applications</comment>
+            <app_signatures>Youtube Mobile App</app_signatures>
+            <add_app_signatures>Youtube</add_app_signatures>
+        </app>
+        <app id="2385">
+            <enabled>true</enabled>
+            <comment>YouTube Shortened URL</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>\b(yt|youtu)\.be</registered_domain>
+            <add_app_signatures>Youtube</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2387">
+            <enabled>true</enabled>
+            <comment>Youtube Web2.0</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>\byoutube(|-nocookie)\.</registered_domain>
+            <add_app_signatures>Youtube</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2389">
+            <enabled>true</enabled>
+            <comment>YouTube Privacy Enhanced Embedded Video</comment>
+            <app_signatures>Youtube</app_signatures>
+            <registered_domain>\byoutube-nocookie\.com</registered_domain>
+            <add_app_signatures>Youtube Privacy Enhanced</add_app_signatures>
+        </app>
+        <app id="2391">
+            <enabled>true</enabled>
+            <comment>YouTube For Kids</comment>
+            <app_signatures>Youtube</app_signatures>
+            <hostname>^kids\.</hostname>
+            <add_app_signatures>Youtube Kids</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2393">
+            <enabled>true</enabled>
+            <comment>Youtube Login</comment>
+            <app_signatures>Youtube</app_signatures>
+            <registered_domain>\byoutube\.com$</registered_domain>
+            <hostname>^accounts\.</hostname>
+            <add_app_signatures>Youtube Login</add_app_signatures>
+        </app>
+        <app id="2395">
+            <enabled>true</enabled>
+            <comment>YouTube Video</comment>
+            <app_signatures>Youtube</app_signatures>
+            <file>^\/watch\?v=</file>
+            <hostname>\byoutube(|-nocookie)\.com</hostname>
+            <add_app_signatures>Youtube Video</add_app_signatures>
+        </app>
+        <app id="2397">
+            <enabled>true</enabled>
+            <comment>YouTube Video</comment>
+            <app_signatures>Youtube</app_signatures>
+            <file>^\/get_video_info\?.*&amp;video_id=</file>
+            <hostname>\byoutube(|-nocookie)\.com</hostname>
+            <add_app_signatures>Youtube Video</add_app_signatures>
+        </app>
+        <app id="2399">
+            <enabled>true</enabled>
+            <comment>YouTube Feeds</comment>
+            <app_signatures>Youtube</app_signatures>
+            <file>^\/feed</file>
+            <hostname>\byoutube(|-nocookie)\.com</hostname>
+            <add_app_signatures>Youtube Feeds</add_app_signatures>
+        </app>
+        <app id="2401">
+            <enabled>true</enabled>
+            <comment>YouTube Shorts</comment>
+            <app_signatures>Youtube</app_signatures>
+            <file>^\/shorts</file>
+            <hostname>\byoutube(|-nocookie)\.com</hostname>
+            <add_app_signatures>Youtube Shorts</add_app_signatures>
+        </app>
+        <app id="2403">
+            <enabled>true</enabled>
+            <comment>YouTube Embedded Video</comment>
+            <app_signatures>Youtube</app_signatures>
+            <file>^\/embed</file>
+            <hostname>\byoutube(|-nocookie)\.com</hostname>
+            <add_app_signatures>Youtube Embedded Video</add_app_signatures>
+        </app>
+        <app id="2405">
+            <enabled>true</enabled>
+            <comment>YouTube Channel</comment>
+            <app_signatures>Youtube</app_signatures>
+            <file>^\/channel</file>
+            <hostname>\byoutube(|-nocookie)\.com</hostname>
+            <add_app_signatures>Youtube Channels</add_app_signatures>
+        </app>
+        <app id="2407">
+            <enabled>true</enabled>
+            <comment>YouTube Users</comment>
+            <app_signatures>Youtube</app_signatures>
+            <file>^\/user</file>
+            <hostname>\byoutube(|-nocookie)\.com</hostname>
+            <add_app_signatures>Youtube Users</add_app_signatures>
+        </app>
+        <app id="2409">
+            <enabled>true</enabled>
+            <comment>YouTube Channels [YouTube Feeds, YouTube Videos, YouTube Users, YouTube Channels]</comment>
+            <app_signatures>Youtube Feeds,Youtube Users,Youtube Video</app_signatures>
+            <add_app_signatures>Youtube Channels</add_app_signatures>
+        </app>
+        <app id="2411">
+            <enabled>true</enabled>
+            <comment>Yahoo Web2.0 Applications</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>^(yahoo|yimg)\.</registered_domain>
+            <add_app_signatures>Yahoo</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2413">
+            <enabled>true</enabled>
+            <comment>Yahoo Search Queries</comment>
+            <app_signatures>Yahoo</app_signatures>
+            <method>GET</method>
+            <file>^\/search?</file>
+            <hostname>^(in\.search|search)</hostname>
+            <add_app_signatures>Yahoo Search</add_app_signatures>
+            <group>Search Engine</group>
+        </app>
+        <app id="2415">
+            <enabled>true</enabled>
+            <comment>Yahoo Safe Search Queries With Safety Mode Enabled</comment>
+            <app_signatures>Yahoo Search</app_signatures>
+            <method>GET</method>
+            <file>\bvm=r\b</file>
+            <add_app_signatures>Yahoo Safe Search</add_app_signatures>
+        </app>
+        <app id="2417">
+            <enabled>true</enabled>
+            <comment>Yahoo Search Queries With Safety Mode Disabled</comment>
+            <app_signatures>!Yahoo Safe Search,Yahoo Search</app_signatures>
+            <add_app_signatures>Yahoo UnSafe Search</add_app_signatures>
+        </app>
+        <app id="2419">
+            <enabled>true</enabled>
+            <comment>StackExchange Web2.0 Applications</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>^(askubuntu|blogoverflow|mathoverflow|stackexchange|serverfault|stackoverflow|stackapps|stackauth|sstatic|superuser|stacksnippets)\.</registered_domain>
+            <add_app_signatures>StackExchange</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2421">
+            <enabled>true</enabled>
+            <comment>Twitter Web2.0 Applications</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>^t\.co</registered_domain>
+            <add_app_signatures>Twitter</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2423">
+            <enabled>true</enabled>
+            <comment>Twitter Web2.0 Applications</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>^(twitter|twimg)\.com</registered_domain>
+            <add_app_signatures>Twitter</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2425">
+            <enabled>true</enabled>
+            <comment>Twitter Web2.0 Applications</comment>
+            <app_signatures>Twitter Mobile App</app_signatures>
+            <add_app_signatures>Twitter</add_app_signatures>
+        </app>
+        <app id="2427">
+            <enabled>true</enabled>
+            <comment>Bing Web2.0</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>^bing\.</registered_domain>
+            <add_app_signatures>Bing</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+            <group>Search Engine</group>
+        </app>
+        <app id="2429">
+            <enabled>true</enabled>
+            <comment>Bing Search Queries</comment>
+            <app_signatures>Bing</app_signatures>
+            <file>^\/search\?</file>
+            <hostname>^www</hostname>
+            <add_app_signatures>Bing Search</add_app_signatures>
+        </app>
+        <app id="2431">
+            <enabled>true</enabled>
+            <comment>Bing Search Queries With Safety Mode Enabled</comment>
+            <app_signatures>Bing</app_signatures>
+            <file>\badlt=strict\b</file>
+            <add_app_signatures>Bing Safe Search</add_app_signatures>
+        </app>
+        <app id="2433">
+            <enabled>true</enabled>
+            <comment>Bing Search Queries With Safety Mode Disabled</comment>
+            <app_signatures>!Bing Safe Search,Bing Search</app_signatures>
+            <add_app_signatures>Bing UnSafe Search</add_app_signatures>
+        </app>
+        <app id="2435">
+            <enabled>true</enabled>
+            <comment>DuckDuckGo Search Engine</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>^duckduckgo\.com</registered_domain>
+            <add_app_signatures>DuckDuckGo</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+            <group>Search Engine</group>
+        </app>
+        <app id="2437">
+            <enabled>true</enabled>
+            <comment>DuckDuckGo Search</comment>
+            <app_signatures>DuckDuckGo</app_signatures>
+            <file>^\/\?q</file>
+            <add_app_signatures>DuckDuckGo Search</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2439">
+            <enabled>true</enabled>
+            <comment>Facebook Web2.0 Applications</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>\bmessenger|fbcdn|fbsbx|fb|facebook\b</registered_domain>
+            <add_app_signatures>Facebook</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2441">
+            <enabled>true</enabled>
+            <comment>Facebook Games</comment>
+            <app_signatures>Facebook</app_signatures>
+            <method>GET</method>
+            <file>^\/games/?</file>
+            <add_app_signatures>Facebook Games</add_app_signatures>
+        </app>
+        <app id="2443">
+            <enabled>true</enabled>
+            <comment>Facebook Share</comment>
+            <app_signatures>Facebook</app_signatures>
+            <file>^\/(share|sharer)\/</file>
+            <add_app_signatures>Facebook Share</add_app_signatures>
+        </app>
+        <app id="2445">
+            <enabled>true</enabled>
+            <comment>Facebook Like &amp; Comment</comment>
+            <app_signatures>Facebook</app_signatures>
+            <method>POST</method>
+            <file>^\/api\/graphql/</file>
+            <add_app_signatures>Facebook Comment,Facebook Like</add_app_signatures>
+        </app>
+        <app id="2447">
+            <enabled>true</enabled>
+            <comment>Facebook Chat</comment>
+            <app_signatures>Facebook</app_signatures>
+            <method>POST</method>
+            <file>^\/messaging\/send\/</file>
+            <add_app_signatures>Facebook Chat</add_app_signatures>
+        </app>
+        <app id="2449">
+            <enabled>true</enabled>
+            <comment>Facebook Post</comment>
+            <app_signatures>Facebook</app_signatures>
+            <method>POST</method>
+            <file>^(\/webgraphql\/mutation\/|\/async\/publisher\/creation-hooks\/)</file>
+            <add_app_signatures>Facebook Post</add_app_signatures>
+        </app>
+        <app id="2451">
+            <enabled>true</enabled>
+            <comment>Facebook Video Upload</comment>
+            <app_signatures>Facebook</app_signatures>
+            <method>POST</method>
+            <file>^\/ajax\/video\/upload\/requests\/receive\/</file>
+            <hostname>^vupload-edge\.</hostname>
+            <add_app_signatures>Facebook Video Upload</add_app_signatures>
+        </app>
+        <app id="2453">
+            <enabled>true</enabled>
+            <comment>Facebook Photo Upload</comment>
+            <app_signatures>Facebook</app_signatures>
+            <method>POST</method>
+            <file>^\/ajax\/react_composer\/attachments\/photo\/upload</file>
+            <hostname>^upload\.</hostname>
+            <add_app_signatures>Facebook Photo Upload</add_app_signatures>
+        </app>
+        <app id="2455">
+            <enabled>true</enabled>
+            <comment>Facebook Videos</comment>
+            <app_signatures>Facebook</app_signatures>
+            <hostname>video</hostname>
+            <add_app_signatures>Facebook Video</add_app_signatures>
+        </app>
+        <app id="2457">
+            <enabled>true</enabled>
+            <comment>LinkedIn Web2.0 Applications</comment>
+            <app_signatures>LinkedIn Mobile App</app_signatures>
+            <add_app_signatures>Linkedin</add_app_signatures>
+        </app>
+        <app id="2459">
+            <enabled>true</enabled>
+            <comment>LinkedIn Web2.0 Applications</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>\blinkedin|licdn\.com$</registered_domain>
+            <add_app_signatures>Linkedin</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2461">
+            <enabled>true</enabled>
+            <comment>WhatsApp</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>^whatsapp\.</registered_domain>
+            <add_app_signatures>WhatsApp</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2463">
+            <enabled>true</enabled>
+            <comment>WhatsApp Web</comment>
+            <app_signatures>WhatsApp</app_signatures>
+            <hostname>^web</hostname>
+            <add_app_signatures>WhatsApp Web</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2465">
+            <enabled>true</enabled>
+            <comment>WhatsApp Multimedia &amp; Image Content</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>^whatsapp\.net</registered_domain>
+            <hostname>^mmg</hostname>
+            <add_app_signatures>WhatsApp Multimedia &amp; Images</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2467">
+            <enabled>true</enabled>
+            <comment>FireFox SSO Service</comment>
+            <referer_host>\baccounts\.firefox\.com</referer_host>
+            <add_app_signatures>FireFox SSO</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2469">
+            <enabled>true</enabled>
+            <comment>Google SSO Service</comment>
+            <referer_host>^accounts\.google\.com</referer_host>
+            <add_app_signatures>Google SSO</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2471">
+            <enabled>true</enabled>
+            <comment>Youtube SSO Service</comment>
+            <referer_host>^accounts\.youtube\.com</referer_host>
+            <add_app_signatures>Youtube SSO</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2473">
+            <enabled>true</enabled>
+            <comment>Facebook SSO</comment>
+            <app_signatures>Facebook</app_signatures>
+            <file>\/oauth</file>
+            <add_app_signatures>Facebook SSO</add_app_signatures>
+            <group>Family</group>
+        </app>
+        <app id="2475">
+            <enabled>true</enabled>
+            <comment>Facebook SSO</comment>
+            <app_signatures>Facebook</app_signatures>
+            <file>\/login\.php\?</file>
+            <add_app_signatures>Facebook SSO</add_app_signatures>
+            <group>Family</group>
+        </app>
+        <app id="2477">
+            <enabled>true</enabled>
+            <comment>Inter-communication within Family of Google and Youtube Web 2.0 Aplications</comment>
+            <app_signatures>Google,Youtube</app_signatures>
+            <referer_domain>\bgoogle(drive|apis|usercontent|video|)|gmail|gv1\b</referer_domain>
+            <add_app_signatures>Google Web2.0 Family</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+            <group>Family</group>
+        </app>
+        <app id="2479">
+            <enabled>true</enabled>
+            <comment>Inter-communication within Family of Google Web 2.0 Aplications</comment>
+            <app_signatures>Google,Youtube</app_signatures>
+            <referer_domain>^(youtube-nocookie|youtubei?|youtubeeducation|youtubekids|ytimg|googlevideo)\.</referer_domain>
+            <add_app_signatures>Google Web2.0 Family</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+            <group>Family</group>
+        </app>
+        <app id="2481">
+            <enabled>true</enabled>
+            <comment>Inter-communication within Family of Twitter Web 2.0 Aplications</comment>
+            <app_signatures>Twitter</app_signatures>
+            <referer_domain>^(twitter|twimg)\.com|^t\.co$</referer_domain>
+            <add_app_signatures>Twitter Web2.0 Family</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+            <group>Family</group>
+        </app>
+        <app id="2483">
+            <enabled>true</enabled>
+            <comment>Inter-communication within Family of LinkedIn Web 2.0 Aplications</comment>
+            <app_signatures>Linkedin</app_signatures>
+            <referer_domain>^(linkedin|licdn)\.</referer_domain>
+            <add_app_signatures>Linkedin Web2.0 Family</add_app_signatures>
+            <group>Family</group>
+        </app>
+        <app id="2485">
+            <enabled>true</enabled>
+            <comment>Inter-communication within Family of Facebook Web 2.0 Aplications</comment>
+            <app_signatures>Facebook</app_signatures>
+            <referer_domain>\bmessenger|fbcdn|fbsbx|fb|facebook\b</referer_domain>
+            <add_app_signatures>Facebook Web2.0 Family</add_app_signatures>
+            <group>Family</group>
+        </app>
+        <app id="2487">
+            <enabled>true</enabled>
+            <comment>Inter-communication within Family of FireFox Web 2.0 Aplications</comment>
+            <app_signatures>FireFox</app_signatures>
+            <referer_domain>\b(firefox|mozilla|firefoxusercontent)\b</referer_domain>
+            <add_app_signatures>FireFox Web2.0 Family</add_app_signatures>
+            <group>Family</group>
+        </app>
+        <app id="2489">
+            <enabled>true</enabled>
+            <comment>Inter-communication within Family of StackExchange Web 2.0 Aplications</comment>
+            <app_signatures>StackExchange</app_signatures>
+            <referer_domain>^(askubuntu|blogoverflow|mathoverflow|stackexchange|serverfault|stackoverflow|stackapps|stackauth|sstatic|superuser|stacksnippets)\.</referer_domain>
+            <add_app_signatures>StackExchange Web2.0 Family</add_app_signatures>
+            <group>Family</group>
+        </app>
+        <app id="2491">
+            <enabled>true</enabled>
+            <comment>Zoom Meeting</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>^zoom\.</registered_domain>
+            <add_app_signatures>Zoom Meeting</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+            <group>Online Meeting</group>
+        </app>
+        <app id="2493">
+            <enabled>true</enabled>
+            <comment>Go To Meeting</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <hostname>app\.goto\.com</hostname>
+            <add_app_signatures>GoTo</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+            <group>Online Meeting</group>
+        </app>
+        <app id="2495">
+            <enabled>true</enabled>
+            <comment>Google Meet</comment>
+            <app_signatures>Google Web2.0 Family</app_signatures>
+            <hostname>meet\.google\.com</hostname>
+            <add_app_signatures>Google Meet</add_app_signatures>
+            <group>Online Meeting</group>
+        </app>
+        <app id="2497">
+            <enabled>true</enabled>
+            <comment>Whereby</comment>
+            <hostname>whereby\.com</hostname>
+            <add_app_signatures>Whereby</add_app_signatures>
+            <group>Online Meeting</group>
+        </app>
+        <app id="2543">
+            <enabled>true</enabled>
+            <comment>Office 365</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <registered_domain>^office\.</registered_domain>
+            <add_app_signatures>Office 365</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+            <group>Office Online</group>
+        </app>
+        <app id="2499">
+            <enabled>true</enabled>
+            <comment>Office-apps Live</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <hostname>.*\.officeapps\.live\.com</hostname>
+            <add_app_signatures>Office Apps Live</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+            <group>Office 365</group>
+        </app>
+        <app id="2501">
+            <enabled>true</enabled>
+            <comment>Microsoft</comment>
+            <app_signatures>Unidentified Web2.0</app_signatures>
+            <hostname>(.*)\.microsoft\.(.*)\.com|(.*)\.microsoftonline\.(.*)\.com|(.*)\.microsoft\.com</hostname>
+            <add_app_signatures>Microsoft</add_app_signatures>
+            <remove_app_signatures>Unidentified Web2.0</remove_app_signatures>
+        </app>
+        <app id="2503">
+            <enabled>true</enabled>
+            <comment>Microsoft word 365 Web app</comment>
+            <app_signatures>Office 365,Office Apps Live</app_signatures>
+            <hostname>(.*)word(.*)</hostname>
+            <add_app_signatures>Microsoft Word 365</add_app_signatures>
+        </app>
+        <app id="2505">
+            <enabled>true</enabled>
+            <comment>Microsoft Excel 365</comment>
+            <app_signatures>Office 365</app_signatures>
+            <hostname>(.*)excel(.*)</hostname>
+            <add_app_signatures>Excel 365</add_app_signatures>
+        </app>
+        <app id="2507">
+            <enabled>true</enabled>
+            <comment>Microsoft PowerPoint 365</comment>
+            <app_signatures>Office 365</app_signatures>
+            <hostname>(.*)powerpoint(.*)</hostname>
+            <add_app_signatures>PowerPoint 365</add_app_signatures>
+        </app>
+        <app id="2509">
+            <enabled>true</enabled>
+            <comment>Microsoft Outlook 365</comment>
+            <app_signatures>Office 365</app_signatures>
+            <hostname>(.*)outlook(.*)</hostname>
+            <add_app_signatures>Outlook 365</add_app_signatures>
+        </app>
+        <app id="2511">
+            <enabled>true</enabled>
+            <comment>Microsoft Teams 365</comment>
+            <app_signatures>Office 365</app_signatures>
+            <hostname>(.*)teams(.*)</hostname>
+            <add_app_signatures>Microsoft Teams</add_app_signatures>
+        </app>
+        <app id="2513">
+            <enabled>true</enabled>
+            <comment>Microsoft to-do </comment>
+            <app_signatures>Office 365</app_signatures>
+            <hostname>(.*)to-do(.*)</hostname>
+            <add_app_signatures>Microsoft to-do</add_app_signatures>
+        </app>
+        <app id="2515">
+            <enabled>true</enabled>
+            <comment>Microsoft Family Safety</comment>
+            <app_signatures>Office 365</app_signatures>
+            <hostname>(.*)lifecycle(.*)</hostname>
+            <add_app_signatures>Microsoft Family Safety</add_app_signatures>
+        </app>
+        <app id="2517">
+            <enabled>true</enabled>
+            <comment>Microsoft oneNote;</comment>
+            <app_signatures>Office 365</app_signatures>
+            <hostname>(.*)onenote(.*)</hostname>
+            <add_app_signatures>Microsoft OneNote</add_app_signatures>
+        </app>
+        <app id="2519">
+            <enabled>true</enabled>
+            <comment>Microsoft oneDrive;</comment>
+            <app_signatures>Office 365</app_signatures>
+            <hostname>(.*)onedrive(.*)</hostname>
+            <add_app_signatures>Microsoft oneDrive</add_app_signatures>
+        </app>
+        <app id="2541">
+            <enabled>true</enabled>
+            <comment>Microsoft SSO</comment>
+            <hostname>login\.microsoftonline\.com|.*\.msauth\.net</hostname>
+            <add_app_signatures>Microsoft SSO</add_app_signatures>
+            <group>Microsoft Office Suite</group>
+        </app>
+        <app_categories_entry id="2521">
+            <enabled>true</enabled>
+            <comment>All Marketing &amp; Advertising web applications</comment>
+            <add_app_category>Advertisements</add_app_category>
+        </app_categories_entry>
+        <app_categories_entry id="2523">
+            <enabled>true</enabled>
+            <comment>All Web Browsers</comment>
+            <add_app_category>Internet Browser</add_app_category>
+        </app_categories_entry>
+        <app_categories_entry id="2525">
+            <enabled>true</enabled>
+            <comment>All Productivity web applications</comment>
+            <add_app_category>Business</add_app_category>
+        </app_categories_entry>
+        <app_categories_entry id="2527">
+            <enabled>true</enabled>
+            <comment>All Web Conferencing Web Applications</comment>
+            <add_app_category>Online Meeting</add_app_category>
+        </app_categories_entry>
+        <app_categories_entry id="2529">
+            <enabled>true</enabled>
+            <comment>All Screen Sharing Web Applications</comment>
+            <add_app_category>Remote Desktop</add_app_category>
+        </app_categories_entry>
+        <app_categories_entry id="2531">
+            <enabled>true</enabled>
+            <comment>All Search Engines</comment>
+            <add_app_category>Search Engine</add_app_category>
+        </app_categories_entry>
+        <app_categories_entry id="2533">
+            <enabled>true</enabled>
+            <comment>Android Apps</comment>
+            <add_app_category>Android Apps</add_app_category>
+        </app_categories_entry>
+        <app_categories_entry id="2535">
+            <enabled>true</enabled>
+            <comment>IPhone Apps</comment>
+            <add_app_category>IPhone Apps</add_app_category>
+        </app_categories_entry>
+        <app_categories_entry id="2537">
+            <enabled>true</enabled>
+            <comment>Mobile Apps [Both Android &amp; IPhone Apps]</comment>
+            <add_app_category>Mobile Apps</add_app_category>
+        </app_categories_entry>
+        <app_categories_entry id="2539">
+            <enabled>true</enabled>
+            <comment>Inter-communication across a Family of web-sites for a Web 2.0 Application</comment>
+            <add_app_category>Family</add_app_category>
+        </app_categories_entry>
+    </applicationSignatures>
 </safesquid>
