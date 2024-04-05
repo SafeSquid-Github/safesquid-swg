@@ -366,8 +366,8 @@
 						]]></desc>
 					</zero>
 					<one>
-						<comment>BYPASS INTRANET SITES SSL VERIFICATION</comment>
-						<value>BYPASS INTRANET SITES SSL VERIFICATION</value>
+						<comment>BYPASS SELF-SIGNED CERT ERROR</comment>
+						<value>BYPASS SELF-SIGNED CERT ERROR</value>
 						<desc><![CDATA[
 							<p>
 								Allow traffic to websites with self-signed certificates.
@@ -545,8 +545,8 @@
 						]]></desc>
 					</four>
 					<five>
-						<comment>ALLOW PDF DOCUMENTS</comment>
-						<value>ALLOW PDF DOCUMENTS</value>
+						<comment>ALLOW PDF DOCUMENTS UPLOAD</comment>
+						<value>ALLOW PDF DOCUMENTS UPLOAD</value>
 						<desc><![CDATA[
 							<p>
 								Permits the upload of PDF files (.pdf), ensuring that data sharing is limited to specific types of documents.
@@ -554,8 +554,8 @@
 						]]></desc>
 					</five>
 					<six>
-						<comment>ALLOW ZIP FILES</comment>
-						<value>ALLOW ZIP FILES</value>
+						<comment>ALLOW ZIP FILES UPLOAD</comment>
+						<value>ALLOW ZIP FILES UPLOAD</value>
 						<desc><![CDATA[
 							<p>
 								Permits the upload of compressed files (.zip), ensuring that data sharing is limited to specific types of documents.
