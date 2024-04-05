@@ -699,7 +699,7 @@
             <profile_tracing>FALSE</profile_tracing>
             <web_categories>Intranet Sites</web_categories>
             <action>ALLOW</action>
-            <add_profiles>Allow Self-Signed Certificate</add_profiles>
+            <add_profiles>BYPASS SELF-SIGNED CERT ERROR</add_profiles>
             <remove_profiles>READ ONLY</remove_profiles>
         </profile>
         <profile id="153">
@@ -936,26 +936,17 @@
         <enabled>TRUE</enabled>
         <https_scan id="199">
             <enabled>TRUE</enabled>
-            <comment>We require bypassing of SSL Inspection for certain web-sites and applications</comment>
+            <comment>Bypass inspection of SSL/TLS encrypted traffic.&#x0A;Tunnel Non-Browser applications to remote web servers.&#x0A;Facilitate use of Client side SSL certificates for Digital Signature.</comment>
             <profiles>BYPASS SSL INSPECTION</profiles>
             <deepscan>FALSE</deepscan>
             <block_no_cert>TRUE</block_no_cert>
             <block_err_level>X509_V_OK</block_err_level>
             <block_domain_mismatch>TRUE</block_domain_mismatch>
         </https_scan>
-        <https_scan id="201">
-            <enabled>TRUE</enabled>
-            <comment>We permit bypass of ssl certificate check for domain name related errors.</comment>
-            <profiles>BYPASS INTRANET SITES SSL VERIFICATION</profiles>
-            <deepscan>TRUE</deepscan>
-            <block_no_cert>TRUE</block_no_cert>
-            <block_err_level>X509_V_OK</block_err_level>
-            <block_domain_mismatch>FALSE</block_domain_mismatch>
-        </https_scan>
         <https_scan id="203">
             <enabled>TRUE</enabled>
-            <comment>We permit bypass of ssl certificate check for domain name related errors.</comment>
-            <profiles>Allow Self-Signed Certificate</profiles>
+            <comment>Allow traffic to websites with self-signed certificates.</comment>
+            <profiles>BYPASS SELF-SIGNED CERT ERROR</profiles>
             <deepscan>TRUE</deepscan>
             <block_no_cert>TRUE</block_no_cert>
             <block_err_level>X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT</block_err_level>
@@ -963,20 +954,11 @@
         </https_scan>
         <https_scan id="205">
             <enabled>TRUE</enabled>
-            <comment>We permit access to websites that has ssl certificate issuer error on request bases.</comment>
+            <comment>Bypass SSL errors for incomplete certificate chain due to missing issuer certificates.</comment>
             <profiles>BYPASS NO ISSUER CERT LOCALLY ERROR</profiles>
             <deepscan>TRUE</deepscan>
             <block_no_cert>TRUE</block_no_cert>
             <block_err_level>X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY</block_err_level>
-            <block_domain_mismatch>TRUE</block_domain_mismatch>
-        </https_scan>
-        <https_scan id="207">
-            <enabled>TRUE</enabled>
-            <comment>We permit access to intranet websites that has self-signed ssl certificates.</comment>
-            <profiles>INTRANET SITES WITH SELF-SIGNED CERTIFICATE</profiles>
-            <deepscan>TRUE</deepscan>
-            <block_no_cert>TRUE</block_no_cert>
-            <block_err_level>X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT</block_err_level>
             <block_domain_mismatch>TRUE</block_domain_mismatch>
         </https_scan>
         <https_scan id="209">
