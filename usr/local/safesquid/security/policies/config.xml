@@ -383,7 +383,6 @@
     <keywords-filtering>
         <enabled>TRUE</enabled>
         <threshold>100</threshold>
-        <templ>blocked_bypass</templ>
         <keyword id="79">
             <enabled>TRUE</enabled>
             <comment>To match the below mentioned keywords in webpage,and blocks the webpage if the score is greater than threshold.</comment>
