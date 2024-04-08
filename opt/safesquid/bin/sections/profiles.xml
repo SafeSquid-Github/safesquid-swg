@@ -390,7 +390,7 @@
 						<value>BYPASS CLAMAV SCANNING</value>
 						<desc><![CDATA[
 							<p>
-								Bypass scanning of request and response payloads with ClamAV.
+								Bypass scanning of request and response payloads with Clam Antivirus.
 							</p>
 						]]></desc>
 					</zero>
@@ -399,7 +399,7 @@
 						<value>ENFORCE CLAMAV SCANNING</value>
 						<desc><![CDATA[
 							<p>
-								Enforce scanning of request and response payloads with ClamAV.
+								Enforce scanning of request and response payloads with Clam Antivirus.
 							</p>
 						]]></desc>
 					</one>
@@ -414,15 +414,6 @@
 							</p>
 						]]></desc>
 					</zero>
-					<one>
-						<comment>ENFORCE TEXT FILTER</comment>
-						<value>ENFORCE TEXT FILTER</value>
-						<desc><![CDATA[
-							<p>
-								Enforce scanning of request and response payloads with Text Analyzer.
-							</p>
-						]]></desc>
-					</one>
 				</text_analyzer_profiles>
 				<redirection_profiles parent="_0" group="Profiles: Redirect" list="redirection_profiles">
 					<zero>
@@ -430,8 +421,7 @@
 						<value>ENFORCE BING SAFE SEARCH</value>
 						<desc><![CDATA[
 							<p>
-								Enforces Bing search queries to use Bing SafeSearch feature, which filters out explicit content from search results.<br/>
-								This ensures a safer browsing environment by limiting exposure to potentially harmful or inappropriate content.
+								Enforce Bing safe search by Redirect unsafe Bing search request to safe Bing search request.
 							</p>
 						]]></desc>
 					</zero>
@@ -440,8 +430,7 @@
 						<value>ENFORCE GOOGLE SAFE SEARCH</value>
 						<desc><![CDATA[
 							<p>
-								Enforces Google search queries through Google SafeSearch setting, effectively filtering explicit content from search outcomes.<br/>
-								This ensures a safer browsing environment by limiting exposure to potentially harmful or inappropriate content.
+								Enforce Google safe search by Redirect unsafe Google search request to safe Google search request.
 							</p>
 						]]></desc>
 					</one>
@@ -450,8 +439,8 @@
 						<value>ENFORCE YOUTUBE SAFESEARCH</value>
 						<desc><![CDATA[
 							<p>
-								Enforces YouTube's SafeSearch filtering to all YouTube video searches, minimizing explicit or inappropriate video content.<br/>
-								This ensures a safer browsing environment by limiting exposure to potentially harmful or inappropriate content.
+								Enforce YouTube safe Search by Redirect unsafe YouTube search request to safe YouTube search request.<br/>
+
 							</p>
 						]]></desc>
 					</two>
@@ -460,8 +449,7 @@
 						<value>ENFORCE YAHOO SAFE SEARCH</value>
 						<desc><![CDATA[
 							<p>
-								Enforces Yahoo search settings to utilize Yahoo SafeSearch feature, which screens out explicit content from search findings.<br/>
-								This ensures a safer browsing environment by limiting exposure to potentially harmful or inappropriate content.
+								Enforce Yahoo safe search by Redirect unsafe Yahoo search request to safe Yahoo search request.
 							</p>
 						]]></desc>
 					</three>
@@ -470,8 +458,7 @@
 						<value>ENFORCE DUCKDUCKGO SAFE SEARCH</value>
 						<desc><![CDATA[
 							<p>
-								Enforces DuckDuckGo search engine uses its Safe Search mode to exclude explicit content from search results.<br/>
-								This ensures a safer browsing environment by limiting exposure to potentially harmful or inappropriate content.
+								Enforce DuckDuckGo safe search by Redirect unsafe DuckDuckGo search request to safe DuckDuckGo search request.
 							</p>
 						]]></desc>
 					</four>
@@ -489,17 +476,6 @@
 						]]></desc>
 					</zero>
 					<one>
-						<comment>ENFORCE IMAGE FILTER</comment>
-						<value>ENFORCE IMAGE FILTER</value>
-						<desc><![CDATA[
-							<p>
-								Enforce image filtering to block images from websites which servers pornographic content, including surrogate websites.<br/>
-								Image filter blocks inappropriate images by analyzing the graphical content of an image, in real time.<br/>
-								Prevents such material from being accessed or displayed.
-							</p>
-						]]></desc>
-					</one>
-					<two>
 						<comment>ENFORCE PARANOID IMAGE SCAN</comment>
 						<value>ENFORCE PARANOID IMAGE SCAN</value>
 						<desc><![CDATA[
@@ -509,7 +485,7 @@
 								Effective against surrogate websites known to serve such content.
 							</p>
 						]]></desc>
-					</two>
+					</one>
 				</image_analyzer_profiles>
 				<dlp_profiles parent="_0" group="Profiles: DLP" list="dlp_profiles">
 					<zero>
@@ -560,8 +536,8 @@
 						]]></desc>
 					</four>
 					<five>
-						<comment>ALLOW PDF DOCUMENTS</comment>
-						<value>ALLOW PDF DOCUMENTS</value>
+						<comment>ALLOW PDF DOCUMENTS UPLOAD</comment>
+						<value>ALLOW PDF DOCUMENTS UPLOAD</value>
 						<desc><![CDATA[
 							<p>
 								Permits the upload of PDF files (.pdf), ensuring that data sharing is limited to specific types of documents.
@@ -569,8 +545,8 @@
 						]]></desc>
 					</five>
 					<six>
-						<comment>ALLOW ZIP FILES</comment>
-						<value>ALLOW ZIP FILES</value>
+						<comment>ALLOW ZIP FILES UPLOAD</comment>
+						<value>ALLOW ZIP FILES UPLOAD</value>
 						<desc><![CDATA[
 							<p>
 								Permits the upload of compressed files (.zip), ensuring that data sharing is limited to specific types of documents.
