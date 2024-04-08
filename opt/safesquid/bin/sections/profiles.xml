@@ -430,7 +430,8 @@
 						<value>ENFORCE BING SAFE SEARCH</value>
 						<desc><![CDATA[
 							<p>
-								Enforce Bing safe search by Redirect unsafe Bing search request to safe Bing search request.
+								Enforces Bing search queries to use Bing SafeSearch feature, which filters out explicit content from search results.<br/>
+								This ensures a safer browsing environment by limiting exposure to potentially harmful or inappropriate content.
 							</p>
 						]]></desc>
 					</zero>
@@ -439,7 +440,8 @@
 						<value>ENFORCE GOOGLE SAFE SEARCH</value>
 						<desc><![CDATA[
 							<p>
-								Enforce Google safe search by Redirect unsafe Google search request to safe Google search request.
+								Enforces Google search queries through Google SafeSearch setting, effectively filtering explicit content from search outcomes.<br/>
+								This ensures a safer browsing environment by limiting exposure to potentially harmful or inappropriate content.
 							</p>
 						]]></desc>
 					</one>
@@ -448,8 +450,8 @@
 						<value>ENFORCE YOUTUBE SAFESEARCH</value>
 						<desc><![CDATA[
 							<p>
-								Enforce YouTube safe Search by Redirect unsafe YouTube search request to safe YouTube search request.<br/>
-
+								Enforces YouTube's SafeSearch filtering to all YouTube video searches, minimizing explicit or inappropriate video content.<br/>
+								This ensures a safer browsing environment by limiting exposure to potentially harmful or inappropriate content.
 							</p>
 						]]></desc>
 					</two>
@@ -458,7 +460,8 @@
 						<value>ENFORCE YAHOO SAFE SEARCH</value>
 						<desc><![CDATA[
 							<p>
-								Enforce Yahoo safe search by Redirect unsafe Yahoo search request to safe Yahoo search request.
+								Enforces Yahoo search settings to utilize Yahoo SafeSearch feature, which screens out explicit content from search findings.<br/>
+								This ensures a safer browsing environment by limiting exposure to potentially harmful or inappropriate content.
 							</p>
 						]]></desc>
 					</three>
@@ -467,7 +470,8 @@
 						<value>ENFORCE DUCKDUCKGO SAFE SEARCH</value>
 						<desc><![CDATA[
 							<p>
-								Enforce DuckDuckGo safe search by Redirect unsafe DuckDuckGo search request to safe DuckDuckGo search request.
+								Enforces DuckDuckGo search engine uses its Safe Search mode to exclude explicit content from search results.<br/>
+								This ensures a safer browsing environment by limiting exposure to potentially harmful or inappropriate content.
 							</p>
 						]]></desc>
 					</four>
@@ -485,6 +489,17 @@
 						]]></desc>
 					</zero>
 					<one>
+						<comment>ENFORCE IMAGE FILTER</comment>
+						<value>ENFORCE IMAGE FILTER</value>
+						<desc><![CDATA[
+							<p>
+								Enforce image filtering to block images from websites which servers pornographic content, including surrogate websites.<br/>
+								Image filter blocks inappropriate images by analyzing the graphical content of an image, in real time.<br/>
+								Prevents such material from being accessed or displayed.
+							</p>
+						]]></desc>
+					</one>
+					<two>
 						<comment>ENFORCE PARANOID IMAGE SCAN</comment>
 						<value>ENFORCE PARANOID IMAGE SCAN</value>
 						<desc><![CDATA[
@@ -494,7 +509,7 @@
 								Effective against surrogate websites known to serve such content.
 							</p>
 						]]></desc>
-					</one>
+					</two>
 				</image_analyzer_profiles>
 				<dlp_profiles parent="_0" group="Profiles: DLP" list="dlp_profiles">
 					<zero>
@@ -545,8 +560,8 @@
 						]]></desc>
 					</four>
 					<five>
-						<comment>ALLOW PDF DOCUMENTS UPLOAD</comment>
-						<value>ALLOW PDF DOCUMENTS UPLOAD</value>
+						<comment>ALLOW PDF DOCUMENTS</comment>
+						<value>ALLOW PDF DOCUMENTS</value>
 						<desc><![CDATA[
 							<p>
 								Permits the upload of PDF files (.pdf), ensuring that data sharing is limited to specific types of documents.
@@ -554,8 +569,8 @@
 						]]></desc>
 					</five>
 					<six>
-						<comment>ALLOW ZIP FILES UPLOAD</comment>
-						<value>ALLOW ZIP FILES UPLOAD</value>
+						<comment>ALLOW ZIP FILES</comment>
+						<value>ALLOW ZIP FILES</value>
 						<desc><![CDATA[
 							<p>
 								Permits the upload of compressed files (.zip), ensuring that data sharing is limited to specific types of documents.
