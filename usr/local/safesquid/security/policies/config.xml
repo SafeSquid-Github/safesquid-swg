@@ -289,7 +289,7 @@
             <comment>Restrict loading of cross-site URLs using script interfaces.</comment>
             <profiles>ENFORCE CONTENT SECURITY POLICY - CONNECT</profiles>
             <type>Content-Security-Policy</type>
-            <value>connect-src &apos;self&apos; @HOST_DOMAIN@ *.@HOST_DOMAIN@; report-uri https://safesquid.cfg/csp</value>
+            <value>connect-src &apos;self&apos; @HOST_DOMAIN@ *.@HOST_DOMAIN@; report-uri https://safesquid.cfg/csp?CLIENTID=@CLIENTID@&USERNAME=@USERNAME@&USER_GROUPS=@USER_GROUPS@</value>
             <which>SERVER</which>
         </insert>
         <insert id="2865">
@@ -297,7 +297,7 @@
             <comment>Restrict web-page from triggering popups, or any plugins, scripts, cross-orgin traffic, etc. and prevent users to make any form submissions or downloads.</comment>
             <profiles>ENFORCE CONTENT SECURITY POLICY - SANDBOX</profiles>
             <type>Content-Security-Policy</type>
-            <value>default-src &apos;none&apos;; form-action &apos;none&apos;; font-src *; img-src *; style-src * &apos;unsafe-inline&apos;;  report-uri https://safesquid.cfg/csp</value>
+            <value>default-src &apos;none&apos;; form-action &apos;none&apos;; font-src *; img-src *; style-src * &apos;unsafe-inline&apos;;  report-uri https://safesquid.cfg/csp?CLIENTID=@CLIENTID@&USERNAME=@USERNAME@&USER_GROUPS=@USER_GROUPS@</value>
             <which>SERVER</which>
         </insert>
     </header-filtering>
