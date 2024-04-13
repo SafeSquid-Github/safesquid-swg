@@ -680,7 +680,7 @@
             <enabled>TRUE</enabled>
             <comment>We Forbid Unsanctioned Access To YouTube Videos</comment>
             <profile_tracing>FALSE</profile_tracing>
-            <web_categories>YouTube Any Video</web_categories>
+            <web_categories>Youtube * Video</web_categories>
             <action>DO_NOT_BYPASS</action>
         </defaults>
         <defaults id="459">
