@@ -27,7 +27,7 @@
             <profile_tracing>FALSE</profile_tracing>
             <ip>192.168.2.116,192.168.2.117</ip>
             <pamauth>FALSE</pamauth>
-            <access>CONFIG,PROXY,HTTP,TRANSPARENT,CONNECT</access>
+            <access>CONFIG</access>
             <add_user_groups>PROXY_SLAVES</add_user_groups>
         </allow>
         <allow id="7">
