@@ -502,11 +502,11 @@
 					</desc>
 				</Referer>
 				<Both>
-					<comment>Both and Referer</comment>
+					<comment>Requested Host and Referer</comment>
 					<value>2</value>
 					<desc>
 						<![CDATA[ 
-							Match only the Request Referer
+							Match Requested Host and Request Referer Both.
 						]]>
 					</desc>
 				</Both>
