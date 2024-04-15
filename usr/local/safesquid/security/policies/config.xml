@@ -3,6 +3,15 @@
     <access>
         <policy>DENY</policy>
         <ntlm_authentication>FALSE</ntlm_authentication>
+        <allow id="2562">
+            <enabled>TRUE</enabled>
+            <comment>Bypass Authentication requirements for Applications, that may not fully support RFC 2616 standards for Proxy-Authentication</comment>
+            <profile_tracing>FALSE</profile_tracing>
+            <profiles>BYPASS AUTHENTICATION</profiles>
+            <pamauth>FALSE</pamauth>
+            <access>PROXY,HTTP,TRANSPARENT,CONNECT</access>
+            <add_user_groups>USER_AUTHENTICATION_BYPASSED</add_user_groups>
+        </allow>
         <allow id="1">
             <enabled>TRUE</enabled>
             <comment>Access web interface through tunnel.</comment>
@@ -11,15 +20,6 @@
             <pamauth>FALSE</pamauth>
             <access>CONFIG,PROXY,HTTP,TRANSPARENT,CONNECT</access>
             <add_user_groups>TUNNELLED_UI_ACCESS</add_user_groups>
-        </allow>
-        <allow id="3">
-            <enabled>TRUE</enabled>
-            <comment>Bypass Authentication requirements for Applications, that may not fully support RFC 2616 standards for Proxy-Authentication</comment>
-            <profile_tracing>FALSE</profile_tracing>
-            <profiles>BYPASS AUTHENTICATION</profiles>
-            <pamauth>FALSE</pamauth>
-            <access>PROXY,HTTP,TRANSPARENT,CONNECT</access>
-            <add_user_groups>USER_AUTHENTICATION_BYPASSED</add_user_groups>
         </allow>
         <allow id="5">
             <enabled>TRUE</enabled>
@@ -196,21 +196,21 @@
         </policy>
     </dnsbl>
     <elevated>
-        <enabled>FALSE</enabled>
+        <enabled>TRUE</enabled>
         <ELEVATED id="43">
-            <enabled>FALSE</enabled>
+            <enabled>TRUE</enabled>
             <comment>Permit Third-Party transactions</comment>
             <profiles>BYPASS ELEVATED PRIVACY</profiles>
             <action>NOT-REQUIRED</action>
         </ELEVATED>
         <ELEVATED id="45">
-            <enabled>FALSE</enabled>
+            <enabled>TRUE</enabled>
             <comment>Prevent Targeted attacks from by preventing cookie exchange, hide referrer, and user-agent</comment>
             <profiles>ENFORCE PARANOID PRIVACY LEVEL</profiles>
             <action>PARANOID</action>
         </ELEVATED>
         <ELEVATED id="47">
-            <enabled>FALSE</enabled>
+            <enabled>TRUE</enabled>
             <comment>Default Policy prevent third-party cookies</comment>
             <profiles>ENFORCE LOW PRIVACY LEVEL</profiles>
             <action>LOW</action>
@@ -299,12 +299,12 @@
             <value>connect-src &apos;self&apos; @HOST_DOMAIN@ *.@HOST_DOMAIN@; child-src &apos;self&apos; @HOST_DOMAIN@ *.@HOST_DOMAIN@; report-to safesquid-csp; report-uri https://safesquid.cfg/csp?CLIENTID=@CLIENTID@&amp;USERNAME=@USERNAME@</value>
             <which>SERVER</which>
         </insert>
-        <insert id="2557">
+        <insert id="61">
             <enabled>TRUE</enabled>
             <comment>Restrict web-page from triggering popups, or any plugins, scripts, cross-orgin traffic, etc. and prevent users to make any form submissions or downloads.</comment>
             <profiles>MINIMAL CONTENT ACCESS</profiles>
             <type>Content-Security-Policy</type>
-            <value>default-src &apos;none&apos;; form-action &apos;none&apos;; font-src *; child-src &apos;none&apos;; img-src *; style-src * &apos;unsafe-inline&apos;; report-uri https://safesquid.cfg/csp?CLIENTID=@CLIENTID@&amp;USERNAME=@USERNAME@&amp;USER_GROUPS=@USER_GROUPS@</value>
+            <value>default-src &apos;none&apos;; form-action &apos;none&apos;; font-src *; child-src &apos;none&apos;; img-src *; style-src * &apos;unsafe-inline&apos;; report-uri report-to safesquid-csp; report-uri https://safesquid.cfg/csp?CLIENTID=@CLIENTID@&amp;USERNAME=@USERNAME@</value>
             <which>SERVER</which>
         </insert>
     </header-filtering>
@@ -578,20 +578,21 @@
         </defaults>
         <defaults id="119">
             <enabled>TRUE</enabled>
-            <comment>We permit only basic page view for unclassified websites to prevent any Phishing attack</comment>
+            <comment>We permit only minimal content access for unclassified websites to prevent any Phishing attack</comment>
             <profile_tracing>FALSE</profile_tracing>
             <web_categories>#,Unknown</web_categories>
             <action>INHERIT</action>
-            <add_profiles>BASIC PAGE VIEW</add_profiles>
+            <add_profiles>MINIMAL CONTENT ACCESS</add_profiles>
         </defaults>
-        <defaults id="2566">
+        <defaults id="121">
             <enabled>TRUE</enabled>
             <comment>We prohibit access to malicious websites reported by our security apparatus</comment>
             <profile_tracing>FALSE</profile_tracing>
             <req_types>Security Threat</req_types>
             <action>DO_NOT_BYPASS</action>
+            <add_profiles>GLOBAL BLOCK - MALICIOUS CONTENT</add_profiles>
         </defaults>
-        <defaults id="2561">
+        <defaults id="123">
             <enabled>TRUE</enabled>
             <comment>We block all websites categorized as Anonymizers,Botnets,Compromised,Hacking,Illegal Software,Malware,Phishing &amp; Fraud,Spam Sites.</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -599,7 +600,7 @@
             <action>DO_NOT_BYPASS</action>
             <add_profiles>GLOBAL BLOCK - MALICIOUS CONTENT</add_profiles>
         </defaults>
-        <defaults id="123">
+        <defaults id="125">
             <enabled>TRUE</enabled>
             <comment>We block all websites categorized as Alcohol &amp; Tobacco,Criminal Activity,Cults,Gambling,Hate &amp; Intolerance,Illegal Drug,School Cheating,Tasteless,Violence,Weapons</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -607,7 +608,7 @@
             <action>DO_NOT_BYPASS</action>
             <add_profiles>GLOBAL BLOCK - ILLEGAL CONTENT</add_profiles>
         </defaults>
-        <defaults id="125">
+        <defaults id="127">
             <enabled>TRUE</enabled>
             <comment>We block all websites categorized as Child Abuse Images,Nudity,Pornography/Sexually Explicit,Sex Education.</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -615,7 +616,7 @@
             <action>DO_NOT_BYPASS</action>
             <add_profiles>GLOBAL BLOCK - ALL SEXUALLY EXPLICIT CONTENT</add_profiles>
         </defaults>
-        <defaults id="127">
+        <defaults id="129">
             <enabled>TRUE</enabled>
             <comment>We enforce SafeSearch for users accessing Google Search.</comment>
             <profile_tracing>TRUE</profile_tracing>
@@ -623,7 +624,7 @@
             <action>INHERIT</action>
             <add_profiles>ENFORCE GOOGLE SAFE SEARCH</add_profiles>
         </defaults>
-        <defaults id="129">
+        <defaults id="131">
             <enabled>TRUE</enabled>
             <comment>We enforce SafeSearch for users accessing Yahoo Search.</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -631,7 +632,7 @@
             <action>INHERIT</action>
             <add_profiles>ENFORCE YAHOO SAFE SEARCH</add_profiles>
         </defaults>
-        <defaults id="131">
+        <defaults id="133">
             <enabled>TRUE</enabled>
             <comment>We enforce SafeSearch for users accessing Bing Search.</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -639,7 +640,7 @@
             <action>INHERIT</action>
             <add_profiles>ENFORCE BING SAFE SEARCH</add_profiles>
         </defaults>
-        <defaults id="133">
+        <defaults id="135">
             <enabled>TRUE</enabled>
             <comment>We enforce SafeSearch for users accessing duckduckgo Search.</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -647,7 +648,7 @@
             <action>INHERIT</action>
             <add_profiles>ENFORCE DUCKDUCKGO SAFE SEARCH</add_profiles>
         </defaults>
-        <defaults id="135">
+        <defaults id="137">
             <enabled>TRUE</enabled>
             <comment>We enforce Restrict mode for users accessing YouTube.</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -655,7 +656,7 @@
             <action>INHERIT</action>
             <add_profiles>ENFORCE YOUTUBE RESTRICTED MODE</add_profiles>
         </defaults>
-        <defaults id="137">
+        <defaults id="139">
             <enabled>TRUE</enabled>
             <comment>We forbid use of personal Google accounts, and allow use of only our Corporate Google account</comment>
             <profile_tracing>TRUE</profile_tracing>
@@ -663,15 +664,7 @@
             <action>INHERIT</action>
             <add_profiles>ENFORCE CORPORATE GOOGLE ACCOUNTS</add_profiles>
         </defaults>
-        <defaults id="139">
-            <enabled>TRUE</enabled>
-            <comment>We do not want third-party trackers to collect user information&#x0A;</comment>
-            <profile_tracing>TRUE</profile_tracing>
-            <web_categories>Advertisements &amp; Pop-Ups</web_categories>
-            <action>INHERIT</action>
-            <add_profiles>ENFORCE LOW PRIVACY LEVEL</add_profiles>
-        </defaults>
-        <defaults id="141">
+        <defaults id="2563">
             <enabled>TRUE</enabled>
             <comment>We bypass HTTPS Inspection for applications that work only when SSL Inspection is disabled</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -679,20 +672,15 @@
             <action>INHERIT</action>
             <add_profiles>BYPASS SSL INSPECTION</add_profiles>
         </defaults>
-        <defaults id="143">
-            <enabled>FALSE</enabled>
-            <comment>We Forbid Unsanctioned Access To Web Sites and Internet Applications</comment>
-            <profile_tracing>FALSE</profile_tracing>
-            <action>DO_NOT_BYPASS</action>
-        </defaults>
-        <defaults id="145">
+        <defaults id="141">
             <enabled>TRUE</enabled>
-            <comment>We do not permit background traffic on websites unless specifically permitted</comment>
-            <profile_tracing>FALSE</profile_tracing>
+            <comment>We do not want third-party trackers to collect user information&#x0A;</comment>
+            <profile_tracing>TRUE</profile_tracing>
+            <web_categories>Advertisements &amp; Pop-Ups</web_categories>
             <action>INHERIT</action>
-            <add_profiles>BLOCK BACKGROUND TRAFFIC</add_profiles>
+            <add_profiles>ENFORCE LOW PRIVACY LEVEL</add_profiles>
         </defaults>
-        <defaults id="147">
+        <defaults id="149">
             <enabled>TRUE</enabled>
             <comment>Prevent Login to Cyber-slacking Sites</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -700,21 +688,13 @@
             <action>INHERIT</action>
             <add_profiles>READ ONLY</add_profiles>
         </defaults>
-        <profile id="149">
+        <defaults id="2558">
             <enabled>FALSE</enabled>
-            <comment>We Forbid access to websites that are categorized inside Company Blacklisted Websites&#x0A;</comment>
+            <comment>We Forbid Unsanctioned Access To Web Sites and Internet Applications</comment>
             <profile_tracing>FALSE</profile_tracing>
             <action>DO_NOT_BYPASS</action>
-        </profile>
-        <profile id="151">
-            <enabled>FALSE</enabled>
-            <comment>We Permit users to access &amp; login to websites that are categorized inside Company Approved Websites.&#x0A;</comment>
-            <profile_tracing>FALSE</profile_tracing>
-            <web_categories>Company Approved Websites</web_categories>
-            <action>ALLOW</action>
-            <remove_profiles>READ ONLY</remove_profiles>
-        </profile>
-        <profile id="153">
+        </defaults>
+        <profile id="155">
             <enabled>TRUE</enabled>
             <comment>We Permit access to our Intranet Web Sites that use self-signed certificates</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -723,7 +703,7 @@
             <add_profiles>ALLOW SELF SIGNED SSL CERTIFICATE</add_profiles>
             <remove_profiles>READ ONLY</remove_profiles>
         </profile>
-        <profile id="155">
+        <profile id="157">
             <enabled>TRUE</enabled>
             <comment>We allow members of Technical Team to use Ultraviewer Application</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -731,26 +711,36 @@
             <req_types>UltraViewer</req_types>
             <action>ALLOW</action>
         </profile>
-        <profile id="157">
+        <profile id="159">
             <enabled>TRUE</enabled>
             <comment>Allow YouTube Science and Technology videos</comment>
             <profile_tracing>FALSE</profile_tracing>
             <web_categories>Youtube Science &amp; Technology Video</web_categories>
             <action>INHERIT</action>
-            <remove_profiles>BLOCK BACKGROUND TRAFFIC</remove_profiles>
+            <add_profiles>FULL CONTENT ACCESS</add_profiles>
         </profile>
-        <profile id="2565">
+        <profile id="2560">
             <enabled>TRUE</enabled>
             <comment>Facilitate seamless access for websites needed for daily business</comment>
             <profile_tracing>FALSE</profile_tracing>
             <req_types>Business Necessities</req_types>
             <action>INHERIT</action>
-            <remove_profiles>BASIC PAGE VIEW,BLOCK BACKGROUND TRAFFIC,READ ONLY</remove_profiles>
+            <add_profiles>FULL CONTENT ACCESS</add_profiles>
+            <remove_profiles>MINIMAL CONTENT ACCESS,READ ONLY</remove_profiles>
+        </profile>
+        <profile id="2561">
+            <enabled>FALSE</enabled>
+            <comment>We Permit users to access &amp; login to websites that are categorized inside Company Approved Websites.&#x0A;</comment>
+            <profile_tracing>FALSE</profile_tracing>
+            <web_categories>Company Approved Websites</web_categories>
+            <action>ALLOW</action>
+            <add_profiles>FULL CONTENT ACCESS</add_profiles>
+            <remove_profiles>MINIMAL CONTENT ACCESS,READ ONLY</remove_profiles>
         </profile>
     </profiles>
     <redirect>
         <enabled>TRUE</enabled>
-        <redirection id="159">
+        <redirection id="163">
             <enabled>TRUE</enabled>
             <comment>Redirect the bing unsafe mode to safe mode.</comment>
             <profiles>ENFORCE BING SAFE SEARCH</profiles>
@@ -760,7 +750,7 @@
             <send302>FALSE</send302>
             <which>BOTH</which>
         </redirection>
-        <redirection id="161">
+        <redirection id="165">
             <enabled>TRUE</enabled>
             <comment>Enforces the google safe search by Redirect unsafe google search request to safe google search request.</comment>
             <profiles>ENFORCE GOOGLE SAFE SEARCH,ENFORCE YOUTUBE SAFESEARCH</profiles>
@@ -770,7 +760,7 @@
             <send302>FALSE</send302>
             <which>BOTH</which>
         </redirection>
-        <redirection id="163">
+        <redirection id="167">
             <enabled>TRUE</enabled>
             <comment>This entry enforces the Yahoo safe search by Redirect unsafe google search request to safe Yahoo search request.</comment>
             <profiles>ENFORCE YAHOO SAFE SEARCH</profiles>
@@ -780,7 +770,7 @@
             <send302>FALSE</send302>
             <which>BOTH</which>
         </redirection>
-        <redirection id="165">
+        <redirection id="169">
             <enabled>TRUE</enabled>
             <comment>This entry enforces the DuckDuckGo Safe Searching Experience</comment>
             <profiles>ENFORCE DUCKDUCKGO SAFE SEARCH</profiles>
@@ -793,19 +783,19 @@
     </redirect>
     <reqProfiles>
         <enabled>TRUE</enabled>
-        <request_hosts id="2563">
+        <request_hosts id="171">
             <enabled>TRUE</enabled>
             <comment>Malicious websites reported by our security apparatus</comment>
             <hosts>This entry ...</hosts>
             <add_req_types>Security Threat</add_req_types>
         </request_hosts>
-        <request_hosts id="2559">
+        <request_hosts id="173">
             <enabled>TRUE</enabled>
             <comment>Web Sites needed for daily business</comment>
             <hosts>This entry ...</hosts>
             <add_req_types>Business Necessities</add_req_types>
         </request_hosts>
-        <request_section id="167">
+        <request_section id="175">
             <enabled>TRUE</enabled>
             <comment>Less than 1MB File uploads</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -815,7 +805,7 @@
             <smart_tld>TRUE</smart_tld>
             <add_req_types>SMALL UPLOADS</add_req_types>
         </request_section>
-        <request_section id="169">
+        <request_section id="177">
             <enabled>TRUE</enabled>
             <comment>1MB to 10MB File uploads</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -825,7 +815,7 @@
             <smart_tld>TRUE</smart_tld>
             <add_req_types>MEDIUM UPLOADS</add_req_types>
         </request_section>
-        <request_section id="171">
+        <request_section id="179">
             <enabled>TRUE</enabled>
             <comment>10MB to 100MB File uploads</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -835,7 +825,7 @@
             <smart_tld>TRUE</smart_tld>
             <add_req_types>LARGE UPLOADS</add_req_types>
         </request_section>
-        <request_section id="173">
+        <request_section id="181">
             <enabled>TRUE</enabled>
             <comment>Larger than 100MB File uploads</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -845,20 +835,10 @@
             <smart_tld>TRUE</smart_tld>
             <add_req_types>VERY LARGE UPLOADS</add_req_types>
         </request_section>
-        <request_section id="175">
-            <enabled>TRUE</enabled>
-            <comment>This entry ...</comment>
-            <profile_tracing>FALSE</profile_tracing>
-            <postdata_min_length>0</postdata_min_length>
-            <postdata_max_length>0</postdata_max_length>
-            <smart_tld>FALSE</smart_tld>
-            <requestheader>Content-Security-Policy-Report</requestheader>
-            <add_req_types>HAS CONTENT SECURITY POLICY</add_req_types>
-        </request_section>
     </reqProfiles>
     <respProfiles>
         <enabled>TRUE</enabled>
-        <response_section id="177">
+        <response_section id="185">
             <enabled>TRUE</enabled>
             <comment>All Textual Contents [Few Content Specified in the Below Content-Type Field are used by Major web Applications to send status etc information to communicate with the Client-Side JS ]</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -869,7 +849,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>WEB CONTENTS</add_res_types>
         </response_section>
-        <response_section id="179">
+        <response_section id="187">
             <enabled>TRUE</enabled>
             <comment>Image Contents</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -880,7 +860,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>IMAGE CONTENT</add_res_types>
         </response_section>
-        <response_section id="181">
+        <response_section id="189">
             <enabled>TRUE</enabled>
             <comment>All audio files</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -891,7 +871,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>AUDIO CONTENT</add_res_types>
         </response_section>
-        <response_section id="183">
+        <response_section id="191">
             <enabled>TRUE</enabled>
             <comment>All video content</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -902,7 +882,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>VIDEO CONTENT</add_res_types>
         </response_section>
-        <response_section id="185">
+        <response_section id="193">
             <enabled>TRUE</enabled>
             <comment>Windows Executable Files</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -913,7 +893,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>WINDOWS EXECUTABLE FIELS</add_res_types>
         </response_section>
-        <response_section id="187">
+        <response_section id="195">
             <enabled>TRUE</enabled>
             <comment>All audio and video content</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -924,7 +904,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>ALL MULTIMEDIA CONTENT</add_res_types>
         </response_section>
-        <response_section id="189">
+        <response_section id="197">
             <enabled>TRUE</enabled>
             <comment>Office Documents</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -935,7 +915,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>ALL OFFICE DOCUMENT TYPES</add_res_types>
         </response_section>
-        <response_section id="191">
+        <response_section id="199">
             <enabled>FALSE</enabled>
             <comment>All the content that is not rendered on the WebBrowser.&#x0A;Whereas PDF files are displayed on web browsers but that is browsers feature to download and work as PDF Viewer.The Browser first downloads the PDF file and then it will render it directly [Depends on the type of Ajax Call OR Response]</comment>
             <profile_tracing>TRUE</profile_tracing>
@@ -947,7 +927,7 @@
             <responseheader>200 |206 </responseheader>
             <add_res_types>NON BROWSER RENDERING CONTENT</add_res_types>
         </response_section>
-        <response_section id="193">
+        <response_section id="201">
             <enabled>TRUE</enabled>
             <comment>All compressed files</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -958,7 +938,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>ALL COMPRESSED FILES</add_res_types>
         </response_section>
-        <response_section id="195">
+        <response_section id="203">
             <enabled>TRUE</enabled>
             <comment>All web response which has Content Security Policy.</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -972,7 +952,7 @@
     </respProfiles>
     <sqscan>
         <enabled>TRUE</enabled>
-        <SqScan id="201">
+        <SqScan id="209">
             <enabled>TRUE</enabled>
             <comment>AV Scan</comment>
             <scan_results>STANDARD</scan_results>
@@ -981,7 +961,7 @@
     </sqscan>
     <sslcert>
         <enabled>TRUE</enabled>
-        <https_scan id="203">
+        <https_scan id="211">
             <enabled>TRUE</enabled>
             <comment>Bypass inspection of SSL/TLS encrypted traffic.&#x0A;Tunnel Non-Browser applications to remote web servers.&#x0A;Facilitate use of Client side SSL certificates for Digital Signature.</comment>
             <profiles>BYPASS SSL INSPECTION</profiles>
@@ -990,7 +970,7 @@
             <block_err_level>X509_V_OK</block_err_level>
             <block_domain_mismatch>TRUE</block_domain_mismatch>
         </https_scan>
-        <https_scan id="205">
+        <https_scan id="213">
             <enabled>TRUE</enabled>
             <comment>Allow traffic to websites with self-signed certificates.</comment>
             <profiles>ALLOW SELF SIGNED SSL CERTIFICATE</profiles>
@@ -999,7 +979,7 @@
             <block_err_level>X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT</block_err_level>
             <block_domain_mismatch>FALSE</block_domain_mismatch>
         </https_scan>
-        <https_scan id="207">
+        <https_scan id="215">
             <enabled>TRUE</enabled>
             <comment>Bypass SSL errors for incomplete certificate chain due to missing issuer certificates.</comment>
             <profiles>BYPASS NO ISSUER CERT LOCALLY ERROR</profiles>
@@ -1008,7 +988,7 @@
             <block_err_level>X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY</block_err_level>
             <block_domain_mismatch>TRUE</block_domain_mismatch>
         </https_scan>
-        <https_scan id="209">
+        <https_scan id="217">
             <enabled>TRUE</enabled>
             <comment>Our Default policy for HTTPS Inspection applies to all connections that do not match the above profiles</comment>
             <deepscan>TRUE</deepscan>
@@ -1022,7 +1002,7 @@
         <heuristic>FALSE</heuristic>
     </ssqore>
     <templates>
-        <template id="211">
+        <template id="219">
             <enabled>TRUE</enabled>
             <comment>Default template displayed , when the there is no access to internet or any websites are blocked.</comment>
             <name>blocked</name>
@@ -1032,7 +1012,7 @@
             <type>FILE</type>
             <parsable>TRUE</parsable>
         </template>
-        <template id="213">
+        <template id="221">
             <enabled>FALSE</enabled>
             <comment>Default template displayed , when the there is no access to internet or any websites are blocked.</comment>
             <name>error</name>
@@ -1045,7 +1025,7 @@
     </templates>
     <timeProfiles>
         <enabled>FALSE</enabled>
-        <time_section id="215">
+        <time_section id="223">
             <enabled>FALSE</enabled>
             <comment>Our Office Timing is Monday to Saturday 9.30AM to 5.30PM</comment>
             <profile_tracing>TRUE</profile_tracing>
@@ -1057,7 +1037,7 @@
             <matchmode>ALLRANGES</matchmode>
             <add_time_profiles>OFFICE WORKING HOURS</add_time_profiles>
         </time_section>
-        <time_section id="217">
+        <time_section id="225">
             <enabled>FALSE</enabled>
             <comment>Our Lunch Timings are 1:00 PM to 2:00 PM</comment>
             <profile_tracing>TRUE</profile_tracing>
@@ -1073,7 +1053,7 @@
     </timeProfiles>
     <wccp>
         <enabled>FALSE</enabled>
-        <WCCP id="219">
+        <WCCP id="227">
             <enabled>FALSE</enabled>
             <comment>Transparently redirect traffic to WCCP router.</comment>
             <wccp_version>WCCPV2</wccp_version>
@@ -1092,7 +1072,7 @@
     </wccp>
     <rewrite>
         <enabled>TRUE</enabled>
-        <rewrite id="197">
+        <rewrite id="205">
             <enabled>TRUE</enabled>
             <comment>Request for png image instead of avif, required for image filter for image scanning. </comment>
             <profiles>!BYPASS IMAGE FILTER</profiles>
@@ -1100,7 +1080,7 @@
             <replace>Accept:$1png;q=0.5$3</replace>
             <which>CLIENT</which>
         </rewrite>
-        <rewrite id="199">
+        <rewrite id="207">
             <enabled>TRUE</enabled>
             <comment>Request for jpg image instead of webp, required for image filter for image scanning. </comment>
             <profiles>!BYPASS IMAGE FILTER</profiles>
