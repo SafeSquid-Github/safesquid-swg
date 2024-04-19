@@ -616,12 +616,12 @@
 						]]></desc>
 					</one>
 					<two>
-						<comment>ENFORCE CONTENT SECURITY POLICY - SANDBOX</comment>
-						<value>ENFORCE CONTENT SECURITY POLICY - SANDBOX</value>
+						<comment>MINIMAL CONTENT ACCESS</comment>
+						<value>MINIMAL CONTENT ACCESS</value>
 						<desc><![CDATA[
 							<p>
-								Header Filtering policy inserts <b>Content-Security-Policy: sandbox</b> into response headers sent to the client.<br/>
-								Present a very minimalistic view of websites.<br/>
+								Header Filtering policy inserts <b>default-src 'none'; form-action 'none'; font-src *; child-src 'none'; img-src *; style-src * 'unsafe-inline'; report-uri https://safesquid.cfg/csp?CLIENTID=@CLIENTID@&USERNAME=@USERNAME@</b> into response headers sent to the client.<br/>
+								Restricts default content sources, disallow external form submissions and child browsing, allow fonts, images, and styles.<br/>
 								Prevent any form submission, all javascripts and background XHR.
 							</p>
 						]]></desc>
