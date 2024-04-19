@@ -7529,26 +7529,27 @@ Enforces YouTube's "Strict" restriction mode across our network, aiming to filte
                             </desc>
                         </one>
                         <two>
-                            <comment>ENFORCE CONTENT SECURITY POLICY - SANDBOX</comment>
-                            <value>ENFORCE CONTENT SECURITY POLICY - SANDBOX</value>
+                            <comment>MINIMAL CONTENT ACCESS</comment>
+                            <value>MINIMAL CONTENT ACCESS</value>
                             <desc>
 <![CDATA[
 <p>
-Header Filtering policy inserts <b>Content-Security-Policy: sandbox</b> into response headers sent to the client.<br/>
-Present a very minimalistic view of websites.<br/>
-Prevent any form submission, all javascripts and background XHR.
+Header Filtering policy inserts <b>default-src 'none'; form-action 'none'; font-src *; child-src 'none'; img-src *; style-src * 'unsafe-inline'; report-uri https://safesquid.cfg/csp?CLIENTID=@CLIENTID@&USERNAME=@USERNAME@</b> into response headers sent to the client.<br/>
+Restricts default content sources, disallows form submissions and child resources (frames or iframes) to be loaded from any source, allow fonts, images, and styles.<br/>
 </p>
 ]]>
                             </desc>
                         </two>
                         <three>
-                            <comment>ENFORCE CONTENT SECURITY POLICY - CONNECT</comment>
-                            <value>ENFORCE CONTENT SECURITY POLICY - CONNECT</value>
+                            <comment>STANDARD CONTENT ACCESS</comment>
+                            <value>STANDARD CONTENT ACCESS</value>
                             <desc>
 <![CDATA[
 <p>
-Header Filtering policy inserts <b>Content-Security-Policy: connect-src</b> into response headers sent to the client.<br/>
-Prevent javascripts from triggering cross-site background traffic.
+Header Filtering policy inserts <b>connect-src &apos;self&apos; @HOST_DOMAIN@ *.@HOST_DOMAIN@; child-src &apos;self&apos; @HOST_DOMAIN@ *.@HOST_DOMAIN@; report-uri https://safesquid.cfg/csp?CLIENTID=@CLIENTID@&amp;USERNAME=@USERNAME@</b> into response headers sent to the client.<br/>
+default-src, form-action, and child-src 'none' blocks all default content sources, no resources are allowed, restrict form submissions, and restrict child browsing contexts (frames or iframes), from being loaded.
+font-src * and img-src * permit font loading and image display from any source.
+style-src * 'unsafe-inline' enables inline CSS styles and loading of stylesheets from any source, including inline styles.
 </p>
 ]]>
                             </desc>
