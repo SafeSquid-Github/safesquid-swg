@@ -4073,7 +4073,7 @@ Select the appropriate mode to match the multiple time ranges.
                         </badips>
                         <templ n="7">
                             <comment>Template</comment>
-                            <value>blocked_bypass</value>
+                            <value>blocked</value>
                             <type>STRING</type>
                             <desc>
                                 <![CDATA[ 
@@ -5699,7 +5699,7 @@ The number the total score must equal or exceed until it's blocked.
                     </threshold>
                     <templ n="2">
                         <comment>Template</comment>
-                        <value>blocked_bypass</value>
+                        <value>blocked</value>
                         <type>STRING</type>
                         <desc>
 <![CDATA[
@@ -9067,7 +9067,8 @@ Ignore TLD of the requested Host Name while matching regex.
                             <value>0</value>
                             <desc>
 <![CDATA[
-Match only Requested Host
+Requested Host<br/>
+Check if Requested Host is among the specified Domains And Urls
 ]]>
                             </desc>
                         </Host>
@@ -9076,7 +9077,8 @@ Match only Requested Host
                             <value>1</value>
                             <desc>
 <![CDATA[
-Match only the Request Referer
+Request Referer<br/>
+Check if Request Referer is among the specified Domains And Urls
 ]]>
                             </desc>
                         </Referer>
@@ -9085,7 +9087,8 @@ Match only the Request Referer
                             <value>2</value>
                             <desc>
 <![CDATA[
-Match only the Request Referer
+Requested Host or Request Referer<br/>
+Check if either Requested Host or Request Referer is among the specified Domains And Urls
 ]]>
                             </desc>
                         </Both>
