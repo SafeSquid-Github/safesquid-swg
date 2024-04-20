@@ -201,8 +201,8 @@
         </policy>
         <policy id="45">
             <enabled>TRUE</enabled>
-            <comment>We block DNS requests for all websites categorized as Anonymizers, Botnets, Compromised, Download Sites, Hacking Illegal Software, Malware, Peer-to-Peer, Phishing &amp; Fraud, Spam Sites </comment>
-            <bl_categories>Anonymizers,Botnets,Compromised,Download Sites,Hacking,Illegal Software,Malware,Peer-to-Peer,Phishing &amp; Fraud,Spam Sites</bl_categories>
+            <comment>We block DNS requests for all websites categorized as Anonymizers, Botnets, Compromised, Hacking Illegal Software, Malware, Peer-to-Peer, Phishing &amp; Fraud, Spam Sites </comment>
+            <bl_categories>Anonymizers,Botnets,Compromised,Hacking,Illegal Software,Malware,Peer-to-Peer,Phishing &amp; Fraud,Spam Sites</bl_categories>
         </policy>
         <policy id="47">
             <enabled>TRUE</enabled>
