@@ -3,7 +3,7 @@
     <access>
         <policy>DENY</policy>
         <ntlm_authentication>FALSE</ntlm_authentication>
-        <allow id="2562">
+        <allow id="1">
             <enabled>TRUE</enabled>
             <comment>Bypass Authentication requirements for Applications, that may not fully support RFC 2616 standards for Proxy-Authentication</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -12,7 +12,7 @@
             <access>PROXY,HTTP,TRANSPARENT,CONNECT</access>
             <add_user_groups>USER_AUTHENTICATION_BYPASSED</add_user_groups>
         </allow>
-        <allow id="1">
+        <allow id="3">
             <enabled>TRUE</enabled>
             <comment>Access web interface through tunnel.</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -191,25 +191,45 @@
         <enabled>TRUE</enabled>
         <policy id="41">
             <enabled>TRUE</enabled>
+            <comment>We block all websites categorized as Child Abuse Images,Nudity,Pornography/Sexually Explicit,Sex Education.</comment>
+            <bl_categories>Child Abuse Images,Nudity,Pornography/Sexually Explicit,Sex Education</bl_categories>
+        </policy>
+        <policy id="43">
+            <enabled>TRUE</enabled>
+            <comment>We block DNS requests for all websites categorized as Alcohol &amp; Tobacco,Criminal Activity,Cults,Gambling,Hate &amp; Intolerance,Illegal Drug,School Cheating,Tasteless,Violence,Weapons</comment>
+            <bl_categories>Alcohol &amp; Tobacco,Criminal Activity,Cults,Gambling,Hate &amp; Intolerance,Illegal Drug,School Cheating,Tasteless,Violence</bl_categories>
+        </policy>
+        <policy id="45">
+            <enabled>TRUE</enabled>
+            <comment>We block DNS requests for all websites categorized as Anonymizers, Botnets, Compromised, Download Sites, Hacking Illegal Software, Malware, Peer-to-Peer, Phishing &amp; Fraud, Spam Sites </comment>
+            <bl_categories>Anonymizers,Botnets,Compromised,Download Sites,Hacking,Illegal Software,Malware,Peer-to-Peer,Phishing &amp; Fraud,Spam Sites</bl_categories>
+        </policy>
+        <policy id="47">
+            <enabled>TRUE</enabled>
+            <comment>We prohibit access to malicious websites reported by our security apparatus</comment>
+            <bl_requests>Security Threat</bl_requests>
+        </policy>
+        <policy id="49">
+            <enabled>TRUE</enabled>
             <comment>We Block DNS queries for websites Geo-Located in China</comment>
             <bl_countries>CN</bl_countries>
         </policy>
     </dnsbl>
     <elevated>
         <enabled>TRUE</enabled>
-        <ELEVATED id="43">
+        <ELEVATED id="51">
             <enabled>TRUE</enabled>
             <comment>Permit Third-Party transactions</comment>
             <profiles>BYPASS ELEVATED PRIVACY</profiles>
             <action>NOT-REQUIRED</action>
         </ELEVATED>
-        <ELEVATED id="45">
+        <ELEVATED id="53">
             <enabled>TRUE</enabled>
             <comment>Prevent Targeted attacks from by preventing cookie exchange, hide referrer, and user-agent</comment>
             <profiles>ENFORCE PARANOID PRIVACY LEVEL</profiles>
             <action>PARANOID</action>
         </ELEVATED>
-        <ELEVATED id="47">
+        <ELEVATED id="55">
             <enabled>TRUE</enabled>
             <comment>Default Policy prevent third-party cookies</comment>
             <profiles>ENFORCE LOW PRIVACY LEVEL</profiles>
@@ -223,7 +243,7 @@
         <enabled>FALSE</enabled>
         <carp>FALSE</carp>
         <carphashsize>0</carphashsize>
-        <forward id="49">
+        <forward id="57">
             <enabled>FALSE</enabled>
             <comment>Forward all requests to upstream proxy 192.168.250.141:8080</comment>
             <proxy>192.168.0.17</proxy>
@@ -248,7 +268,7 @@
         <pooltimeout>6</pooltimeout>
         <dheaders>CLIENT</dheaders>
         <catreferer>TRUE</catreferer>
-        <general id="51">
+        <general id="59">
             <enabled>TRUE</enabled>
             <comment>Default policy and applicable for all cases.&#x0A;Our Default policy is to prohibit all Connect requests except to ports 80,443,2000 to 2100, 8080, and 9000 to 10000</comment>
             <ctimeout>6</ctimeout>
@@ -268,14 +288,14 @@
     <header-filtering>
         <enabled>TRUE</enabled>
         <policy>ALLOW</policy>
-        <insert id="53">
+        <insert id="61">
             <enabled>TRUE</enabled>
             <comment>Set SafeSquid as the CSP reporting endpoint</comment>
             <type>Reporting-Endpoints</type>
             <value>safesquid-csp=&quot;https://safesquid.cfg/csp?CLIENTID=@CLIENTID@&amp;USERNAME=@USERNAME@&quot;</value>
             <which>SERVER</which>
         </insert>
-        <insert id="55">
+        <insert id="63">
             <enabled>TRUE</enabled>
             <comment>We require users to login to Google with only our corporate domains - our_domain.com, our_domain.net, and our_domain.org</comment>
             <profiles>ENFORCE CORPORATE GOOGLE ACCOUNTS</profiles>
@@ -283,7 +303,7 @@
             <value>our_domain.com,our_domain.net,our_domain.org</value>
             <which>CLIENT</which>
         </insert>
-        <insert id="57">
+        <insert id="65">
             <enabled>TRUE</enabled>
             <comment>Enforce Youtube&apos;s Restricted Mode.</comment>
             <profiles>ENFORCE YOUTUBE RESTRICTED MODE</profiles>
@@ -291,26 +311,26 @@
             <value>Strict</value>
             <which>CLIENT</which>
         </insert>
-        <insert id="59">
+        <insert id="67">
             <enabled>TRUE</enabled>
             <comment>Restrict loading of cross-site URLs using script interfaces.</comment>
-            <profiles>!FULL CONTENT ACCESS</profiles>
+            <profiles>!FULL CONTENT ACCESS,!MINIMAL CONTENT ACCESS</profiles>
             <type>Content-Security-Policy</type>
-            <value>connect-src &apos;self&apos; @HOST_DOMAIN@ *.@HOST_DOMAIN@; child-src &apos;self&apos; @HOST_DOMAIN@ *.@HOST_DOMAIN@; report-to safesquid-csp; report-uri https://safesquid.cfg/csp?CLIENTID=@CLIENTID@&amp;USERNAME=@USERNAME@</value>
+            <value>connect-src &apos;self&apos; @HOST_DOMAIN@ *.@HOST_DOMAIN@; child-src &apos;self&apos; @HOST_DOMAIN@ *.@HOST_DOMAIN@;  report-uri https://safesquid.cfg/csp?CLIENTID=@CLIENTID@&amp;USERNAME=@USERNAME@</value>
             <which>SERVER</which>
         </insert>
-        <insert id="61">
+        <insert id="69">
             <enabled>TRUE</enabled>
             <comment>Restrict web-page from triggering popups, or any plugins, scripts, cross-orgin traffic, etc. and prevent users to make any form submissions or downloads.</comment>
             <profiles>MINIMAL CONTENT ACCESS</profiles>
             <type>Content-Security-Policy</type>
-            <value>default-src &apos;none&apos;; form-action &apos;none&apos;; font-src *; child-src &apos;none&apos;; img-src *; style-src * &apos;unsafe-inline&apos;; report-uri report-to safesquid-csp; report-uri https://safesquid.cfg/csp?CLIENTID=@CLIENTID@&amp;USERNAME=@USERNAME@</value>
+            <value>default-src &apos;none&apos;; form-action &apos;none&apos;; font-src *; child-src &apos;none&apos;; img-src *; style-src * &apos;unsafe-inline&apos;; report-uri https://safesquid.cfg/csp?CLIENTID=@CLIENTID@&amp;USERNAME=@USERNAME@</value>
             <which>SERVER</which>
         </insert>
     </header-filtering>
     <icap>
         <enabled>FALSE</enabled>
-        <icap id="63">
+        <icap id="71">
             <enabled>FALSE</enabled>
             <comment>Send requests to ClamAV ICAP server REQMOD</comment>
             <icaptimeout>60</icaptimeout>
@@ -323,7 +343,7 @@
             <quarantine_inclreq_headers>YES</quarantine_inclreq_headers>
             <quarantine_clean>NO</quarantine_clean>
         </icap>
-        <icap id="65">
+        <icap id="73">
             <enabled>FALSE</enabled>
             <comment>Send responses to ClamAV ICAP server RESPMOD</comment>
             <icaptimeout>60</icaptimeout>
@@ -340,7 +360,7 @@
     <imgfilter>
         <enabled>TRUE</enabled>
         <dtempl>checkeredgif</dtempl>
-        <imgfilter id="67">
+        <imgfilter id="75">
             <enabled>TRUE</enabled>
             <comment>Bypass Image Filter</comment>
             <bypass>TRUE</bypass>
@@ -349,7 +369,7 @@
             <template>checkeredgif</template>
             <debugmode>FALSE</debugmode>
         </imgfilter>
-        <imgfilter id="69">
+        <imgfilter id="77">
             <enabled>TRUE</enabled>
             <comment>High Sensitivity Policy for aggressive detection of Pornographic Images</comment>
             <bypass>FALSE</bypass>
@@ -358,7 +378,7 @@
             <template>checkeredgif</template>
             <debugmode>TRUE</debugmode>
         </imgfilter>
-        <imgfilter id="71">
+        <imgfilter id="79">
             <enabled>TRUE</enabled>
             <comment>Standard Policy for detecting Pornographic Images</comment>
             <bypass>FALSE</bypass>
@@ -370,91 +390,91 @@
     <keywords-filtering>
         <enabled>TRUE</enabled>
         <threshold>100</threshold>
-        <keyword id="73">
+        <keyword id="81">
             <enabled>TRUE</enabled>
             <comment>To match the below mentioned keywords in webpage,and blocks the webpage if the score is greater than threshold.</comment>
             <profiles>!BYPASS TEXT FILTER</profiles>
             <keyword>\b(flexible girl|flexible girls|girls lingerie|girls high heels|little girls nude|cyber girls|sexy hot girls|sex girl|naked college girls|naked little girls|hot girl|hot nude girls|girls lingerie|beautiful girls|girls high heels|girls bikini|girls on webcams|girls webcams|live girls|girls webcam|nude|fuck|sex)\b</keyword>
             <score>33</score>
         </keyword>
-        <keyword id="75">
+        <keyword id="83">
             <enabled>TRUE</enabled>
             <comment>To match the below mentioned keywords in webpage,and blocks the webpage if the score is greater than threshold.</comment>
             <profiles>!BYPASS TEXT FILTER</profiles>
             <keyword>\b(sexy videos|photo sexy|webcam live|video playmate|play boy|jurgita valts|playmates videos|karen mcdougal|playboytv|web cam live|sexy photos|playboyplus|nude women|playboytv com|sexy naked women|hugh hefner|playmate|cumshot|shemale|footjob|housewife galleries|schoolgirls pictures|allwam|xnxx galleries|stockings|retro porn|twistys|bukkake|twistys com|high heels pictures|bikini thumbs|upskirt|spanking galleries|titjob|handjob pictures|shaved pussy|pissing|spanking gallery|3d porn|xxnx com|anal|xnxx|adult 89 com|hairy movie|mature cunt|thai xxx|pussy org|juicy gals|89 com xxx|comics xxx|bigcock|comic xxx|small tits|89 com movies|lingerie mania|asian lesbians|voyeur russian|granny hairy|http www 89 com|asian teen|89 com video|fat fucking|lesbian fuck|upskirt|asian facials|bigtit|teens porno|handjob|black butt|little teen|anal hardcore|sex sites|porn 89|big cocks|ass hunter|big cock|www pichunter|xxx petite|pichunter|ass gallery|hunter sex|xxx pictures|tiny tits|picture hunter|pussy hunter|cock pictures|live webcams|porn world|sex teen movies|biggest tits in the world|worldsex|sexy pics|teen movies|freehardcore|hardcoresex|pornstars|hard cock)\b</keyword>
             <score>33</score>
         </keyword>
-        <keyword id="77">
+        <keyword id="85">
             <enabled>TRUE</enabled>
             <comment>To match the below mentioned keywords in webpage,and blocks the webpage if the score is greater than threshold.</comment>
             <profiles>!BYPASS TEXT FILTER</profiles>
             <keyword>\b(suck cock|tits sucking|suck dick|sucking dick|suck tits|divas hot|hot shoes|hot bottom|hot shorts|hot bra|hot nylons|hot swimsuit|hot bikini|hot gals|hot dress|hot bodies|hot single girl|hot thongs|hot rods|hot girl|hot females|hot bottoms|hot super models|hot bras|hot bikinis|hot outfit|hot pants|hot latinas|hot garters|hot swimsuits|hot underwear|adult thumbs|galleries adult|fuck adult|adult pic|adult pics|adult pussy|89 adult|asian teens|teen suck|teen porno|sexy teens|teens xxx|porno teens|xxx teen|teen hunter|big tits asian|big tits|big cocks|big cunt|teen hardcore sex|hardcore sex|hardcore sex vids|anal hardcore sex|lesbian gallery|xnxx galleries|mature movie galleries|galleries pussy|teen photos|teen com|teen sexy|teen forum|teen pussy|teen videos|sexy teens|teen video|hot teen clothes|teen new|teen www|fuck sexy|slut fuck|sucking and fucking|teens fuck|lesbian fuck|fucking teens|fucking machines|fucking hard|fucking grannies|teen fucking|fuck hardcore|fucking lesbians|fuck hard)\b</keyword>
             <score>33</score>
         </keyword>
-        <keyword id="79">
+        <keyword id="87">
             <enabled>TRUE</enabled>
             <comment>To match the below mentioned keywords in webpage,and blocks the webpage if the score is greater than threshold.</comment>
             <profiles>!BYPASS TEXT FILTER</profiles>
             <keyword>\b(anime sex movies|black sex movies|adult sex movies|asian sex movies|sex movies|hardcore sex movies|world sex movies|sex movies|sex movies hot|mature sex movies|sex moviehot movies|nude movies|porn movies|movies sexycock sucking movies|porno movies|movies galleries|movies sexy|movies xxxsex teen movies|x rated movies)\b</keyword>
             <score>33</score>
         </keyword>
-        <keyword id="81">
+        <keyword id="89">
             <enabled>TRUE</enabled>
             <comment>To match the below mentioned keywords in webpage,and blocks the webpage if the score is greater than threshold.</comment>
             <profiles>!BYPASS TEXT FILTER</profiles>
             <keyword>\b(sexy nude pics|naked pics|naked pictures|nude photos|amateur pics|nude scenes|pic sex|hard pics|fuck pic|lesbian pic|pic hunter|pussy pic|teen pic|pic sexy|blowjob pics|hunter pics|hot pic|girl sexy pic|pic xxx|ass pic|pic hunter com|sex pics anal|foot pics|feet pics|high heels pics|latex pics|toe pics|gothic pics|teen photos|teen com|teen sexy|teen forum|porn pictures|teen pussy|pictures xxx|teen videos|sexy teens|teen video|hot teen clothes|teen new|xxx picture|sexy pictures|teen www)\b</keyword>
             <score>33</score>
         </keyword>
-        <keyword id="83">
+        <keyword id="91">
             <enabled>TRUE</enabled>
             <comment>To match the below mentioned keywords in webpage,and blocks the webpage if the score is greater than threshold.</comment>
             <profiles>!BYPASS TEXT FILTER</profiles>
             <keyword>\b(free porn|porn movies|adult porn movies|pictures of porn|pics porn|porn naughty|adult porn|chinese porn|hungarian porn|porn granny|69 porn|porn 89|thai porn|bride porn|89 movies porn|dutch porn|brazilian porn|porn secretary|russian porn|porn directories|ass porn|porn stockings|porn teens|sexy porn|porn girl|movies porn|young girls porn|porn fucking|housewife porn|young porn|girl on girl porn|blond porn|porn hunter|blonde porn|sexy hot porn|porn babe|pic hunter porn|nice porn|fuck porn|hot girl porn|porn gallery|ebony porno|porno lesbians|mature porno|porno hard|pictures porno|picture porno|porno babes|black porno|porno girl|porno gallery)\b</keyword>
             <score>33</score>
         </keyword>
-        <keyword id="85">
+        <keyword id="93">
             <enabled>TRUE</enabled>
             <comment>To match the below mentioned keywords in webpage,and blocks the webpage if the score is greater than threshold.</comment>
             <profiles>!BYPASS TEXT FILTER</profiles>
             <keyword>\b(sexy women|sexy nude women|sexy girls|hottest girls|gorgeous girls|busty babes|hot models|models sex|revista sex|hot sex|sex boy|cam sex|play boy sex|online sex|pictures of sex|anime sex|fuck sex|threesome sex|xxx sex|hardcore lesbian sex|sex hardcore pictures|www sex|pic sex|sex group|blonde sex|anal sex|sex teen|sex anal movies|www world sex|outdoor sex|hot pictures sex|mature sex|fucking sex|pics sex|sex hardcore pics|sex babes|videos sex|sex vids|hot sex|world of sex|sex world|movies of sex|89 movies sex|sex picture|sex pictures|russian sex|swedish sex|brazilian sex|hairy sex|pissing sex|sex secretary|sex cunt|nurse sex|galleries sex|wet sex|sex bikini|89 sex com|group sex pictures|group sex|sex granny|89 video sex|sex 89|young sex|sex movies|sex pictures|sex teens|sex film|asian sex|sex vid?o|sex naughty|asian sex clips|sex photos|video black sex|nurse sex|sex pics|girls sex|video de sex|sex links|sex search|videos de sex|xxx sex|sex pictures|adult sex pictures|adult sex|adult sex sites|photos of sex|videos of sex|pictures of sex|sex com|world sex com|video sex)\b</keyword>
             <score>33</score>
         </keyword>
-        <keyword id="87">
+        <keyword id="95">
             <enabled>TRUE</enabled>
             <comment>To match the below mentioned keywords in webpage,and blocks the webpage if the score is greater than threshold.</comment>
             <profiles>!BYPASS TEXT FILTER</profiles>
             <keyword>\b(porn video|porn video black|asian porn videos|milf video|adult video search|nude video|black videos porn|video naughty|videos porn|video xxx|naughty videos|naughty sex videos|pregnant sex videos|adult sex videos|asian sex videos|sex videos anime|amateur sex videos|hard sex video|asian sex video|anime sex video|amateur sex video|sex videos|black sex videos|adult sex video|amateur sex videos|anime sex videos|hot sex videos)\b</keyword>
             <score>33</score>
         </keyword>
-        <keyword id="89">
+        <keyword id="97">
             <enabled>TRUE</enabled>
             <comment>To match the below mentioned keywords in webpage,and blocks the webpage if the score is greater than threshold.</comment>
             <profiles>!BYPASS TEXT FILTER</profiles>
             <keyword>\b(sex|sexy|sexystories|sexnews|sexuality|sexiest|porn|pornography|playmates|celebrities|centerfolds|cock|cocks|fuck|fucking|nipple|nipples|erotica|suck|sucked|moan|panty|panties|passionate|wet|tits|porn reviews|porn site reviews|adult reviews|pornsites)\b</keyword>
             <score>20</score>
         </keyword>
-        <keyword id="91">
+        <keyword id="99">
             <enabled>TRUE</enabled>
             <comment>Text analyzer Keywords for On-line Anonymous Proxy</comment>
             <profiles>!BYPASS TEXT FILTER</profiles>
             <keyword>(anonymous proxy server list|anonyme proxy|anonymous proxy browsing|anonymous proxy server|anonymous proxy surf|anonymous proxy list|anonymous proxy|anonymous proxy servers|anonymity proxy|high anonymity proxy|anonymity online)</keyword>
             <score>40</score>
         </keyword>
-        <keyword id="93">
+        <keyword id="101">
             <enabled>TRUE</enabled>
             <comment>Text analyzer Keywords for On-line Anonymous Proxy</comment>
             <profiles>!BYPASS TEXT FILTER</profiles>
             <keyword>(anonymous web browsing|anonymous|anonymous surfing reviews|anonymous surfing|anonymous surf|anonymous internet surfing|anonymous browsing|anonymity on the internet|browse the Web)</keyword>
             <score>40</score>
         </keyword>
-        <keyword id="95">
+        <keyword id="103">
             <enabled>TRUE</enabled>
             <comment>Text analyzer Keywords for On-line Anonymous Proxy</comment>
             <profiles>!BYPASS TEXT FILTER</profiles>
             <keyword>(anonymous web surfing software|anonymous web surfer|anonymous web surfing|complete anonymous web surfing|anonymous web surfing proxy|evade url)</keyword>
             <score>35</score>
         </keyword>
-        <keyword id="97">
+        <keyword id="105">
             <enabled>TRUE</enabled>
             <comment>Text analyzer Keywords for On-line Anonymous Proxy</comment>
             <profiles>!BYPASS TEXT FILTER</profiles>
@@ -464,7 +484,7 @@
     </keywords-filtering>
     <ldap>
         <enabled>FALSE</enabled>
-        <ldapsection id="99">
+        <ldapsection id="107">
             <enabled>FALSE</enabled>
             <comment>Integrating Microsoft AD Server: 192.168.248.193 for Kerberos(SSO) based user authentication.</comment>
             <ldapip>ad.domain.local\192.168.248.193</ldapip>
@@ -481,7 +501,7 @@
             <ldaploginattr>UserPrincipalName,sAMAccountname,uid</ldaploginattr>
             <ldapgroupid>member,memberof,memberuid</ldapgroupid>
         </ldapsection>
-        <ldapsection id="101">
+        <ldapsection id="109">
             <enabled>FALSE</enabled>
             <comment>Integrating Microsoft AD Server: 192.168.248.191 for Simple LDAP based user authentication.&#x0A;</comment>
             <ldapip>192.168.248.191</ldapip>
@@ -501,7 +521,7 @@
     </ldap>
     <limits>
         <enabled>FALSE</enabled>
-        <limit id="103">
+        <limit id="111">
             <enabled>FALSE</enabled>
             <comment>Accessing the internet with speed of 500kbps</comment>
             <profiles>RESTRICTED DOWNLOAD TRANSFER RATES</profiles>
@@ -512,7 +532,7 @@
             <downloadrate>100K</downloadrate>
             <flags>PERREQUEST</flags>
         </limit>
-        <limit id="105">
+        <limit id="113">
             <enabled>FALSE</enabled>
             <comment>Download limit 10Mb</comment>
             <profiles>RESTRICTED DOWNLOAD TRANSFER LIMITS</profiles>
@@ -523,7 +543,7 @@
             <downloadrate>0</downloadrate>
             <flags>PERREQUEST</flags>
         </limit>
-        <limit id="107">
+        <limit id="115">
             <enabled>FALSE</enabled>
             <comment>Upload limit 10Mb</comment>
             <profiles>RESTRICTED UPLOAD TRANSFER RATES</profiles>
@@ -536,25 +556,25 @@
         </limit>
     </limits>
     <network>
-        <listen id="109">
+        <listen id="117">
             <enabled>FALSE</enabled>
             <comment>Additional listen on 8081</comment>
             <port>8081</port>
             <ip>*</ip>
         </listen>
-        <listen id="111">
+        <listen id="119">
             <enabled>FALSE</enabled>
             <comment>We require SSL inspection for HTTPS traffic transparently redirected to port 8443.</comment>
             <port>8443</port>
             <listen_flag>SSL_TRANSPARENT</listen_flag>
         </listen>
-        <listen id="113">
+        <listen id="121">
             <enabled>FALSE</enabled>
             <comment>Listen on IPv6</comment>
             <port>8082</port>
             <ip>::1</ip>
         </listen>
-        <interface id="115">
+        <interface id="123">
             <enabled>FALSE</enabled>
             <comment>For connections with profile &quot;ALTERNATE OUTBOUND IP&quot;, route outgoing traffic via secondary ISP using IP &quot;192.168.1.200&quot;</comment>
             <profiles>ALTERNATE OUTBOUND IP</profiles>
@@ -568,7 +588,23 @@
         <hostlimit>16</hostlimit>
     </prefetch>
     <profiles>
-        <defaults id="117">
+        <defaults id="139">
+            <enabled>TRUE</enabled>
+            <comment>We permit only minimal content access for Advertisements &amp; Pop-Ups, unclassified websites to prevent any Phishing attack</comment>
+            <profile_tracing>FALSE</profile_tracing>
+            <web_categories>#,Unknown,Advertisements &amp; Pop-Ups</web_categories>
+            <action>INHERIT</action>
+            <add_profiles>MINIMAL CONTENT ACCESS</add_profiles>
+        </defaults>
+        <defaults id="143">
+            <enabled>TRUE</enabled>
+            <comment>Prevent Login to Cyber-slacking Sites</comment>
+            <profile_tracing>TRUE</profile_tracing>
+            <web_categories>Forums &amp; Newsgroups,Instant Messaging,News,Social Networking</web_categories>
+            <action>INHERIT</action>
+            <add_profiles>READ ONLY</add_profiles>
+        </defaults>
+        <defaults id="125">
             <enabled>TRUE</enabled>
             <comment>We want to bypass user authentication for applications that do not supports proxy authentication</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -576,47 +612,7 @@
             <action>INHERIT</action>
             <add_profiles>BYPASS AUTHENTICATION</add_profiles>
         </defaults>
-        <defaults id="119">
-            <enabled>TRUE</enabled>
-            <comment>We permit only minimal content access for unclassified websites to prevent any Phishing attack</comment>
-            <profile_tracing>FALSE</profile_tracing>
-            <web_categories>#,Unknown</web_categories>
-            <action>INHERIT</action>
-            <add_profiles>MINIMAL CONTENT ACCESS</add_profiles>
-        </defaults>
-        <defaults id="121">
-            <enabled>TRUE</enabled>
-            <comment>We prohibit access to malicious websites reported by our security apparatus</comment>
-            <profile_tracing>FALSE</profile_tracing>
-            <req_types>Security Threat</req_types>
-            <action>DO_NOT_BYPASS</action>
-            <add_profiles>GLOBAL BLOCK - MALICIOUS CONTENT</add_profiles>
-        </defaults>
-        <defaults id="123">
-            <enabled>TRUE</enabled>
-            <comment>We block all websites categorized as Anonymizers,Botnets,Compromised,Hacking,Illegal Software,Malware,Phishing &amp; Fraud,Spam Sites.</comment>
-            <profile_tracing>FALSE</profile_tracing>
-            <web_categories>Anonymizers,Botnets,Compromised,Hacking,Illegal Software,Malware,Phishing &amp; Fraud,Spam Sites</web_categories>
-            <action>DO_NOT_BYPASS</action>
-            <add_profiles>GLOBAL BLOCK - MALICIOUS CONTENT</add_profiles>
-        </defaults>
-        <defaults id="125">
-            <enabled>TRUE</enabled>
-            <comment>We block all websites categorized as Alcohol &amp; Tobacco,Criminal Activity,Cults,Gambling,Hate &amp; Intolerance,Illegal Drug,School Cheating,Tasteless,Violence,Weapons</comment>
-            <profile_tracing>FALSE</profile_tracing>
-            <web_categories>Alcohol &amp; Tobacco,Criminal Activity,Cults,Gambling,Hate &amp; Intolerance,Illegal Drug,School Cheating,Tasteless,Violence,Weapons</web_categories>
-            <action>DO_NOT_BYPASS</action>
-            <add_profiles>GLOBAL BLOCK - ILLEGAL CONTENT</add_profiles>
-        </defaults>
         <defaults id="127">
-            <enabled>TRUE</enabled>
-            <comment>We block all websites categorized as Child Abuse Images,Nudity,Pornography/Sexually Explicit,Sex Education.</comment>
-            <profile_tracing>FALSE</profile_tracing>
-            <web_categories>Child Abuse Images,Nudity,Pornography/Sexually Explicit,Sex Education</web_categories>
-            <action>DO_NOT_BYPASS</action>
-            <add_profiles>GLOBAL BLOCK - ALL SEXUALLY EXPLICIT CONTENT</add_profiles>
-        </defaults>
-        <defaults id="129">
             <enabled>TRUE</enabled>
             <comment>We enforce SafeSearch for users accessing Google Search.</comment>
             <profile_tracing>TRUE</profile_tracing>
@@ -624,7 +620,7 @@
             <action>INHERIT</action>
             <add_profiles>ENFORCE GOOGLE SAFE SEARCH</add_profiles>
         </defaults>
-        <defaults id="131">
+        <defaults id="129">
             <enabled>TRUE</enabled>
             <comment>We enforce SafeSearch for users accessing Yahoo Search.</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -632,7 +628,7 @@
             <action>INHERIT</action>
             <add_profiles>ENFORCE YAHOO SAFE SEARCH</add_profiles>
         </defaults>
-        <defaults id="133">
+        <defaults id="131">
             <enabled>TRUE</enabled>
             <comment>We enforce SafeSearch for users accessing Bing Search.</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -640,7 +636,7 @@
             <action>INHERIT</action>
             <add_profiles>ENFORCE BING SAFE SEARCH</add_profiles>
         </defaults>
-        <defaults id="135">
+        <defaults id="133">
             <enabled>TRUE</enabled>
             <comment>We enforce SafeSearch for users accessing duckduckgo Search.</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -648,7 +644,7 @@
             <action>INHERIT</action>
             <add_profiles>ENFORCE DUCKDUCKGO SAFE SEARCH</add_profiles>
         </defaults>
-        <defaults id="137">
+        <defaults id="135">
             <enabled>TRUE</enabled>
             <comment>We enforce Restrict mode for users accessing YouTube.</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -656,7 +652,7 @@
             <action>INHERIT</action>
             <add_profiles>ENFORCE YOUTUBE RESTRICTED MODE</add_profiles>
         </defaults>
-        <defaults id="139">
+        <defaults id="137">
             <enabled>TRUE</enabled>
             <comment>We forbid use of personal Google accounts, and allow use of only our Corporate Google account</comment>
             <profile_tracing>TRUE</profile_tracing>
@@ -664,7 +660,7 @@
             <action>INHERIT</action>
             <add_profiles>ENFORCE CORPORATE GOOGLE ACCOUNTS</add_profiles>
         </defaults>
-        <defaults id="2563">
+        <defaults id="145">
             <enabled>TRUE</enabled>
             <comment>We bypass HTTPS Inspection for applications that work only when SSL Inspection is disabled</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -672,29 +668,7 @@
             <action>INHERIT</action>
             <add_profiles>BYPASS SSL INSPECTION</add_profiles>
         </defaults>
-        <defaults id="141">
-            <enabled>TRUE</enabled>
-            <comment>We do not want third-party trackers to collect user information&#x0A;</comment>
-            <profile_tracing>TRUE</profile_tracing>
-            <web_categories>Advertisements &amp; Pop-Ups</web_categories>
-            <action>INHERIT</action>
-            <add_profiles>ENFORCE LOW PRIVACY LEVEL</add_profiles>
-        </defaults>
         <defaults id="149">
-            <enabled>TRUE</enabled>
-            <comment>Prevent Login to Cyber-slacking Sites</comment>
-            <profile_tracing>FALSE</profile_tracing>
-            <web_categories>Advertisements &amp; Pop-Ups,Forums &amp; Newsgroups,Instant Messaging,News,Social Networking</web_categories>
-            <action>INHERIT</action>
-            <add_profiles>READ ONLY</add_profiles>
-        </defaults>
-        <defaults id="2558">
-            <enabled>FALSE</enabled>
-            <comment>We Forbid Unsanctioned Access To Web Sites and Internet Applications</comment>
-            <profile_tracing>FALSE</profile_tracing>
-            <action>DO_NOT_BYPASS</action>
-        </defaults>
-        <profile id="155">
             <enabled>TRUE</enabled>
             <comment>We Permit access to our Intranet Web Sites that use self-signed certificates</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -702,8 +676,14 @@
             <action>ALLOW</action>
             <add_profiles>ALLOW SELF SIGNED SSL CERTIFICATE</add_profiles>
             <remove_profiles>READ ONLY</remove_profiles>
-        </profile>
-        <profile id="157">
+        </defaults>
+        <defaults id="147">
+            <enabled>FALSE</enabled>
+            <comment>We Forbid Unsanctioned Access To Web Sites and Internet Applications</comment>
+            <profile_tracing>FALSE</profile_tracing>
+            <action>DO_NOT_BYPASS</action>
+        </defaults>
+        <profile id="151">
             <enabled>TRUE</enabled>
             <comment>We allow members of Technical Team to use Ultraviewer Application</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -711,7 +691,7 @@
             <req_types>UltraViewer</req_types>
             <action>ALLOW</action>
         </profile>
-        <profile id="159">
+        <profile id="153">
             <enabled>TRUE</enabled>
             <comment>Allow YouTube Science and Technology videos</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -719,7 +699,7 @@
             <action>INHERIT</action>
             <add_profiles>FULL CONTENT ACCESS</add_profiles>
         </profile>
-        <profile id="2560">
+        <profile id="155">
             <enabled>TRUE</enabled>
             <comment>Facilitate seamless access for websites needed for daily business</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -728,7 +708,7 @@
             <add_profiles>FULL CONTENT ACCESS</add_profiles>
             <remove_profiles>MINIMAL CONTENT ACCESS,READ ONLY</remove_profiles>
         </profile>
-        <profile id="2561">
+        <profile id="157">
             <enabled>FALSE</enabled>
             <comment>We Permit users to access &amp; login to websites that are categorized inside Company Approved Websites.&#x0A;</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -740,7 +720,7 @@
     </profiles>
     <redirect>
         <enabled>TRUE</enabled>
-        <redirection id="163">
+        <redirection id="159">
             <enabled>TRUE</enabled>
             <comment>Redirect the bing unsafe mode to safe mode.</comment>
             <profiles>ENFORCE BING SAFE SEARCH</profiles>
@@ -750,7 +730,7 @@
             <send302>FALSE</send302>
             <which>BOTH</which>
         </redirection>
-        <redirection id="165">
+        <redirection id="161">
             <enabled>TRUE</enabled>
             <comment>Enforces the google safe search by Redirect unsafe google search request to safe google search request.</comment>
             <profiles>ENFORCE GOOGLE SAFE SEARCH,ENFORCE YOUTUBE SAFESEARCH</profiles>
@@ -760,7 +740,7 @@
             <send302>FALSE</send302>
             <which>BOTH</which>
         </redirection>
-        <redirection id="167">
+        <redirection id="163">
             <enabled>TRUE</enabled>
             <comment>This entry enforces the Yahoo safe search by Redirect unsafe google search request to safe Yahoo search request.</comment>
             <profiles>ENFORCE YAHOO SAFE SEARCH</profiles>
@@ -770,7 +750,7 @@
             <send302>FALSE</send302>
             <which>BOTH</which>
         </redirection>
-        <redirection id="169">
+        <redirection id="165">
             <enabled>TRUE</enabled>
             <comment>This entry enforces the DuckDuckGo Safe Searching Experience</comment>
             <profiles>ENFORCE DUCKDUCKGO SAFE SEARCH</profiles>
@@ -783,19 +763,19 @@
     </redirect>
     <reqProfiles>
         <enabled>TRUE</enabled>
-        <request_hosts id="171">
+        <request_hosts id="167">
             <enabled>TRUE</enabled>
             <comment>Malicious websites reported by our security apparatus</comment>
             <hosts>This entry ...</hosts>
             <add_req_types>Security Threat</add_req_types>
         </request_hosts>
-        <request_hosts id="173">
+        <request_hosts id="169">
             <enabled>TRUE</enabled>
             <comment>Web Sites needed for daily business</comment>
             <hosts>This entry ...</hosts>
             <add_req_types>Business Necessities</add_req_types>
         </request_hosts>
-        <request_section id="175">
+        <request_section id="171">
             <enabled>TRUE</enabled>
             <comment>Less than 1MB File uploads</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -805,7 +785,7 @@
             <smart_tld>TRUE</smart_tld>
             <add_req_types>SMALL UPLOADS</add_req_types>
         </request_section>
-        <request_section id="177">
+        <request_section id="173">
             <enabled>TRUE</enabled>
             <comment>1MB to 10MB File uploads</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -815,7 +795,7 @@
             <smart_tld>TRUE</smart_tld>
             <add_req_types>MEDIUM UPLOADS</add_req_types>
         </request_section>
-        <request_section id="179">
+        <request_section id="175">
             <enabled>TRUE</enabled>
             <comment>10MB to 100MB File uploads</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -825,7 +805,7 @@
             <smart_tld>TRUE</smart_tld>
             <add_req_types>LARGE UPLOADS</add_req_types>
         </request_section>
-        <request_section id="181">
+        <request_section id="177">
             <enabled>TRUE</enabled>
             <comment>Larger than 100MB File uploads</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -838,7 +818,7 @@
     </reqProfiles>
     <respProfiles>
         <enabled>TRUE</enabled>
-        <response_section id="185">
+        <response_section id="179">
             <enabled>TRUE</enabled>
             <comment>All Textual Contents [Few Content Specified in the Below Content-Type Field are used by Major web Applications to send status etc information to communicate with the Client-Side JS ]</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -849,7 +829,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>WEB CONTENTS</add_res_types>
         </response_section>
-        <response_section id="187">
+        <response_section id="181">
             <enabled>TRUE</enabled>
             <comment>Image Contents</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -860,7 +840,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>IMAGE CONTENT</add_res_types>
         </response_section>
-        <response_section id="189">
+        <response_section id="183">
             <enabled>TRUE</enabled>
             <comment>All audio files</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -871,7 +851,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>AUDIO CONTENT</add_res_types>
         </response_section>
-        <response_section id="191">
+        <response_section id="185">
             <enabled>TRUE</enabled>
             <comment>All video content</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -882,7 +862,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>VIDEO CONTENT</add_res_types>
         </response_section>
-        <response_section id="193">
+        <response_section id="187">
             <enabled>TRUE</enabled>
             <comment>Windows Executable Files</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -893,7 +873,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>WINDOWS EXECUTABLE FIELS</add_res_types>
         </response_section>
-        <response_section id="195">
+        <response_section id="189">
             <enabled>TRUE</enabled>
             <comment>All audio and video content</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -904,7 +884,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>ALL MULTIMEDIA CONTENT</add_res_types>
         </response_section>
-        <response_section id="197">
+        <response_section id="191">
             <enabled>TRUE</enabled>
             <comment>Office Documents</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -915,7 +895,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>ALL OFFICE DOCUMENT TYPES</add_res_types>
         </response_section>
-        <response_section id="199">
+        <response_section id="193">
             <enabled>FALSE</enabled>
             <comment>All the content that is not rendered on the WebBrowser.&#x0A;Whereas PDF files are displayed on web browsers but that is browsers feature to download and work as PDF Viewer.The Browser first downloads the PDF file and then it will render it directly [Depends on the type of Ajax Call OR Response]</comment>
             <profile_tracing>TRUE</profile_tracing>
@@ -927,7 +907,7 @@
             <responseheader>200 |206 </responseheader>
             <add_res_types>NON BROWSER RENDERING CONTENT</add_res_types>
         </response_section>
-        <response_section id="201">
+        <response_section id="195">
             <enabled>TRUE</enabled>
             <comment>All compressed files</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -938,7 +918,7 @@
             <content_max_length>0</content_max_length>
             <add_res_types>ALL COMPRESSED FILES</add_res_types>
         </response_section>
-        <response_section id="203">
+        <response_section id="197">
             <enabled>TRUE</enabled>
             <comment>All web response which has Content Security Policy.</comment>
             <profile_tracing>FALSE</profile_tracing>
@@ -952,7 +932,7 @@
     </respProfiles>
     <sqscan>
         <enabled>TRUE</enabled>
-        <SqScan id="209">
+        <SqScan id="203">
             <enabled>TRUE</enabled>
             <comment>AV Scan</comment>
             <scan_results>STANDARD</scan_results>
@@ -961,7 +941,7 @@
     </sqscan>
     <sslcert>
         <enabled>TRUE</enabled>
-        <https_scan id="211">
+        <https_scan id="205">
             <enabled>TRUE</enabled>
             <comment>Bypass inspection of SSL/TLS encrypted traffic.&#x0A;Tunnel Non-Browser applications to remote web servers.&#x0A;Facilitate use of Client side SSL certificates for Digital Signature.</comment>
             <profiles>BYPASS SSL INSPECTION</profiles>
@@ -970,7 +950,7 @@
             <block_err_level>X509_V_OK</block_err_level>
             <block_domain_mismatch>TRUE</block_domain_mismatch>
         </https_scan>
-        <https_scan id="213">
+        <https_scan id="207">
             <enabled>TRUE</enabled>
             <comment>Allow traffic to websites with self-signed certificates.</comment>
             <profiles>ALLOW SELF SIGNED SSL CERTIFICATE</profiles>
@@ -979,7 +959,7 @@
             <block_err_level>X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT</block_err_level>
             <block_domain_mismatch>FALSE</block_domain_mismatch>
         </https_scan>
-        <https_scan id="215">
+        <https_scan id="209">
             <enabled>TRUE</enabled>
             <comment>Bypass SSL errors for incomplete certificate chain due to missing issuer certificates.</comment>
             <profiles>BYPASS NO ISSUER CERT LOCALLY ERROR</profiles>
@@ -988,7 +968,7 @@
             <block_err_level>X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY</block_err_level>
             <block_domain_mismatch>TRUE</block_domain_mismatch>
         </https_scan>
-        <https_scan id="217">
+        <https_scan id="211">
             <enabled>TRUE</enabled>
             <comment>Our Default policy for HTTPS Inspection applies to all connections that do not match the above profiles</comment>
             <deepscan>TRUE</deepscan>
@@ -1002,7 +982,7 @@
         <heuristic>FALSE</heuristic>
     </ssqore>
     <templates>
-        <template id="219">
+        <template id="213">
             <enabled>TRUE</enabled>
             <comment>Default template displayed , when the there is no access to internet or any websites are blocked.</comment>
             <name>blocked</name>
@@ -1012,7 +992,7 @@
             <type>FILE</type>
             <parsable>TRUE</parsable>
         </template>
-        <template id="221">
+        <template id="215">
             <enabled>FALSE</enabled>
             <comment>Default template displayed , when the there is no access to internet or any websites are blocked.</comment>
             <name>error</name>
@@ -1025,7 +1005,7 @@
     </templates>
     <timeProfiles>
         <enabled>FALSE</enabled>
-        <time_section id="223">
+        <time_section id="217">
             <enabled>FALSE</enabled>
             <comment>Our Office Timing is Monday to Saturday 9.30AM to 5.30PM</comment>
             <profile_tracing>TRUE</profile_tracing>
@@ -1037,7 +1017,7 @@
             <matchmode>ALLRANGES</matchmode>
             <add_time_profiles>OFFICE WORKING HOURS</add_time_profiles>
         </time_section>
-        <time_section id="225">
+        <time_section id="219">
             <enabled>FALSE</enabled>
             <comment>Our Lunch Timings are 1:00 PM to 2:00 PM</comment>
             <profile_tracing>TRUE</profile_tracing>
@@ -1053,7 +1033,7 @@
     </timeProfiles>
     <wccp>
         <enabled>FALSE</enabled>
-        <WCCP id="227">
+        <WCCP id="221">
             <enabled>FALSE</enabled>
             <comment>Transparently redirect traffic to WCCP router.</comment>
             <wccp_version>WCCPV2</wccp_version>
@@ -1072,7 +1052,7 @@
     </wccp>
     <rewrite>
         <enabled>TRUE</enabled>
-        <rewrite id="205">
+        <rewrite id="199">
             <enabled>TRUE</enabled>
             <comment>Request for png image instead of avif, required for image filter for image scanning. </comment>
             <profiles>!BYPASS IMAGE FILTER</profiles>
@@ -1080,7 +1060,7 @@
             <replace>Accept:$1png;q=0.5$3</replace>
             <which>CLIENT</which>
         </rewrite>
-        <rewrite id="207">
+        <rewrite id="201">
             <enabled>TRUE</enabled>
             <comment>Request for jpg image instead of webp, required for image filter for image scanning. </comment>
             <profiles>!BYPASS IMAGE FILTER</profiles>
