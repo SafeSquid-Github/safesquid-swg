@@ -191,7 +191,7 @@
         <enabled>TRUE</enabled>
         <policy id="41">
             <enabled>TRUE</enabled>
-            <comment>We block all websites categorized as Child Abuse Images,Nudity,Pornography/Sexually Explicit,Sex Education.</comment>
+            <comment>We block DNS requests for all websites categorized as Child Abuse Images,Nudity,Pornography/Sexually Explicit,Sex Education.</comment>
             <bl_categories>Child Abuse Images,Nudity,Pornography/Sexually Explicit,Sex Education</bl_categories>
         </policy>
         <policy id="43">
