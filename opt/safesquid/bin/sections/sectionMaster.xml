@@ -9074,7 +9074,7 @@ Check if Requested Host is among the specified Domains And Urls
                             </desc>
                         </Host>
                         <Referer>
-                            <comment>Referer</comment>
+                            <comment>Request Referer</comment>
                             <value>1</value>
                             <desc>
 <![CDATA[
@@ -9084,7 +9084,7 @@ Check if Request Referer is among the specified Domains And Urls
                             </desc>
                         </Referer>
                         <Both>
-                            <comment>Both and Referer</comment>
+                            <comment>Either Host or Referer</comment>
                             <value>2</value>
                             <desc>
 <![CDATA[
