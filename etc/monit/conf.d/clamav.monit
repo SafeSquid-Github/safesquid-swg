@@ -1,60 +1,73 @@
-
+# ClamAV Daemon Script Check
 check file clamav_daemon_script with path /etc/init.d/clamav-daemon
-group clamav
-	if not exist then unmonitor 
-mode active
+    group clamav
+    if not exist then unmonitor 
+    mode active
 
+# Freshclam Daemon Script Check
 check file freshclam_daemon_script with path /etc/init.d/clamav-daemon
-group freshclam
-	if not exist then unmonitor 
-mode active
+    group freshclam
+    if not exist then unmonitor 
+    mode active
 
+# AppArmor ClamD Configuration
 check file apparmour.disable.clamd with path /etc/apparmor.d/disable/usr.sbin.clamd
-group clamav
-	stop program = "/bin/ln -fs /etc/apparmor.d/usr.sbin.clamd /etc/apparmor.d/disable/"
-	start program = "/sbin/apparmor_parser -R /etc/apparmor.d/usr.sbin.clamd"	
-	if not exist then restart
-	depends on clamav_daemon_script
-mode active
+    group clamav
+    stop program = "/bin/ln -fs /etc/apparmor.d/usr.sbin.clamd /etc/apparmor.d/disable/"
+    start program = "/sbin/apparmor_parser -R /etc/apparmor.d/usr.sbin.clamd"    
+    if not exist then restart
+    depends on clamav_daemon_script
+    mode active
 
+# AppArmor Freshclam Configuration
 check file usr.bin.freshclam with path /etc/apparmor.d/disable/usr.bin.freshclam
-group freshclam
-	stop program = "/bin/ln -fs /etc/apparmor.d/usr.bin.freshclam /etc/apparmor.d/disable/"
-	start program = "/sbin/apparmor_parser -R /etc/apparmor.d/usr.bin.freshclam"
-	if not exist then restart
-	depends on freshclam_daemon_script
-mode active
+    group freshclam
+    stop program = "/bin/ln -fs /etc/apparmor.d/usr.bin.freshclam /etc/apparmor.d/disable/"
+    start program = "/sbin/apparmor_parser -R /etc/apparmor.d/usr.bin.freshclam"
+    if not exist then restart
+    depends on freshclam_daemon_script
+    mode active
 
-check directory var/run/clamav with path /var/run/clamav
-	stop program = "/bin/mkdir /var/run/clamav"
-	start program = "/bin/chown clamav: /var/run/clamav"
-	if not exist then restart
-	if failed uid "clamav" then start
-	depends on clamav_daemon_script
-mode active
+# ClamAV Run Directory
+check directory var_run_clamav with path /var/run/clamav
+    if does not exist then exec "/bin/mkdir -p /var/run/clamav"
+    if failed permission 755 then exec "/bin/chmod 755 /var/run/clamav"
+    if failed gid "clamav" then exec "/bin/chown clamav:clamav /var/run/clamav"
+    depends on clamav_daemon_script
+    mode active
 
+# ClamAV Temp Directory
+check directory tmp_clamav with path /tmp/clamav
+    if does not exist then exec "/bin/mkdir -p /tmp/clamav"
+    if failed permission 777 then exec "/bin/chmod 777 /tmp/clamav"
+    if failed gid "clamav" then exec "/bin/chown clamav:clamav /tmp/clamav"
+    depends on clamav_daemon_script
+    mode active
+
+# ClamAV Daemon Process
 check process clamav_daemon with pidfile /var/run/clamd.pid
-group clamav
-	stop program = "/usr/sbin/service clamav-daemon stop"
-	start program = "/usr/sbin/service clamav-daemon start"
-	if 2 restarts within 5 cycles then unmonitor
-	depends on apparmour.disable.clamd
-mode active
+    group clamav
+    stop program = "/usr/sbin/service clamav-daemon stop"
+    start program = "/usr/sbin/service clamav-daemon start"
+    if 2 restarts within 5 cycles then unmonitor
+    depends on apparmour.disable.clamd
+    mode active
 
-check file safesquid.ldb  with path /var/lib/safesquid/content_signatures/safesquid.ldb
-group clamav
-	start program = "/usr/sbin/service clamav-daemon reload-database"
-	stop program = "/usr/bin/install -o clamav -g clamav -m 751 /var/lib/safesquid/content_signatures/safesquid.ldb /var/lib/clamav/"
-	if not exist then exec "/bin/cp --copy-contents -f /dev/null /var/lib/safesquid/content_signatures/safesquid.ldb"
-	if changed checksum then restart
-	depends on clamav_daemon
-mode active
+# SafeSquid LDB File
+check file safesquid.ldb with path /var/lib/safesquid/content_signatures/safesquid.ldb
+    group clamav
+    start program = "/usr/sbin/service clamav-daemon reload-database"
+    stop program = "/usr/bin/install -o clamav -g clamav -m 751 /var/lib/safesquid/content_signatures/safesquid.ldb /var/lib/clamav/"
+    if not exist then exec "/bin/cp --copy-contents -f /dev/null /var/lib/safesquid/content_signatures/safesquid.ldb"
+    if changed checksum then restart
+    depends on clamav_daemon
+    mode active
 
+# Freshclam Process
 check process freshclam with pidfile /var/run/freshclam.pid
-group freshclam
-	start program = "/usr/sbin/service clamav-freshclam start"
-	stop program = "/usr/sbin/service clamav-freshclam stop"
-	if 2 restarts within 5 cycles then unmonitor
-	depends on usr.bin.freshclam
-mode active
-
+    group freshclam
+    start program = "/usr/sbin/service clamav-freshclam start"
+    stop program = "/usr/sbin/service clamav-freshclam stop"
+    if 2 restarts within 5 cycles then unmonitor
+    depends on usr.bin.freshclam
+    mode active
