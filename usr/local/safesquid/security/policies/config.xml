@@ -32,10 +32,9 @@
         </allow>
         <allow id="7">
             <enabled>TRUE</enabled>
-            <comment>We allow administrators to access the SafeSquid Interface from any IP     </comment>
+            <comment>We allow administrators to access the SafeSquid Interface from any IP</comment>
             <profile_tracing>FALSE</profile_tracing>
-            <pamauth>TRUE</pamauth>
-            <username>administrator</username>
+            <pamauth>FALSE</pamauth>
             <access>CONFIG,PROXY,HTTP,TRANSPARENT,CONNECT</access>
             <add_user_groups>SAFESQUID_ADMIN</add_user_groups>
         </allow>
