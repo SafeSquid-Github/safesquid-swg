@@ -32,7 +32,7 @@ check file upgrade with path /tmp/safesquid/upgrade
 group root
 	stop program = "/bin/bash /tmp/safesquid/upgrade" with timeout 60 seconds
 	# very important remove the upgrade script
-	start program = "/bin/cp --copy-contents -f /dev/null /tmp/safesquid/upgrade"
+	start program = "/usr/bin/touch /tmp/safesquid/upgrade"
 	if not exist then start
 	if changed checksum then restart
 mode active
