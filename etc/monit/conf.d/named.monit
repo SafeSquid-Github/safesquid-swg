@@ -32,7 +32,7 @@ check file watch.safesquid.dns.conf with path /usr/local/safesquid/security/dns/
 group named
 	start program = "/usr/sbin/service bind9 reload"
 	stop program = "/usr/bin/install -o bind -g bind /usr/local/safesquid/security/dns/safesquid.dns.conf -m 751 -t /etc/bind/"
-	if not exist then exec "/bin/cp --copy-contents -f /dev/null /usr/local/safesquid/security/dns/safesquid.dns.conf"
+	if not exist then exec "/usr/bin/touch /usr/local/safesquid/security/dns/safesquid.dns.conf"
 	if changed checksum then restart
 	depends on bind9
 mode active
