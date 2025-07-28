@@ -58,7 +58,7 @@ check file safesquid.ldb with path /var/lib/safesquid/content_signatures/safesqu
     group clamav
     start program = "/usr/sbin/service clamav-daemon reload-database"
     stop program = "/usr/bin/install -o clamav -g clamav -m 751 /var/lib/safesquid/content_signatures/safesquid.ldb /var/lib/clamav/"
-    if not exist then exec "/bin/cp --copy-contents -f /dev/null /var/lib/safesquid/content_signatures/safesquid.ldb"
+    if not exist then exec "/usr/bin/touch /var/lib/safesquid/content_signatures/safesquid.ldb"
     if changed checksum then restart
     depends on clamav_daemon
     mode active
